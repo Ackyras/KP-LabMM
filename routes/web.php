@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',             [BarangController::class, 'index'])->name('home');
+Route::get('listbarang',    [BarangController::class, 'list'])->name('list');
+Route::get('barang/{id}',   [BarangController::class, 'show'])->name('show');
+Route::get('form/{id}',     [BarangController::class, 'form'])->name('form');
+Route::post('form/{id}',    [BarangController::class, 'store'])->name('store');
