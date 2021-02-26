@@ -17,10 +17,13 @@ class CreateBarangTable extends Migration
             $table->id();
             $table->string("kd_barang");
             $table->string("nama_barang");
+            $table->string("foto");
             $table->string("lokasi");
             $table->string("kategori");
             $table->integer("stok");
-            $table->timestamp('created_at')->useCurrent();
+            $table->string("status");
+            $table->date("masuk_barang");
+            $table->timestamp("created_at")->useCurrent();
         });
     }
 
