@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',             [BarangController::class, 'index'])->name('home');
-Route::get('listbarang',    [BarangController::class, 'list'])->name('list');
+Route::get('daftarbarang',    [BarangController::class, 'list'])->name('list');
 Route::get('barang/{id}',   [BarangController::class, 'show'])->name('show');
-Route::get('form/{id}',     [BarangController::class, 'form'])->name('form');
-Route::post('form/{id}',    [BarangController::class, 'store'])->name('store');
+Route::get('form',     [BarangController::class, 'form'])->name('form');
+Route::post('form',    [BarangController::class, 'store'])->name('store');

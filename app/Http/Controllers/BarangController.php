@@ -28,10 +28,9 @@ class BarangController extends Controller
         return view('barang.show', ['barang' => $barang]);
     }
 
-    public function form($id)
+    public function form()
     {
-        $barang = DB::table('barang')->where('id', $id)->first();
-        return view('barang.form', ['barang' => $barang]);
+        return view('barang.form');
     }
 
     public function store(Request $request)
