@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\InventarisController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',             [BarangController::class, 'index'])->name('home');
-Route::get('daftarbarang',    [BarangController::class, 'list'])->name('list');
-Route::get('barang/{id}',   [BarangController::class, 'show'])->name('show');
-Route::get('form',     [BarangController::class, 'form'])->name('form');
-Route::post('form',    [BarangController::class, 'store'])->name('store');
+Route::get('/',                 [BarangController::class, 'index'])->name('home');
+Route::get('daftarbarang',      [BarangController::class, 'list'])->name('list');
+Route::get('barang/{id}',       [BarangController::class, 'show'])->name('show');
+Route::get('form',              [BarangController::class, 'form'])->name('form');
+Route::post('form',             [BarangController::class, 'store'])->name('store');
+
+Route::resource('inventaris',   InventarisController::class);
