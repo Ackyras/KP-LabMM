@@ -20,16 +20,16 @@ Tambah Data Inventaris
         <label class="form-label">Lokasi Barang</label>
         <select name="lokasi" class="form-select">
             <option selected disabled value="0" {{ $data->lokasi == 0 ? 'selected' : '' }}>Pilih Lokasi Barang</option>
-            <option value="tpb" {{ $data->lokasi == 'tpb' ? 'selected' : '' }}>TPB</option>
-            <option value="prodi" {{ $data->lokasi == 'prodi' ? 'selected' : '' }}>Prodi</option>
+            <option value="TPB" {{ $data->lokasi == 'TPB' ? 'selected' : '' }}>TPB</option>
+            <option value="PRODI" {{ $data->lokasi == 'PRODI' ? 'selected' : '' }}>Prodi</option>
         </select>
     </div>
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Kategori Barang</label>
         <select name="kategori" class="form-select">
             <option selected disabled value="0" {{ $data->kategori == 0 ? 'selected' : '' }}>Pilih Kategori Barang</option>
-            <option value="elektronik" {{ $data->kategori == 'elektronik' ? 'selected' : '' }}>Elektronik</option>
-            <option value="nonelektronik" {{ $data->kategori == 'nonelektronik' ? 'selected' : '' }}>Non Elektronik</option>
+            <option value="Elektronik" {{ $data->kategori == 'Elektronik' ? 'selected' : '' }}>Elektronik</option>
+            <option value="Non Elektronik" {{ $data->kategori == 'Non Elektronik' ? 'selected' : '' }}>Non Elektronik</option>
         </select>
     </div>
     <div class="mb-1 mx-auto form-admin">
