@@ -8,16 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 class BarangController extends Controller
 {
-    //
-    public function index()
-    {
-        return view('barang.index');
-    }
-
     public function list()
     {
-        $barang = DB::table('barang')->get();
-        return view('barang.list', ['barang' => $barang]);
+        return view('barang.list', ['barang' => DB::table('barang')->get()]);
     }
 
     public function show($id)
@@ -30,7 +23,14 @@ class BarangController extends Controller
 
     public function form()
     {
-        return view('barang.form');
+        return view(
+            'barang.form',
+            [
+                'data' => DB::table('barang')
+                    ->select('kd_barang as kode', 'nama_barang as barang')
+                    ->get()
+            ]
+        );
     }
 
     public function store(Request $request)
