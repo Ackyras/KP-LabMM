@@ -21,6 +21,7 @@ class CreateBarangTable extends Migration
             $table->string("lokasi");
             $table->string("kategori");
             $table->integer("stok");
+            $table->integer("peminjaman");
             $table->string("status");
             $table->date("masuk_barang");
             $table->timestamp("created_at")->useCurrent();
