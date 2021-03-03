@@ -30,7 +30,7 @@
             <h2>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quibusdam tempora necessitatibus voluptatibus ipsum sit dignissimos, aliquam vitae nam cupiditate officiis quaerat alias labore debitis architecto est aspernatur enim dolores.
             </h2>
-            <a href="#dashboard"><button class="btn">Get Started</button></a>
+            <a href="{{ route('list') }}"><button class="button">Get Started</button></a>
         </div>
     </div>
     </body>
