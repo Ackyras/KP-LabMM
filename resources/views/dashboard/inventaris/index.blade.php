@@ -10,14 +10,15 @@ Inventaris
         <a class="text-white" href="{{ route('inventaris.create') }}">Tambah Inventaris</a>
         <i class="fas fa-plus"></i>
     </div>
-    @foreach($data as $data)
-    <div class="card mx-3 my-3" style="width: 12rem; height: 280px;">
-        <img src="{{ $data->foto }}" class="card-img-top mt-3" style="object-fit: contain; width: 10rem; height: 10rem;" alt="{{ $data->kd_barang }}">
+    @foreach($data as $datas)
+    <div class="card mx-3 my-3" style="width: 13rem; height: 280px;">
+        <img src="{{ $datas->foto }}" class="card-img-top px-3 mx-auto" style="object-fit: contain; width: 10rem; height: 10rem;" alt="{{ $datas->kd_barang }}">
         <div class="card-body">
-            <h5 class="card-title mx-auto">{{ $data->nama_barang }}</h5>
-            <a href="{{ route('inventaris.show', $data->id) }}" class="btn btn-primary">Lihat Barang</a>
+            <h6 class="card-title mx-auto">{{ $datas->nama_barang }}</h6>
+            <a href="{{ route('inventaris.show', $datas->id) }}" class="btn btn-primary">Lihat Barang</a>
         </div>
     </div>
     @endforeach
+    {{ $data->links() }}
 </div>
 @endsection

@@ -14,13 +14,20 @@ use App\Http\Controllers\Dashboard\InventarisController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Home
+Route::get('/', function () {
+    return view('barang.index');
+})->name('home');
 
-Route::get('/',                 [BarangController::class, 'index'])->name('home');
+
+// Route Client Peminjaman Barang
 Route::get('daftarbarang',      [BarangController::class, 'list'])->name('list');
 Route::get('barang/{id}',       [BarangController::class, 'show'])->name('show');
 Route::get('form',              [BarangController::class, 'form'])->name('form');
 Route::post('form',             [BarangController::class, 'store'])->name('store');
 
+
+// Route Admin Inventaris Barang
 Route::resource('inventaris',   InventarisController::class);
 
 
@@ -32,8 +39,8 @@ Route::get('/open-pendaftaran/tambah', [pendaftarcontroller::class, 'tambahpenda
 Route::post('/open-pendaftaran/tambah', [pendaftarcontroller::class, 'prosestambahpendaftaran'])->name('prosestambahpendaftaran');
 
 // Penambahan matakuliah
-Route::get('/mata-kuliah/{id}',[pendaftarcontroller::class, 'tambahmatkul'])->name('tambahmatkul');
-Route::post('/mata-kuliah/{id}',[pendaftarcontroller::class, 'prosestambahmatkul'])->name('prosestambahmatkul');
+Route::get('/mata-kuliah/{id}', [pendaftarcontroller::class, 'tambahmatkul'])->name('tambahmatkul');
+Route::post('/mata-kuliah/{id}', [pendaftarcontroller::class, 'prosestambahmatkul'])->name('prosestambahmatkul');
 
 // main admin
 Route::get('/admin', [admincontroller::class, 'index'])->name('homeadmin');
