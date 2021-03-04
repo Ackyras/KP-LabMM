@@ -21,16 +21,19 @@ Route::get('/', function () {
 
 
 // Route Client Peminjaman Barang
-Route::get('daftarbarang',      [BarangController::class, 'list'])->name('list');
-Route::get('barang/{id}',       [BarangController::class, 'show'])->name('show');
-Route::get('form',              [BarangController::class, 'form'])->name('form');
-Route::post('form',             [BarangController::class, 'store'])->name('store');
+Route::get('daftarbarang',              [BarangController::class, 'list'])->name('list');
+Route::get('barang/{id}',               [BarangController::class, 'show'])->name('show');
+Route::get('form',                      [BarangController::class, 'form'])->name('form');
+Route::post('form',                     [BarangController::class, 'store'])->name('store');
 
 
 // Route Admin Inventaris Barang
 Route::resource('inventaris',   InventarisController::class);
 
-
+// Route Peminjaman Ruangan
+Route::get('admin/peminjaman',          [BarangController::class, 'index'])->name('peminjaman.barang');
+Route::post('admin/peminjaman',         [BarangController::class, 'status'])->name('peminjaman.barang.update');
+Route::get('admin/peminjaman/riwayat',  [BarangController::class, 'riwayat'])->name('peminjaman.barang.riwayat');
 
 // Pembukaan pendaftaran by admin
 Route::get('/open-pendaftaran', [pendaftarcontroller::class, 'openpendaftaran'])->name('pembukaan');
