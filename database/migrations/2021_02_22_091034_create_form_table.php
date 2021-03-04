@@ -32,7 +32,7 @@ class CreateFormTable extends Migration
             $table->integer("jumlah_5")->nullable();
             $table->date("tanggal_peminjaman");
             $table->date("tanggal_pengembalian");
-            $table->string("validasi")->nullable();
+            $table->integer("validasi")->default("1");
             $table->timestamp('created_at')->useCurrent();
         });
     }
