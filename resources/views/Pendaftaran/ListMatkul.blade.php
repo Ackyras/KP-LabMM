@@ -15,6 +15,7 @@
                 <th>Dosen Pengampu</th>
                 <th>Tanggal Seleksi</th>
                 <th>Jam Seleksi</th>
+                <td>Pengaturan</td>
             </tr>
             @foreach ($matakuliahs as $matakuliah)
                 <tr>
@@ -23,8 +24,17 @@
                     <td>{{$matakuliah->dosen}}</td>
                     <td>{{$matakuliah->tanggalsekelsi}}</td>
                     <td>{{$matakuliah->jamseleksi}} s/d {{$matakuliah->akhirseleksi}}</td>
+                    <td><a href="/mata-kuliah/edit">Edit</a><a href="/mata-kuliah">Hapus</a></td>
                 </tr>
             @endforeach
+            <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td><a href="/mata-kuliah/tambah/{{$id}}">Tambah</a></td>
+            </tr>
         </table>
     </div>
 </body>
