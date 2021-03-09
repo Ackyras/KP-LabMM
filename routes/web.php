@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\pendaftarcontroller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\InventarisController;
 use App\Http\Controllers\Dashboard\PeminjamanBarangController;
@@ -46,12 +47,11 @@ Route::get('admin/peminjaman/ruangan/riwayat',   [PeminjamanRuanganController::c
 
 // Pembukaan pendaftaran by admin
 Route::get('/open-pendaftaran', [pendaftarcontroller::class, 'openpendaftaran'])->name('pembukaan');
-Route::post('/open-pendaftaran', [pendaftarcontroller::class, 'prosesopen'])->name('prosespembukaan');
 Route::get('/open-pendaftaran/tambah', [pendaftarcontroller::class, 'tambahpendaftaran'])->name('tambahpendaftaran');
 Route::post('/open-pendaftaran/tambah', [pendaftarcontroller::class, 'prosestambahpendaftaran'])->name('prosestambahpendaftaran');
 
 // Penambahan matakuliah
-Route::get('/mata-kuliah/{id}', [pendaftarcontroller::class, 'tambahmatkul'])->name('tambahmatkul');
+Route::get('/mata-kuliah/{id}', [pendaftarcontroller::class, 'listmatkul'])->name('listmatkul');
 Route::post('/mata-kuliah/{id}', [pendaftarcontroller::class, 'prosestambahmatkul'])->name('prosestambahmatkul');
 
 // main admin

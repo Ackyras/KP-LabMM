@@ -12,14 +12,16 @@
             @csrf
             <label for="judul">Judul :</label>
             <input type="text" name="judul">
-            @if ()
-
-            @endif
             <label for="pendaftaran">Tanggal Mulai Pendaftaran :</label>
             <input type="date" name="pendaftaran">
             <label for="akhirpendaftaran">Tanggal Akhir Pendaftaran :</label>
             <input type="date" name="akhirpendaftaran">
             <button type="submit">Submit</button>
+            @if ($errors->any())
+                <ul>
+                    <li>{{$errors}}</li>
+                </ul>
+            @endif
         </form>
     </div>
 </body>

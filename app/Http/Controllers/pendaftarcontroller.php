@@ -2,58 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\pendaftar;
-use App\Models\pilihan;
-use App\Post;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class pendaftarcontroller extends Controller
 {
-    //
-
-    public function daftar(){
-        $pilihan = new pilihan();
-
-        return view('Pendaftaran/Daftar', ['pilihan'=>$pilihan]);
-    }
-
-    public function proses(Request $req){
-        $req->validate([
-
-        ]);
-    }
-
+    // view list pendaftaran
     public function openpendaftaran(){
         $pembukaans=DB::table('pembukaans')->orderByDesc('id')->get();
         return view('Pendaftaran/OpenPendaftaran', ['pembukaans'=>$pembukaans]);
     }
 
-    public function tambahmatkul($id){
-        $matakuliah=DB::table('matakuliahs')->where('id', $id)->get();
-        return view('Pendaftaran/ListMatkul',['matakuliahs'=>$matakuliah]);
-    }
-
-    public function prosesopen(Request $req){
-        $req->validate([
-
-        ]);
-    }
-
+    // view form penambahan pendaftaran
     public function tambahpendaftaran(){
         return view('Pendaftaran/TambahPendaftaran');
     }
 
+    // proses penambahan pendaftaran
     public function prosestambahpendaftaran(Request $req){
         $validated=$req->validate([
             'judul'=>'required',
             'pendaftaran'=>'required',
             'akhirpendaftaran'=>'required'
         ]);
-        return redirect('/open-pendaftaran')->with('success', 'Pembukaan pendaftaran berhasil dibuka');
+        $judul=$req->input('judul');
+        $pendaftaran=$req->input('pendaftaran');
+        $akhirpendaftaran=$req->input('akhirpendaftaran');
+        DB::table('pembukaans')->insert([
+            'judul'             => $judul,
+            'pendaftaran'       => $pendaftaran,
+            'akhirpendaftaran'  => $akhirpendaftaran,
+        ]);
+        redirect('/open-pendaftaran')->with('success', 'Perekrutan berhasil dibuka');
     }
 
-    public function isimatkul(Request $req){
-        $matakuliah=DB::table('matakuliahs')->where('idpembukaan', $req);
+    // view list matkul
+    public function listmatkul($id){
+        $matakuliah=DB::table('matakuliahs')->where('id', $id)->get();
+        return view('Pendaftaran/ListMatkul',['matakuliahs'=>$matakuliah, 'id'=>$id]);
+    }
+
+    // view penambahan matkul
+    public function tambahmatkul(){
+        
     }
 }
