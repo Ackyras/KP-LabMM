@@ -3,6 +3,8 @@
 use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\InventarisController;
+use App\Http\Controllers\Dashboard\PeminjamanBarangController;
+use App\Http\Controllers\Dashboard\PeminjamanRuanganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,10 +32,17 @@ Route::post('form',                     [BarangController::class, 'store'])->nam
 // Route Admin Inventaris Barang
 Route::resource('inventaris',   InventarisController::class);
 
+// Route Peminjaman Barang
+Route::get('admin/peminjaman/barang',           [PeminjamanBarangController::class, 'index'])->name('peminjaman.barang');
+Route::post('admin/peminjaman/barang',          [PeminjamanBarangController::class, 'status'])->name('peminjaman.barang.update');
+Route::get('admin/peminjaman/barang/{id}',      [PeminjamanBarangController::class, 'show'])->name('peminjaman.barang.show');
+Route::get('admin/peminjaman/barang/riwayat',   [PeminjamanBarangController::class, 'riwayat'])->name('peminjaman.barang.riwayat');
+
 // Route Peminjaman Ruangan
-Route::get('admin/peminjaman',          [BarangController::class, 'index'])->name('peminjaman.barang');
-Route::post('admin/peminjaman',         [BarangController::class, 'status'])->name('peminjaman.barang.update');
-Route::get('admin/peminjaman/riwayat',  [BarangController::class, 'riwayat'])->name('peminjaman.barang.riwayat');
+Route::get('admin/peminjaman/ruangan',           [PeminjamanRuanganController::class, 'index'])->name('peminjaman.ruangan');
+Route::post('admin/peminjaman/ruangan',          [PeminjamanRuanganController::class, 'status'])->name('peminjaman.ruangan.update');
+Route::get('admin/peminjaman/ruangan/{id}',      [PeminjamanRuanganController::class, 'show'])->name('peminjaman.ruangan.show');
+Route::get('admin/peminjaman/ruangan/riwayat',   [PeminjamanRuanganController::class, 'riwayat'])->name('peminjaman.ruangan.riwayat');
 
 // Pembukaan pendaftaran by admin
 Route::get('/open-pendaftaran', [pendaftarcontroller::class, 'openpendaftaran'])->name('pembukaan');
