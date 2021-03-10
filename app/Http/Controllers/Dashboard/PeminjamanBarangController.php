@@ -13,9 +13,9 @@ class PeminjamanBarangController extends Controller
         return view(
             'dashboard.peminjaman.barang.index',
             [
-                'data' => DB::table('form')
-                    ->where('validasi', 'like', '1')
-                    ->orWhere('validasi', 'like', '2')
+                'data' => DB::table('form_barang')
+                    ->where('validasi', '1')
+                    ->orWhere('validasi', '2')
                     ->paginate(20)
             ]
         );
@@ -26,7 +26,7 @@ class PeminjamanBarangController extends Controller
         return view(
             'dashboard.peminjaman.barang.show',
             [
-                'data' => DB::table('form')
+                'data' => DB::table('form_barang')
                     ->where('id', $id)
             ]
         );
@@ -37,7 +37,7 @@ class PeminjamanBarangController extends Controller
         switch ($request->input('action')) {
             case '2':
                 try {
-                    DB::table('form')->where('id', $id)->update([
+                    DB::table('form_barang')->where('id', $id)->update([
                         'validasi'      => '2'
                     ]);
                 } catch (Exception $th) {
@@ -46,7 +46,7 @@ class PeminjamanBarangController extends Controller
                 break;
             case '0':
                 try {
-                    DB::table('form')->where('id', $id)->update([
+                    DB::table('form_barang')->where('id', $id)->update([
                         'validasi'      => '0'
                     ]);
                 } catch (Exception $th) {
@@ -62,7 +62,7 @@ class PeminjamanBarangController extends Controller
         return view(
             'dashboard.peminjaman.barang.riwayat',
             [
-                'data' => DB::table('form')
+                'data' => DB::table('form_barang')
                     ->where('validasi', 0)
                     ->paginate(20)
             ]
