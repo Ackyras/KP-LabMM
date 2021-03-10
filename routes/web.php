@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\InventarisController;
 use App\Http\Controllers\Dashboard\PeminjamanBarangController;
 use App\Http\Controllers\Dashboard\PeminjamanRuanganController;
+use App\Http\Controllers\RuanganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,11 +25,15 @@ Route::get('/', function () {
 
 
 // Route Client Peminjaman Barang
-Route::get('daftarbarang',              [BarangController::class, 'list'])->name('list');
-Route::get('barang/{id}',               [BarangController::class, 'show'])->name('show');
-Route::get('form',                      [BarangController::class, 'form'])->name('form');
-Route::post('form',                     [BarangController::class, 'store'])->name('store');
+Route::get('barang/list',               [BarangController::class, 'list'])->name('barang.list');
+Route::get('barang/{id}',               [BarangController::class, 'show'])->name('barang.show');
+Route::get('form/barang',               [BarangController::class, 'form'])->name('barang.form');
+Route::post('form/barang',              [BarangController::class, 'store'])->name('brang.store');
 
+
+// Route Client Peminjaman Ruangan
+Route::get('form/ruangan',              [RuanganController::class, 'form'])->name('ruangan.form');
+Route::post('form/ruangan',             [RuanganController::class, 'store'])->name('ruangan.store');
 
 // Route Admin Inventaris Barang
 Route::resource('inventaris',   InventarisController::class);
