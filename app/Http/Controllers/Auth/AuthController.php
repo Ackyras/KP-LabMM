@@ -3,26 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class authcontroller extends Controller
+class AuthController extends Controller
 {
-    //
-    public function indexlogin(){
-        return view('Pendaftaran.login');
+    public function index(){
+        return view('auth.login')
     }
 
     public function proseslogin(Request $req){
-        $credentials = $req->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            $req->session()->regenerate();
-
-            return redirect('/open-pendaftaran');
-        }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+        requesr()->validate([
+            'username'=>'required',
+            'password'=>'required',
         ]);
+        $credentials = $req->only('username', 'password');
+        if(Auth::attempt($credentials)){
+            $user = Auth::user();
+            if($user->level=='admin'){
+                return redirect->intended('admin');
+            }elseif($user->level=='editor'){
+                return redirecy()->intended('user');
+            }
+            return redirect('/');
+        }
+        return redirect('login')->withSucces('Gak bisa bahasa enggress');
+    }
+
+    public function logout(Request $req){
+        $req->session()->flush;
+        Auth::logout();
+        return redirect('login');
     }
 }
+
