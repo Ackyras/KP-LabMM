@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
     public function index(){
-        return view('auth.login')
+        return view('auth.login');
     }
 
     public function proseslogin(Request $req){
-        requesr()->validate([
+        request()->validate([
             'username'=>'required',
             'password'=>'required',
         ]);
@@ -19,9 +20,9 @@ class AuthController extends Controller
         if(Auth::attempt($credentials)){
             $user = Auth::user();
             if($user->level=='admin'){
-                return redirect->intended('admin');
+                return redirect()->intended('admin');
             }elseif($user->level=='editor'){
-                return redirecy()->intended('user');
+                return redirect()->intended('user');
             }
             return redirect('/');
         }
