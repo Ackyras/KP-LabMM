@@ -30,7 +30,7 @@ class InventarisController extends Controller
             [
                 'kd_barang'     => ['required', 'max:255'],
                 'nama_barang'   => ['required', 'max:255'],
-                'foto'          => ['nullable', 'mimetypes:image/jpeg, image/png, image/jpg'],
+                'foto'          => ['nullable', 'mimes:jpeg,png,jpg'],
                 'lokasi'        => [Rule::requiredIf($request->input('lokasi') == '0')],
                 'kategori'      => [Rule::requiredIf($request->input('kategori') == '0')],
                 'stok'          => ['regex:/[0-9]+/', 'required'],
@@ -61,7 +61,7 @@ class InventarisController extends Controller
                 $foto = $request->root() . $foto;
             }
         } else {
-            $link = $request->root() . '/storage/image/null.svg';
+            $link = public_path('img\null.png');
         }
 
         try {
@@ -105,7 +105,7 @@ class InventarisController extends Controller
         $request->validate([
             'kd_barang'     => ['required', 'max:255'],
             'nama_barang'   => ['required', 'max:255'],
-            'foto'          => ['nullable', 'mimetypes:image/jpeg, image/png, image/jpg'],
+            'foto'          => ['nullable', 'mimes:jpeg,png,jpg'],
             'lokasi'        => [Rule::requiredIf($request->input('lokasi') == '0')],
             'kategori'      => [Rule::requiredIf($request->input('kategori') == '0')],
             'stok'          => ['regex:/[0-9]+/'],
