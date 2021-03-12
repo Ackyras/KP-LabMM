@@ -8,8 +8,12 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function index(){
+    public function indexlogin(){
         return view('auth.login');
+    }
+
+    public function indexregister(){
+        return view('auth.register');
     }
 
     public function proseslogin(Request $req){
@@ -28,6 +32,10 @@ class AuthController extends Controller
             return redirect('/');
         }
         return redirect('login')->withSucces('Gak bisa bahasa enggress');
+    }
+
+    public function prosesregister(Request $req){
+        
     }
 
     public function logout(Request $req){
