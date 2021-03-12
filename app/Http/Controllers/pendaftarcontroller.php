@@ -35,7 +35,6 @@ class pendaftarcontroller extends Controller
             'akhirpendaftaran'  => $akhirpendaftaran,
         ]);
         redirect('/open-pendaftaran')->with('success', 'Perekrutan berhasil dibuka');
-<<<<<<< HEAD
     }
 
     // view list matkul
@@ -47,18 +46,5 @@ class pendaftarcontroller extends Controller
     // view penambahan matkul
     public function tambahmatkul(){
 
-=======
-    }
-
-    // view list matkul
-    public function listmatkul($id){
-        $matakuliah=DB::table('matakuliahs')->where('id', $id)->get();
-        return view('Pendaftaran/ListMatkul',['matakuliahs'=>$matakuliah, 'id'=>$id]);
-    }
-
-    // view penambahan matkul
-    public function tambahmatkul(){
-        
->>>>>>> ba33f1eb96dcd7443b9998b30e4ef3748bbf2ab3
     }
 }
