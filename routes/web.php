@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\authcontroller;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\pendaftarcontroller;
 use Illuminate\Support\Facades\Route;
@@ -25,9 +25,9 @@ Route::get('/', function () {
 })->name('home');
 
 // auth
-Route::get('login', [authcontroller::class, 'indexlogin'])->name('login');
-Route::get('login', [authcontroller::class, 'proseslogin'])->name('login.proses');
-Route::get('logout', [authcontroller::class, 'logout'])->name('logout');
+Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::post('login', [AuthController::class, 'proseslogin'])->name('login.proses');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware'=>['auth']], function(){
     Route::group(['middleware'=>['Cek_login:admin']], function(){
