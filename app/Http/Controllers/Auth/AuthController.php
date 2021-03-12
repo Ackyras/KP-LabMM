@@ -1,14 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
+class authcontroller extends Controller
 {
-    function login()
-    {
-        return view('auth.login');
+    //
+    public function indexlogin(){
+        return view('Pendaftaran.login');
+    }
+
+    public function proseslogin(Request $req){
+        $credentials = $req->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $req->session()->regenerate();
+
+            return redirect('/open-pendaftaran');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
 }
