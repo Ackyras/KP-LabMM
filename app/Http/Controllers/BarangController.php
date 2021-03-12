@@ -10,14 +10,36 @@ class BarangController extends Controller
 {
     public function list()
     {
-        return view('barang.list', ['barang' => DB::table('barang')->get()]);
+        return view('barang.list', ['barang' => DB::table('barang')->paginate(20)]);
+    }
+
+    public function listElektronik($kategori)
+    {
+        return view(
+            'barang.list',
+            [
+                'barang' => DB::table('barang')
+                    ->where('kategori', 'like', $kategori)
+            ]
+        );
+    }
+
+    public function listNonElektronik($kategori)
+    {
+        return view(
+            'barang.list',
+            [
+                'barang' => DB::table('barang')
+                    ->where('kategori', 'like', $kategori)
+            ]
+        );
     }
 
     public function show($id)
     {
         $barang = DB::table('barang')->where('id', $id)->first();
 
-        if ($barang == null)
+        if (!$barang)
             return abort(404);
 
         return view('barang.show', ['barang' => $barang]);
@@ -29,7 +51,7 @@ class BarangController extends Controller
             'barang.form',
             [
                 'data' => DB::table('barang')
-                    ->select('kd_barang as kode', 'nama_barang as barang')
+                    ->select('kd_barang as kode', 'nama_barang as barang', 'peminjaman')
                     ->get()
             ]
         );
@@ -98,55 +120,5 @@ class BarangController extends Controller
         }
 
         return redirect()->route('list')->with('msg', 'Berhasil membuat form');
-    }
-
-    public function index()
-    {
-        return view(
-            'dashboard.inventaris.peminjaman.barang.index',
-            [
-                'data' => DB::table('form')
-                    ->where('validasi', 'like', '1')
-                    ->orWhere('validasi', 'like', '2')
-                    ->get()
-            ]
-        );
-    }
-
-    public function status(Request $request, $id)
-    {
-        switch ($request->input('action')) {
-            case '2':
-                try {
-                    DB::table('form')->where('id', $id)->update([
-                        'validasi'      => '2'
-                    ]);
-                } catch (Exception $th) {
-                    return redirect()->route('peminjaman.barang')->with('msg', 'Gagal merubah status');
-                }
-                break;
-            case '0':
-                try {
-                    DB::table('form')->where('id', $id)->update([
-                        'validasi'      => '0'
-                    ]);
-                } catch (Exception $th) {
-                    return redirect()->route('peminjaman.barang')->with('msg', 'Gagal merubah status');
-                }
-                break;
-        }
-        return redirect()->route('peminjaman.barang')->with('msg', 'Berhasil merubah status');
-    }
-
-    public function riwayat()
-    {
-        return view(
-            'dashboard.inventaris.peminjaman.barang.riwayat',
-            [
-                'data' => DB::table('form')
-                    ->where('validasi', 0)
-                    ->get()
-            ]
-        );
     }
 }

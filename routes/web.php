@@ -3,8 +3,12 @@
 use App\Http\Controllers\authcontroller;
 use App\Http\Controllers\pendaftarcontroller;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\pendaftarcontroller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\InventarisController;
+use App\Http\Controllers\Dashboard\PeminjamanBarangController;
+use App\Http\Controllers\Dashboard\PeminjamanRuanganController;
+use App\Http\Controllers\RuanganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,28 +41,38 @@ Route::group(['middleware'=>['auth']], function(){
 });
 
 // Route Client Peminjaman Barang
-Route::get('daftarbarang',              [BarangController::class, 'list'])->name('list');
-Route::get('barang/{id}',               [BarangController::class, 'show'])->name('show');
-Route::get('form',                      [BarangController::class, 'form'])->name('form');
-Route::post('form',                     [BarangController::class, 'store'])->name('store');
+Route::get('barang/list',               [BarangController::class, 'list'])->name('barang.list');
+Route::get('barang/{id}',               [BarangController::class, 'show'])->name('barang.show');
+Route::get('form/barang',               [BarangController::class, 'form'])->name('barang.form');
+Route::post('form/barang',              [BarangController::class, 'store'])->name('brang.store');
 
+
+// Route Client Peminjaman Ruangan
+Route::get('form/ruangan',              [RuanganController::class, 'form'])->name('ruangan.form');
+Route::post('form/ruangan',             [RuanganController::class, 'store'])->name('ruangan.store');
 
 // Route Admin Inventaris Barang
 Route::resource('inventaris',   InventarisController::class);
 
+// Route Peminjaman Barang
+Route::get('admin/peminjaman/barang',           [PeminjamanBarangController::class, 'index'])->name('peminjaman.barang');
+Route::post('admin/peminjaman/barang',          [PeminjamanBarangController::class, 'status'])->name('peminjaman.barang.update');
+Route::get('admin/peminjaman/barang/{id}',      [PeminjamanBarangController::class, 'show'])->name('peminjaman.barang.show');
+Route::get('admin/peminjaman/barang/riwayat',   [PeminjamanBarangController::class, 'riwayat'])->name('peminjaman.barang.riwayat');
+
 // Route Peminjaman Ruangan
-Route::get('admin/peminjaman',          [BarangController::class, 'index'])->name('peminjaman.barang');
-Route::post('admin/peminjaman',         [BarangController::class, 'status'])->name('peminjaman.barang.update');
-Route::get('admin/peminjaman/riwayat',  [BarangController::class, 'riwayat'])->name('peminjaman.barang.riwayat');
+Route::get('admin/peminjaman/ruangan',           [PeminjamanRuanganController::class, 'index'])->name('peminjaman.ruangan');
+Route::post('admin/peminjaman/ruangan',          [PeminjamanRuanganController::class, 'status'])->name('peminjaman.ruangan.update');
+Route::get('admin/peminjaman/ruangan/{id}',      [PeminjamanRuanganController::class, 'show'])->name('peminjaman.ruangan.show');
+Route::get('admin/peminjaman/ruangan/riwayat',   [PeminjamanRuanganController::class, 'riwayat'])->name('peminjaman.ruangan.riwayat');
 
 // Pembukaan pendaftaran by admin
 Route::get('/open-pendaftaran', [pendaftarcontroller::class, 'openpendaftaran'])->name('pembukaan');
-Route::post('/open-pendaftaran', [pendaftarcontroller::class, 'prosesopen'])->name('prosespembukaan');
 Route::get('/open-pendaftaran/tambah', [pendaftarcontroller::class, 'tambahpendaftaran'])->name('tambahpendaftaran');
 Route::post('/open-pendaftaran/tambah', [pendaftarcontroller::class, 'prosestambahpendaftaran'])->name('prosestambahpendaftaran');
 
 // Penambahan matakuliah
-Route::get('/mata-kuliah/{id}', [pendaftarcontroller::class, 'tambahmatkul'])->name('tambahmatkul');
+Route::get('/mata-kuliah/{id}', [pendaftarcontroller::class, 'listmatkul'])->name('listmatkul');
 Route::post('/mata-kuliah/{id}', [pendaftarcontroller::class, 'prosestambahmatkul'])->name('prosestambahmatkul');
 
 // main admin

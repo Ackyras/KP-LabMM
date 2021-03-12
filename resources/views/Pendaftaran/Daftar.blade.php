@@ -8,6 +8,9 @@
 </head>
 <body>
     <div class="main-container">
+        @if ()
+
+        @else
         <form action="{{route('prosespendaftaran')}}" method="post">
             <label for="nama">Nama :</label>
             <input type="text" name="nama" id="nama" placeholder="Nama">
@@ -28,8 +31,8 @@
             <label for="KTM">KTM :</label>
             <input type="file" name="KTM" id="KTM">
             <label for="pil1">Pilihan 1 :</label>
-
         </form>
+        @endif
     </div>
 </body>
 </html>

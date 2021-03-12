@@ -17,6 +17,11 @@
             <label for="akhirpendaftaran">Tanggal Akhir Pendaftaran :</label>
             <input type="date" name="akhirpendaftaran">
             <button type="submit">Submit</button>
+            @if ($errors->any())
+                <ul>
+                    <li>{{$errors}}</li>
+                </ul>
+            @endif
         </form>
     </div>
 </body>
