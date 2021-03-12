@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {{}}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -20,7 +19,7 @@
                 </tr>
                 @foreach ($pembukaans as $pembukaan)
                     <tr>
-                        <td>{{--#pemukaa->judul--}}</td>
+                        <td>{{$pembukaan->judul}}</td>
                         <td>{{$pembukaan->pendaftaran}}</td>
                         <td>{{$pembukaan->akhirpendaftaran}}</td>
                         <td><a href="/mata-kuliah/{{$pembukaan->id}}">Detail</a></td>
