@@ -45,6 +45,6 @@ class pendaftarcontroller extends Controller
 
     // view penambahan matkul
     public function tambahmatkul(){
-        
+
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\authcontroller;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\pendaftarcontroller;
 use Illuminate\Support\Facades\Route;
@@ -20,9 +21,23 @@ use App\Http\Controllers\RuanganController;
 */
 // Home
 Route::get('/', function () {
-    return view('barang.index');
+    return view('welcome');
 })->name('home');
 
+// auth
+Route::get('login', [authcontroller::class, 'indexlogin'])->name('login');
+Route::get('login', [authcontroller::class, 'proseslogin'])->name('login.proses');
+Route::get('logout', [authcontroller::class, 'logout'])->name('logout');
+
+Route::group(['middleware'=>['auth']], function(){
+    Route::group(['middleware'=>['Cek_login:admin']], function(){
+
+
+    });
+    Route::group(['middleware'=>['Cek_login:user']], function(){
+
+    });
+});
 
 // Route Client Peminjaman Barang
 Route::get('barang/list',               [BarangController::class, 'list'])->name('barang.list');
