@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\authcontroller;
-use App\Http\Controllers\pendaftarcontroller;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\pendaftarcontroller;
 use Illuminate\Support\Facades\Route;
