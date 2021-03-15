@@ -25,8 +25,10 @@ Route::get('/', function () {
 })->name('home');
 
 // auth
-Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::get('login', [AuthController::class, 'indexlogin'])->name('login');
 Route::post('login', [AuthController::class, 'proseslogin'])->name('login.proses');
+Route::get('register', [AuthController::class, 'indexregister'])->name('register');
+Route::post('register', [AuthController::class], 'registerproses')->name('register.proses');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware'=>['auth']], function(){
