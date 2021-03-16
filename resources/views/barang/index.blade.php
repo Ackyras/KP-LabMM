@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet">
 </head>
+
 <body background="{{ asset('img/background.jpg')}}" style="background-repeat: no-repeat; height: 100%; background-position: center center; background-size: cover; background-attachment: fixed;">
     <header>
         <a class="itera" href="#home"><img src="{{ asset('img/LabMM2.png')}}" alt="Laboratorium"></a>
@@ -21,7 +23,7 @@
             <a href="#instagram"><img src="{{ asset('img/instagram.png')}}" alt="" style="width: 30px;"></a>
         </div>
     </header>
-        <div class="main">
+    <div class="main">
         <div>
             <h1>
                 Tata Cara
@@ -30,8 +32,9 @@
             <h2>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quibusdam tempora necessitatibus voluptatibus ipsum sit dignissimos, aliquam vitae nam cupiditate officiis quaerat alias labore debitis architecto est aspernatur enim dolores.
             </h2>
-            <a href="{{ route('list') }}"><button class="button">Get Started</button></a>
+            <a href="{{ route('barang.list') }}"><button class="button">Get Started</button></a>
         </div>
     </div>
-    </body>
+</body>
+
 </html>
