@@ -35,7 +35,7 @@ class AuthController extends Controller
     }
 
     public function prosesregister(Request $req){
-        
+
     }
 
     public function logout(Request $req){
