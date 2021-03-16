@@ -24,12 +24,12 @@ class AuthController extends Controller
         $credentials = $req->only('username', 'password');
         if(Auth::attempt($credentials)){
             $user = Auth::user();
-            if($user->level=='admin'){
-                return redirect()->intended('admin');
-            }elseif($user->level=='editor'){
-                return redirect()->intended('user');
-            }
-            return redirect('/');
+            // if($user->level=='admin'){
+            //     return redirect()->intended('admin');
+            // }elseif($user->level=='editor'){
+            //     return redirect()->intended('user');
+            // }
+            return redirect('/open-pendafaran');
         }
         return redirect('login')->withSucces('Gak bisa bahasa enggress');
     }
