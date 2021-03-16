@@ -31,15 +31,15 @@ Route::get('register', [AuthController::class, 'indexregister'])->name('register
 Route::post('register', [AuthController::class], 'registerproses')->name('register.proses');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::group(['middleware'=>['auth']], function(){
-    Route::group(['middleware'=>['Cek_login:admin']], function(){
+// Route::group(['middleware'=>['auth']], function(){
+//     Route::group(['middleware'=>['Cek_login:admin']], function(){
 
 
-    });
-    Route::group(['middleware'=>['Cek_login:user']], function(){
+//     });
+//     Route::group(['middleware'=>['Cek_login:user']], function(){
 
-    });
-});
+//     });
+// });
 
 // Route Client Peminjaman Barang
 Route::get('barang/list',               [BarangController::class, 'list'])->name('barang.list');
