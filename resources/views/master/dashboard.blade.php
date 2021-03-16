@@ -30,7 +30,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin.dashboard')}}">
                 <div class="sidebar-brand-icon">
                     <i class="fas fa-desktop"></i>
                 </div>
@@ -42,7 +42,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{route('admin.dashboard')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -89,7 +89,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Riwayat Peminjaman
+                Riwayat
             </div>
 
             <li class="nav-item">
@@ -104,6 +104,27 @@
                     </div>
                 </div>
             </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Surat
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesS" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-envelope-open"></i>
+                    <span>Surat</span>
+                </a>
+                <div id="collapsePagesS" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('peminjaman.barang.riwayat') }}">Surat Masuk</a>
+                        <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Surat Keluar</a>
+                        <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Tambah Surat</a>
+                    </div>
+                </div>
+            </li>
+
 
             <!-- Nav Item - Charts
             <li class="nav-item">
