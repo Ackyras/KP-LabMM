@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\pendaftarcontroller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\InventarisController;
@@ -40,6 +41,8 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 //     });
 // });
+
+Route::get('admin/dashboard',           [DashboardController::class, 'index'])->name('admin.dashboard');
 
 // Route Client Peminjaman Barang
 Route::get('barang/list',               [BarangController::class, 'list'])->name('barang.list');
