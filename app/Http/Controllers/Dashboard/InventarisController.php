@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use App\Http\Requests\InventarisStoreRequest;
+use App\Models\Inventaris;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
@@ -24,61 +24,31 @@ class InventarisController extends Controller
         return view('dashboard.inventaris.create');
     }
 
-    public function store(Request $request)
+    public function store(InventarisStoreRequest $request)
     {
-        $request->validate(
-            [
-                'kd_barang'     => ['required', 'max:255'],
-                'nama_barang'   => ['required', 'max:255'],
-                'foto'          => ['nullable', 'mimes:jpeg,png,jpg'],
-                'lokasi'        => [Rule::requiredIf($request->input('lokasi') == '0')],
-                'kategori'      => [Rule::requiredIf($request->input('kategori') == '0')],
-                'stok'          => ['regex:/[0-9]+/', 'required'],
-                'peminjaman'    => ['regex:/[0-9]+/', 'required'],
-                'status'        => [Rule::requiredIf($request->input('status') == '0')],
-                'masuk_barang'  => ['date']
-            ]
-        );
-
         $kd_barang = $request->input('kd_barang');
-        $nama_barang = $request->input('nama_barang');
-        $lokasi = $request->input('lokasi');
-        $kategori = $request->input('kategori');
-        $stok = $request->input('stok');
-        $peminjaman = $request->input('peminjaman');
-        $status = $request->input('status');
-        $masuk_barang = $request->input('masuk_barang');
-
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
             $path = 'public/' . $kd_barang . '/';
             $store = $foto->storeAs($path, $kd_barang . '.' . $foto->extension());
             $link = $request->root() . '/storage/' . $kd_barang . '/' . $kd_barang . '.' . $foto->extension();
             if ($store == '') {
-                $link = $request->root() . '/storage/image/null.svg';
+                $link = asset('img/null.png');
             } else {
                 $foto = Storage::url($store);
                 $foto = $request->root() . $foto;
             }
         } else {
-            $link = public_path('img\null.png');
+            $link = asset('img/null.png');
         }
 
-        try {
-            DB::table('barang')->insertGetId([
-                'kd_barang'     => $kd_barang,
-                'nama_barang'   => $nama_barang,
-                'foto'          => $link,
-                'lokasi'        => $lokasi,
-                'kategori'      => $kategori,
-                'stok'          => $stok,
-                'peminjaman'    => $peminjaman,
-                'status'        => $status,
-                'masuk_barang'  => $masuk_barang
-            ]);
-        } catch (Exception $th) {
-            return redirect()->route('inventaris.index')->with('pesan', 'Barang gagal ditambah');
-        }
+        Inventaris::create(
+            $request->validated() +
+                [
+                    'foto'          => $link,
+                    'updated_at'    => Carbon::now()->setTimezone('Asia/Jakarta')
+                ]
+        );
 
         return redirect()->route('inventaris.index')->with('pesan', 'Barang berhasil ditambah');
     }
@@ -100,30 +70,11 @@ class InventarisController extends Controller
         return view('dashboard.inventaris.edit', ['data' => $data]);
     }
 
-    public function update(Request $request, $id)
+    public function update(InventarisStoreRequest $request, $id)
     {
-        $request->validate([
-            'kd_barang'     => ['required', 'max:255'],
-            'nama_barang'   => ['required', 'max:255'],
-            'foto'          => ['nullable', 'mimes:jpeg,png,jpg'],
-            'lokasi'        => [Rule::requiredIf($request->input('lokasi') == '0')],
-            'kategori'      => [Rule::requiredIf($request->input('kategori') == '0')],
-            'stok'          => ['regex:/[0-9]+/'],
-            'peminjaman'    => ['regex:/[0-9]+/'],
-            'status'        => [Rule::requiredIf($request->input('status') == '0')],
-            'masuk_barang'  => ['date']
-        ]);
-
         $kd_barang = $request->input('kd_barang');
-        $nama_barang = $request->input('nama_barang');
-        $lokasi = $request->input('lokasi');
-        $kategori = $request->input('kategori');
-        $stok = $request->input('stok');
-        $peminjaman = $request->input('peminjaman');
-        $status = $request->input('status');
-        $masuk_barang = $request->input('masuk_barang');
         $oldfile = $request->input('oldfile');
-        $link = $request->root() . '/storage/image/null.svg';
+        $link = asset('img/null.png');
 
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
@@ -131,45 +82,30 @@ class InventarisController extends Controller
             $store = $foto->storeAs($path, $kd_barang . '.' . $foto->extension());
             $link = $request->root() . '/storage/' . $kd_barang . '/' . $kd_barang . '.' . $foto->extension();
             if ($store == '') {
-                $link = asset('asset/image/null.svg');
+                $link = asset('img/null.png');
             } else {
                 $foto = Storage::url($store);
                 $foto = $request->root() . $foto;
             }
         } else {
-            if ($oldfile != $link)
-                $link = $oldfile;
+            $link = $oldfile;
         }
 
-        try {
-            DB::table('barang')->where('id', $id)->update([
-                'kd_barang'     => $kd_barang,
-                'nama_barang'   => $nama_barang,
-                'foto'          => $link,
-                'lokasi'        => $lokasi,
-                'kategori'      => $kategori,
-                'stok'          => $stok,
-                'peminjaman'    => $peminjaman,
-                'status'        => $status,
-                'masuk_barang'  => $masuk_barang
-            ]);
-        } catch (Exception $th) {
-            return redirect()->route('inventaris.index')->with('pesan', 'Barang gagal ditambah');
-        }
+        Inventaris::where('id', $id)
+            ->update(
+                $request->validated() +
+                    [
+                        'foto'          => $link,
+                        'updated_at'    => Carbon::now()->setTimezone('Asia/Jakarta')
+                    ]
+            );
 
         return redirect()->route('inventaris.index')->with('pesan', 'Barang berhasil ditambah');
     }
 
     public function destroy($id)
     {
-        try {
-            DB::transaction(function () use ($id) {
-                DB::table('barang')->where('id', $id)->delete();
-            }, 5);
-        } catch (Exception $th) {
-            return redirect()->route('inventaris.index')->with('pesan', 'Data gagal dihapus');
-        }
-
+        Inventaris::where('id', $id)->delete();
         return redirect()->route('inventaris.index')->with('pesan', 'Data berhasil dihapus');
     }
 }
