@@ -1,5 +1,4 @@
 <p align="center">IQRA!</p>
-<<<<<<< HEAD
 
 ## Cara Instalasi
 
@@ -11,17 +10,6 @@
 -   [git bash "php artisan migrate:fresh --seed"]
 -   [git bash "php artisan serve"]
 -   [Buka browser dengan URL http://127.0.0.1:8000]
-=======
-## Cara Instalasi
-- [git clone https://gitlab.com/wdftr/KP-LabMM.git]
-- [Buka foldernya]
-- [git bash "composer install"]
-- [git bash "php artisan key:generate"]
-- [git bash "php artisan storage:link"]
-- [git bash "php artisan migrate:fresh --seed"]
-- [git bash "php artisan serve"]
-- [Buka browser dengan URL http://127.0.0.1:8000]
->>>>>>> 5c9860a91869513cc761ebdd26f1284546048383
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
