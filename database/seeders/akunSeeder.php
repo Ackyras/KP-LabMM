@@ -15,24 +15,17 @@ class akunSeeder extends Seeder
      */
     public function run()
     {
-        $user =[
+        $user = [
             [
-                'username' => 'ackyras',
-                'name' => 'ackyras',
-                'email' => 'ackyrasibarani@gmail.com',
-                'role' => 'admin',
-                'password'=>bcrypt('140220')
-            ],[
-                'username' => 'romance',
-                'name' => 'romance',
-                'email' => 'romantikabanjarnahor@gmail.com',
-                'role' => 'user',
-                'password'=>bcrypt('140220')
+                'username' => 'superadmin',
+                'name' => 'Super Admin',
+                'email' => 'superadmin@laboran.com',
+                'role' => 'superadmin',
+                'password' => bcrypt('laboran')
             ]
         ];
-        foreach($user as $key=>$value){
+        foreach ($user as $key => $value) {
             User::create($value);
-
         }
     }
 }

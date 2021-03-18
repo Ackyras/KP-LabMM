@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Cek_login
+class Admin
 {
     /**
      * Handle an incoming request.
@@ -17,14 +17,16 @@ class Cek_login
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        if(!Auth::check()){
-            return redirect('login');
+        if (!Auth::check()) {
+            return redirect()->route('home');
         }
-        $user=Auth::user();
 
-        if($user->role == $role){
+        $user = Auth::user();
+
+        if ($user->role == $role) {
             return $next($request);
         }
-        return redirect('login')->with('error', "kamu gk punya akses");
+
+        return redirect()->route('home');
     }
 }
