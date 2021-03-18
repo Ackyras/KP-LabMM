@@ -22,7 +22,21 @@ class akunSeeder extends Seeder
                 'email' => 'superadmin@laboran.com',
                 'role' => 'superadmin',
                 'password' => bcrypt('laboran')
-            ]
+            ],
+            [
+                'username' => 'rekrut',
+                'name' => 'Admin Rekrut',
+                'email' => 'adminasprak@laboran.com',
+                'role' => 'asprak',
+                'password' => bcrypt('laboran')
+            ],
+            [
+                'username' => 'inventaris',
+                'name' => 'Admin Inventaris',
+                'email' => 'admininventaris@laboran.com',
+                'role' => 'inventaris',
+                'password' => bcrypt('laboran')
+            ],
         ];
         foreach ($user as $key => $value) {
             User::create($value);
