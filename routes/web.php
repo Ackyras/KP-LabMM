@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\InventarisController;
 use App\Http\Controllers\Dashboard\PeminjamanBarangController;
 use App\Http\Controllers\Dashboard\PeminjamanRuanganController;
+use App\Http\Controllers\Dashboard\RekrutAsprakController;
 use App\Http\Controllers\RuanganController;
 
 /*
@@ -25,14 +26,25 @@ Route::get('/', function () {
     return view('barang.index');
 })->name('home');
 
+// Route Client Peminjaman Barang
+Route::get('barang/list',               [BarangController::class, 'list'])->name('barang.list');
+Route::get('barang/{id}',               [BarangController::class, 'show'])->name('barang.show');
+Route::get('form/barang',               [BarangController::class, 'form'])->name('barang.form');
+Route::post('form/barang',              [BarangController::class, 'store'])->name('brang.store');
+
+
+// Route Client Peminjaman Ruangan
+Route::get('form/ruangan',              [RuanganController::class, 'form'])->name('ruangan.form');
+Route::post('form/ruangan',             [RuanganController::class, 'store'])->name('ruangan.store');
+
 // auth
 Route::get('login',         [AuthController::class, 'index'])->name('login');
 Route::post('login',        [AuthController::class, 'login'])->name('loginPost');
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
-    Route::group(['middleware' => ['Admin:superadmin']], function () {
-        Route::get('dashboard',                     [DashboardController::class, 'index'])->name('admin.dashboard');
-        Route::post('logout',                       [AuthController::class, 'logout'])->name('logout');
+    Route::get('dashboard',                     [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::post('logout',                       [AuthController::class, 'logout'])->name('logout');
+    Route::group(['middleware' => 'Admin:superadmin'], function () {
 
         // Route Admin Inventaris Barang
         Route::resource('inventaris',   InventarisController::class);
@@ -49,35 +61,32 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
         Route::get('peminjaman/ruangan/{id}',       [PeminjamanRuanganController::class, 'show'])->name('peminjaman.ruangan.show');
         Route::get('peminjaman/ruangan/riwayat',    [PeminjamanRuanganController::class, 'riwayat'])->name('peminjaman.ruangan.riwayat');
     });
+    Route::group(['middleware' => ['Admin:superadmin', 'Admin:asprak']], function () {
+        Route::get('rekrut/list',                   [RekrutAsprakController::class, 'daftar'])->name('rekrut.index');
+        Route::get('rekrut/create',                 [RekrutAsprakController::class, 'daftarView'])->name('rekrut.create');
+        Route::post('rekrut/create',                [RekrutAsprakController::class, 'daftarStore'])->name('rekrut.store');
+
+        Route::get('rekrut/matkul',                 [RekrutAsprakController::class, 'indexMataKuliah'])->name('rekrut.matkul.index');
+        Route::get('rekrut/matkut/create',          [RekrutAsprakController::class, 'addMataKuliah'])->name('rekrut.matkul.create');
+    });
 });
 
 
-// Route Client Peminjaman Barang
-Route::get('barang/list',               [BarangController::class, 'list'])->name('barang.list');
-Route::get('barang/{id}',               [BarangController::class, 'show'])->name('barang.show');
-Route::get('form/barang',               [BarangController::class, 'form'])->name('barang.form');
-Route::post('form/barang',              [BarangController::class, 'store'])->name('brang.store');
 
 
-// Route Client Peminjaman Ruangan
-Route::get('form/ruangan',              [RuanganController::class, 'form'])->name('ruangan.form');
-Route::post('form/ruangan',             [RuanganController::class, 'store'])->name('ruangan.store');
+// // Pembukaan pendaftaran by admin
+// Route::get('/open-pendaftaran', [pendaftarcontroller::class, 'openpendaftaran'])->name('pembukaan');
+// Route::get('/open-pendaftaran/tambah', [pendaftarcontroller::class, 'tambahpendaftaran'])->name('tambahpendaftaran');
+// Route::post('/open-pendaftaran/tambah', [pendaftarcontroller::class, 'prosestambahpendaftaran'])->name('prosestambahpendaftaran');
 
+// // Penambahan matakuliah
+// Route::get('/mata-kuliah/{id}', [pendaftarcontroller::class, 'listmatkul'])->name('listmatkul');
+// Route::post('/mata-kuliah/{id}', [pendaftarcontroller::class, 'prosestambahmatkul'])->name('prosestambahmatkul');
 
+// // main admin
+// Route::get('/admin', [admincontroller::class, 'index'])->name('homeadmin');
+// Route::get('/soal-generator', [])->name('generatorsoal');
 
-// Pembukaan pendaftaran by admin
-Route::get('/open-pendaftaran', [pendaftarcontroller::class, 'openpendaftaran'])->name('pembukaan');
-Route::get('/open-pendaftaran/tambah', [pendaftarcontroller::class, 'tambahpendaftaran'])->name('tambahpendaftaran');
-Route::post('/open-pendaftaran/tambah', [pendaftarcontroller::class, 'prosestambahpendaftaran'])->name('prosestambahpendaftaran');
-
-// Penambahan matakuliah
-Route::get('/mata-kuliah/{id}', [pendaftarcontroller::class, 'listmatkul'])->name('listmatkul');
-Route::post('/mata-kuliah/{id}', [pendaftarcontroller::class, 'prosestambahmatkul'])->name('prosestambahmatkul');
-
-// main admin
-Route::get('/admin', [admincontroller::class, 'index'])->name('homeadmin');
-Route::get('/soal-generator', [])->name('generatorsoal');
-
-// pendaftaran peserta
-Route::get('/daftar', [pendaftarcontroller::class, 'daftar'])->name('pendaftaran');
-Route::post('/daftar/proses', [pendaftarcontroller::class, 'proses'])->name('prosespendaftaran');
+// // pendaftaran peserta
+// Route::get('/daftar', [pendaftarcontroller::class, 'daftar'])->name('pendaftaran');
+// Route::post('/daftar/proses', [pendaftarcontroller::class, 'proses'])->name('prosespendaftaran');
