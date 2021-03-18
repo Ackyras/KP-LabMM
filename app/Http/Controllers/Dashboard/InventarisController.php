@@ -7,7 +7,6 @@ use App\Http\Requests\InventarisStoreRequest;
 use App\Models\Inventaris;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
 
 class InventarisController extends Controller
 {
@@ -60,19 +59,14 @@ class InventarisController extends Controller
 
     public function show($id)
     {
-        if ($id == null)
-            return abort(404);
-
-        return view('dashboard.inventaris.show', ['data' => DB::table('barang')->where('id', $id)->first()]);
+        $data = Inventaris::findOrFail($id);
+        return view('dashboard.inventaris.show', compact('data'));
     }
 
     public function edit($id)
     {
-        $data = DB::table('barang')->where('id', $id)->first();
-        if ($data == null)
-            return abort(404);
-
-        return view('dashboard.inventaris.edit', ['data' => $data]);
+        $data = Inventaris::findOrFail($id);
+        return view('dashboard.inventaris.edit', compact('data'));
     }
 
     public function update(InventarisStoreRequest $request, $id)
