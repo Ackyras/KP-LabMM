@@ -14,7 +14,7 @@ class InventarisController extends Controller
     public function index()
     {
         return view('dashboard.inventaris.index', [
-            'data' => DB::table('barang')->orderBy('masuk_barang', 'desc')->paginate(20)
+            'data' => Inventaris::orderBy('updated_at', 'desc')->paginate(20)
         ]);
     }
 
@@ -27,27 +27,32 @@ class InventarisController extends Controller
     public function store(InventarisStoreRequest $request)
     {
         $kd_barang = $request->input('kd_barang');
+        $link = '';
+
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
             $path = 'public/' . $kd_barang . '/';
             $store = $foto->storeAs($path, $kd_barang . '.' . $foto->extension());
             $link = $request->root() . '/storage/' . $kd_barang . '/' . $kd_barang . '.' . $foto->extension();
-            if ($store == '') {
-                $link = asset('img/null.png');
-            } else {
+            if ($store != '') {
                 $foto = Storage::url($store);
                 $foto = $request->root() . $foto;
             }
-        } else {
-            $link = asset('img/null.png');
         }
 
         Inventaris::create(
-            $request->validated() +
-                [
-                    'foto'          => $link,
-                    'updated_at'    => Carbon::now()->setTimezone('Asia/Jakarta')
-                ]
+            [
+                'kd_barang'     => $request->input('kd_barang'),
+                'nama_barang'   => $request->input('nama_barang'),
+                'lokasi'        => $request->input('lokasi'),
+                'kategori'      => $request->input('kategori'),
+                'stok'          => $request->input('stok'),
+                'peminjaman'    => $request->input('peminjaman'),
+                'status'        => $request->input('status'),
+                'masuk_barang'  => $request->input('masuk_barang'),
+                'foto'          => ($link == '') ? asset('img/null.png') : $link,
+                'updated_at'    => Carbon::now()->setTimezone('Asia/Jakarta')
+            ]
         );
 
         return redirect()->route('inventaris.index')->with('pesan', 'Barang berhasil ditambah');
@@ -74,30 +79,33 @@ class InventarisController extends Controller
     {
         $kd_barang = $request->input('kd_barang');
         $oldfile = $request->input('oldfile');
-        $link = asset('img/null.png');
+        $link = '';
 
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
             $path = 'public/' . $kd_barang . '/';
             $store = $foto->storeAs($path, $kd_barang . '.' . $foto->extension());
             $link = $request->root() . '/storage/' . $kd_barang . '/' . $kd_barang . '.' . $foto->extension();
-            if ($store == '') {
-                $link = asset('img/null.png');
-            } else {
+            if ($store != '') {
                 $foto = Storage::url($store);
                 $foto = $request->root() . $foto;
             }
-        } else {
-            $link = $oldfile;
         }
 
         Inventaris::where('id', $id)
             ->update(
-                $request->validated() +
-                    [
-                        'foto'          => $link,
-                        'updated_at'    => Carbon::now()->setTimezone('Asia/Jakarta')
-                    ]
+                [
+                    'kd_barang'     => $request->input('kd_barang'),
+                    'nama_barang'   => $request->input('nama_barang'),
+                    'lokasi'        => $request->input('lokasi'),
+                    'kategori'      => $request->input('kategori'),
+                    'stok'          => $request->input('stok'),
+                    'peminjaman'    => $request->input('peminjaman'),
+                    'status'        => $request->input('status'),
+                    'masuk_barang'  => $request->input('masuk_barang'),
+                    'foto'          => ($link == '') ? $oldfile : $link,
+                    'updated_at'    => Carbon::now()->setTimezone('Asia/Jakarta')
+                ]
             );
 
         return redirect()->route('inventaris.index')->with('pesan', 'Barang berhasil ditambah');
