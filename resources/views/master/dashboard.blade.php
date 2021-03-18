@@ -31,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin.dashboard')}}">
                 <div class="sidebar-brand-icon">
                     <i class="fas fa-desktop"></i>
                 </div>
@@ -43,7 +43,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{route('admin.dashboard')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -90,7 +90,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Riwayat Peminjaman
+                Riwayat
             </div>
 
             <li class="nav-item">
@@ -105,6 +105,27 @@
                     </div>
                 </div>
             </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Surat
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesS" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-envelope-open"></i>
+                    <span>Surat</span>
+                </a>
+                <div id="collapsePagesS" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('peminjaman.barang.riwayat') }}">Surat Masuk</a>
+                        <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Surat Keluar</a>
+                        <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Tambah Surat</a>
+                    </div>
+                </div>
+            </li>
+
 
             <!-- Nav Item - Charts
             <li class="nav-item">
@@ -187,7 +208,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin Laboran</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth()->user()->name}}</span>
                                 <!-- <img class="img-profile rounded-circle" src="img/undraw_profile.svg"> -->
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -250,7 +271,10 @@
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-primary">Logout</button>
+                        </form>
                     </div>
                 </div>
             </div>

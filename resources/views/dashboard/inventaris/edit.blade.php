@@ -19,7 +19,7 @@ Tambah Data Inventaris
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Lokasi Barang</label>
         <select name="lokasi" class="form-select">
-            <option selected disabled value="0" {{ $data->lokasi == 0 ? 'selected' : '' }}>Pilih Lokasi Barang</option>
+            <option selected disabled value="" {{ $data->lokasi == '' ? 'selected' : '' }}>Pilih Lokasi Barang</option>
             <option value="TPB" {{ $data->lokasi == 'TPB' ? 'selected' : '' }}>TPB</option>
             <option value="PRODI" {{ $data->lokasi == 'PRODI' ? 'selected' : '' }}>Prodi</option>
         </select>
@@ -27,7 +27,7 @@ Tambah Data Inventaris
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Kategori Barang</label>
         <select name="kategori" class="form-select">
-            <option selected disabled value="0" {{ $data->kategori == 0 ? 'selected' : '' }}>Pilih Kategori Barang</option>
+            <option selected disabled value="" {{ $data->kategori == '' ? 'selected' : '' }}>Pilih Kategori Barang</option>
             <option value="Elektronik" {{ $data->kategori == 'Elektronik' ? 'selected' : '' }}>Elektronik</option>
             <option value="Non Elektronik" {{ $data->kategori == 'Non Elektronik' ? 'selected' : '' }}>Non Elektronik</option>
         </select>
@@ -43,7 +43,7 @@ Tambah Data Inventaris
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Status Barang</label>
         <select name="status" class="form-select">
-            <option selected disabled value="0" {{ $data->status == 0 ? 'selected' : '' }}>Pilih Status Barang</option>
+            <option selected disabled value="" {{ $data->status == '' ? 'selected' : '' }}>Pilih Status Barang</option>
             <option value="Baik" {{ $data->status == 'Baik' ? 'selected' : '' }}>Baik</option>
             <option value="Tidak Baik" {{ $data->status == 'Tidak Baik' ? 'selected' : '' }}>Tidak Baik</option>
         </select>
