@@ -13,7 +13,7 @@ class InventarisController extends Controller
     public function index()
     {
         return view('dashboard.inventaris.index', [
-            'data' => Inventaris::orderBy('updated_at', 'desc')->paginate(20)
+            'data' => Inventaris::orderBy('updated_at', 'desc')->simplePaginate(20)
         ]);
     }
 

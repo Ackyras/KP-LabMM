@@ -24,6 +24,7 @@ class CreateFormTable extends Migration
             $table->date("tanggal_pengembalian");
             $table->integer("validasi")->default("1");
             $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 
