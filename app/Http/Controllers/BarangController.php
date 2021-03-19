@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FormBarangRequest;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -57,67 +58,19 @@ class BarangController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function store(FormBarangRequest $request)
     {
-        $request->validate([
-            'nama_peminjam'         => ['required', 'max:255'],
-            'nim'                   => ['required', 'regex:/[0-9]+/'],
-            'email'                 => ['email', 'required'],
-            'no_hp'                 => ['max:13', 'required', 'regex:/[0-9]+/'],
-            'afiliasi'              => ['required'],
-            'jumlah_1'              => ['required', 'min:1'],
-            'jumlah_2'              => ['required', 'min:0'],
-            'jumlah_3'              => ['required', 'min:0'],
-            'jumlah_4'              => ['required', 'min:0'],
-            'jumlah_5'              => ['required', 'min:0'],
-            'tanggal_peminjaman'    => ['date'],
-            'tanggal_pengembalian'  => ['date']
-        ]);
-
-        $nama_peminjam = $request->input('nama_peminjam');
-        $nim = $request->input('nim');
-        $email = $request->input('email');
-        $no_hp = $request->input('no_hp');
-        $afiliasi = $request->input('afiliasi');
-
-        $barang1 = $request->input('kd_barang1');
-        $barang2 = $request->input('kd_barang2');
-        $barang3 = $request->input('kd_barang3');
-        $barang4 = $request->input('kd_barang4');
-        $barang5 = $request->input('kd_barang5');
-
-        $jumlah_1 = $request->input('jumlah_1');
-        $jumlah_2 = $request->input('jumlah_2');
-        $jumlah_3 = $request->input('jumlah_3');
-        $jumlah_4 = $request->input('jumlah_4');
-        $jumlah_5 = $request->input('jumlah_5');
-
-        $tanggal_peminjaman = $request->input('tanggal_peminjaman');
-        $tanggal_pengembalian = $request->input('tanggal_pengembalian');
-
-        try {
-            DB::table('form')->insertGetId([
-                'nama_peminjam'         => $nama_peminjam,
-                'nim'                   => $nim,
-                'email'                 => $email,
-                'no_hp'                 => $no_hp,
-                'afiliasi'              => $afiliasi,
-                'kd_barang_1'           => $barang1,
-                'jumlah_1'              => $jumlah_1,
-                'kd_barang_2'           => $barang2,
-                'jumlah_2'              => $jumlah_2,
-                'kd_barang_3'           => $barang3,
-                'jumlah_3'              => $jumlah_3,
-                'kd_barang_4'           => $barang4,
-                'jumlah_4'              => $jumlah_4,
-                'kd_barang_5'           => $barang5,
-                'jumlah_5'              => $jumlah_5,
-                'tanggal_peminjaman'    => $tanggal_peminjaman,
-                'tanggal_pengembalian'  => $tanggal_pengembalian
-            ]);
-        } catch (Exception $th) {
-            return redirect()->route('list')->with('msg', 'Gagal membuat form');
-        }
+        DB::table('form_barang')->insertGetId(
+            $request->validated() +
+                [
+                    'kd_barang_1'           => $request->input('kd_barang1'),
+                    'kd_barang_2'           => $request->input('kd_barang2'),
+                    'kd_barang_3'           => $request->input('kd_barang3'),
+                    'kd_barang_4'           => $request->input('kd_barang4'),
+                    'kd_barang_5'           => $request->input('kd_barang5'),
+                    'updated_at'            => now()->toDateTimeString()
+                ]
+        );
 
         return redirect()->route('list')->with('msg', 'Berhasil membuat form');
     }
