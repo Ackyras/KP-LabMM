@@ -20,16 +20,6 @@ class CreateFormTable extends Migration
             $table->string("email");
             $table->string("no_hp");
             $table->string("afiliasi");
-            $table->string("kd_barang_1");
-            $table->integer("jumlah_1");
-            $table->string("kd_barang_2")->nullable();
-            $table->integer("jumlah_2")->nullable();
-            $table->string("kd_barang_3")->nullable();
-            $table->integer("jumlah_3")->nullable();
-            $table->string("kd_barang_4")->nullable();
-            $table->integer("jumlah_4")->nullable();
-            $table->string("kd_barang_5")->nullable();
-            $table->integer("jumlah_5")->nullable();
             $table->date("tanggal_peminjaman");
             $table->date("tanggal_pengembalian");
             $table->integer("validasi")->default("1");
