@@ -57,7 +57,7 @@ Inventaris
         var html = []
         $.each(row, function(key, value) {
             if (key == "id") {
-                html.push("<button class='btn-action btn btn-info btn-sm mt-2' name='detail-'" + value + ">Lihat Detail</button><button class='btn-action btn btn-outline-secondary btn-sm mx-2 mt-2' name='edit-'" + value + ">Edit</button><button class='btn-action btn btn-outline-danger btn-sm mt-2' name='hapus-'" + value + ">Hapus</button>")
+                html.push("<a href='{{ route('inventaris.show', $barang->id) }}' class='btn-action btn btn-info btn-sm mt-2'" + value + ">Lihat Detail</a><a href='{{ route('inventaris.edit', $barang->id) }}' class='btn-action btn btn-outline-secondary btn-sm mx-2 mt-2' name='edit-'" + value + ">Edit</a><button class='btn-action btn btn-outline-danger btn-sm mt-2' name='hapus-'" + value + ">Hapus</button>")
             }
             // html.push('<p><b>' + key + ':</b> ' + value + "</p>")
         })
