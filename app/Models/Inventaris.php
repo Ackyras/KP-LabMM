@@ -28,6 +28,6 @@ class Inventaris extends Model
 
     public function peminjamanbarang()
     {
-        return $this->hasMany(PeminjamanBarang::class);
+        return $this->hasMany(PeminjamanBarang::class, 'barang_id', 'id');
     }
 }
