@@ -15,8 +15,8 @@ class CreatePeminjamanBarangsTable extends Migration
     {
         Schema::create('peminjaman_barangs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('form_barang_id');
-            $table->unsignedInteger('barang_id');
+            $table->foreignId('form_barang_id')->references('id')->on('form_barang');
+            $table->foreignId('barang_id')->references('id')->on('barang');
             $table->integer('jumlah');
         });
     }
