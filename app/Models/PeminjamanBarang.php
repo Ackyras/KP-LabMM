@@ -9,7 +9,7 @@ class PeminjamanBarang extends Model
 {
     use HasFactory;
 
-    protected $timestamps = false;
+    public $timestamps = false;
 
     protected $fillable = [
         'form_barang_id',
@@ -20,5 +20,10 @@ class PeminjamanBarang extends Model
     public function formbarang()
     {
         return $this->belongsTo(FormBarang::class);
+    }
+
+    public function inventaris()
+    {
+        return $this->belongsTo(Inventaris::class, 'barang_id', 'id');
     }
 }
