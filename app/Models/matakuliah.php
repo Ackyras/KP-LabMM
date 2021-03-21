@@ -5,15 +5,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class matakuliah extends Model
+class MataKuliah extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
-        'nama',
-        'tanggalseleksi',
-        'jamseleksi',
-        'akhirseleksi',
-        'idpembukaan',
+    protected $fillable = [
+        'mata_kuliah_id',
+        'pembukaan_asprak_id',
+        'kode',
+        'dosen',
+        'tanggal_seleksi',
+        'awal_seleksi',
+        'akhir_seleksi',
     ];
+
+    public function pembukaanasprak()
+    {
+        return $this->belongsTo(PembukaanAsprak::class, 'pembukaan_asprak_id', 'id');
+    }
+
+    public function daftarmatakuliah()
+    {
+        return $this->belongsTo(DaftarMataKuliah::class, 'mata_kuliah_id', 'id');
+    }
 }
