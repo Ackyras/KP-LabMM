@@ -21,12 +21,6 @@ class PeminjamanBarangController extends Controller
         return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs'));
     }
 
-    public function show($id)
-    {
-        $forms = FormBarang::where('form_barang_id', $id)->get();
-        return view('dashboard.peminjaman.barang.show', compact('forms', 'barangs'));
-    }
-
     public function status(Request $request)
     {
         $form_barang_id = $request->input('form_barang_id');
@@ -71,12 +65,12 @@ class PeminjamanBarangController extends Controller
 
     public function riwayat()
     {
-        $peminjams = FormBarang::where('validasi', 0)
+        $forms = FormBarang::where('validasi', 0)
             ->orderByDesc('updated_at')
             ->get();
 
-        $barangs = PeminjamanBarang::all();
+        $barangs = PeminjamanBarang::with('inventaris')->get();
 
-        return view('dashboard.peminjaman.barang.riwayat', compact('peminjam', 'barangs'));
+        return view('dashboard.peminjaman.barang.riwayat', compact('forms', 'barangs'));
     }
 }
