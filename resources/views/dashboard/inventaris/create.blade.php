@@ -9,21 +9,21 @@ Tambah Data Inventaris
     @csrf
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Kode Barang</label>
-        <input type="text" name="kd_barang" value="{{ old('kd_barang') }}" class="form-control @error('kd_barang') is-invalid @enderror" autofocus>
+        <input type="text" name="kd_barang" value="{{ old('kd_barang') }}" class="form-control @error('kd_barang') is-invalid @enderror" autofocus required>
         @error('kd_barang')
         <div class="alert alert-danger mt-1">{{ $message }}</div>
         @enderror
     </div>
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Nama Barang</label>
-        <input type="text" name="nama_barang" value="{{ old('nama_barang') }}" class="form-control @error('nama_barang') is-invalid @enderror">
+        <input type="text" name="nama_barang" value="{{ old('nama_barang') }}" class="form-control @error('nama_barang') is-invalid @enderror" required>
         @error('nama_barang')
         <div class="alert alert-danger mt-1">{{ $message }}</div>
         @enderror
     </div>
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Lokasi Barang</label>
-        <select name="lokasi" class="form-select @error('lokasi') is-invalid @enderror">
+        <select name="lokasi" class="form-select @error('lokasi') is-invalid @enderror" required>
             <option selected disabled value="" {{ old('lokasi') == '' ? 'selected' : '' }}>Pilih Lokasi Barang</option>
             <option value="TPB" {{ old('lokasi') == 'TPB' ? 'selected' : '' }}>TPB</option>
             <option value="PRODI" {{ old('lokasi') == 'PRODI' ? 'selected' : '' }}>Prodi</option>
@@ -34,7 +34,7 @@ Tambah Data Inventaris
     </div>
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Kategori Barang</label>
-        <select name="kategori" class="form-select @error('kategori') is-invalid @enderror">
+        <select name="kategori" class="form-select @error('kategori') is-invalid @enderror" required>
             <option selected disabled value="" {{ old('kategori') == '' ? 'selected' : '' }}>Pilih Kategori Barang</option>
             <option value="Elektronik" {{ old('kategori') == 'Elektronik' ? 'selected' : '' }}>Elektronik</option>
             <option value="Non Elektronik" {{ old('kategori') == 'Non Elektronik' ? 'selected' : '' }}>Non Elektronik</option>
@@ -45,21 +45,21 @@ Tambah Data Inventaris
     </div>
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Stok Barang</label>
-        <input type="number" name="stok" value="{{ old('stok') }}" class="form-control @error('stok') is-invalid @enderror">
+        <input type="number" name="stok" value="{{ old('stok') }}" class="form-control @error('stok') is-invalid @enderror" required>
         @error('stok')
         <div class="alert alert-danger mt-1">{{ $message }}</div>
         @enderror
     </div>
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Peminjaman Barang</label>
-        <input type="number" name="peminjaman" value="{{ old('peminjaman') }}" class="form-control @error('peminjaman') is-invalid @enderror">
+        <input type="number" name="peminjaman" value="{{ old('peminjaman') }}" class="form-control @error('peminjaman') is-invalid @enderror" required>
         @error('peminjaman')
         <div class="alert alert-danger mt-1">{{ $message }}</div>
         @enderror
     </div>
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Status Barang</label>
-        <select name="status" class="form-select @error('status') is-invalid @enderror">
+        <select name="status" class="form-select @error('status') is-invalid @enderror" required>
             <option selected disabled value="" {{ old('status') == '' ? 'selected' : '' }}>Pilih Status Barang</option>
             <option value="Baik" {{ old('status') == 'Baik' ? 'selected' : '' }}>Baik</option>
             <option value="Tidak Baik" {{ old('status') == 'Tidak Baik' ? 'selected' : '' }}>Tidak Baik</option>
