@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\Dashboard\DaftarMataKuliahController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\pendaftarcontroller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\InventarisController;
+use App\Http\Controllers\Dashboard\MataKuliahController;
 use App\Http\Controllers\Dashboard\PeminjamanBarangController;
 use App\Http\Controllers\Dashboard\PeminjamanRuanganController;
+use App\Http\Controllers\Dashboard\PendaftaranAsprakController;
 use App\Http\Controllers\Dashboard\RekrutAsprakController;
 use App\Http\Controllers\RuanganController;
 use App\Models\FormBarang;
@@ -78,12 +81,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
         Route::get('peminjaman/ruangan/{id}',       [PeminjamanRuanganController::class, 'show'])->name('peminjaman.ruangan.show');
         Route::get('peminjaman/ruangan/riwayat',    [PeminjamanRuanganController::class, 'riwayat'])->name('peminjaman.ruangan.riwayat');
     });
-    Route::group(['middleware' => ['Admin:superadmin', 'Admin:asprak']], function () {
-        Route::get('rekrut/list',                   [RekrutAsprakController::class, 'daftar'])->name('rekrut.index');
-        Route::get('rekrut/create',                 [RekrutAsprakController::class, 'daftarView'])->name('rekrut.create');
-        Route::post('rekrut/create',                [RekrutAsprakController::class, 'daftarStore'])->name('rekrut.store');
+    Route::group(['middleware' => ['Admin:superadmin']], function () {
+        Route::resource('rekrut',                   PendaftaranAsprakController::class);
+        Route::resource('matakuliah',               MataKuliahController::class)->except(['index', 'show']);
+        Route::resource('daftarmatakuliah',         DaftarMataKuliahController::class)->only(['create', 'store']);
 
-        Route::get('rekrut/matkul',                 [RekrutAsprakController::class, 'indexMataKuliah'])->name('rekrut.matkul.index');
+        Route::get('rekrut/matkul/{id}',            [RekrutAsprakController::class, 'indexMataKuliah'])->name('rekrut.matkul.index');
         Route::get('rekrut/matkut/create',          [RekrutAsprakController::class, 'addMataKuliah'])->name('rekrut.matkul.create');
     });
 });
