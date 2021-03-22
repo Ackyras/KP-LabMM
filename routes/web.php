@@ -10,6 +10,9 @@ use App\Http\Controllers\Dashboard\PeminjamanBarangController;
 use App\Http\Controllers\Dashboard\PeminjamanRuanganController;
 use App\Http\Controllers\Dashboard\RekrutAsprakController;
 use App\Http\Controllers\RuanganController;
+use App\Models\FormBarang;
+use App\Models\Inventaris;
+use App\Models\PeminjamanBarang;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +24,20 @@ use App\Http\Controllers\RuanganController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Testing
+Route::get('/test', function () {
+    $form = FormBarang::find(1);
+    $peminjaman = PeminjamanBarang::where('form_barang_id', $form->id)->get();
+    foreach ($peminjaman as $pem) {
+        $inven = Inventaris::where('id', $pem->barang_id)->first();
+        $inven->update([
+            'peminjaman' => $inven->peminjaman - $pem->jumlah
+        ]);
+    }
+});
+
+
 // Home
 Route::get('/', function () {
     return view('barang.index');
