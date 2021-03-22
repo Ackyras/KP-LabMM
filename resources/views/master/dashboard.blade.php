@@ -152,8 +152,8 @@
                 </a>
                 <div id="collapsePagesH" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('peminjaman.barang.riwayat') }}">Ruangan</a>
-                        <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Barang</a>
+                        <a class="collapse-item" href="{{ route('peminjaman.barang.riwayat') }}">Barang</a>
+                        <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Ruangan</a>
                     </div>
                 </div>
             </li>
