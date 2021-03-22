@@ -3,74 +3,76 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FormBarangRequest;
-use Exception;
-use Illuminate\Http\Request;
+use App\Models\FormBarang;
+use App\Models\Inventaris;
+use App\Models\PeminjamanBarang;
 use Illuminate\Support\Facades\DB;
 
 class BarangController extends Controller
 {
     public function list()
     {
-        return view('barang.list', ['barang' => DB::table('barang')->paginate(20)]);
+        $barangs = Inventaris::where('status', 'Baik')
+            ->orderByDesc('updated_at')
+            ->get();
+        return view('barang.list', compact('barangs'));
     }
 
-    public function listElektronik($kategori)
+    public function listElektronik()
     {
-        return view(
-            'barang.list',
-            [
-                'barang' => DB::table('barang')
-                    ->where('kategori', 'like', $kategori)
-            ]
-        );
+        $barangs = Inventaris::where('status', 'Baik')
+            ->where('kategori', 'Elektronik')
+            ->orderByDesc('updated_at')
+            ->get();
+        return view('barang.list', compact('barangs'));
     }
 
-    public function listNonElektronik($kategori)
+    public function listNonElektronik()
     {
-        return view(
-            'barang.list',
-            [
-                'barang' => DB::table('barang')
-                    ->where('kategori', 'like', $kategori)
-            ]
-        );
+        $barangs = Inventaris::where('status', 'Baik')
+            ->where('kategori', 'Non Elektronik')
+            ->orderByDesc('updated_at')
+            ->get();
+        return view('barang.list', compact('barangs'));
     }
 
     public function show($id)
     {
-        $barang = DB::table('barang')->where('id', $id)->first();
-
-        if (!$barang)
-            return abort(404);
-
-        return view('barang.show', ['barang' => $barang]);
+        $barang = Inventaris::find($id);
+        return view('barang.show', compact('barang'));
     }
 
     public function form()
     {
-        return view(
-            'barang.form',
-            [
-                'data' => DB::table('barang')
-                    ->select('kd_barang as kode', 'nama_barang as barang', 'peminjaman')
-                    ->get()
-            ]
-        );
+        $barangs = Inventaris::where('peminjaman', '>', 0)->get();
+        return view('barang.form', compact('barangs'));
     }
 
     public function store(FormBarangRequest $request)
     {
-        DB::table('form_barang')->insertGetId(
-            $request->validated() +
-                [
-                    'kd_barang_1'           => $request->input('kd_barang1'),
-                    'kd_barang_2'           => $request->input('kd_barang2'),
-                    'kd_barang_3'           => $request->input('kd_barang3'),
-                    'kd_barang_4'           => $request->input('kd_barang4'),
-                    'kd_barang_5'           => $request->input('kd_barang5'),
-                    'updated_at'            => now()->toDateTimeString()
-                ]
-        );
+        DB::transaction(function () use ($request) {
+            $peminjam = FormBarang::create(
+                $request->validated() +
+                    [
+                        'updated_at'            => now()->toDateTimeString()
+                    ]
+            );
+            $barang = $request->input('kode');
+            $jumlah = $request->input('jumlah');
+
+            $total = count($barang);
+            for ($i = 0; $i < $total; $i++) {
+                if ($barang[$i] != '' and $jumlah[$i] != 0) {
+                    PeminjamanBarang::create(
+                        [
+                            'form_barang_id'     => $peminjam->id,
+                            'barang_id'          => $barang[$i],
+                            'jumlah'             => $jumlah[$i],
+                        ]
+                    );
+                }
+            }
+        });
 
         return redirect()->route('list')->with('msg', 'Berhasil membuat form');
     }
