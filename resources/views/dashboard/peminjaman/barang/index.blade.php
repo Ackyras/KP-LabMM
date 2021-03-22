@@ -83,7 +83,7 @@ Peminjaman Barang
                     </div>
                     @empty
                     <tr>
-                        <td colspan="5">Tidak ada pembukaan</td>
+                        <td colspan="6">Tidak ada peminjaman</td>
                     </tr>
                     @endforelse
                 </tbody>
