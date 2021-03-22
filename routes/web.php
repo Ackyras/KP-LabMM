@@ -72,13 +72,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
         // Route Peminjaman Barang
         Route::get('peminjaman/barang',             [PeminjamanBarangController::class, 'index'])->name('peminjaman.barang');
         Route::post('peminjaman/barang',            [PeminjamanBarangController::class, 'status'])->name('peminjaman.barang.update');
-        Route::get('peminjaman/barang/{id}',        [PeminjamanBarangController::class, 'show'])->name('peminjaman.barang.show');
         Route::get('peminjaman/barang/riwayat',     [PeminjamanBarangController::class, 'riwayat'])->name('peminjaman.barang.riwayat');
 
         // Route Peminjaman Ruangan
         Route::get('peminjaman/ruangan',            [PeminjamanRuanganController::class, 'index'])->name('peminjaman.ruangan');
         Route::post('peminjaman/ruangan',           [PeminjamanRuanganController::class, 'status'])->name('peminjaman.ruangan.update');
-        Route::get('peminjaman/ruangan/{id}',       [PeminjamanRuanganController::class, 'show'])->name('peminjaman.ruangan.show');
         Route::get('peminjaman/ruangan/riwayat',    [PeminjamanRuanganController::class, 'riwayat'])->name('peminjaman.ruangan.riwayat');
     });
     Route::group(['middleware' => ['Admin:superadmin']], function () {
