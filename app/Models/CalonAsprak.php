@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class pendaftar extends Model
+class CalonAsprak extends Model
 {
     use HasFactory;
 
@@ -13,12 +13,12 @@ class pendaftar extends Model
         'nama',
         'nim',
         'email',
-        'tanggallahir',
-        'prodi',
+        'tanggal_lahir',
+        'program_studi',
         'angkatan',
-        'CV',
-        'KHS',
-        'KTM',
+        'cv',
+        'khs',
+        'ktm',
         'pil1',
         'pil2',
         'pil3',

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMatakuliahsTable extends Migration
+class CreateMataKuliahsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateMatakuliahsTable extends Migration
      */
     public function up()
     {
-        Schema::create('matakuliahs', function (Blueprint $table) {
+        Schema::create('mata_kuliahs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('mata_kuliah_id')->references('id')->on('daftar_mata_kuliahs');
+            $table->foreignId('pembukaan_asprak_id')->references('id')->on('pembukaan_aspraks');
             $table->string('kode')->unique();
-            $table->string('nama');
             $table->string('dosen');
-            $table->date('tanggalseleksi');
-            $table->time('jamseleksi')->unique();
-            $table->time('akhirseleksi');
-            $table->integer('idpembukaan');
+            $table->date('tanggal_seleksi');
+            $table->time('awal_seleksi')->unique();
+            $table->time('akhir_seleksi');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateMatakuliahsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('matakuliahs');
+        Schema::dropIfExists('mata_kuliahs');
     }
 }

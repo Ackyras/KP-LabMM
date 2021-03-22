@@ -25,4 +25,9 @@ class Inventaris extends Model
         'masuk_barang',
         'updated_at'
     ];
+
+    public function peminjamanbarang()
+    {
+        return $this->hasMany(PeminjamanBarang::class, 'barang_id', 'id');
+    }
 }

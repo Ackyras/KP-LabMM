@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePendaftarsTable extends Migration
+class CreateCalonAspraksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreatePendaftarsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pendaftars', function (Blueprint $table) {
+        Schema::create('calon_aspraks', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->string('nim');
             $table->string('email');
-            $table->date('tanggallahir');
-            $table->string('prodi');
+            $table->date('tanggal_lahir');
+            $table->string('program_studi');
             $table->integer('angkatan');
-            $table->string('CV');
-            $table->string('KHS');
-            $table->string('KTM');
+            $table->string('cv');
+            $table->string('khs');
+            $table->string('ktm');
             $table->string('pil1');
             $table->string('pil2');
             $table->string('pil3');
@@ -38,6 +38,6 @@ class CreatePendaftarsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pendaftars');
+        Schema::dropIfExists('calon_aspraks');
     }
 }

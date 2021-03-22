@@ -35,4 +35,23 @@ class InventarisStoreRequest extends FormRequest
             'masuk_barang'  => ['date']
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'kd_barang.required'    => 'Mohon isi field Kode Barang',
+            'nama_barang.required'  => 'Mohon isi field Kode Barang',
+            'foto.max'              => 'Maksimum file 1 Mb',
+            'lokasi.required'       => 'Mohon pilih Lokasi barang',
+            'kategori.required'     => 'Mohon pilih Kategori barang',
+            'stok.required'         => 'Mohon isi field Stok barang',
+            'peminjaman.required'   => 'Mohon isi field Peminjaman barang',
+            'status.required'       => 'Mohon pilih Status barang'
+        ];
+    }
 }
