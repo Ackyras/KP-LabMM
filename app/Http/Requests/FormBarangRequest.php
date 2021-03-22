@@ -29,11 +29,6 @@ class FormBarangRequest extends FormRequest
             'email'                 => ['email', 'required'],
             'no_hp'                 => ['max:13', 'required', 'regex:/[0-9]+/'],
             'afiliasi'              => ['required'],
-            'jumlah_1'              => ['required', 'min:1'],
-            'jumlah_2'              => ['min:0'],
-            'jumlah_3'              => ['min:0'],
-            'jumlah_4'              => ['min:0'],
-            'jumlah_5'              => ['min:0'],
             'tanggal_peminjaman'    => ['date'],
             'tanggal_pengembalian'  => ['date']
         ];
