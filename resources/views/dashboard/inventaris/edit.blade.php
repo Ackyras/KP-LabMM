@@ -24,7 +24,7 @@ Tambah Data Inventaris
     </div>
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Lokasi Barang</label>
-        <select name="lokasi" class="form-select @error('lokasi') is-invalid @enderror">
+        <select name="lokasi" class="form-select @error('lokasi') is-invalid @enderror" required>
             <option selected disabled value="" {{ $data->lokasi == '' ? 'selected' : '' }}>Pilih Lokasi Barang</option>
             <option value="TPB" {{ $data->lokasi == 'TPB' ? 'selected' : '' }}>TPB</option>
             <option value="PRODI" {{ $data->lokasi == 'PRODI' ? 'selected' : '' }}>Prodi</option>
@@ -35,7 +35,7 @@ Tambah Data Inventaris
     </div>
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Kategori Barang</label>
-        <select name="kategori" class="form-select @error('kategori') is-invalid @enderror">
+        <select name="kategori" class="form-select @error('kategori') is-invalid @enderror" required>
             <option selected disabled value="" {{ $data->kategori == '' ? 'selected' : '' }}>Pilih Kategori Barang</option>
             <option value="Elektronik" {{ $data->kategori == 'Elektronik' ? 'selected' : '' }}>Elektronik</option>
             <option value="Non Elektronik" {{ $data->kategori == 'Non Elektronik' ? 'selected' : '' }}>Non Elektronik</option>
@@ -60,7 +60,7 @@ Tambah Data Inventaris
     </div>
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Status Barang</label>
-        <select name="status" class="form-select @error('status') is-invalid @enderror">
+        <select name="status" class="form-select @error('status') is-invalid @enderror" required>
             <option selected disabled value="" {{ $data->status == '' ? 'selected' : '' }}>Pilih Status Barang</option>
             <option value="Baik" {{ $data->status == 'Baik' ? 'selected' : '' }}>Baik</option>
             <option value="Tidak Baik" {{ $data->status == 'Tidak Baik' ? 'selected' : '' }}>Tidak Baik</option>
