@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Laboratorium Multimedia</title>
+    <title>@yield('title-page')</title>
 
     <!-- Custom fonts for this template-->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -85,6 +85,58 @@
                 </div>
             </li>
 
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Surat
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesS" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-envelope-open"></i>
+                    <span>Surat</span>
+                </a>
+                <div id="collapsePagesS" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('peminjaman.barang.riwayat') }}">Surat Masuk</a>
+                        <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Surat Keluar</a>
+                        <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Tambah Surat</a>
+                    </div>
+                </div>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Asprak
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#rekrut" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-building"></i>
+                    <span>Recruitment</span>
+                </a>
+                <div id="rekrut" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('rekrut.create') }}">Buka Pendaftaran</a>
+                        <a class="collapse-item" href="{{ route('rekrut.index') }}">Daftar Mata Kuliah</a>
+                        <a class="collapse-item" href="{{ route('daftarmatakuliah.create') }}">Tambah Mata Kuliah</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#verif" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Verifikasi</span>
+                </a>
+                <div id="verif" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('peminjaman.barang.riwayat') }}">Verifikasi Berkas</a>
+                        <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Verifikasi Penilaian</a>
+                    </div>
+                </div>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -102,26 +154,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('peminjaman.barang.riwayat') }}">Ruangan</a>
                         <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Barang</a>
-                    </div>
-                </div>
-            </li>
-
-            <hr class="sidebar-divider">
-
-            <div class="sidebar-heading">
-                Surat
-            </div>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesS" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-envelope-open"></i>
-                    <span>Surat</span>
-                </a>
-                <div id="collapsePagesS" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('peminjaman.barang.riwayat') }}">Surat Masuk</a>
-                        <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Surat Keluar</a>
-                        <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Tambah Surat</a>
                     </div>
                 </div>
             </li>
@@ -227,10 +259,10 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
+                    {{-- <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">@yield('title-page')</h1>
-                    </div>
+                    </div> --}}
 
                     @yield('content')
 
@@ -280,25 +312,25 @@
             </div>
         </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('dashboard/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="{{ asset('dashboard/vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="{{ asset('dashboard/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="{{ asset('dashboard/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="{{ asset('dashboard/js/sb-admin-2.min.js') }}"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="{{ asset('dashboard/js/sb-admin-2.min.js') }}"></script>
 
-    <!-- Page level plugins -->
-    <script src="{{ asset('dashboard/vendor/chart.js/Chart.min.js') }}"></script>
+        <!-- Page level plugins -->
+        <script src="{{ asset('dashboard/vendor/chart.js/Chart.min.js') }}"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="{{ asset('dashboard/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('dashboard/js/demo/chart-pie-demo.js') }}"></script>
-    
-    {{-- Penambahan Script --}}
-    @yield('js')
+        <!-- Page level custom scripts -->
+        <script src="{{ asset('dashboard/js/demo/chart-area-demo.js') }}"></script>
+        <script src="{{ asset('dashboard/js/demo/chart-pie-demo.js') }}"></script>
+
+        {{-- Penambahan Script --}}
+        @yield('js')
 </body>
 
 </html>
