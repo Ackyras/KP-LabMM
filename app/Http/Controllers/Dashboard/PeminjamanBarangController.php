@@ -17,13 +17,14 @@ class PeminjamanBarangController extends Controller
             ->orWhere('validasi', '2')
             ->orderByDesc('updated_at')
             ->paginate(20);
-        return view('dashboard.peminjaman.barang.index', compact('forms'));
+        $barangs = PeminjamanBarang::with('inventaris')->get();
+        return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs'));
     }
 
     public function show($id)
     {
         $forms = FormBarang::where('form_barang_id', $id)->get();
-        return view('dashboard.peminjaman.barang.show', compact('forms'));
+        return view('dashboard.peminjaman.barang.show', compact('forms', 'barangs'));
     }
 
     public function status(Request $request)
@@ -44,7 +45,6 @@ class PeminjamanBarangController extends Controller
                         ]);
                     }
                 }, 5);
-
                 break;
             case '0':
                 DB::transaction(function () use ($form_barang_id) {
@@ -60,7 +60,9 @@ class PeminjamanBarangController extends Controller
                         ]);
                     }
                 }, 5);
-
+                break;
+            case '3':
+                FormBarang::where('id', $form_barang_id)->delete();
                 break;
         }
 
