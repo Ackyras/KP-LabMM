@@ -4,7 +4,6 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\Dashboard\DaftarMataKuliahController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\pendaftarcontroller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\InventarisController;
 use App\Http\Controllers\Dashboard\MataKuliahController;
@@ -12,6 +11,7 @@ use App\Http\Controllers\Dashboard\PeminjamanBarangController;
 use App\Http\Controllers\Dashboard\PeminjamanRuanganController;
 use App\Http\Controllers\Dashboard\PendaftaranAsprakController;
 use App\Http\Controllers\Dashboard\RekrutAsprakController;
+use App\Http\Controllers\Dashboard\SuratController;
 use App\Http\Controllers\RuanganController;
 use App\Models\FormBarang;
 use App\Models\Inventaris;
@@ -64,8 +64,11 @@ Route::post('login',        [AuthController::class, 'login'])->name('loginPost')
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::get('dashboard',                     [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::post('logout',                       [AuthController::class, 'logout'])->name('logout');
-    Route::group(['middleware' => 'Admin:superadmin'], function () {
+    Route::get('surat/masuk',                   [SuratController::class, 'masuk'])->name('surat.masuk');
+    Route::get('surat/keluar',                  [SuratController::class, 'keluar'])->name('surat.keluar');
+    Route::resource('surat',                    SuratController::class)->except(['index']);
 
+    Route::group(['middleware' => 'Admin:superadmin'], function () {
         // Route Admin Inventaris Barang
         Route::resource('inventaris',   InventarisController::class);
 
