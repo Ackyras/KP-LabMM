@@ -12,13 +12,15 @@ class SuratController extends Controller
     public function masuk()
     {
         $surats = Surat::where('kategori', 1)->get();
-        return view('dashboard.surat.masuk', compact('surats'));
+        $kategori = '1';
+        return view('dashboard.surat.index', compact('surats', 'kategori'));
     }
 
     public function keluar()
     {
         $surats = Surat::where('kategori', 2)->get();
-        return view('dashboard.surat.masuk', compact('surats'));
+        $kategori = '2';
+        return view('dashboard.surat.index', compact('surats', 'kategori'));
     }
 
     public function create()
