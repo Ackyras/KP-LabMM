@@ -26,9 +26,8 @@ class CreateFormRuanganTable extends Migration
             $table->string('dosen');
             $table->time('waktu');
             $table->string('hari');
-            $table->string('minggu');
             $table->integer('validasi')->default('1');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 
