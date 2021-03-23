@@ -98,9 +98,9 @@
                 </a>
                 <div id="collapsePagesS" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('peminjaman.barang.riwayat') }}">Surat Masuk</a>
-                        <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Surat Keluar</a>
-                        <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Tambah Surat</a>
+                        <a class="collapse-item" href="{{ route('surat.masuk') }}">Surat Masuk</a>
+                        <a class="collapse-item" href="{{ route('surat.keluar') }}">Surat Keluar</a>
+                        <a class="collapse-item" href="{{ route('surat.create') }}">Tambah Surat</a>
                     </div>
                 </div>
             </li>
