@@ -120,6 +120,10 @@ header {
   transition: 0.7s;
 }
 
+#form {
+  color: black !important;
+}
+
 .barangContent {
   display: flex;
   align-items: center;
