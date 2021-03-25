@@ -27,7 +27,7 @@ class CreateCalonAspraksTable extends Migration
             $table->string('pil1');
             $table->string('pil2');
             $table->string('pil3');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

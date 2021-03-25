@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\DaftarAsprakController;
 use App\Http\Controllers\Dashboard\DaftarMataKuliahController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -29,23 +30,14 @@ use App\Models\PeminjamanBarang;
 |
 */
 
-// Testing
-Route::get('/test', function () {
-    $form = FormBarang::find(1);
-    $peminjaman = PeminjamanBarang::where('form_barang_id', $form->id)->get();
-    foreach ($peminjaman as $pem) {
-        $inven = Inventaris::where('id', $pem->barang_id)->first();
-        $inven->update([
-            'peminjaman' => $inven->peminjaman - $pem->jumlah
-        ]);
-    }
-});
-
-
 // Home
 Route::get('/', function () {
     return view('barang.index');
 })->name('home');
+
+// auth
+Route::get('login',         [AuthController::class, 'index'])->name('login');
+Route::post('login',        [AuthController::class, 'login'])->name('loginPost');
 
 // Route Client Peminjaman Barang
 Route::get('barang/list',               [BarangController::class, 'list'])->name('barang.list');
@@ -58,9 +50,9 @@ Route::post('form/barang',              [BarangController::class, 'store'])->nam
 Route::get('form/ruangan',              [RuanganController::class, 'form'])->name('ruangan.form');
 Route::post('form/ruangan',             [RuanganController::class, 'store'])->name('ruangan.store');
 
-// auth
-Route::get('login',         [AuthController::class, 'index'])->name('login');
-Route::post('login',        [AuthController::class, 'login'])->name('loginPost');
+// Route Pendaftaran Calon Asprak
+Route::resource('calonasprak',          DaftarAsprakController::class)->only(['index', 'store']);
+
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::get('dashboard',                     [DashboardController::class, 'index'])->name('admin.dashboard');

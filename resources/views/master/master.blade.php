@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{ asset('css/mdb.min.css')}}">
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/styles.css')}}">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <title>@yield('title')</title>
 
     <style>
@@ -37,23 +39,33 @@
 <body background="{{ asset('img/background.jpg')}}" style="overflow: hidden; background-repeat: no-repeat; height: 100%; background-position: center center; background-size: cover; background-attachment: fixed;">
     <header style="max-height: 10%;">
         <a class="itera" href="{{ route('home') }}"><img src="{{ asset('img/LabMM2.png')}}" alt="Laboratorium"></a>
+        <div class="dropd">
+            <div class="dropd-title">
+                <button class="dropd-btn">Kategori</button>
+                <i class="fas fa-chevron-down" style="color:white"></i>
+            </div>
+            <div class="dropd-child pr-3">
+                <a class="dropd-a pr-5" href="#">Semua</a>
+                <a class="dropd-a pr-5" href="#">Elektronik</a>
+                <a class="dropd-a pr-5" href="#">Non Elektronik</a>
+            </div>
+        </div>
         <div class="">
-            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-light" type="button">
-                            <i class="fas fa-search fa-sm"></i>
-                        </button>
-                    </div>
+            <form class="d-none d-sm-inline-block form-inline border-0 mr-auto navbar-search bg-transparent">
+                <div class="input-group rounded">
+                    <input type="text" class="form-control bg-transparent" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    {{-- <div class="border-0"> --}}
+                    <button class="btn bg-transparent" type="submit">
+                        <i class="fas fa-search" style="color:white"></i>
+                        {{-- </div> --}}
                 </div>
             </form>
         </div>
     </header>
 
 
-    <div class="row" style="justify-content:space-between; max-height: 90%;">
-             <div class="navCon col-sm p-3 bg-light" style="border-radius: 10px; height:10%;">
+    <div class="row mx-2" style="max-height: 90%;">
+        <div class="navCon col-sm p-3 bg-light" style="border-radius: 10px; height:10%;">
             <ul class="sidenav-menu" style="font-size: clamp(1.8vh, 1rem, 1.5vw);">
                 <a href="{{route('barang.list')}}">
                     <li class="sidenav-item p-3 border bg-light m-2 rounded-pill">
@@ -66,15 +78,7 @@
                     </li>
                 </a>
                 <li class="sidenav-item p-3 border bg-light m-2 rounded-pill">
-                    <a href="#" onclick="dropdown()" class="dropdownbtn"><i class="fas fa-boxes pr-3 pl-4 arits"></i>Peminjaman Barang</a href="#">
-                    <ul id="dropdownUl" class="sidenav-collapse">
-                        <li class="sidenav-item">
-                            <a href="#Elektronik">Elektronik</a>
-                        </li>
-                        <li class="sidenav-item">
-                            <a href="#Non-elektronik">Non-elektronik</a>
-                        </li>
-                    </ul>
+                    <a href="#" class="dropdownbtn"><i class="fas fa-boxes pr-3 pl-4 arits"></i>Peminjaman Barang</a href="#">
                 </li>
                 <a href="{{route('barang.list')}}">
                     <li class="sidenav-item p-3 border bg-light m-2 rounded-pill">
@@ -82,36 +86,17 @@
                     </li>
                 </a>
             </ul>
-            <footer class="d-flex">
-                <p>Laboratorium Multimedia</p>
-                <p>Institut Teknologi Sumatera</p>
+            <footer class="text-wrap mx-auto">
+                <p class="text-white font-footer text-center">Copyright&copyLaboratorium Multimedia</p>
+                <p class="text-white font-footer text-center">Institut Teknologi Sumatera</p>
             </footer>
         </div>
-             <div class="col-sm-9 p-5 bg-light" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; height:85vh; overflow-y: auto;">
+        <div class="col-sm-9 p-5 bg-light ml-3" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; height:85vh; overflow-y: auto;">
             @yield('content')
         </div>
     </div>
     <script type="text/javascript" src="{{asset('js/mdbsnippet.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/new-prism.js')}}"></script>
-
-    <script>
-        function dropdown() {
-            document.getElementById('dropdownUl').classList.toggle('show');
-        }
-
-        window.onclick = function(event) {
-            if (!event.target.matches('.dropdownbtn')) {
-                var dropdowns = document.getElementsByClassName("sidenav-collapse");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-    </script>
     <script src="{{ asset('dashboard/js/sb-admin-2.min.js') }}"></script>
     <script src="{{ asset('dashboard/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
