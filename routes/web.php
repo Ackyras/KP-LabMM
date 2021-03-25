@@ -10,6 +10,7 @@ use App\Http\Controllers\Dashboard\MataKuliahController;
 use App\Http\Controllers\Dashboard\PeminjamanBarangController;
 use App\Http\Controllers\Dashboard\PeminjamanRuanganController;
 use App\Http\Controllers\Dashboard\PendaftaranAsprakController;
+use App\Http\Controllers\Dashboard\PenjadwalanController;
 use App\Http\Controllers\Dashboard\RekrutAsprakController;
 use App\Http\Controllers\Dashboard\SuratController;
 use App\Http\Controllers\RuanganController;
@@ -67,6 +68,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::get('surat/masuk',                   [SuratController::class, 'masuk'])->name('surat.masuk');
     Route::get('surat/keluar',                  [SuratController::class, 'keluar'])->name('surat.keluar');
     Route::resource('surat',                    SuratController::class)->except(['index']);
+    Route::get('penjadwalan',                   [PenjadwalanController::class, 'index'])->name('penjadwalan.index');
+    Route::post('penjadwalan/delete',           [PenjadwalanController::class, 'destroy'])->name('penjadwalan.destroy');
+    Route::post('penjadwalan/reset',            [PenjadwalanController::class, 'massReset'])->name('penjadwalan.reset');
 
     Route::group(['middleware' => 'Admin:superadmin'], function () {
         // Route Admin Inventaris Barang
