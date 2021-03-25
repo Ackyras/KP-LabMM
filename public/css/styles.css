@@ -43,6 +43,48 @@ header {
   color: white;
 }
 
+.dropd-title .dropd-btn  {
+  background-color: rgba(255, 255, 255, 0.0);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding:10px;
+  margin-top:10px;
+  display: inline;
+}
+.dropd-title:hover .dropd-btn:hover {
+  background-color: rgba(255, 255, 255, 0.0);
+  }
+.dropd {
+  position: relative;
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.0);
+}
+.dropd-child {
+  display: none;
+  border-radius: 4px;
+  background-color: rgb(255, 255, 255);
+  min-width: 100px;
+}
+.dropd-child a {
+  color: #9F9F9F;
+  padding: 8px;
+  border-radius: 4px;
+  text-decoration: none;
+  display: block;
+}
+.dropd:hover .dropd-child {
+  display: block;
+}
+.dropd-a {
+  font-weight: bold;
+  font-family: 'Quicksand';
+}
+
+.form-control::-webkit-input-placeholder {
+  color: rgb(255, 255, 255);
+}
+
 @media screen and (max-width: 1024px) {
   .social {
     display: none;

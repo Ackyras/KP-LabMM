@@ -1,4 +1,4 @@
 @extends('master.master')
 
-@section('contetnt')
+@section('content')
 @endsection
