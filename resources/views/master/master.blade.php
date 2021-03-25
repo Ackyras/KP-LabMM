@@ -8,8 +8,12 @@
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+<<<<<<< HEAD
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
+=======
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+>>>>>>> 0eba6c4c54f2729a4f5331d1f9216e6bb40607a3
     <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <!-- Custom styles for this template-->
@@ -18,7 +22,10 @@
     <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/mdb.min.css')}}">
+<<<<<<< HEAD
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
+=======
+>>>>>>> 0eba6c4c54f2729a4f5331d1f9216e6bb40607a3
     <link rel="stylesheet" href="{{ asset('css/styles.css')}}">
     <title>@yield('title')</title>
 
@@ -26,6 +33,10 @@
         .sidenav-collapse {
             display: none;
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0eba6c4c54f2729a4f5331d1f9216e6bb40607a3
         .show {
             display: block !important;
         }
@@ -50,7 +61,7 @@
         </div>
     </header>
 
-        
+
     <div class="row" style="justify-content:space-between; max-height: 90%;">
         <div class="navCon col-sm p-3 bg-light" style="border-radius: 10px; height:10%;">
             <ul class="sidenav-menu" style="font-size: clamp(1.8vh, 1rem, 1.5vw);"> 
@@ -94,7 +105,10 @@
     <script type="text/javascript" src="{{asset('js/new-prism.js')}}"></script>
 
     <script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0eba6c4c54f2729a4f5331d1f9216e6bb40607a3
         function dropdown() {
             document.getElementById('dropdownUl').classList.toggle('show');
         }
@@ -112,9 +126,13 @@
             }
         }
     </script>
+<<<<<<< HEAD
     <script src="{{ asset('dashboard/js/sb-admin-2.min.js') }}"></script>
     <script src="{{ asset('dashboard/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('dashboard/vendor/jquery/jquery.min.js') }}"></script>
+=======
+>>>>>>> 0eba6c4c54f2729a4f5331d1f9216e6bb40607a3
 </body>
+
 </html>
