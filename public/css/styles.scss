@@ -1,3 +1,8 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  letter-spacing: -1px;
+}
 header{
   display: flex;
   justify-content: space-between;
@@ -26,14 +31,12 @@ header{
   letter-spacing: 1px;
   h1{
     font-size: clamp(5vh, 4rem, 15vw);
-    font-family: 'Poppins', sans-serif;
     font-weight: bold;
     color: white;
   }
   h2{
     padding-top: 2vw;
     font-size: clamp(19px, 10vh, 25px);
-    font-family: 'Montserrat', sans-serif;
     font-weight: normal;
     color: white;
   }
@@ -125,4 +128,26 @@ header{
   border: none;
   background: none;
   margin-left: 2vw;
+}
+
+a,a:hover{
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+
+.menu{
+  font-size: clamp(5vh, 4rem, 15vw);
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: auto;
+  justify-content: center;
+  text-align: center;
+}
+
+footer p{
+  justify-items: center;
 }
