@@ -36,37 +36,36 @@ class PeminjamanRuanganController extends Controller
                             ->where('waktu', $peminjaman->formruangan->waktu)
                             ->where('hari', $peminjaman->formruangan->hari)
                             ->update(
-                            [
-                                'status'        => 1,
-                                'updated_at'    => now()->toDateTimeString();
-                            ]
-                        );
+                                [
+                                    'status'        => 1,
+                                    'updated_at'    => now()->toDateTimeString()
+                                ]
+                            );
                     }
                 });
                 break;
             case '1':
                 DB::transaction(function () use ($id) {
-                    FormRuangan::where('id', $id)->update([
-                        'validasi'  => 0
-                    ]);
                     $peminjamans = PeminjamanBarang::where('form_ruangan_id', $id)->get();
                     foreach ($peminjamans as $peminjaman) {
                         Ruangan::where('minggu', $peminjaman->minggu)
                             ->where('waktu', $peminjaman->formruangan->waktu)
                             ->where('hari', $peminjaman->formruangan->hari)
                             ->update(
-                            [
-                                'status'        => 1,
-                                'updated_at'    => now()->toDateTimeString();
-                            ]
-                        );
+                                [
+                                    'status'        => 0,
+                                    'updated_at'    => now()->toDateTimeString()
+                                ]
+                            );
                     }
+                    FormRuangan::where('id', $id)->delete();
                 });
-                // !belom selesai
+                break;
         }
     }
 
-    public function riwayat() {
+    public function riwayat()
+    {
         $forms = FormRuangan::where('validasi', 0)->get();
         return view('dashboard.peminjaman.ruangan.riwayat', compact('forms'));
     }
