@@ -8,7 +8,7 @@ class RuanganController extends Controller
 {
     public function form()
     {
-        return view('barang.form');
+        return view('ruangan.form');
     }
 
     public function store(Request $request)
