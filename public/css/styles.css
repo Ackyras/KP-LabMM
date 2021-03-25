@@ -184,13 +184,11 @@ a, a:hover {
 
 footer {
   position: fixed;
-  left: 0;
   bottom: 0;
   width: auto;
-  justify-content: center;
-  text-align: center;
 }
 
-footer p {
-  justify-items: center;
-}/*# sourceMappingURL=styles.css.map */
+.font-footer {
+  font-family: "Roboto";
+  font-weight: revert;
+}

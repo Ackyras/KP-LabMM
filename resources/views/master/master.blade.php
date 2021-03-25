@@ -21,6 +21,7 @@
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/styles.css')}}">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <title>@yield('title')</title>
 
     <style>
@@ -63,7 +64,7 @@
     </header>
 
 
-    <div class="row mx-2" style="justify-content:space-between; max-height: 90%;">
+    <div class="row mx-2" style="max-height: 90%;">
         <div class="navCon col-sm p-3 bg-light" style="border-radius: 10px; height:10%;">
             <ul class="sidenav-menu" style="font-size: clamp(1.8vh, 1rem, 1.5vw);">
                 <a href="{{route('barang.list')}}">
@@ -85,9 +86,9 @@
                     </li>
                 </a>
             </ul>
-            <footer class="d-flex">
-                <p>Laboratorium Multimedia</p>
-                <p>Institut Teknologi Sumatera</p>
+            <footer class="text-wrap mx-auto">
+                <p class="text-white font-footer text-center">Copyright&copyLaboratorium Multimedia</p>
+                <p class="text-white font-footer text-center">Institut Teknologi Sumatera</p>
             </footer>
         </div>
         <div class="col-sm-9 p-5 bg-light ml-3" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; height:85vh; overflow-y: auto;">
