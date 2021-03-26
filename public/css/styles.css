@@ -1,198 +1,199 @@
 * {
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
-  letter-spacing: -1px;
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    letter-spacing: -1px;
 }
 
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 13vh;
-  margin: 0 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 13vh;
+    margin: 0 10%;
 }
 
 .itera > img {
-  width: 380px;
-  float: left;
+    width: 250px;
+    float: left;
 }
 
 .social {
-  display: flex;
-  justify-content: space-around;
-  width: 20%;
-  align-items: center;
+    display: flex;
+    justify-content: space-around;
+    width: 20%;
+    align-items: center;
 }
 
 .main {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  margin: 10%;
-  letter-spacing: 1px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin: 10%;
+    letter-spacing: 1px;
 }
 .main h1 {
-  font-size: clamp(5vh, 4rem, 15vw);
-  font-weight: bold;
-  color: white;
+    font-size: clamp(5vh, 4rem, 15vw);
+    font-weight: bold;
+    color: white;
 }
 .main h2 {
-  padding-top: 2vw;
-  font-size: clamp(19px, 10vh, 25px);
-  font-weight: normal;
-  color: white;
+    padding-top: 2vw;
+    font-size: clamp(19px, 10vh, 25px);
+    font-weight: normal;
+    color: white;
 }
 
-.dropd-title .dropd-btn  {
-  background-color: rgba(255, 255, 255, 0.0);
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding:10px;
-  margin-top:10px;
-  display: inline;
+.dropd-title .dropd-btn {
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 10px;
+    display: inline;
 }
 .dropd-title:hover .dropd-btn:hover {
-  background-color: rgba(255, 255, 255, 0.0);
-  }
+    background-color: rgba(255, 255, 255, 0);
+}
 .dropd {
-  position: relative;
-  display: inline-block;
-  background-color: rgba(255, 255, 255, 0.0);
+    position: relative;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0);
 }
 .dropd-child {
-  display: none;
-  border-radius: 4px;
-  background-color: rgb(255, 255, 255);
-  min-width: 100px;
+    display: none;
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    min-width: 100px;
 }
 .dropd-child a {
-  color: #9F9F9F;
-  padding: 8px;
-  border-radius: 4px;
-  text-decoration: none;
-  display: block;
+    color: #9f9f9f;
+    padding: 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: block;
 }
 .dropd:hover .dropd-child {
-  display: block;
+    display: inline-block;
 }
 .dropd-a {
-  font-weight: bold;
-  font-family: 'Quicksand';
+    font-weight: bold;
+    font-family: "Quicksand";
 }
 
 .form-control::-webkit-input-placeholder {
-  color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
 }
 
 @media screen and (max-width: 1024px) {
-  .social {
-    display: none;
-  }
+    .social {
+        display: none;
+    }
 
-  .itera > img {
-    float: left;
-    width: 300px;
-  }
+    .itera > img {
+        float: left;
+        width: 300px;
+    }
 }
 .button {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: normal;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  border: 2px solid whitesmoke;
-  border-radius: 24px;
-  margin-top: 4vh;
-  padding: 8px;
-  font-size: 20px;
-  background: none;
-  color: whitesmoke;
-  width: 180px;
-  transition: 0.6s;
-  overflow: hidden;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: normal;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border: 2px solid whitesmoke;
+    border-radius: 24px;
+    margin-top: 4vh;
+    padding: 8px;
+    font-size: 20px;
+    background: none;
+    color: whitesmoke;
+    width: 180px;
+    transition: 0.6s;
+    overflow: hidden;
 }
 
 .button:focus {
-  outline: none;
+    outline: none;
 }
 
 .button:before {
-  content: "";
-  display: block;
-  position: absolute;
-  background: rgba(255, 255, 255, 0.5);
-  width: 60px;
-  height: 100%;
-  left: 0;
-  top: 0;
-  opacity: 0.5;
-  filter: blur(30px);
-  transform: translateX(-130px) scaleX(-15deg);
+    content: "";
+    display: block;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    width: 60px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: 0.5;
+    filter: blur(30px);
+    transform: translateX(-130px) scaleX(-15deg);
 }
 
 .button::after {
-  content: "";
-  display: block;
-  position: absolute;
-  background: rgba(255, 255, 255, 0.5);
-  width: 30px;
-  height: 100%;
-  left: 30px;
-  top: 0;
-  opacity: 0;
-  filter: blur(30px);
-  transform: translateX(-100px) scaleX(-15deg);
+    content: "";
+    display: block;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    width: 30px;
+    height: 100%;
+    left: 30px;
+    top: 0;
+    opacity: 0;
+    filter: blur(30px);
+    transform: translateX(-100px) scaleX(-15deg);
 }
 
 .button:hover {
-  background: #daaf33;
-  cursor: pointer;
+    background: #daaf33;
+    cursor: pointer;
 }
 
 .button:hover:before {
-  transform: translateX(300px) skewX(-15deg);
-  opacity: 0.6;
-  transition: 0.7s;
+    transform: translateX(300px) skewX(-15deg);
+    opacity: 0.6;
+    transition: 0.7s;
 }
 
 .button:hover::after {
-  transform: translateX(300px) skewX(-15deg);
-  opacity: 1;
-  transition: 0.7s;
+    transform: translateX(300px) skewX(-15deg);
+    opacity: 1;
+    transition: 0.7s;
 }
 
 #form {
-  color: black !important;
+    color: black !important;
 }
 
 .barangContent {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .tombol {
-  border: none;
-  background: none;
-  margin-left: 2vw;
+    border: none;
+    background: none;
+    margin-left: 2vw;
 }
 
-a, a:hover {
-  color: black;
-  text-decoration: none;
+a,
+a:hover {
+    color: black;
+    text-decoration: none;
 }
 
 .menu {
-  font-size: clamp(5vh, 4rem, 15vw);
+    font-size: clamp(5vh, 4rem, 15vw);
 }
 
 footer {
-  position: fixed;
-  bottom: 0;
-  width: auto;
+    position: fixed;
+    bottom: 0;
+    width: auto;
 }
 
 .font-footer {
-  font-family: "Roboto";
-  font-weight: revert;
+    font-family: "Roboto";
+    font-weight: revert;
 }

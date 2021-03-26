@@ -5,25 +5,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Custom fonts for this template-->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
-    <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <!-- Custom styles for this template-->
-    <link rel="stylesheet" href="{{ asset('css/new-prism.css')}}" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
-    <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/mdb.min.css')}}">
-    <link href="{{ asset('css/all.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/styles.css')}}">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand" />
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <!-- <link href="{{ asset('css/all.css') }}" rel="stylesheet"> -->
+    <!-- Custom fonts for this template-->
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    <!-- <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css"> -->
+    <!-- Custom styles for this template-->
+    <!-- <link rel="stylesheet" href="{{ asset('css/new-prism.css')}}" /> -->
+    <!-- <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet"> -->
+    <!-- <link href="{{ asset('css/admin.css') }}" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
     <title>@yield('title')</title>
-
+    <!-- 
     <style>
         .sidenav-collapse {
             display: none;
@@ -32,7 +32,7 @@
         .show {
             display: block !important;
         }
-    </style>
+    </style> -->
 
 </head>
 
@@ -40,8 +40,8 @@
     <header style="max-height: 10%;">
         <a class="itera" href="{{ route('home') }}"><img src="{{ asset('img/LabMM2.png')}}" alt="Laboratorium"></a>
         <div class="dropd">
-            <div class="dropd-title">
-                <button class="dropd-btn">Kategori</button>
+            <div class="dropd-title" aria-haspopup="true" aria-expanded="false">
+                <button class="dropd-btn" aria-haspopup="true" aria-expanded="false">Kategori</button>
                 <i class="fas fa-chevron-down" style="color:white"></i>
             </div>
             <div class="dropd-child pr-3">
@@ -57,7 +57,8 @@
                     {{-- <div class="border-0"> --}}
                     <button class="btn bg-transparent" type="submit">
                         <i class="fas fa-search" style="color:white"></i>
-                        {{-- </div> --}}
+                    </button>
+                    {{-- </div> --}}
                 </div>
             </form>
         </div>
@@ -87,20 +88,20 @@
                 </a>
             </ul>
             <footer class="text-wrap mx-auto">
-                <p class="text-white font-footer text-center">Copyright&copyLaboratorium Multimedia</p>
-                <p class="text-white font-footer text-center">Institut Teknologi Sumatera</p>
+                <p class="text-white font-footer text-center ml-4">Copyright&copyLaboratorium Multimedia</p>
+                <p class="text-white font-footer text-center ml-4">Institut Teknologi Sumatera</p>
             </footer>
         </div>
         <div class="col-sm-9 p-5 bg-light ml-3" style="border-bottom-left-radius: 10px; border-top-left-radius: 10px; height:85vh; overflow-y: auto;">
             @yield('content')
         </div>
     </div>
-    <script type="text/javascript" src="{{asset('js/mdbsnippet.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('js/new-prism.js')}}"></script>
-    <script src="{{ asset('dashboard/js/sb-admin-2.min.js') }}"></script>
-    <script src="{{ asset('dashboard/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('dashboard/vendor/jquery/jquery.min.js') }}"></script>
+    <!-- <script type="text/javascript" src="{{asset('js/mdbsnippet.min.js')}}"></script> -->
+    <!-- <script type="text/javascript" src="{{asset('js/new-prism.js')}}"></script> -->
+    <!-- <script src="{{ asset('dashboard/js/sb-admin-2.min.js') }}"></script> -->
+    <!-- <script src="{{ asset('dashboard/vendor/jquery-easing/jquery.easing.min.js') }}"></script> -->
+    <!-- <script src="{{ asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> -->
+    <!-- <script src="{{ asset('dashboard/vendor/jquery/jquery.min.js') }}"></script> -->
 </body>
 
 </html>
