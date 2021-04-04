@@ -10,6 +10,7 @@ Peminjaman Barang
         <h6 class="m-0 font-weight-bold text-primary">List Peminjam Barang</h6>
     </div>
     <div class="card-body">
+        <input class="my-2 form-control w-25 float-right" type="text" id="myInput" onkeyup="searchData()" placeholder="Cari Data">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -17,6 +18,7 @@ Peminjaman Barang
                         <th>No</th>
                         <th>Nama</th>
                         <th>Afiliasi</th>
+                        <th>Status</th>
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Pengembalian</th>
                         <th>Action</th>
@@ -28,14 +30,11 @@ Peminjaman Barang
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $form->nama_peminjam }}</td>
                         <td>{{ $form->afiliasi }}</td>
+                        <td>{{ ($form->validasi == '1') ? "Belum Meminjam" : "Sedang Meminjam" }}</td>
                         <td>{{ $form->tanggal_peminjaman }}</td>
                         <td>{{ $form->tanggal_pengembalian }}</td>
                         <td>
                             <button class="btn btn-info" data-toggle="modal" data-target="#data{{$form->id}}">Detail</button>
-                            {{-- <form action="{{ route('rekrut.destroy', $daftar->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" class="btn btn-danger" style="display:inline-block;">Hapus</button>
-                            </form> --}}
                         </td>
                     </tr>
                     <div class="modal fade" id="data{{$form->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -91,4 +90,29 @@ Peminjaman Barang
         </div>
     </div>
 </div>
+<script>
+    function searchData() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("dataTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            tdAfiliasi = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                txtValueAfiliasi = tdAfiliasi.textContent || tdAfiliasi.innerText;
+                if ((txtValue.toUpperCase().indexOf(filter) > -1) || (txtValueAfiliasi.toUpperCase().indexOf(filter) > -1)) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
 @endsection('content')
