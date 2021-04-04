@@ -12,8 +12,8 @@ class InventarisController extends Controller
 {
     public function index()
     {
-        $data = Inventaris::orderBy('updated_at', 'desc')->get()->toJson();
-        return view('dashboard.inventaris.index', compact('data'));
+        $barangs = Inventaris::orderBy('updated_at', 'desc')->simplePaginate(10);
+        return view('dashboard.inventaris.index', compact('barangs'));
     }
 
 
