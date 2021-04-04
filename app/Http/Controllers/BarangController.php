@@ -6,6 +6,7 @@ use App\Http\Requests\FormBarangRequest;
 use App\Models\FormBarang;
 use App\Models\Inventaris;
 use App\Models\PeminjamanBarang;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class BarangController extends Controller
@@ -31,6 +32,35 @@ class BarangController extends Controller
     {
         $barangs = Inventaris::where('status', 'Baik')
             ->where('kategori', 'Non Elektronik')
+            ->orderByDesc('updated_at')
+            ->get();
+        return view('barang.list', compact('barangs'));
+    }
+
+    public function listTpb()
+    {
+        $barangs = Inventaris::where('status', 'Baik')
+            ->where('lokasi', 'TPB')
+            ->orderByDesc('updated_at')
+            ->get();
+        return view('barang.list', compact('barangs'));
+    }
+
+    public function listProdi()
+    {
+        $barangs = Inventaris::where('status', 'Baik')
+            ->where('lokasi', 'PRODI')
+            ->orderByDesc('updated_at')
+            ->get();
+        return view('barang.list', compact('barangs'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('barang');
+
+        $barangs = Inventaris::where('status', 'Baik')
+            ->where('nama_barang', 'like', '%' . $query  . '%')
             ->orderByDesc('updated_at')
             ->get();
         return view('barang.list', compact('barangs'));
