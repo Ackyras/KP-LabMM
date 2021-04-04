@@ -1,68 +1,107 @@
 @extends('master.dashboard')
 
-@section('css')
-<link href="{{ asset('css/bootstrap-table.css') }}" rel="stylesheet">
-@endsection
-
 @section('title-page')
-Inventaris
+List Daftar Barang
 @endsection
 
 @section('content')
-<div class="row">
-    <div class="d-inline p-2 bg-primary text-white">
-        <a class="text-white" href="{{ route('inventaris.create') }}">Tambah Inventaris</a>
-        <i class="fas fa-plus"></i>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">List Daftar Barang</h6>
     </div>
-
-    <table id="table" data-toggle="table" data-height="460" data-show-columns="true" data-show-refresh="true" data-show-columns-toggle-all="true" data-show-toggle="true" data-detail-view="true" data-detail-formatter="detailFormatter" data-search="true" data-search-highlight="true" data-toolbar=".toolbar" data-custom-sort="customSort" data-pagination="true" data-side-pagination="server">
-        <thead>
-            <tr>
-                <th data-field="id" data-sortable="true">Kode</th>
-                <th data-field="name" data-sortable="true">Nama</th>
-                <th data-field="lokasi" data-sortable="true">Lokasi</th>
-                <th data-field="kategori" data-sortable="true">Kategori</th>
-                <th data-field="stok" data-sortable="true">Stock</th>
-                <th data-field="Tersedia" data-sortable="true">Tersedia</th>
-                <th data-field="Masuk" data-sortable="true">Tanggal Masuk</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($data as $barang)
-            <tr>
-                <td>{{ $barang->kd_barang }}</td>
-                <td>{{ $barang->nama_barang }}</td>
-                <td>{{ $barang->lokasi }}</td>
-                <td>{{ $barang->kategori }}</td>
-                <td>{{ $barang->stok }}</td>
-                <td>{{ $barang->peminjaman }}</td>
-                <td>{{ $barang->masuk_barang }}</td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="7">Data tidak ada</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
-    {{ $data->links() }}
+    <div class="card-body">
+        <input class="my-2 form-control w-25 float-right mr-2" type="text" id="myInput" onkeyup="searchData()" placeholder="Cari barang">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Kode</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Lokasi</th>
+                        <th scope="col">Stok</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($barangs as $barang)
+                    <tr>
+                        <td scope="row">{{ $loop->iteration }}</td>
+                        <td>{{ $barang->kd_barang }}</td>
+                        <td>{{ $barang->nama_barang }}</td>
+                        <td>{{ $barang->lokasi }}</td>
+                        <td>{{ $barang->stok }}</td>
+                        <td>
+                            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#data{{$barang->id}}">Detail</button>
+                        </td>
+                    </tr>
+                    <div class="modal fade" id="data{{$barang->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Data Barang</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <img class="foto-barang my-3" src="{{ $barang->foto }}" /></br>
+                                    <h5 class="font-weight-bold nama-barang">{{ $barang->nama_barang }}</h5>
+                                    <b class="ml-3">Kode &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $barang->kd_barang }}</br>
+                                    <b class="ml-3">Nama &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $barang->nama_barang }}</br>
+                                    <b class="ml-3">Lokasi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $barang->lokasi }}</br>
+                                    <b class="ml-3">Kategori &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $barang->kategori }}</br>
+                                    <b class="ml-3">Stok &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $barang->stok }}</br>
+                                    <b class="ml-3">Peminjaman :</b>&nbsp;&nbsp;{{ $barang->peminjaman }}</br>
+                                    <b class="ml-3">Masuk &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $barang->masuk_barang }}</br>
+                                    <b class="ml-3">Update &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $barang->updated_at }}</br>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="{{ route('inventaris.edit', $barang->id) }}" class="btn btn-primary">Edit</a>
+                                    <form action="{{ route('inventaris.destroy', $barang->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" onclick="return confirm('Yakin ingin menghapus barang?')" class="btn btn-danger">Hapus</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                    <tr>
+                        <td colspan="6">Tidak ada barang</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+            {{ $barangs->links() }}
+        </div>
+    </div>
 </div>
-@endsection
 
-@section('js')
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
-<script src="{{ asset('js/bootstrap-table.min.js') }}"></script>
-<script src="https://kit.fontawesome.com/d808726940.js" crossorigin="anonymous"></script>
 <script>
-    function detailFormatter(index, row) {
-        var html = []
-        $.each(row, function(key, value) {
-            if (key == "id") {
-                html.push("<a href='{{ route('inventaris.show', $barang->id) }}' class='btn-action btn btn-info btn-sm mt-2'" + value + ">Lihat Detail</a><a href='{{ route('inventaris.edit', $barang->id) }}' class='btn-action btn btn-outline-secondary btn-sm mx-2 mt-2' name='edit-'" + value + ">Edit</a><button class='btn-action btn btn-outline-danger btn-sm mt-2' name='hapus-'" + value + ">Hapus</button>")
+    function searchData() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("dataTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            tdLokasi = tr[i].getElementsByTagName("td")[3];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                txtValueLokasi = tdLokasi.textContent || tdLokasi.innerText;
+                if ((txtValue.toUpperCase().indexOf(filter) > -1) || (txtValueLokasi.toUpperCase().indexOf(filter) > -1)) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
             }
-            // html.push('<p><b>' + key + ':</b> ' + value + "</p>")
-        })
-        return html.join('')
+        }
     }
 </script>
-@endsection
+@endsection('content')
