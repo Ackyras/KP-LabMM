@@ -41,6 +41,11 @@ Route::post('login',        [AuthController::class, 'login'])->name('loginPost')
 
 // Route Client Peminjaman Barang
 Route::get('barang/list',               [BarangController::class, 'list'])->name('barang.list');
+Route::get('barang/list/elektronik',    [BarangController::class, 'listElektronik'])->name('barang.list.elektronik');
+Route::get('barang/list/nonelektronik', [BarangController::class, 'listNonElektronik'])->name('barang.list.nonelektronik');
+Route::get('barang/list/tpb',           [BarangController::class, 'listTpb'])->name('barang.list.tpb');
+Route::get('barang/list/prodi',         [BarangController::class, 'listProdi'])->name('barang.list.prodi');
+Route::get('barang/search',             [BarangController::class, 'search'])->name('barang.search');
 Route::get('barang/{id}',               [BarangController::class, 'show'])->name('barang.show');
 Route::get('form/barang',               [BarangController::class, 'form'])->name('barang.form');
 Route::post('form/barang',              [BarangController::class, 'store'])->name('brang.store');
