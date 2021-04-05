@@ -30,7 +30,10 @@ class FormBarangRequest extends FormRequest
             'no_hp'                 => ['max:13', 'required', 'regex:/[0-9]+/'],
             'afiliasi'              => ['required'],
             'tanggal_peminjaman'    => ['date'],
-            'tanggal_pengembalian'  => ['date']
+            'tanggal_pengembalian'  => ['date'],
+            'kode'                  => ['required', 'array'],
+            'kode.*'                => ['required', 'distinct'],
+            'jumlah'
         ];
     }
 }
