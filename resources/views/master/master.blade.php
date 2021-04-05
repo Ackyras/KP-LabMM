@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Questrial&family=Roboto:wght@500&display=swap" rel="stylesheet">
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
     <title>@yield('title')</title>
-
+    @yield('css')
 </head>
 
 <body background="{{ asset('img/background.jpg')}}" style="overflow: hidden; background-repeat: no-repeat; height: 100%; background-position: center center; background-size: cover; background-attachment: fixed;">
@@ -25,37 +25,34 @@
         <a class="itera" href="{{ route('home') }}"><img src="{{ asset('img/LabMM2.png')}}" alt="Laboratorium"></a>
     </header>
 
-
     <div class="row mx-2" style="max-height: 90%;">
-        <div class="col-sm p-3 bg-light rounded" style="height:10%; border-radius: 12px;">
-            <ul class="sidenav-menu" style="font-size: clamp(1.8vh, 1rem, 1.5vw);">
+        <div class="col-sm p-3 bg-light wrapper-navbar">
+            <ul class="sidenav-menu">
                 <a href="{{route('barang.list')}}">
-                    <li class="sidenav-item p-3 border bg-light m-2 rounded-pill">
+                    <li class="navbarw sidenav-item p-2 border">
                         <i class="fas fa-archway px-3"></i>Daftar Barang
                     </li>
                 </a>
                 <a href="{{route('barang.form')}}">
-                    <li class="sidenav-item p-3 border bg-light m-2 rounded-pill">
+                    <li class="navbarw sidenav-item p-2 border">
                         <i class="fas fa-stamp px-3"></i>Form Pinjam Barang
                     </li>
                 </a>
                 <a href="#">
-                    <li class="sidenav-item p-3 border bg-light m-2 rounded-pill">
+                    <li class="navbarw sidenav-item p-2 border">
                         <i class="fas fa-boxes px-3"></i>Form Pinjam Ruangan
                     </li>
                 </a>
             </ul>
-            <footer class="text-wrap mx-auto">
+            <footer class="mx-auto">
                 <p class="text-white font-footer text-center ml-4">Copyright&copyLaboratorium Multimedia</p>
                 <p class="text-white font-footer text-center ml-4">Institut Teknologi Sumatera</p>
             </footer>
         </div>
-        <div class="col-sm-9 p-4 bg-light mx-2 content">
+        <div class="col-sm-9 pb-4 bg-light ml-2 content">
             @yield('content')
         </div>
     </div>
-    <!-- <script type="text/javascript" src="{{asset('js/mdbsnippet.min.js')}}"></script> -->
-    <!-- <script type="text/javascript" src="{{asset('js/new-prism.js')}}"></script> -->
     <script src="{{ asset('dashboard/vendor/jquery/jquery.min.js') }}"></script>
     @yield('js')
 </body>
