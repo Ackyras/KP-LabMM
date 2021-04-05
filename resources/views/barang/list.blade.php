@@ -2,8 +2,12 @@
 
 @section('title', 'Daftar Barang')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/listbarang.css')}}">
+@endsection
+
 @section('content')
-<div class="row justify-content-between">
+<div class="row justify-content-between sticky-top bg-light p-3">
     <div class="col-6">
         <div class="dropdown pl-3">
             <button id="kategori-dropdown" onclick="kategoriOver()" class="dropbtn btn btn-outline-secondary">Kategori<i class="ml-2 fas fa-chevron-down arrow-d"></i></button>
@@ -28,22 +32,21 @@
         </form>
     </div>
 </div>
-<div class="container">
-    <div class="row justify-content-center mt-3">
-        @forelse($barangs as $barang)
-        <div class="card mt-2">
-            <img class="card-img-top mx-auto mt-2" src="{{ $barang->foto }}" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="c-title">{{ $barang->nama_barang }}</h5>
-            </div>
-            <a href="#" class="c-detail btn btn-outline-info">
-                Detail
-            </a>
+<div class="row container-fluid row-cols-3 list-barang mt-3 mx-2">
+    @forelse($barangs as $barang)
+    <div class="card mt-2">
+        <img class="card-img-top mx-auto mt-3" src="{{ $barang->foto }}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="c-title">{{ $barang->nama_barang }}</h5>
         </div>
-        @empty
-        <p class="mt-5">Item tidak ditemukan</p>
-        @endforelse
+        <a href="{{ route('barang.show', $barang->id) }}" class="c-detail btn btn-outline-info">
+            Detail
+            <img src="{{ asset('img/arrow-detail.svg') }}" class="arrow-detail" alt="">
+        </a>
     </div>
+    @empty
+    <p class="mt-5">Item tidak ditemukan</p>
+    @endforelse
 </div>
 @endsection
 
