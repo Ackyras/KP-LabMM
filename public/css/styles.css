@@ -76,9 +76,6 @@ header {
     border-top-left-radius: 12px;
 }
 
-.form-control::-webkit-input-placeholder {
-    color: rgb(255, 255, 255);
-}
 
 @media screen and (max-width: 1024px) {
     .social {
