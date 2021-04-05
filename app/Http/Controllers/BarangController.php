@@ -74,7 +74,8 @@ class BarangController extends Controller
 
     public function form()
     {
-        $barangs = Inventaris::where('peminjaman', '>', 0)->get();
+        $barangs = Inventaris::where('status', 'Baik')
+            ->where('peminjaman', '>', 0)->get();
         return view('barang.form', compact('barangs'));
     }
 
