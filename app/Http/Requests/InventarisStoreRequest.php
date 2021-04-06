@@ -26,7 +26,7 @@ class InventarisStoreRequest extends FormRequest
         return [
             'kd_barang'     => ['required', 'max:255'],
             'nama_barang'   => ['required', 'max:255'],
-            'foto'          => ['nullable', 'mimes:jpeg,png,jpg', 'max:1024'],
+            'foto'          => ['nullable', 'image', 'max:1024'],
             'lokasi'        => ['required', 'in:TPB,PRODI'],
             'kategori'      => ['required', 'in:Elektronik,Non Elektronik'],
             'stok'          => ['regex:/[0-9]+/', 'required'],
