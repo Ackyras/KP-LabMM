@@ -48,8 +48,8 @@ class SuratController extends Controller
             $folder = uniqid();
             $file = $request->file('file');
             $path = "public/surat/" . $folder;
-            $store = $file->storeAs($path, $file->getClientOriginalName() . $file->extension());
-            $link = $request->root() . 'storage/surat/' . $folder . '/' . $file->getClientOriginalName() . '.' . $file->extension();
+            $store = $file->storeAs($path, $file->getClientOriginalName());
+            $link = $request->root() . '/storage/surat/' . $folder . '/' . $file->getClientOriginalName();
             $file = Storage::url($store);
             $file = $request->root() . $file;
         }
@@ -95,8 +95,8 @@ class SuratController extends Controller
             $folder = uniqid();
             $file = $request->file('file');
             $path = "public/surat/" . $folder;
-            $store = $file->storeAs($path, $file->getClientOriginalName() . $file->extension());
-            $link = $request->root() . 'storage/surat/' . $folder . '/' . $file->getClientOriginalName() . '.' . $file->extension();
+            $store = $file->storeAs($path, $file->getClientOriginalName());
+            $link = $request->root() . 'storage/surat/' . $folder . '/' . $file->getClientOriginalName();
             $file = Storage::url($store);
             $file = $request->root() . $file;
         } else {
