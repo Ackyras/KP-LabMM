@@ -3,7 +3,7 @@
 @section('title-page', 'Tambah Mata Kuliah')
 
 @section('content')
-<form method="POST" action="{{ route('matakuliah.store') }}">
+<form class="col" method="POST" action="{{ route('matakuliah.store') }}" enctype="multipart/form-data">
     @csrf
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Mata Kuliah</label>
@@ -25,7 +25,7 @@
         @enderror
     </div>
     <div class="mb-1 mx-auto form-admin">
-        <label class="form-label">Tanggal Penutupan</label>
+        <label class="form-label">Tanggal Seleksi</label>
         <input type="date" name="tanggal_seleksi" value="{{ old('tanggal_seleksi') }}" class="form-control @error('tanggal_seleksi') is-invalid @enderror" required>
         @error('tanggal_seleksi')
         <div class="alert alert-danger mt-1">{{ $message }}</div>
@@ -42,6 +42,13 @@
         <label class="form-label">Jam Akhir Seleksi</label>
         <input type="time" name="akhir_seleksi" value="{{ old('akhir_seleksi') }}" class="form-control @error('akhir_seleksi') is-invalid @enderror" required>
         @error('akhir_seleksi')
+        <div class="alert alert-danger mt-1">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="form-group mb-1 mx-auto form-admin">
+        <label>Soal</label>
+        <input type="file" name="soal" value="{{ old('soal') }}" class="form-control @error('soal') is-invalid @enderror">
+        @error('soal')
         <div class="alert alert-danger mt-1">{{ $message }}</div>
         @enderror
     </div>

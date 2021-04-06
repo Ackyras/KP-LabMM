@@ -33,7 +33,7 @@
                         <td>
                             <a href="{{ route('rekrut.show', $daftar->id) }}" class="btn btn-info">Detail</a>
                             <a href="{{ route('rekrut.edit', $daftar->id) }}" class="btn btn-primary">Ubah</a>
-                            <form action="{{ route('rekrut.destroy', $daftar->id) }}" method="POST">
+                            <form class="d-inline" action="{{ route('rekrut.destroy', $daftar->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" class="btn btn-danger" style="display:inline-block;">Hapus</button>
