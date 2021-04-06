@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FormBarangRequest extends FormRequest
+class FormRuanganRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,9 +28,13 @@ class FormBarangRequest extends FormRequest
             'nim'                   => ['required', 'regex:/[0-9]+/', 'min:8'],
             'email'                 => ['email', 'required'],
             'no_hp'                 => ['max:13', 'required', 'regex:/[0-9]+/', 'min:10'],
-            'afiliasi'              => ['required'],
-            'tanggal_peminjaman'    => ['date'],
-            'tanggal_pengembalian'  => ['date', 'after_or_equal:tanggal_peminjaman']
+            'afiliasi'              => ['required', 'string'],
+            'ruang_lab'             => ['required', 'string'],
+            'mata_kuliah'           => ['required', 'string'],
+            'kode_matkul'           => ['required', 'string'],
+            'dosen'                 => ['required', 'string'],
+            'waktu'                 => ['required'],
+            'hari'                  => ['in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu', 'required'],
         ];
     }
 }

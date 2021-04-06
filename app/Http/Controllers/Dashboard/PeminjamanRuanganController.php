@@ -18,35 +18,16 @@ class PeminjamanRuanganController extends Controller
             ->orderByDesc('created_at')
             ->get();
         $peminjamans = PeminjamanRuangan::all();
-        return view('dahsboard.peminjaman.ruangan.index', compact('ruangans', 'peminjamans'));
+        return view('dashboard.peminjaman.ruangan.index', compact('ruangans', 'peminjamans'));
     }
 
     public function status(Request $request)
     {
-        $id = $request->input('form_id');
+        $id = $request->input('form_ruangan_id');
         switch ($request->input('action')) {
             case '0':
                 DB::transaction(function () use ($id) {
-                    FormRuangan::where('id', $id)->update([
-                        'validasi'  => 0
-                    ]);
-                    $peminjamans = PeminjamanBarang::where('form_ruangan_id', $id)->get();
-                    foreach ($peminjamans as $peminjaman) {
-                        Ruangan::where('minggu', $peminjaman->minggu)
-                            ->where('waktu', $peminjaman->formruangan->waktu)
-                            ->where('hari', $peminjaman->formruangan->hari)
-                            ->update(
-                                [
-                                    'status'        => 1,
-                                    'updated_at'    => now()->toDateTimeString()
-                                ]
-                            );
-                    }
-                });
-                break;
-            case '1':
-                DB::transaction(function () use ($id) {
-                    $peminjamans = PeminjamanBarang::where('form_ruangan_id', $id)->get();
+                    $peminjamans = PeminjamanRuangan::with('formruangan')->where('form_ruangan_id', $id)->get();
                     foreach ($peminjamans as $peminjaman) {
                         Ruangan::where('minggu', $peminjaman->minggu)
                             ->where('waktu', $peminjaman->formruangan->waktu)
@@ -61,12 +42,39 @@ class PeminjamanRuanganController extends Controller
                     FormRuangan::where('id', $id)->delete();
                 });
                 break;
+            case '1':
+                // Jadwal penuh send notifikasi
+                break;
+            case '2':
+                DB::transaction(function () use ($id) {
+                    $peminjamans = PeminjamanRuangan::with('formruangan')->where('form_ruangan_id', $id)->get();
+                    foreach ($peminjamans as $peminjaman) {
+                        Ruangan::where('minggu', $peminjaman->minggu)
+                            ->where('waktu', $peminjaman->formruangan->waktu)
+                            ->where('hari', $peminjaman->formruangan->hari)
+                            ->update(
+                                [
+                                    'status'        => 1,
+                                    'updated_at'    => now()->toDateTimeString()
+                                ]
+                            );
+                    }
+                    FormRuangan::where('id', $id)->update(
+                        [
+                            'validasi'  => 0
+                        ]
+                    );
+                });
+                break;
         }
+
+        return redirect()->route('admin.dashboard');
     }
 
     public function riwayat()
     {
-        $forms = FormRuangan::where('validasi', 0)->get();
-        return view('dashboard.peminjaman.ruangan.riwayat', compact('forms'));
+        $ruangans = FormRuangan::where('validasi', 0)->get();
+        $peminjamans = PeminjamanRuangan::all();
+        return view('dashboard.peminjaman.ruangan.riwayat', compact('ruangans', 'peminjamans'));
     }
 }

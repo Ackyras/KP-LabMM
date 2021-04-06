@@ -18,15 +18,14 @@ class CreateCalonAspraksTable extends Migration
             $table->string('nama');
             $table->string('nim');
             $table->string('email');
+            $table->string('password');
             $table->date('tanggal_lahir');
             $table->string('program_studi');
             $table->integer('angkatan');
             $table->string('cv');
             $table->string('khs');
             $table->string('ktm');
-            $table->string('pil1');
-            $table->string('pil2');
-            $table->string('pil3');
+            $table->integer('status')->default(0);
             $table->timestamp('created_at')->useCurrent();
         });
     }

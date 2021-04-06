@@ -48,7 +48,7 @@ Route::get('barang/list/prodi',         [BarangController::class, 'listProdi'])-
 Route::get('barang/search',             [BarangController::class, 'search'])->name('barang.search');
 Route::get('barang/{id}',               [BarangController::class, 'show'])->name('barang.show');
 Route::get('form/barang',               [BarangController::class, 'form'])->name('barang.form');
-Route::post('form/barang',              [BarangController::class, 'store'])->name('brang.store');
+Route::post('form/barang',              [BarangController::class, 'store'])->name('barang.store');
 
 
 // Route Client Peminjaman Ruangan
