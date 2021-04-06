@@ -18,9 +18,11 @@ class CalonAsprak extends Model
         'angkatan',
         'cv',
         'khs',
-        'ktm',
-        'pil1',
-        'pil2',
-        'pil3',
+        'ktm'
     ];
+
+    public function penilaianaspraks()
+    {
+        return $this->hasMany(Penilaian::class, 'calon_asprak_id', 'id');
+    }
 }
