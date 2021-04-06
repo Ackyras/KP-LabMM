@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FormRuanganRequest;
+use App\Models\FormRuangan;
+use App\Models\PeminjamanRuangan;
+use App\Models\Ruangan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RuanganController extends Controller
 {
@@ -11,24 +16,23 @@ class RuanganController extends Controller
         return view('ruangan.form');
     }
 
-    public function store(Request $request)
+    public function store(FormRuanganRequest $request)
     {
-        $request->validate([
-            'nama_peminjam'         => ['required', 'max:255'],
-            'nim'                   => ['required', 'regex:/[0-9]+/', 'min:8', 'max:9'],
-            'email'                 => ['email', 'required'],
-            'no_hp'                 => ['max:13', 'required', 'regex:/[0-9]+/'],
-            'afiliasi'              => ['required'],
-            'ruang_lab'             => ['required'],
-            'mata_kuliah'           => ['required'],
-            'kode_matkul'           => ['required'],
-            'dosen'                 => ['required'],
-            'waktu'                 => ['required'],
-            'hari'                  => ['in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu', 'required'],
-            'minggu'                => ['required', 'numeric', 'min:1', 'max:16', 'array'],
-            'minggu.*'              => ['required', 'numeric', 'min:1', 'max:16', 'distinct'],
-        ]);
+        $minggu = $request->input('minggu');
+        DB::transaction(function () use ($request, $minggu) {
+            $peminjam = FormRuangan::create($request->validated());
+            foreach ($minggu as $key => $value) {
+                $ruangan = Ruangan::where('waktu', $peminjam->waktu)
+                    ->where('hari', $peminjam->hari)
+                    ->where('minggu', $value)->pluck('id')->first();
 
-        // !BELOM SELESAI
+                PeminjamanRuangan::create([
+                    'form_ruangan_id'   => $peminjam->id,
+                    'ruangan_id'        => $ruangan,
+                    'minggu'            => $value
+                ]);
+            }
+        });
+        return redirect()->route('barang.form')->with('msg', 'Pesan');
     }
 }
