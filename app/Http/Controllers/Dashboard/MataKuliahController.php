@@ -7,6 +7,7 @@ use App\Models\DaftarMataKuliah;
 use App\Models\MataKuliah;
 use App\Models\PembukaanAsprak;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MataKuliahController extends Controller
 {
@@ -29,18 +30,31 @@ class MataKuliahController extends Controller
             'matakuliah'        => 'required',
             'dosen'             => 'required',
             'tanggal_seleksi'   => 'required',
-            'awal_seleksi'      => 'required',
-            'akhir_seleksi'     => 'required'
+            'awal_seleksi'      => ['required', 'date_format:H:i'],
+            'akhir_seleksi'     => ['required', 'date_format:H:i', 'after:awal_seleksi'],
+            'soal'              => ['mimetypes:application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword', 'max:2048', 'nullable']
         ]);
+
+        $matkul = DaftarMataKuliah::where('id', $request->input('matakuliah'))->pluck('nama')->first();
+        $link = '';
+        if ($request->hasFile('soal')) {
+            $file = $request->file('soal');
+            $path = "public/" . $this->pembukaan_id->judul . "/" . "matakuliah/" . $matkul;
+            $store = $file->storeAs($path, $file->getClientOriginalName());
+            $link = $request->root() . '/storage/' . $this->pembukaan_id->judul . '/matakuliah' . "/" . $matkul . "/" . $file->getClientOriginalName();
+            $file = Storage::url($store);
+            $file = $request->root() . $file;
+        }
+
         MataKuliah::create(
             [
                 'mata_kuliah_id'        => $request->input('matakuliah'),
                 'pembukaan_asprak_id'   => $this->pembukaan_id->id,
-                'kode'                  => $request->input('matakuliah'),
                 'dosen'                 => $request->input('dosen'),
                 'tanggal_seleksi'       => $request->input('tanggal_seleksi'),
                 'awal_seleksi'          => $request->input('awal_seleksi'),
                 'akhir_seleksi'         => $request->input('akhir_seleksi'),
+                'soal'                  => ($link != "") ? $link : null
             ]
         );
 
@@ -60,19 +74,32 @@ class MataKuliahController extends Controller
             'matakuliah'        => 'required',
             'dosen'             => 'required',
             'tanggal_seleksi'   => 'required',
-            'awal_seleksi'      => 'required',
-            'akhir_seleksi'     => 'required'
+            'awal_seleksi'      => ['required', 'date_format:H:i'],
+            'akhir_seleksi'     => ['required', 'date_format:H:i', 'after:awal_seleksi'],
+            'soal'              => ['mimetypes:application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword', 'max:2048', 'nullable']
         ]);
+
+        $matkul = DaftarMataKuliah::where('id', $request->input('matakuliah'))->pluck('nama')->first();
+        $link = '';
+        if ($request->hasFile('soal')) {
+            $file = $request->file('soal');
+            $path = "public/" . $this->pembukaan_id->judul . "/" . "matakuliah/" . $matkul;
+            $store = $file->storeAs($path, $file->getClientOriginalName());
+            $link = $request->root() . '/storage/' . $this->pembukaan_id->judul . '/matakuliah' . "/" . $matkul . "/" . $file->getClientOriginalName();
+            $file = Storage::url($store);
+            $file = $request->root() . $file;
+        }
+
         MataKuliah::where('id', $id)
             ->update(
                 [
                     'mata_kuliah_id'        => $request->input('matakuliah'),
                     'pembukaan_asprak_id'   => $this->pembukaan_id->id,
-                    'kode'                  => $request->input('matakuliah'),
                     'dosen'                 => $request->input('dosen'),
                     'tanggal_seleksi'       => $request->input('tanggal_seleksi'),
                     'awal_seleksi'          => $request->input('awal_seleksi'),
                     'akhir_seleksi'         => $request->input('akhir_seleksi'),
+                    'soal'                  => ($link != "") ? $link : $request->input('oldsoal')
                 ]
             );
 
