@@ -17,11 +17,11 @@ class CreateMataKuliahsTable extends Migration
             $table->id();
             $table->foreignId('mata_kuliah_id')->references('id')->on('daftar_mata_kuliahs');
             $table->foreignId('pembukaan_asprak_id')->references('id')->on('pembukaan_aspraks');
-            $table->string('kode')->unique();
             $table->string('dosen');
             $table->date('tanggal_seleksi');
             $table->time('awal_seleksi')->unique();
             $table->time('akhir_seleksi');
+            $table->string('soal')->nullable();
             $table->timestamps();
         });
     }
