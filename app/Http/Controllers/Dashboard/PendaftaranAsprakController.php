@@ -18,7 +18,7 @@ class PendaftaranAsprakController extends Controller
     public function show($id)
     {
         $pembukaan = PembukaanAsprak::findOrFail($id);
-        $daftars = MataKuliah::where('pembukaan_asprak_id', $id)->get();
+        $daftars = MataKuliah::with('daftarmatakuliah')->where('pembukaan_asprak_id', $id)->get();
         return view('dashboard.pendaftaran.show', compact('daftars', 'pembukaan'));
     }
 
@@ -31,8 +31,8 @@ class PendaftaranAsprakController extends Controller
     {
         $request->validate([
             'judul'             => 'required',
-            'awal_pembukaan'    => 'required',
-            'akhir_pembukaan'   => 'required'
+            'awal_pembukaan'    => ['required', 'date'],
+            'akhir_pembukaan'   => ['required', 'date', 'after:awal_pembukaan']
         ]);
         PembukaanAsprak::create($request->all());
 
@@ -49,8 +49,8 @@ class PendaftaranAsprakController extends Controller
     {
         $request->validate([
             'judul'             => 'required',
-            'awal_pembukaan'    => 'required',
-            'akhir_pembukaan'   => 'required'
+            'awal_pembukaan'    => ['required', 'date'],
+            'akhir_pembukaan'   => ['required', 'date', 'after:awal_pembukaan']
         ]);
         PembukaanAsprak::where('id', $id)
             ->update($request->only(['judul', 'awal_pembukaan', 'akhir_pembukaan']));
