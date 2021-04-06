@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 * {
     font-family: "Open Sans", sans-serif;
     font-style: normal;
-    letter-spacing: -1px;
+    box-sizing: border-box;
 }
 
 header {
@@ -46,7 +46,7 @@ header {
 }
 
 .wrapper-navbar {
-    height:10%; 
+    height: 10%;
     border-bottom-right-radius: 15px;
     border-top-right-radius: 15px;
     margin-left: -12px;
@@ -65,7 +65,7 @@ header {
 }
 
 .navbarw:hover {
-    background-color:#DAB033;
+    background-color: #dab033;
 }
 
 .content {
@@ -75,7 +75,6 @@ header {
     overflow-x: hidden;
     border-top-left-radius: 12px;
 }
-
 
 @media screen and (max-width: 1024px) {
     .social {
