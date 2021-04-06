@@ -12,11 +12,11 @@ class MataKuliah extends Model
     protected $fillable = [
         'mata_kuliah_id',
         'pembukaan_asprak_id',
-        'kode',
         'dosen',
         'tanggal_seleksi',
         'awal_seleksi',
         'akhir_seleksi',
+        'soal'
     ];
 
     public function pembukaanasprak()
