@@ -27,10 +27,10 @@ class FormBarangRequest extends FormRequest
             'nama_peminjam'         => ['required', 'max:255'],
             'nim'                   => ['required', 'regex:/[0-9]+/', 'min:8'],
             'email'                 => ['email', 'required'],
-            'no_hp'                 => ['max:13', 'required', 'regex:/[0-9]+/'],
+            'no_hp'                 => ['max:13', 'required', 'regex:/[0-9]+/', 'min:10'],
             'afiliasi'              => ['required'],
             'tanggal_peminjaman'    => ['date'],
-            'tanggal_pengembalian'  => ['date']
+            'tanggal_pengembalian'  => ['date', 'after_or_equal:tanggal_peminjaman']
         ];
     }
 }
