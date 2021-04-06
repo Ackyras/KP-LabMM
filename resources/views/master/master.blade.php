@@ -38,7 +38,7 @@
                         <i class="fas fa-stamp px-3"></i>Form Pinjam Barang
                     </li>
                 </a>
-                <a href="#">
+                <a href="{{ route('ruangan.form') }}">
                     <li class="navbarw sidenav-item p-2 border">
                         <i class="fas fa-boxes px-3"></i>Form Pinjam Ruangan
                     </li>
