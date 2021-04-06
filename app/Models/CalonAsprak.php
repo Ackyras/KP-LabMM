@@ -9,10 +9,13 @@ class CalonAsprak extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'nama',
         'nim',
         'email',
+        'password',
         'tanggal_lahir',
         'program_studi',
         'angkatan',
