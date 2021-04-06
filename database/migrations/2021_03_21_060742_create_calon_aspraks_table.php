@@ -18,7 +18,7 @@ class CreateCalonAspraksTable extends Migration
             $table->string('nama');
             $table->string('nim');
             $table->string('email');
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->date('tanggal_lahir');
             $table->string('program_studi');
             $table->integer('angkatan');
