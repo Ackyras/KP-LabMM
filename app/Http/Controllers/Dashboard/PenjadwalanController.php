@@ -23,12 +23,12 @@ class PenjadwalanController extends Controller
         PeminjamanRuangan::where('ruangan_id', $id)->delete();
 
         $ruangans = Ruangan::with('peminjamanruangans')->get();
-        return view('dashboard.penjadwalan.index', compact('ruangans'));
+        return redirect()->route('penjadwalan.index');
     }
 
     public function massReset()
     {
         Ruangan::where('status', 1)->update(['status' => 0]);
-        return view('dashboard.penjadwalan.index', compact('ruangans'));
+        return redirect()->route('penjadwalan.index');
     }
 }
