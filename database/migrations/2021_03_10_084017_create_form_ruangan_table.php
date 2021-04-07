@@ -17,15 +17,16 @@ class CreateFormRuanganTable extends Migration
             $table->id();
             $table->string('nama_peminjam');
             $table->string('nim');
+            $table->string('ruang_lab');
             $table->string('email');
             $table->string('no_hp');
             $table->string('afiliasi');
-            $table->string('ruang_lab');
             $table->string('mata_kuliah');
             $table->string('kode_matkul');
             $table->string('dosen');
             $table->time('waktu');
             $table->string('hari');
+            $table->text('keterangan');
             $table->integer('validasi')->default('1');
             $table->timestamp('created_at')->useCurrent();
         });
