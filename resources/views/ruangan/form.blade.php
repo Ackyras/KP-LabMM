@@ -16,59 +16,89 @@
         @csrf
         <div class="form-group p-1">
             <label>Nama lengkap</label>
-            <input type="text" name="nama_peminjam" value="{{ old('nama_peminjam') }}" class="form-control rounded" required placeholder="Masukkan nama anda" autofocus>
+            <input type="text" name="nama_peminjam" value="{{ old('nama_peminjam') }}" class="form-control rounded @error('nama_peminjam') is-invalid @enderror" required placeholder="Masukkan nama anda" autofocus>
+            @error('nama_peminjam')
+            <div class="alert alert-danger mt-1">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-group p-1">
             <label>NIM/NIP</label>
-            <input type="text" name="nim" value="{{ old('nim') }}" class="form-control rounded" required placeholder="Masukan NIM/NIP anda">
+            <input type="text" name="nim" value="{{ old('nim') }}" class="form-control rounded @error('nim') is-invalid @enderror" required placeholder="Masukan NIM/NIP anda">
+            @error('nim')
+            <div class="alert alert-danger mt-1">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-group p-1">
             <label>Alamat Email</label>
-            <input type="email" name="email" value="{{ old('email') }}" class="form-control rounded" required placeholder="Masukan alamat email anda">
+            <input type="email" name="email" value="{{ old('email') }}" class="form-control rounded @error('email') is-invalid @enderror" required placeholder="Masukan alamat email anda">
+            @error('email')
+            <div class="alert alert-danger mt-1">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-group p-1">
             <label>Nomor Telepon</label>
-            <input type="text" name="no_hp" value="{{ old('no_hp') }}" class="form-control rounded" required placeholder="Masukan nomor HP anda">
+            <input type="text" name="no_hp" value="{{ old('no_hp') }}" class="form-control rounded @error('no_hp') is-invalid @enderror" required placeholder="Masukan nomor HP anda">
+            @error('no_hp')
+            <div class="alert alert-danger mt-1">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-group p-1">
             <label>Afiliasi / Program Studi</label>
-            <input type="text" name="afiliasi" value="{{ old('afiliasi') }}" class="form-control rounded" required placeholder="Masukan program studi anda">
+            <input type="text" name="afiliasi" value="{{ old('afiliasi') }}" class="form-control rounded @error('afiliasi') is-invalid @enderror" required placeholder="Masukan program studi anda">
+            @error('afiliasi')
+            <div class="alert alert-danger mt-1">{{ $message }}</div>
+            @enderror
         </div>
         <h4 class="title-keterangan">Keterangan Peminjam</h4>
         <div class="line-3"></div>
         <div class="form-group p-1">
             <label>Ruangan Laboratorium</label>
-            <input list="ruanglab" name="ruang_lab" value="{{ old('ruang_lab') }}" class="form-control rounded" required placeholder="Pilih ruang laboratorium">
+            <input list="ruanglab" name="ruang_lab" value="{{ old('ruang_lab') }}" class="form-control rounded @error('ruang_lab') is-invalid @enderror" required placeholder="Pilih ruang laboratorium">
             <datalist id="ruanglab">
                 <option value="Lab MM"></option>
             </datalist>
+            @error('ruang_lab')
+            <div class="alert alert-danger mt-1">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-group p-1">
             <label>Mata Kuliah*</label>
-            <input type="text" name="mata_kuliah" value="{{ old('mata_kuliah') }}" class="form-control rounded" required placeholder="Masukkan mata kuliah">
+            <input type="text" name="mata_kuliah" value="{{ old('mata_kuliah') }}" class="form-control rounded @error('mata_kuliah') is-invalid @enderror" required placeholder="Masukkan mata kuliah">
+            @error('mata_kuliah')
+            <div class="alert alert-danger mt-1">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-group p-1">
             <label>Kode Mata Kuliah*</label>
-            <input type="text" name="kode_matkul" value="{{ old('kode_matkul') }}" class="form-control rounded" required placeholder="Masukkan kode mata kuliah">
+            <input type="text" name="kode_matkul" value="{{ old('kode_matkul') }}" class="form-control rounded @error('kode_matkul') is-invalid @enderror" required placeholder="Masukkan kode mata kuliah">
+            @error('kode_matkul')
+            <div class="alert alert-danger mt-1">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-group p-1">
             <label>Nama Dosen*</label>
-            <input type="text" name="dosen" value="{{ old('dosen') }}" class="form-control rounded" required placeholder="Masukkan kode mata kuliah">
+            <input type="text" name="dosen" value="{{ old('dosen') }}" class="form-control rounded @error('dosen') is-invalid @enderror" required placeholder="Masukkan kode mata kuliah">
+            @error('dosen')
+            <div class="alert alert-danger mt-1">{{ $message }}</div>
+            @enderror
         </div>
         <div class="row">
             <div class="col-6">
                 <label>Jam</label>
-                <select name="waktu" class="form-control">
+                <select name="waktu" class="form-control @error('waktu') is-invalid @enderror">
                     <option value="" disabled selected {{ old('waktu') == '' ? 'selected' : '' }}>Pilih Waktu</option>
                     <option value="07:00:00" {{ old('waktu') == '07:00:00' ? 'selected' : ''}}>07:00</option>
                     <option value="09:00:00" {{ old('waktu') == '09:00:00' ? 'selected' : ''}}>09:00</option>
                     <option value="13:00:00" {{ old('waktu') == '13:00:00' ? 'selected' : ''}}>13:00</option>
                     <option value="15:00:00" {{ old('waktu') == '15:00:00' ? 'selected' : ''}}>15:00</option>
                 </select>
+                @error('waktu')
+                <div class="alert alert-danger mt-1">{{ $message }}</div>
+                @enderror
             </div>
             <div class="col-6">
                 <label>Hari</label>
-                <select name="hari" class="form-control">
+                <select name="hari" class="form-control @error('hari') is-invalid @enderror">
                     <option value="" disabled selected {{ old('hari') == '' ? 'selected' : '' }}>Pilih Hari</option>
                     <option value="Senin" {{ old('hari') == 'Senin' ? 'selected' : ''}}>Senin</option>
                     <option value="Selasa" {{ old('hari') == 'Selasa' ? 'selected' : ''}}>Selasa</option>
@@ -78,7 +108,17 @@
                     <option value="Sabtu" {{ old('hari') == 'Sabtu' ? 'selected' : ''}}>Sabtu</option>
                     <option value="Minggu" {{ old('hari') == 'Minggu' ? 'selected' : ''}}>Minggu</option>
                 </select>
+                @error('hari')
+                <div class="alert alert-danger mt-1">{{ $message }}</div>
+                @enderror
             </div>
+        </div>
+        <div class="form-group p-1">
+            <label>Keterangan Peminjaman*</label>
+            <textarea class="form-control @error('keterangan') is-invalid @enderror" name="keterangan" cols="3" rows="3" placeholder="Masukkan keterangan peminjaman" required autocomplete="off"></textarea>
+            @error('keterangan')
+            <div class="alert alert-danger mt-1">{{ $message }}</div>
+            @enderror
         </div>
         <div class="row">
             <div class="col-9">
