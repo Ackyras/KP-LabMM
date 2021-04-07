@@ -20,6 +20,7 @@ class RuanganSeeder extends Seeder
             foreach ($hari as $key => $h) {
                 foreach ($waktu as $k => $w) {
                     Ruangan::create([
+                        'ruang_lab' => 1,
                         'waktu' => $w,
                         'hari' => $h,
                         'minggu' => $i

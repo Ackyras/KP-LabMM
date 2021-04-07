@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FormPeminjam::class);
         $this->call(PeminjamanBarang::class);
         $this->call(DaftarMataKuliah::class);
+        $this->call(RuangLabSeeder::class);
         $this->call(RuanganSeeder::class);
     }
 }
