@@ -23,4 +23,9 @@ class PenilaianAsprak extends Model
     {
         return $this->belongsTo(CalonAsprak::class, 'calon_asprak_id', 'id');
     }
+
+    public function matakuliah()
+    {
+        return $this->belongsTo(MataKuliah::class, 'mata_kuliah_id', 'id');
+    }
 }
