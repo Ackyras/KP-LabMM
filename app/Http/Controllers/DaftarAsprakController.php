@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DaftarAsprakRequest;
 use App\Models\CalonAsprak;
 use App\Models\MataKuliah;
 use App\Models\PembukaanAsprak;
@@ -28,23 +29,8 @@ class DaftarAsprakController extends Controller
         return view('asprak.form', compact('matakuliahs'));
     }
 
-    public function store(Request $request)
+    public function store(DaftarAsprakRequest $request)
     {
-        // dd($request->all());
-        $request->validate(
-            [
-                'nama'          => ['required'],
-                'nim'           => ['required', 'regex:/[0-9]+/', 'min:8', 'max:9'],
-                'email'         => ['required', 'email'],
-                'tanggal_lahir' => ['required', 'date'],
-                'prodi'         => ['required'],
-                'angkatan'      => ['required', 'regex:/[0-9]+/'],
-                'cv'            => ['mimes:pdf,jpeg,png,jpg', 'max:512', 'required'],
-                'khs'           => ['mimes:pdf,jpeg,png,jpg', 'max:512', 'required'],
-                'ktm'           => ['mimes:pdf,jpeg,png,jpg', 'max:512', 'required']
-            ]
-        );
-
         if ($request->hasFile('cv') and $request->hasFile('khs') and $request->hasFile('ktm')) {
             $cv = $request->file('cv');
             $khs = $request->file('khs');
@@ -77,14 +63,16 @@ class DaftarAsprakController extends Controller
                     'ktm'               => $link_ktm
                 ]
             );
-            $pilihan = $request->input('pilihan');
+            $pilihan = array_unique($request->input('pilihan'));
             foreach ($pilihan as $key => $value) {
-                PenilaianAsprak::create(
-                    [
-                        'calon_asprak_id'   => $id->id,
-                        'mata_kuliah_id'    => $value
-                    ]
-                );
+                if ($value != null) {
+                    PenilaianAsprak::create(
+                        [
+                            'calon_asprak_id'   => $id->id,
+                            'mata_kuliah_id'    => $value
+                        ]
+                    );
+                }
             }
         });
 
