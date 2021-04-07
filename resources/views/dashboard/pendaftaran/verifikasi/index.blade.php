@@ -67,7 +67,8 @@
                                             @csrf
                                             <input type="hidden" name="id" value="{{ $asprak->id }}">
                                             <button type="submit" name="action" value="0" onclick="return confirm('Yakin ingin menghapus data calon asprak {{ $asprak->nama }}?')" class="btn btn-danger">Hapus</button>
-                                            <button type="submit" name="action" value="1" onclick="return confirm('Verifikasi calon asprak {{ $asprak->nama }}?')" class="btn btn-success">Verifikasi</button>
+                                            <button type="submit" name="action" value="1" onclick="return confirm('Tolak verifikasi calon asprak {{ $asprak->nama }}?')" class="btn btn-warning">Tolak</button>
+                                            <button type="submit" name="action" value="2" onclick="return confirm('Verifikasi calon asprak {{ $asprak->nama }}?')" class="btn btn-success">Verifikasi</button>
                                         </form>
                                     </div>
                                 </div>
