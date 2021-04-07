@@ -15,8 +15,8 @@ class CreateMataKuliahsTable extends Migration
     {
         Schema::create('mata_kuliahs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('mata_kuliah_id')->references('id')->on('daftar_mata_kuliahs');
-            $table->foreignId('pembukaan_asprak_id')->references('id')->on('pembukaan_aspraks');
+            $table->foreignId('mata_kuliah_id')->references('id')->on('daftar_mata_kuliahs')->onDelete('cascade');
+            $table->foreignId('pembukaan_asprak_id')->references('id')->on('pembukaan_aspraks')->onDelete('cascade');
             $table->string('dosen');
             $table->date('tanggal_seleksi');
             $table->time('awal_seleksi')->unique();

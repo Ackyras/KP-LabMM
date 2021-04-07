@@ -16,7 +16,7 @@ class CreatePeminjamanRuangansTable extends Migration
         Schema::create('peminjaman_ruangans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('form_ruangan_id')->references('id')->on('form_ruangan')->onDelete('cascade');
-            $table->foreignId('ruangan_id')->references('id')->on('ruangans');
+            $table->foreignId('ruangan_id')->references('id')->on('ruangans')->onDelete('cascade');
             $table->integer('minggu');
         });
     }
