@@ -28,4 +28,9 @@ class MataKuliah extends Model
     {
         return $this->belongsTo(DaftarMataKuliah::class, 'mata_kuliah_id', 'id');
     }
+
+    public function penilaianasprak()
+    {
+        return $this->hasMany(PenilaianAsprak::class, 'mata_kuliah_id', 'id');
+    }
 }
