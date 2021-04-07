@@ -15,6 +15,7 @@ class CreateCalonAspraksTable extends Migration
     {
         Schema::create('calon_aspraks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('periode')->references('id')->on('pembukaan_aspraks')->onDelete('cascade');
             $table->string('nama');
             $table->string('nim');
             $table->string('email');
