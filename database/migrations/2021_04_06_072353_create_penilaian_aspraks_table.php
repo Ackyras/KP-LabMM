@@ -16,7 +16,7 @@ class CreatePenilaianAspraksTable extends Migration
         Schema::create('penilaian_aspraks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('calon_asprak_id')->references('id')->on('calon_aspraks');
-            $table->foreignId('mata_kuliah_id')->references('mata_kuliah_id')->on('mata_kuliahs');
+            $table->foreignId('mata_kuliah_id')->references('id')->on('mata_kuliahs');
             $table->string('jawaban')->nullable();
             $table->integer('nilai')->nullable();
         });
