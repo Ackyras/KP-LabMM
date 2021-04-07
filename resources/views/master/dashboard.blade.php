@@ -86,8 +86,9 @@
                 </a>
                 <div id="jadwal" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <!-- <h6 class="collapse-header">Inventaris</h6> -->
                         <a class="collapse-item" href="{{ route('penjadwalan.index') }}">Jadwal</a>
+                        <a class="collapse-item" href="{{ route('ruangan.index') }}">List Ruangan</a>
+                        <a class="collapse-item" href="{{ route('ruangan.create') }}">Tambah Ruangan</a>
                     </div>
                 </div>
             </li>
