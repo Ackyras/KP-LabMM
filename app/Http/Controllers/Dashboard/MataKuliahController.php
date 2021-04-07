@@ -30,7 +30,7 @@ class MataKuliahController extends Controller
             'matakuliah'        => 'required',
             'dosen'             => 'required',
             'tanggal_seleksi'   => 'required',
-            'awal_seleksi'      => ['required', 'date_format:H:i'],
+            'awal_seleksi'      => ['required', 'date_format:H:i', 'unique:App\Models\MataKuliah,awal_seleksi'],
             'akhir_seleksi'     => ['required', 'date_format:H:i', 'after:awal_seleksi'],
             'soal'              => ['mimetypes:application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword', 'max:2048', 'nullable']
         ]);
