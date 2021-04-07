@@ -12,6 +12,7 @@ class CalonAsprak extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'periode',
         'nama',
         'nim',
         'email',
