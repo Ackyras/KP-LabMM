@@ -12,6 +12,7 @@ class Ruangan extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'ruang_lab',
         'waktu',
         'hari',
         'minggu',
@@ -22,5 +23,10 @@ class Ruangan extends Model
     public function peminjamanruangans()
     {
         return $this->hasMany(PeminjamanRuangan::class, 'ruangan_id', 'id');
+    }
+
+    public function ruanglab()
+    {
+        return $this->belongsTo(RuangLab::class, 'ruang_lab', 'id');
     }
 }
