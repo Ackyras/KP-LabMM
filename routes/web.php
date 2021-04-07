@@ -70,8 +70,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::post('penjadwalan/reset',            [PenjadwalanController::class, 'massReset'])->name('penjadwalan.reset');
     Route::resource('ruangan',                  RuanganAdmin::class)->except(['show']);
     Route::get('asprak/verifikasi',             [VerifikasiController::class, 'index'])->name('asprak.index');
-    Route::post('asprak/verifikasi',            [VerifikasiController::class, 'verifikasi'])->name('asprak.verifikasi');
+    Route::post('asprak/verifikasi',            [VerifikasiController::class, 'verifikasiberkas'])->name('asprak.verifikasi');
     Route::post('asprak/verifikasi/{matkul}',   [VerifikasiController::class, 'matkul'])->name('aspral.index.matkul');
+    Route::get('asprak/penilaian',              [VerifikasiController::class, 'indexnilai'])->name('asprak.nilai.index');
+    Route::post('asprak/penilain',              [VerifikasiController::class, 'penilaian'])->name('asprak.verifikasi.nilai');
+    Route::post('asprak/verifikasi/nilai',      [VerifikasiController::class, 'verifikasilulus'])->name('asprak.verifikasi.lulus');
 
     Route::group(['middleware' => 'Admin:superadmin'], function () {
         // Route Admin Inventaris Barang
