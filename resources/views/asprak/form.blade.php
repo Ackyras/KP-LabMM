@@ -57,7 +57,7 @@
             <select class="form-control @error('pilihan') is-invalid @enderror" name="pilihan[1]" required>
                 <option value="" disabled selected>Pilihan 1</option>
                 @foreach($matakuliahs as $matakuliah)
-                <option value="{{ $matakuliah->mata_kuliah_id }}">{{$matakuliah->daftarmatakuliah->nama}}</option>
+                <option value="{{ $matakuliah->id }}">{{$matakuliah->daftarmatakuliah->nama}}</option>
                 @endforeach
             </select>
             @error('pilihan')
@@ -69,7 +69,7 @@
             <select class="form-control @error('pilihan') is-invalid @enderror" name="pilihan[2]">
                 <option value="" selected>Pilihan 2</option>
                 @foreach($matakuliahs as $matakuliah)
-                <option value="{{ $matakuliah->mata_kuliah_id }}">{{$matakuliah->daftarmatakuliah->nama}}</option>
+                <option value="{{ $matakuliah->id }}">{{$matakuliah->daftarmatakuliah->nama}}</option>
                 @endforeach
             </select>
             @error('pilihan')
@@ -81,7 +81,7 @@
             <select class="form-control @error('pilihan') is-invalid @enderror" name="pilihan[3]">
                 <option value="" selected>Pilihan 3</option>
                 @foreach($matakuliahs as $matakuliah)
-                <option value="{{ $matakuliah->mata_kuliah_id }}">{{$matakuliah->daftarmatakuliah->nama}}</option>
+                <option value="{{ $matakuliah->id }}">{{$matakuliah->daftarmatakuliah->nama}}</option>
                 @endforeach
             </select>
             @error('pilihan')
