@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Storage;
 
 class DaftarAsprakController extends Controller
 {
+    protected $pembukaan_id;
+
+    public function __construct()
+    {
+        $this->pembukaan_id = PembukaanAsprak::latest()->first();
+    }
+
     public function index()
     {
         $pembukaan = PembukaanAsprak::latest()->first();
@@ -52,6 +59,7 @@ class DaftarAsprakController extends Controller
         DB::transaction(function () use ($request, $link_cv, $link_khs, $link_ktm) {
             $id = CalonAsprak::create(
                 [
+                    'periode'           => $this->pembukaan_id->id,
                     'nama'              => $request->input('nama'),
                     'nim'               => $request->input('nim'),
                     'email'             => $request->input('email'),
