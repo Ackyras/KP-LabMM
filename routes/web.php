@@ -15,9 +15,7 @@ use App\Http\Controllers\Dashboard\PenjadwalanController;
 use App\Http\Controllers\Dashboard\RekrutAsprakController;
 use App\Http\Controllers\Dashboard\SuratController;
 use App\Http\Controllers\RuanganController;
-use App\Models\FormBarang;
-use App\Models\Inventaris;
-use App\Models\PeminjamanBarang;
+use App\Http\Controllers\Dashboard\RuanganController as RuanganAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +67,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::get('penjadwalan',                   [PenjadwalanController::class, 'index'])->name('penjadwalan.index');
     Route::post('penjadwalan/delete',           [PenjadwalanController::class, 'destroy'])->name('penjadwalan.destroy');
     Route::post('penjadwalan/reset',            [PenjadwalanController::class, 'massReset'])->name('penjadwalan.reset');
+    Route::resource('ruangan',                  RuanganAdmin::class)->except(['show']);
 
     Route::group(['middleware' => 'Admin:superadmin'], function () {
         // Route Admin Inventaris Barang
