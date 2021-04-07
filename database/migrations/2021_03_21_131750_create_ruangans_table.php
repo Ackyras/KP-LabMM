@@ -15,6 +15,7 @@ class CreateRuangansTable extends Migration
     {
         Schema::create('ruangans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('ruang_lab')->references('id')->on('ruang_labs')->onDelete('cascade');
             $table->time("waktu");
             $table->string("hari");
             $table->integer("minggu");
