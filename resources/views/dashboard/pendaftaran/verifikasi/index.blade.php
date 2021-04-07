@@ -48,11 +48,17 @@
                                         <b class="ml-3">Angkatan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $asprak->angkatan }}</br>
                                         <b class="ml-3">E-mail &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $asprak->email }}</br>
                                         <b class="ml-3">Tanggal lahir &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $asprak->tanggal_lahir }}</br>
+                                        <a href="{{ $asprak->cv }}" class="btn btn-sm btn-info">Lihat CV</a>
+                                        <a href="{{ $asprak->khs }}" class="btn btn-sm btn-info">Lihat KHS</a>
+                                        <a href="{{ $asprak->ktm }}" class="btn btn-sm btn-info">Lihat KTM</a>
+                                        <b class="ml-3 d-block">Pilihan mata kuliah</b></br>
                                         <ul>
-                                            @foreach ($matkuls as $matkul)
-                                            @if ($matkul->calon_asprak_id == $asprak->id)
-                                            <li>{{ DB::table('penilaian_aspraks')->join('mata_kuliahs', 'mata_kuliahs.mata_kuliah_id', '=', 'penilaian_aspraks.mata_kuliah_id')->join('daftar_mata_kuliahs', 'daftar_mata_kuliahs.id', '=', 'mata_kuliahs.mata_kuliah_id')->select('daftar_mata_kuliahs.nama')->first()->nama }}</li>
+                                            @foreach ($pilihans as $pilihan)
+                                            @foreach ($daftar_matkuls as $daftar_matkul)
+                                            @if($pilihan->matakuliah->mata_kuliah_id == $daftar_matkul->id and $pilihan->calon_asprak_id == $asprak->id)
+                                            <li>{{ $daftar_matkul->nama }}</li>
                                             @endif
+                                            @endforeach
                                             @endforeach
                                         </ul>
                                     </div>
