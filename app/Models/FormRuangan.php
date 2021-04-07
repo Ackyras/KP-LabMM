@@ -26,6 +26,7 @@ class FormRuangan extends Model
         'waktu',
         'hari',
         'validasi',
+        'keterangan'
     ];
 
     public function peminjamanruangans()
