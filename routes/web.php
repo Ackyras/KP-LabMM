@@ -16,6 +16,7 @@ use App\Http\Controllers\Dashboard\RekrutAsprakController;
 use App\Http\Controllers\Dashboard\SuratController;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\Dashboard\RuanganController as RuanganAdmin;
+use App\Http\Controllers\Dashboard\VerifikasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,7 +56,7 @@ Route::post('form/ruangan',             [RuanganController::class, 'store'])->na
 
 // Route Pendaftaran Calon Asprak
 Route::resource('calonasprak',          DaftarAsprakController::class)->only(['index', 'store']);
-Route::get('calonasprak/daftar',          [DaftarAsprakController::class, 'form'])->name('calonasprak.form');
+Route::get('calonasprak/daftar',        [DaftarAsprakController::class, 'form'])->name('calonasprak.form');
 
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
@@ -68,6 +69,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::post('penjadwalan/delete',           [PenjadwalanController::class, 'destroy'])->name('penjadwalan.destroy');
     Route::post('penjadwalan/reset',            [PenjadwalanController::class, 'massReset'])->name('penjadwalan.reset');
     Route::resource('ruangan',                  RuanganAdmin::class)->except(['show']);
+    Route::get('asprak/verifikasi',             [VerifikasiController::class, 'index'])->name('asprak.index');
+    Route::post('asprak/verifikasi',            [VerifikasiController::class, 'verifikasi'])->name('asprak.verifikasi');
+    Route::post('asprak/verifikasi/{matkul}',   [VerifikasiController::class, 'matkul'])->name('aspral.index.matkul');
 
     Route::group(['middleware' => 'Admin:superadmin'], function () {
         // Route Admin Inventaris Barang
