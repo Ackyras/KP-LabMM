@@ -26,6 +26,6 @@ class CalonAsprak extends Model
 
     public function penilaianaspraks()
     {
-        return $this->hasMany(Penilaian::class, 'calon_asprak_id', 'id');
+        return $this->hasMany(PenilaianAsprak::class, 'calon_asprak_id', 'id');
     }
 }
