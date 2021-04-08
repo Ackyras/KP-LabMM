@@ -277,7 +277,7 @@
                                     Management User
                                 </a>
                                 @endif
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('user.edit', auth()->user()->id) }}">
                                     <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Edit Profile
                                 </a>
@@ -305,18 +305,16 @@
 
                 </div>
                 <!-- End of Main Content -->
-
-                <!-- Footer -->
-                <footer class="sticky-footer bg-dark mt-4">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Laboratorium Multimedia</span>
-                        </div>
-                    </div>
-                </footer>
-                <!-- End of Footer -->
-
             </div>
+            <!-- Footer -->
+            <footer class="sticky-footer bg-dark mt-4">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span class="text-white">Copyright &copy; Laboratorium Multimedia</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
             <!-- End of Content Wrapper -->
 
         </div>
