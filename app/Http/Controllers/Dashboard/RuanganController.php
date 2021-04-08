@@ -12,7 +12,7 @@ class RuanganController extends Controller
 {
     public function index()
     {
-        $ruanglabs = RuangLab::all();
+        $ruanglabs = RuangLab::simplePaginate(10);
         return view('dashboard.ruangan.index', compact('ruanglabs'));
     }
 
@@ -48,7 +48,7 @@ class RuanganController extends Controller
                 }
             }
         });
-        return redirect()->route('ruangan.index');
+        return redirect()->route('ruanglab.index');
     }
 
     public function edit($id)
@@ -74,12 +74,12 @@ class RuanganController extends Controller
                 'status'    => $request->input('status')
             ]
         );
-        return redirect()->route('ruangan.index');
+        return redirect()->route('ruanglab.index');
     }
 
     public function destroy($id)
     {
         RuangLab::where('id', $id)->delete();
-        return redirect()->route('ruangan.index');
+        return redirect()->route('ruanglab.index');
     }
 }

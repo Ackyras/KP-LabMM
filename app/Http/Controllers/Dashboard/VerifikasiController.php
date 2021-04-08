@@ -21,9 +21,10 @@ class VerifikasiController extends Controller
 
     public function index()
     {
-        $aspraks = CalonAsprak::latest()->where('periode', $this->pembukaan_id)
+        $aspraks = CalonAsprak::where('periode', $this->pembukaan_id)
             ->where('status', 0)
-            ->get();
+            ->orderBy('created_at', 'desc')
+            ->simplePaginate(20);
         $pilihans = PenilaianAsprak::with('matakuliah')->get();
         $daftar_matkuls = DaftarMataKuliah::has('matakuliahs')->get();
         return view('dashboard.pendaftaran.verifikasi.index', compact('aspraks', 'pilihans', 'daftar_matkuls'));
@@ -57,7 +58,7 @@ class VerifikasiController extends Controller
     {
         $aspraks = CalonAsprak::latest()->where('periode', $this->pembukaan_id)
             ->where('status', 1)
-            ->get();
+            ->simplePaginate(20);
         $penilaian = PenilaianAsprak::with('matakuliah')->get();
         $daftar_matkuls = DaftarMataKuliah::has('matakuliahs')->get();
         return view('dashboard.pendaftaran.penilaian.index', compact('aspraks', 'pilihans', 'daftar_matkuls'));
