@@ -39,6 +39,13 @@ class DashboardController extends Controller
             ->pluck('id')
             ->toArray();
         $barangdipinjam = PeminjamanBarang::whereIn('form_barang_id', $barangdipinjam)->count();
-        return view('dashboard.index', compact('formbarangs', 'formruangans', 'barangs', 'ruangans', 'banyakformbarang', 'banyakformruangan', 'barangbelumkembali', 'barangdipinjam'));
+        $barangpinjamans = FormBarang::where('validasi', 2)
+            ->get()
+            ->pluck('id')
+            ->toArray();
+        $barangpinjamans = PeminjamanBarang::with(['inventaris', 'formbarang'])
+            ->whereIn('form_barang_id', $barangpinjamans)
+            ->simplePaginate(5);
+        return view('dashboard.index', compact('formbarangs', 'formruangans', 'barangs', 'ruangans', 'banyakformbarang', 'banyakformruangan', 'barangbelumkembali', 'barangdipinjam', 'barangpinjamans'));
     }
 }
