@@ -30,9 +30,7 @@ use App\Http\Controllers\Dashboard\VerifikasiController;
 */
 
 // Home
-Route::get('/', function () {
-    return view('barang.index');
-})->name('home');
+Route::view('/', 'home.index')->name('home');
 
 // auth
 Route::get('login',         [AuthController::class, 'index'])->name('login');

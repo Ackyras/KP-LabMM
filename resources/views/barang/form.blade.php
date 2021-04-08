@@ -58,7 +58,7 @@
                 <input list="barangs" name="kode[1]" class="form-control @error('kode[1]') is-invalid @enderror" required placeholder="Pilih barang">
                 <datalist id="barangs">
                     @foreach($barangs as $barang)
-                    <option value="{{ $barang->nama_barang }}">{{ $barang->nama_barang }}</option>
+                    <option value="{{ $barang->id }}">{{ $barang->id }}</option>
                     @endforeach
                 </datalist>
                 @error('kode[1]')

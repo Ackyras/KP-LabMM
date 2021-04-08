@@ -92,7 +92,7 @@ class BarangController extends Controller
             $jumlah = $request->input('jumlah');
 
             $total = count($barang);
-            for ($i = 0; $i < $total; $i++) {
+            for ($i = 1; $i <= $total; $i++) {
                 if ($barang[$i] != '' and $jumlah[$i] != 0) {
                     PeminjamanBarang::create(
                         [
@@ -105,6 +105,6 @@ class BarangController extends Controller
             }
         });
 
-        return redirect()->route('list')->with('msg', 'Berhasil membuat form');
+        return redirect()->route('barang.list')->with('msg', 'Berhasil membuat form');
     }
 }
