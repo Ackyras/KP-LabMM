@@ -85,6 +85,7 @@ List Peminjaman Ruangan
                     @endforelse
                 </tbody>
             </table>
+            {{ $ruangans->links() }}
         </div>
     </div>
 </div>

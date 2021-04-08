@@ -73,6 +73,7 @@
                     @endforelse
                 </tbody>
             </table>
+            {{$surats->links()}}
         </div>
     </div>
 </div>

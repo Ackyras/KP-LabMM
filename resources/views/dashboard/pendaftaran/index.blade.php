@@ -47,6 +47,7 @@
                     @endforelse
                 </tbody>
             </table>
+            {{$daftars->links()}}
             <a href="{{ route('rekrut.create') }}" class="btn btn-primary">Buka Pendaftaran</a>
         </div>
     </div>

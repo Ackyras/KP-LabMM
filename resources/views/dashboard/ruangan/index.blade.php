@@ -28,8 +28,8 @@
                         <td>{{ $ruang->lokasi }}</td>
                         <td>{{ $ruang->status }}</td>
                         <td>
-                            <a href="{{ route('ruangan.edit', $ruang->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                            <form action="{{ route('ruangan.destroy', $ruang->id) }}" method="POST" class="d-inline">
+                            <a href="{{ route('ruanglab.edit', $ruang->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                            <form action="{{ route('ruanglab.destroy', $ruang->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" onclick="return confirm('Menghapus data akan menghapus seluruh jadwal diruangan {{ $ruang->ruang}}')" class="btn btn-sm btn-danger">Hapus</button>
@@ -43,6 +43,7 @@
                     @endforelse
                 </tbody>
             </table>
+            {{$ruanglabs->links()}}
         </div>
     </div>
 </div>

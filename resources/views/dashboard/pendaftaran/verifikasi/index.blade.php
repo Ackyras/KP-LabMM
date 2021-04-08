@@ -82,6 +82,7 @@
                     @endforelse
                 </tbody>
             </table>
+            {{ $aspraks->links() }}
         </div>
     </div>
 </div>

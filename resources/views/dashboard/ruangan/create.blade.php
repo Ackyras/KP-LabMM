@@ -5,7 +5,7 @@ Tambah Data Ruangan
 @endsection
 
 @section('content')
-<form method="POST" action="{{ route('ruangan.store') }}">
+<form method="POST" action="{{ route('ruanglab.store') }}">
     @csrf
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Ruangan</label>

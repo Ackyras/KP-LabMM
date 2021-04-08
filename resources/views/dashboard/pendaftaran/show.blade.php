@@ -52,6 +52,7 @@
                     @endforelse
                 </tbody>
             </table>
+            {{$daftars->links()}}
             <a href="{{ route('matakuliah.create') }}" class="btn btn-primary">Tambah Mata Kuliah</a>
         </div>
     </div>

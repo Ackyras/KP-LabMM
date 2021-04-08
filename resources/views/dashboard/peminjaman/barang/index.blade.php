@@ -87,6 +87,7 @@ Peminjaman Barang
                     @endforelse
                 </tbody>
             </table>
+            {{ $forms->links() }}
         </div>
     </div>
 </div>

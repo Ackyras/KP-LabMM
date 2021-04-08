@@ -5,7 +5,7 @@ Tambah Data Ruangan
 @endsection
 
 @section('content')
-<form method="POST" action="{{ route('ruangan.update', $ruanglab->id) }}">
+<form method="POST" action="{{ route('ruanglab.update', $ruanglab->id) }}">
     @csrf
     @method('PUT')
     <div class="mb-1 mx-auto form-admin">
