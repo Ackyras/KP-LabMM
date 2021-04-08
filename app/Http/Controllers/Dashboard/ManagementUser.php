@@ -11,7 +11,7 @@ class ManagementUser extends Controller
     public function index()
     {
         if (auth()->user()->role == "superadmin") {
-            $users = User::all();
+            $users = User::simplePaginate(10);
             return view('dashboard.user.index', compact('users'));
         } else
             abort(403);
@@ -19,18 +19,22 @@ class ManagementUser extends Controller
 
     public function create()
     {
-        return view('dashboard.user.create');
+        if (auth()->user()->role == "superadmin") {
+            return view('dashboard.user.create');
+        } else
+            abort(403);
     }
 
     public function store(Request $request)
     {
         $request->validate(
             [
-                'name'      => ['required'],
-                'username'  => ['required', 'unique:App\Models\User,username'],
-                'email'     => ['email', 'required', 'unique:App\Models\User,email'],
-                'password'  => ['required'],
-                'role'      => ['required']
+                'name'              => ['required'],
+                'username'          => ['required', 'unique:users,username'],
+                'email'             => ['required', 'unique:users,email', 'email'],
+                'password'          => ['required'],
+                'password_confirm'  => ['required_with:password', 'same:password'],
+                'role'              => ['required']
             ]
         );
 
@@ -47,9 +51,10 @@ class ManagementUser extends Controller
         return redirect()->route('user.index');
     }
 
-    public function edit()
+    public function edit($id)
     {
-        return view('dashboard.user.edit');
+        $user = User::where('id', $id)->first();
+        return view('dashboard.user.edit', compact('user'));
     }
 
     public function update(Request $request, $id)
@@ -57,11 +62,12 @@ class ManagementUser extends Controller
         $request->validate(
             [
                 'name'              => ['required'],
-                'username'          => ['required', 'unique:App\Models\User,username'],
-                'email'             => ['email', 'required', 'unique:App\Models\User,email'],
+                'username'          => ['required', 'unique:users,username,' . auth()->user()->id],
+                'email'             => ['email', 'required', 'unique:users,email,' . auth()->user()->id],
                 'password'          => ['required_with:password_confirm', 'same:password_confirm'],
-                'password_confirm'  => ['required'],
-                'role'              => ['required']
+                'password'          => ['required'],
+                'password_confirm'  => ['required_with:password', 'same:password'],
+                'role'              => ['nullable']
             ]
         );
 
