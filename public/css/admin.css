@@ -2,42 +2,6 @@
     width: 40%;
 }
 
-.kotak {
-    background-color: rgb(254, 254, 254);
-    height: 100%;
-    box-shadow: 8px 10px 5px #d5d5d5;
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.img-inven {
-    background-color: rgb(254, 254, 254);
-    height: 13rem;
-    width: 13rem;
-    box-shadow: 8px 10px 5px #e3e3e3;
-    align-self: center;
-    margin-left: 50px;
-    border: black solid 2px;
-}
-
-.img-i {
-    height: 10rem;
-    width: 10rem;
-    margin-top: 15px;
-    object-fit: contain;
-    display: block;
-}
-
-.info {
-    flex: 1;
-    margin-left: 90px;
-    margin-top: 20px;
-}
-
-.text-info {
-    color: black;
-}
-
 .modal-body > .foto-barang {
     width: 150px;
     height: 150px;
@@ -57,4 +21,8 @@ pre {
     font-family: inherit;
     font-size: 16px;
     margin-bottom: 0;
+}
+
+.table-responsive {
+    padding-bottom: 1em;
 }
