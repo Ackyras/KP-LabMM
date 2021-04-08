@@ -3,10 +3,14 @@
 @section('title', 'Pendaftaran Asprak')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/formasprak.css')}}">
+<link rel="stylesheet" href="{{ asset('css/asprak/formasprak.css')}}">
 @endsection
 
 @section('content')
+<div class="row">
+    <h4 class="p-2 title-header">Formulir Pendaftaran Asisten Praktikum</h4>
+    <div class="line"></div>
+</div>
 <div class="row pb-4">
     <form class="col-8" action="{{ route('calonasprak.store') }}" method="POST" enctype="multipart/form-data">
         @csrf

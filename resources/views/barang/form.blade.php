@@ -13,7 +13,7 @@
     <h4 class="title-data">Data Peminjam</h4>
     <div class="line-2"></div>
 </div>
-<div class="row">
+<div class="row pb-4">
     <form class="col-8" action="{{ route('barang.store') }}" method="POST">
         @csrf
         <div class="form-group p-1">

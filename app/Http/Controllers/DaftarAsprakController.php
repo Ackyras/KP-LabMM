@@ -86,4 +86,9 @@ class DaftarAsprakController extends Controller
 
         return redirect()->route('home');
     }
+
+    public function seleksi()
+    {
+        return view('asprak.seleksi');
+    }
 }

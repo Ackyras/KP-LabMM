@@ -26,21 +26,26 @@
     </header>
 
     <div class="row mx-2" style="max-height: 90%;">
-        <div class="col-sm p-3 bg-light wrapper-navbar">
+        <div class="col-sm-3 p-3 bg-light wrapper-navbar">
             <ul class="sidenav-menu">
                 <a href="#">
                     <li class="navbarw sidenav-item p-2 border">
-                        <i class="fas fa-archway px-3"></i>Beranda
+                        <i class="fas fa-home px-3"></i>Beranda
                     </li>
                 </a>
                 <a href="{{ route('calonasprak.form') }}">
                     <li class="navbarw sidenav-item p-2 border">
-                        <i class="fas fa-archway px-3"></i>Daftar
+                        <i class="fas fa-file-alt px-3"></i>Daftar
+                    </li>
+                </a>
+                <a href="{{ route('calonasprak.seleksi') }}">
+                    <li class="navbarw sidenav-item p-2 border">
+                        <i class="fas fa-laptop-code px-3"></i>Uji Seleksi
                     </li>
                 </a>
                 <a href="#">
                     <li class="navbarw sidenav-item p-2 border">
-                        <i class="fas fa-stamp px-3"></i>Uji Seleksi
+                        <i class="fas fa-table px-3"></i>Jadwal Seleksi
                     </li>
                 </a>
             </ul>

@@ -30,17 +30,17 @@
             <ul class="sidenav-menu">
                 <a href="{{route('barang.list')}}">
                     <li class="navbarw sidenav-item p-2 border">
-                        <i class="fas fa-archway px-3"></i>Daftar Barang
+                        <i class="fas fa-boxes px-3"></i>Daftar Barang
                     </li>
                 </a>
                 <a href="{{route('barang.form')}}">
                     <li class="navbarw sidenav-item p-2 border">
-                        <i class="fas fa-stamp px-3"></i>Form Pinjam Barang
+                        <i class="fas fa-laptop px-3"></i>Form Pinjam Barang
                     </li>
                 </a>
                 <a href="{{ route('ruangan.form') }}">
                     <li class="navbarw sidenav-item p-2 border">
-                        <i class="fas fa-boxes px-3"></i>Form Pinjam Ruangan
+                        <i class="fas fa-door-open px-3"></i>Form Pinjam Ruangan
                     </li>
                 </a>
             </ul>
