@@ -19,7 +19,7 @@ class PeminjamanBarang extends Model
 
     public function formbarang()
     {
-        return $this->belongsTo(FormBarang::class);
+        return $this->belongsTo(FormBarang::class, 'form_barang_id', 'id');
     }
 
     public function inventaris()
