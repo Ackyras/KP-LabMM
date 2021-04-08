@@ -21,4 +21,9 @@ class RuangLab extends Model
     {
         return $this->hasMany(Ruangan::class, 'ruang_lab', 'id');
     }
+
+    public function formruangan()
+    {
+        return $this->hasMany(FormRuangan::class, 'ruang_lab', 'id');
+    }
 }

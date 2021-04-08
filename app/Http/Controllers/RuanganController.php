@@ -6,6 +6,7 @@ use App\Http\Requests\FormRuanganRequest;
 use App\Models\FormRuangan;
 use App\Models\PeminjamanRuangan;
 use App\Models\Ruangan;
+use App\Models\RuangLab;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,7 +14,8 @@ class RuanganController extends Controller
 {
     public function form()
     {
-        return view('ruangan.form');
+        $ruangs = RuangLab::all();
+        return view('ruangan.form', compact('ruangs'));
     }
 
     public function store(FormRuanganRequest $request)

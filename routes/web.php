@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\DaftarMataKuliahController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\InventarisController;
+use App\Http\Controllers\Dashboard\ManagementUser;
 use App\Http\Controllers\Dashboard\MataKuliahController;
 use App\Http\Controllers\Dashboard\PeminjamanBarangController;
 use App\Http\Controllers\Dashboard\PeminjamanRuanganController;
@@ -14,9 +15,10 @@ use App\Http\Controllers\Dashboard\PendaftaranAsprakController;
 use App\Http\Controllers\Dashboard\PenjadwalanController;
 use App\Http\Controllers\Dashboard\RekrutAsprakController;
 use App\Http\Controllers\Dashboard\SuratController;
-use App\Http\Controllers\RuanganController;
+use App\Http\Controllers\RuanganController as RuanganForm;
 use App\Http\Controllers\Dashboard\RuanganController as RuanganAdmin;
 use App\Http\Controllers\Dashboard\VerifikasiController;
+use Illuminate\Support\Manager;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,8 +51,8 @@ Route::post('form/barang',              [BarangController::class, 'store'])->nam
 
 
 // Route Client Peminjaman Ruangan
-Route::get('form/ruangan',              [RuanganController::class, 'form'])->name('ruangan.form');
-Route::post('form/ruangan',             [RuanganController::class, 'store'])->name('ruangan.store');
+Route::get('form/ruangan',              [RuanganForm::class, 'form'])->name('ruangan.form');
+Route::post('form/ruangan',             [RuanganForm::class, 'store'])->name('ruangan.store');
 
 // Route Pendaftaran Calon Asprak
 Route::resource('calonasprak',          DaftarAsprakController::class)->only(['index', 'store']);
@@ -66,13 +68,14 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::get('penjadwalan',                   [PenjadwalanController::class, 'index'])->name('penjadwalan.index');
     Route::post('penjadwalan/delete',           [PenjadwalanController::class, 'destroy'])->name('penjadwalan.destroy');
     Route::post('penjadwalan/reset',            [PenjadwalanController::class, 'massReset'])->name('penjadwalan.reset');
-    Route::resource('ruangan',                  RuanganAdmin::class)->except(['show']);
+    Route::resource('ruanglab',                 RuanganAdmin::class)->except(['show']);
     Route::get('asprak/verifikasi',             [VerifikasiController::class, 'index'])->name('asprak.index');
     Route::post('asprak/verifikasi',            [VerifikasiController::class, 'verifikasiberkas'])->name('asprak.verifikasi');
     Route::post('asprak/verifikasi/{matkul}',   [VerifikasiController::class, 'matkul'])->name('aspral.index.matkul');
     Route::get('asprak/penilaian',              [VerifikasiController::class, 'indexnilai'])->name('asprak.nilai.index');
     Route::post('asprak/penilain',              [VerifikasiController::class, 'penilaian'])->name('asprak.verifikasi.nilai');
     Route::post('asprak/verifikasi/nilai',      [VerifikasiController::class, 'verifikasilulus'])->name('asprak.verifikasi.lulus');
+    Route::resource('user',                     ManagementUser::class)->except(['show']);
 
     Route::group(['middleware' => 'Admin:superadmin'], function () {
         // Route Admin Inventaris Barang

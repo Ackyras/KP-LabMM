@@ -53,10 +53,12 @@
         <div class="line-3"></div>
         <div class="form-group p-1">
             <label>Ruangan Laboratorium</label>
-            <input list="ruanglab" name="ruang_lab" value="{{ old('ruang_lab') }}" class="form-control rounded @error('ruang_lab') is-invalid @enderror" required placeholder="Pilih ruang laboratorium">
-            <datalist id="ruanglab">
-                <option value="Lab MM"></option>
-            </datalist>
+            <select name="ruang_lab" class="form-control @error('ruang_lab') is-invalid @enderror" required>
+                <option value="" selected disabled>Pilih ruangan</option>
+                @foreach ($ruangs as $ruang)
+                <option value="{{ $ruang->id }}"><b>{{ $ruang->lokasi }} : </b>{{$ruang->ruang}}</option>
+                @endforeach
+            </select>
             @error('ruang_lab')
             <div class="alert alert-danger mt-1">{{ $message }}</div>
             @enderror

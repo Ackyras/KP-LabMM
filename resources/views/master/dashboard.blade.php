@@ -87,8 +87,8 @@
                 <div id="jadwal" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('penjadwalan.index') }}">Jadwal</a>
-                        <a class="collapse-item" href="{{ route('ruangan.index') }}">List Ruangan</a>
-                        <a class="collapse-item" href="{{ route('ruangan.create') }}">Tambah Ruangan</a>
+                        <a class="collapse-item" href="{{ route('ruanglab.index') }}">List Ruangan</a>
+                        <a class="collapse-item" href="{{ route('ruanglab.create') }}">Tambah Ruangan</a>
                     </div>
                 </div>
             </li>
@@ -227,7 +227,7 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
@@ -236,7 +236,7 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form> -->
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -268,9 +268,19 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth()->user()->name}}</span>
-                                <!-- <img class="img-profile rounded-circle" src="img/undraw_profile.svg"> -->
+                                <i class="far fa-user"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                @if(auth()->user()->role == "superadmin")
+                                <a class="dropdown-item" href="{{ route('user.index') }}">
+                                    <i class="fas fa-users-cog fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Management User
+                                </a>
+                                @endif
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Edit Profile
+                                </a>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout

@@ -33,4 +33,9 @@ class FormRuangan extends Model
     {
         return $this->hasMany(PeminjamanRuangan::class, 'form_ruangan_id', 'id');
     }
+
+    public function ruanglab()
+    {
+        return $this->belongsTo(RuangLab::class, 'ruang_lab', 'id');
+    }
 }
