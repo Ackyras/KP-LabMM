@@ -9,7 +9,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Barang Dipinjam (Hari Ini)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$barangdipinjam}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-toolbox fa-2x text-gray-300"></i>
@@ -26,7 +26,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Form Masuk Peminjaman (Barang)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$banyakformbarang}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fab fa-wpforms fa-2x text-gray-300"></i>
@@ -43,7 +43,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Barang Belum Dikembalikan</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$barangbelumkembali}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-exclamation fa-2x text-gray-300"></i>
@@ -60,7 +60,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Form Masuk Peminjaman (Ruangan)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$banyakformruangan}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fab fa-wpforms fa-2x text-gray-300"></i>
@@ -142,7 +142,7 @@
                             </div>
                             @empty
                             <tr>
-                                <th scope="row" colspan="4">Tidak ada form peminjaman barang</th>
+                                <th scope="row" colspan="5">Tidak ada form peminjaman barang</th>
                             </tr>
                             @endforelse
                         </tbody>
@@ -227,7 +227,7 @@
                             </div>
                             @empty
                             <tr>
-                                <th scope="row" colspan="4">Tidak ada form peminjaman ruangan</th>
+                                <th scope="row" colspan="5">Tidak ada form peminjaman ruangan</th>
                             </tr>
                             @endforelse
                         </tbody>
