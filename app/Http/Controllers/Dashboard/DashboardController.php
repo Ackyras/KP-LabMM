@@ -15,14 +15,30 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $formbarangs = FormBarang::where('created_at', '>=', Carbon::today())->take(5)->orderBy('created_at')->get();
-        $formruangans = FormRuangan::has('ruanglab')->where('created_at', '>=', Carbon::today())->take(5)->orderBy('created_at')->get();
+        $formbarangs = FormBarang::where('created_at', '>=', Carbon::today())
+            ->orderBy('created_at')
+            ->take(5)
+            ->get();
+        $formruangans = FormRuangan::has('ruanglab')
+            ->where('created_at', '>=', Carbon::today())
+            ->orderBy('created_at')
+            ->take(5)
+            ->get();
         $barangs = PeminjamanBarang::with('inventaris')->get();
         $ruangans = PeminjamanRuangan::all();
-        $banyakform = FormBarang::where('created_at', '>=', Carbon::today())->count();
-        $barangdipinjam = FormBarang::where('validasi', 2)->get()->pluck('id')->toArray();
-        $barangdipinjam = PeminjamanBarang::where();
-        dd($barangdipinjam);
-        return view('dashboard.index', compact('formbarangs', 'formruangans', 'barangs', 'ruangans', 'banyakform'));
+        $banyakformbarang = FormBarang::where('created_at', '>=', Carbon::today())->count();
+        $banyakformruangan = FormRuangan::where('created_at', '>=', Carbon::today())->count();
+        $barangbelumkembali = FormBarang::where('validasi', 2)
+            ->where('tanggal_pengembalian', '<', Carbon::today())
+            ->get()
+            ->pluck('id')
+            ->toArray();
+        $barangbelumkembali = PeminjamanBarang::whereIn('form_barang_id', $barangbelumkembali)->count();
+        $barangdipinjam = FormBarang::where('validasi', 2)
+            ->get()
+            ->pluck('id')
+            ->toArray();
+        $barangdipinjam = PeminjamanBarang::whereIn('form_barang_id', $barangdipinjam)->count();
+        return view('dashboard.index', compact('formbarangs', 'formruangans', 'barangs', 'ruangans', 'banyakformbarang', 'banyakformruangan', 'barangbelumkembali', 'barangdipinjam'));
     }
 }
