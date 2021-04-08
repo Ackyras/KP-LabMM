@@ -42,7 +42,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Barang Belum Dikembalikan</div>
+                            Barang Telat Dikembalikan</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{$barangbelumkembali}}</div>
                     </div>
                     <div class="col-auto">
@@ -124,6 +124,7 @@
                                                 @endforeach
                                             </ul>
                                         </div>
+                                        @if (auth()->user()->role == "superadmin" or auth()->user()->role == "inventaris")
                                         <div class="modal-footer">
                                             <form action="{{ route('peminjaman.barang.update') }}" method="POST">
                                                 @csrf
@@ -137,6 +138,7 @@
                                                 @endif
                                             </form>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -148,9 +150,11 @@
                         </tbody>
                     </table>
                 </div>
+                @if (auth()->user()->role == "superadmin" or auth()->user()->role == "inventaris")
                 <a href="{{ route('peminjaman.barang') }}" class="btn btn-primary btn-icon-split float-right w-100">
                     <span class="text" style="color:white;">Lihat Selengkapnya</span>
                 </a>
+                @endif
             </div>
         </div>
     </div>
@@ -213,6 +217,7 @@
                                                 @endforeach
                                             </ul>
                                         </div>
+                                        @if (auth()->user()->role == "superadmin" or auth()->user()->role == "ruangan")
                                         <div class="modal-footer">
                                             <form method="POST" action="{{ route('peminjaman.ruangan.update') }}">
                                                 @csrf
@@ -222,6 +227,7 @@
                                                 <button type="submit" class="btn btn-success" name="action" value="2">Setuju</button>
                                             </form>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -233,11 +239,57 @@
                         </tbody>
                     </table>
                 </div>
+                @if (auth()->user()->role == "superadmin" or auth()->user()->role == "ruangan")
                 <a href="{{ route('peminjaman.ruangan') }}" class="btn btn-primary btn-icon-split float-right w-100">
                     <span class="text" style="color:white;">Lihat Selengkapnya</span>
                 </a>
+                @endif
             </div>
         </div>
     </div>
-</div>
-@endsection
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Barang dipinjam</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table" style="font-size: 13px">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Peminjam</th>
+                                    <th scope="col">Barang</th>
+                                    <th scope="col">Jumlah</th>
+                                    <th scope="col">Tanggal Pengembalian</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($barangpinjamans as $barangpinjaman)
+                                <tr>
+                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td> {{$barangpinjaman->formbarang->nama_peminjam}} </td>
+                                    <td> {{$barangpinjaman->inventaris->nama_barang}} </td>
+                                    <td> {{$barangpinjaman->jumlah}} </td>
+                                    <td> {{$barangpinjaman->formbarang->tanggal_pengembalian}} </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <th scope="row" colspan="5">Tidak ada barang yang dipinjam</th>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                        {{$barangpinjamans->links()}}
+                    </div>
+                    @if (auth()->user()->role == "superadmin" or auth()->user()->role == "inventaris")
+                    <a href="{{ route('peminjaman.barang') }}" class="btn btn-primary btn-icon-split float-right w-100">
+                        <span class="text" style="color:white;">Lihat Selengkapnya</span>
+                    </a>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+    @endsection
