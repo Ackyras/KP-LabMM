@@ -20,14 +20,15 @@
     @yield('css')
 </head>
 
-<body background="{{ asset('img/background.jpg')}}" style="overflow: hidden; background-repeat: no-repeat; height: 100%; background-position: center center; background-size: cover; background-attachment: fixed;">
+<body background="{{ asset('img/background.jpg')}}">
     <header style="max-height: 10%;">
         <a class="itera" href="{{ route('home') }}"><img src="{{ asset('img/LabMM2.png')}}" alt="Laboratorium"></a>
     </header>
 
-    <div class="row mx-2" style="max-height: 90%;">
+    <div class="row mx-2 wrapper-main">
         <div class="col-sm p-3 bg-light wrapper-navbar">
             <ul class="sidenav-menu">
+                @if($master == "peminjaman")
                 <a href="{{route('barang.list')}}">
                     <li class="navbarw sidenav-item p-2 border">
                         <i class="fas fa-boxes px-3"></i>Daftar Barang
@@ -43,6 +44,28 @@
                         <i class="fas fa-door-open px-3"></i>Form Pinjam Ruangan
                     </li>
                 </a>
+                @else
+                <a href="{{ route('calonasprak.index') }}">
+                    <li class="navbarw sidenav-item p-2 border">
+                        <i class="fas fa-home px-3"></i>Beranda
+                    </li>
+                </a>
+                <a href="{{ route('calonasprak.form') }}">
+                    <li class="navbarw sidenav-item p-2 border">
+                        <i class="fas fa-file-alt px-3"></i>Daftar
+                    </li>
+                </a>
+                <a href="{{ route('calonasprak.seleksi') }}">
+                    <li class="navbarw sidenav-item p-2 border">
+                        <i class="fas fa-laptop-code px-3"></i>Uji Seleksi
+                    </li>
+                </a>
+                <a href="#">
+                    <li class="navbarw sidenav-item p-2 border">
+                        <i class="fas fa-table px-3"></i>Jadwal Seleksi
+                    </li>
+                </a>
+                @endif
             </ul>
             <footer class="mx-auto">
                 <p class="text-white font-footer text-center ml-4">Copyright&copyLaboratorium Multimedia</p>
