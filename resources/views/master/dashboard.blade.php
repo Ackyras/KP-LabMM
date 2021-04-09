@@ -160,7 +160,7 @@
                 <div id="verif" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('asprak.index') }}">Verifikasi Berkas</a>
-                        <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Verifikasi Penilaian</a>
+                        <a class="collapse-item" href="{{ route('asprak.nilai.index') }}">Verifikasi Penilaian</a>
                     </div>
                 </div>
             </li>
