@@ -16,7 +16,8 @@ class BarangController extends Controller
         $barangs = Inventaris::where('status', 'Baik')
             ->orderByDesc('updated_at')
             ->get();
-        return view('barang.list', compact('barangs'));
+        $master = "peminjaman";
+        return view('barang.list', compact('barangs', 'master'));
     }
 
     public function listElektronik()
@@ -25,7 +26,8 @@ class BarangController extends Controller
             ->where('kategori', 'Elektronik')
             ->orderByDesc('updated_at')
             ->get();
-        return view('barang.list', compact('barangs'));
+        $master = "peminjaman";
+        return view('barang.list', compact('barangs', 'master'));
     }
 
     public function listNonElektronik()
@@ -34,7 +36,8 @@ class BarangController extends Controller
             ->where('kategori', 'Non Elektronik')
             ->orderByDesc('updated_at')
             ->get();
-        return view('barang.list', compact('barangs'));
+        $master = "peminjaman";
+        return view('barang.list', compact('barangs', 'master'));
     }
 
     public function listTpb()
@@ -43,7 +46,8 @@ class BarangController extends Controller
             ->where('lokasi', 'TPB')
             ->orderByDesc('updated_at')
             ->get();
-        return view('barang.list', compact('barangs'));
+        $master = "peminjaman";
+        return view('barang.list', compact('barangs', 'master'));
     }
 
     public function listProdi()
@@ -52,7 +56,8 @@ class BarangController extends Controller
             ->where('lokasi', 'PRODI')
             ->orderByDesc('updated_at')
             ->get();
-        return view('barang.list', compact('barangs'));
+        $master = "peminjaman";
+        return view('barang.list', compact('barangs', 'master'));
     }
 
     public function search(Request $request)
@@ -63,20 +68,23 @@ class BarangController extends Controller
             ->where('nama_barang', 'like', '%' . $query  . '%')
             ->orderByDesc('updated_at')
             ->get();
-        return view('barang.list', compact('barangs'));
+        $master = "peminjaman";
+        return view('barang.list', compact('barangs', 'master'));
     }
 
     public function show($id)
     {
         $barang = Inventaris::find($id);
-        return view('barang.show', compact('barang'));
+        $master = "peminjaman";
+        return view('barang.show', compact('barang', 'master'));
     }
 
     public function form()
     {
         $barangs = Inventaris::where('status', 'Baik')
             ->where('peminjaman', '>', 0)->get();
-        return view('barang.form', compact('barangs'));
+        $master = "peminjaman";
+        return view('barang.form', compact('barangs', 'master'));
     }
 
     public function store(FormBarangRequest $request)

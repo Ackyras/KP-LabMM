@@ -15,7 +15,8 @@ class RuanganController extends Controller
     public function form()
     {
         $ruangs = RuangLab::all();
-        return view('ruangan.form', compact('ruangs'));
+        $master = "peminjaman";
+        return view('ruangan.form', compact('ruangs', 'master'));
     }
 
     public function store(FormRuanganRequest $request)
@@ -35,6 +36,6 @@ class RuanganController extends Controller
                 ]);
             }
         });
-        return redirect()->route('barang.form')->with('msg', 'Pesan');
+        return redirect()->route('ruangan.form')->with('msg', 'Pesan');
     }
 }
