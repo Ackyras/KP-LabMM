@@ -24,10 +24,14 @@ class AuthController extends Controller
         ]);
         $credentials = $req->only('username', 'password');
         if (Auth::attempt($credentials)) {
-            Auth::user();
-            return redirect()->route('admin.dashboard');
+            $auth = Auth::user();
+            if ($auth->role != "calonasprak") {
+                return redirect()->route('admin.dashboard');
+            } else {
+                abort(403);
+            }
         }
-        return redirect()->route('home');
+        abort(403);
     }
 
     public function logout(Request $req)
