@@ -40,19 +40,23 @@ class DaftarAsprakController extends Controller
             [
                 'username'  => 'required',
                 'password'  => 'required'
+            ],
+            [
+                'username.required' => 'Masukkan username',
+                'password.required' => 'Masukkan password'
             ]
         );
         if (Auth::attempt($request->only('username', 'password'))) {
             $auth = Auth::user();
             if ($auth->role == "calonasprak") {
-                return view('asprak.index', ['master' => 'asprak']);
+                return view('asprak.seleksi', ['master' => 'asprak']);
             } else {
+                Auth::logout();
                 return redirect()->back()->withErrors('Login gagal, pastikan anda lolos verifikasi berkas');
             }
         } else {
             return redirect()->back()->withErrors('Login gagal, pastikan anda lolos verifikasi berkas');
         }
-        // LOGIN POST
     }
 
     public function form()
