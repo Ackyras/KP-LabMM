@@ -29,7 +29,7 @@ class MataKuliahController extends Controller
         $request->validate([
             'matakuliah'        => 'required',
             'dosen'             => 'required',
-            'tanggal_seleksi'   => 'required',
+            'tanggal_seleksi'   => ['required', 'after:today'],
             'awal_seleksi'      => ['required', 'date_format:H:i', 'unique:App\Models\MataKuliah,awal_seleksi'],
             'akhir_seleksi'     => ['required', 'date_format:H:i', 'after:awal_seleksi'],
             'soal'              => ['mimetypes:application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword', 'max:2048', 'nullable']
@@ -73,7 +73,7 @@ class MataKuliahController extends Controller
         $request->validate([
             'matakuliah'        => 'required',
             'dosen'             => 'required',
-            'tanggal_seleksi'   => 'required',
+            'tanggal_seleksi'   => ['required', 'after:today'],
             'awal_seleksi'      => ['required', 'date_format:H:i'],
             'akhir_seleksi'     => ['required', 'date_format:H:i', 'after:awal_seleksi'],
             'soal'              => ['mimetypes:application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword', 'max:2048', 'nullable']
