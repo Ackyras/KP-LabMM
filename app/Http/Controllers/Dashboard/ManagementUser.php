@@ -54,7 +54,10 @@ class ManagementUser extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
-        return view('dashboard.user.edit', compact('user'));
+        if ($id == auth()->user()->id or auth()->user()->role == "superadmin")
+            return view('dashboard.user.edit', compact('user'));
+        else
+            abort(403);
     }
 
     public function update(Request $request, $id)
