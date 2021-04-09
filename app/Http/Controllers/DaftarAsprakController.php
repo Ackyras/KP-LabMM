@@ -8,6 +8,7 @@ use App\Models\MataKuliah;
 use App\Models\PembukaanAsprak;
 use App\Models\PenilaianAsprak;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,9 +23,36 @@ class DaftarAsprakController extends Controller
 
     public function index()
     {
-        $pembukaan = PembukaanAsprak::latest()->first();
-        $matakuliahs = MataKuliah::with('daftarmatakuliah')->where('pembukaan_asprak_id', $pembukaan->id)->get();
-        return view('asprak.index', compact('matakuliahs'));
+        $matakuliahs = MataKuliah::with('daftarmatakuliah', 'pembukaanasprak')->where('pembukaan_asprak_id', $this->pembukaan_id->id)->get();
+        $master = "asprak";
+        return view('asprak.index', compact('matakuliahs', 'master'));
+    }
+
+    public function login()
+    {
+        $master = "asprak";
+        return view('asprak.login', compact('master'));
+    }
+
+    public function loginpost(Request $request)
+    {
+        $request->validate(
+            [
+                'username'  => 'required',
+                'password'  => 'required'
+            ]
+        );
+        if (Auth::attempt($request->only('username', 'password'))) {
+            $auth = Auth::user();
+            if ($auth->role == "calonasprak") {
+                return view('asprak.index', ['master' => 'asprak']);
+            } else {
+                return redirect()->back()->withErrors('Login gagal, pastikan anda lolos verifikasi berkas');
+            }
+        } else {
+            return redirect()->back()->withErrors('Login gagal, pastikan anda lolos verifikasi berkas');
+        }
+        // LOGIN POST
     }
 
     public function form()
@@ -33,7 +61,8 @@ class DaftarAsprakController extends Controller
         $matakuliahs = MataKuliah::with('daftarmatakuliah')
             ->where('pembukaan_asprak_id', $pembukaan)
             ->get();
-        return view('asprak.form', compact('matakuliahs'));
+        $master = "asprak";
+        return view('asprak.form', compact('matakuliahs', 'master'));
     }
 
     public function store(DaftarAsprakRequest $request)
@@ -89,6 +118,7 @@ class DaftarAsprakController extends Controller
 
     public function seleksi()
     {
-        return view('asprak.seleksi');
+        $master = "asprak";
+        return view('asprak.seleksi', compact('master'));
     }
 }
