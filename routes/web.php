@@ -56,6 +56,8 @@ Route::post('form/ruangan',             [RuanganForm::class, 'store'])->name('ru
 
 // Route Pendaftaran Calon Asprak
 Route::resource('calonasprak',          DaftarAsprakController::class)->only(['index', 'store']);
+Route::get('calonasprak/login',         [DaftarAsprakController::class, 'login'])->name('calonasprak.login');
+Route::post('calonasprak/login',         [DaftarAsprakController::class, 'loginpost'])->name('calonasprak.login.post');
 Route::get('calonasprak/daftar',        [DaftarAsprakController::class, 'form'])->name('calonasprak.form');
 Route::get('calonasprak/seleksi',       [DaftarAsprakController::class, 'seleksi'])->name('calonasprak.seleksi');
 
