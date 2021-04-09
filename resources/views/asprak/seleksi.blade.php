@@ -13,9 +13,9 @@
     <div class="card mx-auto">
         <div class="card-body align-items-center d-flex">
             <ul class="ul-matkul my-4">
-                <li>PKS I <a href="">Silahkan klik disini</a></li>
-                <li>PKS I <a href="">Silahkan klik disini</a></li>
-                <li>PKS I <a href="">Silahkan klik disini</a></li>
+                @foreach ($matkuls as $matkul)
+                <li>{{$matkul->daftarmatakuliah->nama}} <a class="link" href="{{ route('asprak.test', $matkul->id) }}">Silahkan klik disini</a></li>
+                @endforeach
             </ul>
         </div>
     </div>

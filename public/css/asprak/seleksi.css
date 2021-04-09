@@ -26,14 +26,14 @@ h3 {
     list-style-type: none;
 }
 
-a {
+.link {
     color: red;
     font-family: "Questrial", sans-serif;
     font-size: 15px;
     text-decoration: underline;
 }
 
-a:hover {
+.link:hover {
     color: rgb(133, 14, 14);
 }
 
@@ -47,10 +47,10 @@ a:hover {
 }
 
 li {
-    margin-top: .4rem;
+    margin-top: 0.4rem;
 }
 
-@media screen and (max-width:576px) {
+@media screen and (max-width: 576px) {
     .card {
         height: 40vh;
         width: 75%;
