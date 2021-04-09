@@ -3,7 +3,7 @@
 @section('css')
 @endsection
 
-@section('title-page', 'List Calon Asprak')
+@section('title-page', 'Verifikasi Berkas Calon Asprak')
 
 @section('content')
 <div class="card shadow mb-4">
@@ -11,6 +11,10 @@
         <h6 class="m-0 font-weight-bold text-primary">List Calon Asprak</h6>
     </div>
     <div class="card-body">
+        <form action="{{ route('asprak.index.matkul') }}" method="GET">
+            @csrf
+            <input class="my-2 form-control w-25 float-right mr-2" name="nama" type="text" id="myInput" autocomplete="off" onkeyup="searchData()" placeholder="Cari nama atau program studi">
+        </form>
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -42,16 +46,26 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <b class="ml-3">Nama &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $asprak->nama }}</br>
-                                        <b class="ml-3">NIM &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $asprak->nim }}</br>
-                                        <b class="ml-3">Program Studi &nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $asprak->program_studi }}</br>
-                                        <b class="ml-3">Angkatan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $asprak->angkatan }}</br>
-                                        <b class="ml-3">E-mail &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $asprak->email }}</br>
-                                        <b class="ml-3">Tanggal lahir &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $asprak->tanggal_lahir }}</br>
-                                        <a href="{{ $asprak->cv }}" class="btn btn-sm btn-info">Lihat CV</a>
-                                        <a href="{{ $asprak->khs }}" class="btn btn-sm btn-info">Lihat KHS</a>
-                                        <a href="{{ $asprak->ktm }}" class="btn btn-sm btn-info">Lihat KTM</a>
-                                        <b class="ml-3 d-block">Pilihan mata kuliah</b></br>
+                                        <dl class="ml-3">
+                                            <dt><small><b>Nama</b></small></dt>
+                                            <dd>{{ $asprak->nama }}</dd>
+                                            <dt><small><b>Nim</b></small></dt>
+                                            <dd>{{ $asprak->nim }}</dd>
+                                            <dt><small><b>Program Studi</b></small></dt>
+                                            <dd>{{ $asprak->program_studi }}</dd>
+                                            <dt><small><b>Angkatan</b></small></dt>
+                                            <dd>{{$asprak->angkatan}} </dd>
+                                            <dt><small><b>E-mail</b></small></dt>
+                                            <dd>{{ $asprak->email }}</b></small></dt>
+                                            <dt><small><b>Tanggal lahir</dt>
+                                            <dd>{{ $asprak->tanggal_lahir }}</b></small></dt>
+                                        </dl>
+                                        <div class="d-flex justify-content-evenly">
+                                            <a href="{{ $asprak->cv }}" class="btn btn-sm btn-info">Lihat CV</a>
+                                            <a href="{{ $asprak->khs }}" class="btn btn-sm btn-info">Lihat KHS</a>
+                                            <a href="{{ $asprak->ktm }}" class="btn btn-sm btn-info">Lihat KTM</a>
+                                        </div>
+                                        <b class="ml-3 d-block mt-2">Pilihan mata kuliah</b>
                                         <ul>
                                             @foreach ($pilihans as $pilihan)
                                             @foreach ($daftar_matkuls as $daftar_matkul)
@@ -86,4 +100,29 @@
         </div>
     </div>
 </div>
+<script>
+    function searchData() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("dataTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            tdProdi = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                txtValueLokasi = tdProdi.textContent || tdProdi.innerText;
+                if ((txtValue.toUpperCase().indexOf(filter) > -1) || (txtValueLokasi.toUpperCase().indexOf(filter) > -1)) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
 @endsection
