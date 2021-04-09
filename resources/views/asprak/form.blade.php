@@ -1,4 +1,4 @@
-@extends('master.asprak')
+@extends('master.master')
 
 @section('title', 'Pendaftaran Asprak')
 
