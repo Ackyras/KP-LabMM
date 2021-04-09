@@ -12,24 +12,31 @@
 <div class="row mt-3">
     <div class="card mx-auto">
         <div class="card-body align-items-center d-flex">
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
-            <form class="mx-auto" action="{{ route('calonasprak.login.post') }}" method="POST">
-                <i class="fas fa-sign-in-alt px-3"></i> Calon Asprak
+            <form class="mx-auto" method="POST" action="{{ route('calonasprak.login.post') }}">
+                @csrf
+                @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                @if ($error[0] != "M")
+                <div class="alert alert-danger" style="font-size: 14px;">
+                    {{ $error }}
+                </div>
+                @endif
+                @endforeach
+                @endif
+                <i class="fas fa-sign-in-alt ml-4"> Calon Asprak</i>
                 <div class="form-group mt-3">
                     <label for="username" class="form-label">Username</label>
-                    <input type="text" id="username" name="username" class="form-control" placeholder="Masukkan username" autofocus autocomplete="off">
+                    <input type="text" id="username" name="username" class="form-control @error('username') is-invalid @enderror" required placeholder="Masukkan username" autofocus autocomplete="off">
+                    @error('username')
+                    <div class="alert alert-danger mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
-                <div class="form-group">
+                <div class="form-group mt-2">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Masukkan password" autocomplete="off">
+                    <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" required placeholder="Masukkan password" autocomplete="off">
+                    @error('password')
+                    <div class="alert alert-danger mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
                 <button class="btn btn-login mt-3 float-right" type="submit">Login</button>
             </form>
