@@ -54,7 +54,7 @@ class DaftarAsprakRequest extends FormRequest
             'email.email'           => 'Mohon isi field email dengan format email yang tepat',
             'tanggal_lahir.required' => 'Mohon isi field tanggal lahir',
             'tanggal_lahir.date'    => 'Field tanggal lahir hanya bisa di isi dengan tanggal',
-            'tanggal_lahir.before'  => 'Tanggal lahir tidak mungkin hari ini',
+            'tanggal_lahir.before'  => 'Tanggal lahir tidak mungkin hari ini atau melebihi hari ini',
             'angkatan.required'     => 'Mohon isi field angkatan',
             'angkatan.regex'        => 'Angkatan hanya bisa di isi dengan karakter 0-9',
             'cv.mimes'              => 'Masukkan file dengan format pdf, jpeg, png atau jpg',
