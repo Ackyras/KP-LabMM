@@ -57,7 +57,7 @@ Route::post('form/ruangan',             [RuanganForm::class, 'store'])->name('ru
 // Route Pendaftaran Calon Asprak
 Route::resource('calonasprak',          DaftarAsprakController::class)->only(['index', 'store']);
 Route::get('calonasprak/login',         [DaftarAsprakController::class, 'login'])->name('calonasprak.login');
-Route::post('calonasprak/login',         [DaftarAsprakController::class, 'loginpost'])->name('calonasprak.login.post');
+Route::post('calonasprak/login',        [DaftarAsprakController::class, 'loginpost'])->name('calonasprak.login.post');
 Route::get('calonasprak/daftar',        [DaftarAsprakController::class, 'form'])->name('calonasprak.form');
 Route::get('calonasprak/seleksi',       [DaftarAsprakController::class, 'seleksi'])->name('calonasprak.seleksi');
 
@@ -72,12 +72,18 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::post('penjadwalan/delete',           [PenjadwalanController::class, 'destroy'])->name('penjadwalan.destroy');
     Route::post('penjadwalan/reset',            [PenjadwalanController::class, 'massReset'])->name('penjadwalan.reset');
     Route::resource('ruanglab',                 RuanganAdmin::class)->except(['show']);
+
+    // Verifikasi Berkas
     Route::get('asprak/verifikasi',             [VerifikasiController::class, 'index'])->name('asprak.index');
+    Route::get('asprak/verifikasi/search',      [VerifikasiController::class, 'berkasmatkul'])->name('asprak.index.matkul');
     Route::post('asprak/verifikasi',            [VerifikasiController::class, 'verifikasiberkas'])->name('asprak.verifikasi');
-    Route::post('asprak/verifikasi/{matkul}',   [VerifikasiController::class, 'matkul'])->name('aspral.index.matkul');
+
+    // Verifikasi Kelulusan dan Penilaian
     Route::get('asprak/penilaian',              [VerifikasiController::class, 'indexnilai'])->name('asprak.nilai.index');
     Route::post('asprak/penilain',              [VerifikasiController::class, 'penilaian'])->name('asprak.verifikasi.nilai');
-    Route::post('asprak/verifikasi/nilai',      [VerifikasiController::class, 'verifikasilulus'])->name('asprak.verifikasi.lulus');
+    Route::get('asprak/verifikasi/nilai/search', [VerifikasiController::class, 'penilaianmatkul'])->name('asprak.nilai.index.matkul');
+    Route::post('asprak/verifikasi/lulus',      [VerifikasiController::class, 'verifikasilulus'])->name('asprak.verifikasi.lulus');
+
     Route::resource('user',                     ManagementUser::class)->except(['show']);
 
     Route::group(['middleware' => 'Admin:superadmin'], function () {
