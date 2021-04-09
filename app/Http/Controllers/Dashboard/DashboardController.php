@@ -20,7 +20,8 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
         $formruangans = FormRuangan::has('ruanglab')
-            ->where('created_at', '>=', Carbon::today())
+            ->where('validasi', 1)
+            ->where('created_at', '>=', Carbon::today()->subDays(5))
             ->orderBy('created_at')
             ->take(5)
             ->get();
@@ -45,7 +46,7 @@ class DashboardController extends Controller
             ->toArray();
         $barangpinjamans = PeminjamanBarang::with(['inventaris', 'formbarang'])
             ->whereIn('form_barang_id', $barangpinjamans)
-            ->simplePaginate(5);
+            ->simplePaginate(3);
         return view('dashboard.index', compact('formbarangs', 'formruangans', 'barangs', 'ruangans', 'banyakformbarang', 'banyakformruangan', 'barangbelumkembali', 'barangdipinjam', 'barangpinjamans'));
     }
 }
