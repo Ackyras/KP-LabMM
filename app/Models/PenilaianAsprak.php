@@ -16,7 +16,8 @@ class PenilaianAsprak extends Model
         'calon_asprak_id',
         'mata_kuliah_id',
         'jawaban',
-        'nilai'
+        'nilai',
+        'lulus',
     ];
 
     public function calonasprak()
