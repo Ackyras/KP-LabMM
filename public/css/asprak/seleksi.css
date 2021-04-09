@@ -19,4 +19,40 @@ h3 {
     font-family: "Questrial", sans-serif;
     font-size: 15px;
     color: black;
+    margin-left: 80px;
+}
+
+.ul-matkul {
+    list-style-type: none;
+}
+
+a {
+    color: red;
+    font-family: "Questrial", sans-serif;
+    font-size: 15px;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: rgb(133, 14, 14);
+}
+
+.card {
+    height: 50vh;
+    width: 50%;
+}
+
+.row-2 {
+    margin-top: 8%;
+}
+
+li {
+    margin-top: .4rem;
+}
+
+@media screen and (max-width:576px) {
+    .card {
+        height: 40vh;
+        width: 75%;
+    }
 }
