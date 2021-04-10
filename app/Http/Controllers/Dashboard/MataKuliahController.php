@@ -27,9 +27,9 @@ class MataKuliahController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'matakuliah'        => 'required',
+            'matakuliah'        => ['required', 'unique:App\Models\MataKuliah,mata_kuliah_id'],
             'dosen'             => 'required',
-            'tanggal_seleksi'   => ['required', 'after:today'],
+            'tanggal_seleksi'   => ['required', 'after:' . $this->pembukaan_id->akhir_pembukaan],
             'awal_seleksi'      => ['required', 'date_format:H:i', 'unique:App\Models\MataKuliah,awal_seleksi'],
             'akhir_seleksi'     => ['required', 'date_format:H:i', 'after:awal_seleksi'],
             'soal'              => ['mimetypes:application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword', 'max:2048', 'nullable']
