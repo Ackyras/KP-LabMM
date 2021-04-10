@@ -5,7 +5,6 @@
     color: black;
     margin-top: 35px;
     margin-left: 80px;
-    word-wrap: break-word;
 }
 
 .line {
@@ -13,4 +12,11 @@
     width: 104px;
     background-color: #daaf33;
     margin-left: 90px;
+}
+
+h5 {
+    font-family: "Quicksand", sans-serif;
+    font-weight: normal;
+    color: black;
+    margin-left: 80px;
 }
