@@ -13,9 +13,11 @@
     <div class="card mx-auto">
         <div class="card-body align-items-center d-flex">
             <ul class="ul-matkul my-4">
-                @foreach ($matkuls as $matkul)
-                <li>{{$matkul->daftarmatakuliah->nama}} <a class="link" href="{{ route('asprak.test', $matkul->id) }}">Silahkan klik disini</a></li>
-                @endforeach
+                @forelse ($matkuls as $matkul)
+                <li>{{$matkul->daftarmatakuliah->nama}} <a class="link" href="{{ route('calonasprak.test', $matkul->id) }}">Silahkan klik disini</a></li>
+                @empty
+                <li>Tidak ada jadwal yang tersedia saat ini, silahkan cek jadwal seleksi</li>
+                @endforelse
             </ul>
         </div>
     </div>
