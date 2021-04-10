@@ -60,7 +60,7 @@
                         <i class="fas fa-laptop-code px-3"></i>Uji Seleksi
                     </li>
                 </a>
-                <a href="#">
+                <a href="{{ route('calonasprak.jadwal') }}">
                     <li class="navbarw sidenav-item p-2 border">
                         <i class="fas fa-table px-3"></i>Jadwal Seleksi
                     </li>
