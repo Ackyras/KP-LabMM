@@ -60,6 +60,9 @@ Route::get('calonasprak/login',         [DaftarAsprakController::class, 'login']
 Route::post('calonasprak/login',        [DaftarAsprakController::class, 'loginpost'])->name('calonasprak.login.post');
 Route::get('calonasprak/daftar',        [DaftarAsprakController::class, 'form'])->name('calonasprak.form');
 Route::get('calonasprak/seleksi',       [DaftarAsprakController::class, 'seleksi'])->name('calonasprak.seleksi');
+Route::get('calonasprak/seleksi/{id}',  [DaftarAsprakController::class, 'seleksishow'])->name('calonasprak.test');
+Route::get('calonasprak/jadwal',        [DaftarAsprakController::class, 'jadwal'])->name('calonasprak.jadwal');
+Route::get('calonasprak/tidak-ada-pembukaan',   [DaftarAsprakController::class, 'none'])->name('calonasprak.none');
 
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
