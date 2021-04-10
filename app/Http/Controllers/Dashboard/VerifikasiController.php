@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Mail\VerifikasiBerkasMail;
+use App\Mail\VerifikasiKelulusanAsprakMail;
 use App\Models\CalonAsprak;
 use App\Models\DaftarMataKuliah;
 use App\Models\MataKuliah;
@@ -11,6 +13,7 @@ use App\Models\PenilaianAsprak;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class VerifikasiController extends Controller
 {
@@ -60,10 +63,20 @@ class VerifikasiController extends Controller
                             'status'    => 2
                         ]
                     );
+                $calon = CalonAsprak::where('id', $calon->id)->first();
+                $content = [
+                    'nama'          => $calon->nama,
+                    'nim'           => $calon->nim,
+                    'username'      => '',
+                    'password'      => '',
+                    'status'        => $calon->status
+                ];
+
                 //KIRIM NOTIFIKASI TIDAK LULUS BERKAS
+                Mail::to($calon->email)->send(new VerifikasiBerkasMail($content));
                 break;
             case '2':
-                $password = "123";
+                $password = uniqid();
                 DB::transaction(
                     function () use ($password, $calon) {
                         CalonAsprak::where('id', $calon->id)
@@ -82,12 +95,19 @@ class VerifikasiController extends Controller
                                 'password'  => bcrypt($password)
                             ]
                         );
-                        // KIRIM NOTIFIKASI LULUS
+                        $calon = CalonAsprak::where('id', $calon->id)->first();
+                        $content = [
+                            'nama'          => $calon->nama,
+                            'nim'           => $calon->nim,
+                            'username'      => $akun->username,
+                            'password'      => $password,
+                            'status'        => $calon->status
+                        ];
+                        Mail::to($calon->email)->send(new VerifikasiBerkasMail($content));
                     }
                 );
                 break;
         }
-
         return redirect()->route('asprak.index');
     }
 
@@ -98,7 +118,10 @@ class VerifikasiController extends Controller
             ->get()
             ->pluck('id')
             ->toArray();
-        $penilaians = PenilaianAsprak::with('matakuliah', 'calonasprak')->whereIn('calon_asprak_id', $aspraks)->simplePaginate(20);
+        $penilaians = PenilaianAsprak::with('matakuliah', 'calonasprak')
+            ->whereIn('calon_asprak_id', $aspraks)
+            ->whereNull('lulus')
+            ->simplePaginate(20);
         $daftar_matkuls = DaftarMataKuliah::has('matakuliahs')->get();
         return view('dashboard.pendaftaran.penilaian.index', compact('penilaians', 'daftar_matkuls'));
     }
@@ -123,6 +146,7 @@ class VerifikasiController extends Controller
         $penilaians = PenilaianAsprak::with('matakuliah', 'calonasprak')
             ->whereIn('calon_asprak_id', $aspraks)
             ->whereIn('mata_kuliah_id', $matkul)
+            ->whereNull('lulus')
             ->simplePaginate(20);
         $daftar_matkuls = DaftarMataKuliah::has('matakuliahs')
             ->get();
@@ -153,36 +177,50 @@ class VerifikasiController extends Controller
             case '1':
                 DB::transaction(
                     function () use ($penilaian_id) {
-                        PenilaianAsprak::where('calon_asprak_id', $penilaian_id->id)
-                            ->where('mata_kuliah_id', $penilaian_id->mata_kuliah_id)
+                        PenilaianAsprak::where('id', $penilaian_id->id)
                             ->update(['lulus' => 'Lulus']);
-                        $lulus =  PenilaianAsprak::where('calon_asprak_id', $penilaian_id->id)
-                            ->where('mata_kuliah_id', $penilaian_id->mata_kuliah_id)
+                        $lulus =  PenilaianAsprak::where('id', $penilaian_id->id)
                             ->first();
                         $mata_kuliah = MataKuliah::where('id', $lulus->mata_kuliah_id)->first();
                         $mata_kuliah = DaftarMataKuliah::where('id', $mata_kuliah->mata_kuliah_id)
-                            ->pluck('nama')
                             ->first();
+                        $calon = CalonAsprak::where('id', $penilaian_id->calon_asprak_id)->first();
                         // KIRIM NOTIFIKASI LULUS ASPRAK
+                        $content = [
+                            'nama'          => $calon->nama,
+                            'nim'           => $calon->nim,
+                            'matakuliah'    => $mata_kuliah->nama,
+                            'nilai'         => $lulus->nilai,
+                            'status'        => $lulus->lulus
+                        ];
+                        Mail::to($calon->email)->send(new VerifikasiKelulusanAsprakMail($content));
                     }
                 );
+                return redirect()->route('asprak.nilai.index');
                 break;
             case '2':
                 DB::transaction(
                     function () use ($penilaian_id) {
-                        PenilaianAsprak::where('calon_asprak_id', $penilaian_id->id)
-                            ->where('mata_kuliah_id', $penilaian_id->mata_kuliah_id)
-                            ->update(['lulus' => 'Lulus']);
-                        $lulus =  PenilaianAsprak::where('calon_asprak_id', $penilaian_id->id)
-                            ->where('mata_kuliah_id', $penilaian_id->mata_kuliah_id)
+                        PenilaianAsprak::where('id', $penilaian_id->id)
+                            ->update(['lulus' => 'Tidak Lulus']);
+                        $lulus =  PenilaianAsprak::where('id', $penilaian_id->id)
                             ->first();
                         $mata_kuliah = MataKuliah::where('id', $lulus->mata_kuliah_id)->first();
                         $mata_kuliah = DaftarMataKuliah::where('id', $mata_kuliah->mata_kuliah_id)
-                            ->pluck('nama')
                             ->first();
-                        // KIRIM NOTIFIKASI LULUS TIDAK LULUS ASPRAK
+                        $calon = CalonAsprak::where('id', $penilaian_id->calon_asprak_id)->first();
+                        // KIRIM NOTIFIKASI Tidak LULUS ASPRAK
+                        $content = [
+                            'nama'          => $calon->nama,
+                            'nim'           => $calon->nim,
+                            'matakuliah'    => $mata_kuliah->nama,
+                            'nilai'         => $lulus->nilai,
+                            'status'        => $lulus->lulus
+                        ];
+                        Mail::to($calon->email)->send(new VerifikasiKelulusanAsprakMail($content));
                     }
                 );
+                return redirect()->route('asprak.nilai.index');
                 break;
         }
     }
