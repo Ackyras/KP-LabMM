@@ -32,6 +32,20 @@ class VerifikasiController extends Controller
         return view('dashboard.pendaftaran.verifikasi.index', compact('aspraks', 'pilihans', 'daftar_matkuls'));
     }
 
+    public function berkasmatkul(Request $request)
+    {
+        $search = $request->input('nama');
+        $aspraks = CalonAsprak::where('periode', $this->pembukaan_id->id)
+            ->where('nama', 'like', '%' . $search . '%')
+            ->orWhere('program_studi', 'like', '%' . $search . '%')
+            ->where('status', 0)
+            ->orderBy('created_at', 'desc')
+            ->simplePaginate(20);
+        $pilihans = PenilaianAsprak::with('matakuliah')->get();
+        $daftar_matkuls = DaftarMataKuliah::has('matakuliahs')->get();
+        return view('dashboard.pendaftaran.verifikasi.index', compact('aspraks', 'pilihans', 'daftar_matkuls'));
+    }
+
     public function verifikasiberkas(Request $request)
     {
         $calon = CalonAsprak::where('id', $request->input('id'))->first();
@@ -49,7 +63,7 @@ class VerifikasiController extends Controller
                 //KIRIM NOTIFIKASI TIDAK LULUS BERKAS
                 break;
             case '2':
-                $password = uniqid();
+                $password = "123";
                 DB::transaction(
                     function () use ($password, $calon) {
                         CalonAsprak::where('id', $calon->id)
@@ -79,16 +93,50 @@ class VerifikasiController extends Controller
 
     public function indexnilai()
     {
-        $aspraks = CalonAsprak::latest()->where('periode', $this->pembukaan_id)
+        $aspraks = CalonAsprak::where('periode', $this->pembukaan_id->id)
             ->where('status', 1)
-            ->simplePaginate(20);
-        $penilaian = PenilaianAsprak::with('matakuliah')->get();
+            ->get()
+            ->pluck('id')
+            ->toArray();
+        $penilaians = PenilaianAsprak::with('matakuliah', 'calonasprak')->whereIn('calon_asprak_id', $aspraks)->simplePaginate(20);
         $daftar_matkuls = DaftarMataKuliah::has('matakuliahs')->get();
-        return view('dashboard.pendaftaran.penilaian.index', compact('aspraks', 'pilihans', 'daftar_matkuls'));
+        return view('dashboard.pendaftaran.penilaian.index', compact('penilaians', 'daftar_matkuls'));
+    }
+
+    public function penilaianmatkul(Request $request)
+    {
+        $search = '%' . $request->input('matkul') . '%';
+        $daftar = DaftarMataKuliah::where('nama', 'like', $search)
+            ->get()
+            ->pluck('id')
+            ->toArray();
+        $matkul = MataKuliah::whereIn('mata_kuliah_id', $daftar)
+            ->get()
+            ->pluck('id')
+            ->toArray();
+
+        $aspraks = CalonAsprak::where('periode', $this->pembukaan_id->id)
+            ->where('status', 1)
+            ->get()
+            ->pluck('id')
+            ->toArray();
+        $penilaians = PenilaianAsprak::with('matakuliah', 'calonasprak')
+            ->whereIn('calon_asprak_id', $aspraks)
+            ->whereIn('mata_kuliah_id', $matkul)
+            ->simplePaginate(20);
+        $daftar_matkuls = DaftarMataKuliah::has('matakuliahs')
+            ->get();
+        return view('dashboard.pendaftaran.penilaian.index', compact('penilaians', 'daftar_matkuls'));
     }
 
     public function penilaian(Request $request)
     {
+        $request->validate(
+            [
+                'nilai' => ['numeric', 'min:0', 'max:100']
+            ]
+        );
+
         PenilaianAsprak::where('id', $request->input('penilaian_id'))
             ->update(
                 [
@@ -100,23 +148,16 @@ class VerifikasiController extends Controller
 
     public function verifikasilulus(Request $request)
     {
-        $calon = CalonAsprak::where('id', $request->input('id'))->first();
+        $penilaian_id = PenilaianAsprak::where('id', $request->input('id'))->first();
         switch ($request->input('action')) {
             case '1':
                 DB::transaction(
-                    function () use ($calon, $request) {
-                        CalonAsprak::where('id', $calon->id)
-                            ->update(
-                                [
-                                    'status'    => '3'
-                                ]
-                            );
-                        User::where('email', $calon->email)->delete();
-                        $lulus = PenilaianAsprak::where('calon_asprak_id', $calon->id)
-                            ->where('mata_kuliah_id', $request->input('mata_kuliah_id'))
-                            ->update(['lulus' => 1]);
-                        $lulus =  PenilaianAsprak::where('calon_asprak_id', $calon->id)
-                            ->where('mata_kuliah_id', $request->input('mata_kuliah_id'))
+                    function () use ($penilaian_id) {
+                        PenilaianAsprak::where('calon_asprak_id', $penilaian_id->id)
+                            ->where('mata_kuliah_id', $penilaian_id->mata_kuliah_id)
+                            ->update(['lulus' => 'Lulus']);
+                        $lulus =  PenilaianAsprak::where('calon_asprak_id', $penilaian_id->id)
+                            ->where('mata_kuliah_id', $penilaian_id->mata_kuliah_id)
                             ->first();
                         $mata_kuliah = MataKuliah::where('id', $lulus->mata_kuliah_id)->first();
                         $mata_kuliah = DaftarMataKuliah::where('id', $mata_kuliah->mata_kuliah_id)
@@ -128,14 +169,17 @@ class VerifikasiController extends Controller
                 break;
             case '2':
                 DB::transaction(
-                    function () use ($calon) {
-                        CalonAsprak::where('id', $calon->id)
-                            ->update(
-                                [
-                                    'status'    => '3'
-                                ]
-                            );
-                        User::where('email', $calon->email)->delete();
+                    function () use ($penilaian_id) {
+                        PenilaianAsprak::where('calon_asprak_id', $penilaian_id->id)
+                            ->where('mata_kuliah_id', $penilaian_id->mata_kuliah_id)
+                            ->update(['lulus' => 'Lulus']);
+                        $lulus =  PenilaianAsprak::where('calon_asprak_id', $penilaian_id->id)
+                            ->where('mata_kuliah_id', $penilaian_id->mata_kuliah_id)
+                            ->first();
+                        $mata_kuliah = MataKuliah::where('id', $lulus->mata_kuliah_id)->first();
+                        $mata_kuliah = DaftarMataKuliah::where('id', $mata_kuliah->mata_kuliah_id)
+                            ->pluck('nama')
+                            ->first();
                         // KIRIM NOTIFIKASI LULUS TIDAK LULUS ASPRAK
                     }
                 );
