@@ -14,7 +14,7 @@ class AddLulusToPenilaianAspraksTable extends Migration
     public function up()
     {
         Schema::table('penilaian_aspraks', function (Blueprint $table) {
-            $table->integer('lulus')->nullable();
+            $table->string('lulus')->nullable();
         });
     }
 
