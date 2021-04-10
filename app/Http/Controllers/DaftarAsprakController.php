@@ -7,6 +7,7 @@ use App\Models\CalonAsprak;
 use App\Models\MataKuliah;
 use App\Models\PembukaanAsprak;
 use App\Models\PenilaianAsprak;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,15 +24,20 @@ class DaftarAsprakController extends Controller
 
     public function index()
     {
-        $matakuliahs = MataKuliah::with('daftarmatakuliah', 'pembukaanasprak')->where('pembukaan_asprak_id', $this->pembukaan_id->id)->get();
         $master = "asprak";
-        return view('asprak.index', compact('matakuliahs', 'master'));
+        if ($this->pembukaan_id->awal_pembukaan < Carbon::today()->setTimezone('Asia/Jakarta') and $this->pembukaan_id->akhir_pembukaan > Carbon::today()->setTimezone('Asia/Jakarta')) {
+            return view('asprak.index', compact('master'));
+        }
+        return redirect()->route('calonasprak.none');
     }
 
     public function login()
     {
         $master = "asprak";
-        return view('asprak.login', compact('master'));
+        if ($this->pembukaan_id->awal_pembukaan < Carbon::today()->setTimezone('Asia/Jakarta') and $this->pembukaan_id->akhir_pembukaan > Carbon::today()->setTimezone('Asia/Jakarta')) {
+            return view('asprak.login', compact('master'));
+        }
+        return redirect()->route('calonasprak.none');
     }
 
     public function loginpost(Request $request)
@@ -61,12 +67,14 @@ class DaftarAsprakController extends Controller
 
     public function form()
     {
-        $pembukaan = PembukaanAsprak::latest()->pluck('id')->first();
-        $matakuliahs = MataKuliah::with('daftarmatakuliah')
-            ->where('pembukaan_asprak_id', $pembukaan)
-            ->get();
         $master = "asprak";
-        return view('asprak.form', compact('matakuliahs', 'master'));
+        if ($this->pembukaan_id->awal_pembukaan < Carbon::today()->setTimezone('Asia/Jakarta') and $this->pembukaan_id->akhir_pembukaan > Carbon::today()->setTimezone('Asia/Jakarta')) {
+            $matakuliahs = MataKuliah::with('daftarmatakuliah')
+                ->where('pembukaan_asprak_id', $this->pembukaan_id->id)
+                ->get();
+            return view('asprak.form', compact('matakuliahs', 'master'));
+        }
+        return redirect()->route('calonasprak.none');
     }
 
     public function store(DaftarAsprakRequest $request)
@@ -123,6 +131,50 @@ class DaftarAsprakController extends Controller
     public function seleksi()
     {
         $master = "asprak";
-        return view('asprak.seleksi', compact('master'));
+
+        if ($this->pembukaan_id->awal_pembukaan < Carbon::today()->setTimezone('Asia/Jakarta') and $this->pembukaan_id->akhir_pembukaan > Carbon::today()->setTimezone('Asia/Jakarta')) {
+            if (!Auth::check())
+                return redirect()->route('calonasprak.login');
+            if (auth()->user()->role == "calonasprak") {
+                $calon = CalonAsprak::where('periode', $this->pembukaan_id->id)->where('email', auth()->user()->email)->first();
+                $pilihan = PenilaianAsprak::where('calon_asprak_id', $calon->id)
+                    ->get()
+                    ->pluck('mata_kuliah_id')
+                    ->toArray();
+                $matkuls = MataKuliah::with('daftarmatakuliah')
+                    ->whereIn('id', $pilihan)
+                    ->where('tanggal_seleksi', Carbon::today()->setTimezone('Asia/Jakarta')->format('Y-m-d'))
+                    ->where('awal_seleksi', '<=', Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s'))
+                    ->where('akhir_seleksi', '>', Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s'))
+                    ->get();
+                return view('asprak.seleksi', compact('master', 'matkuls'));
+            }
+
+            return redirect()->route('calonasprak.index');
+        }
+        return redirect()->route('calonasprak.none');
+    }
+
+    public function seleksishow($id)
+    {
+    }
+
+    public function jadwal()
+    {
+        $master = "asprak";
+        if ($this->pembukaan_id->awal_pembukaan < Carbon::today()->setTimezone('Asia/Jakarta') and $this->pembukaan_id->akhir_pembukaan > Carbon::today()->setTimezone('Asia/Jakarta')) {
+            $matkuls = MataKuliah::with('daftarmatakuliah')->where('pembukaan_asprak_id', $this->pembukaan_id->id)
+                ->get();
+            return view('asprak.jadwal', compact('master', 'matkuls'));
+        }
+        return redirect()->route('calonasprak.none');
+    }
+
+    public function none()
+    {
+        $master = "asprak";
+        if ($this->pembukaan_id->awal_pembukaan < Carbon::today()->setTimezone('Asia/Jakarta') and $this->pembukaan_id->akhir_pembukaan > Carbon::today()->setTimezone('Asia/Jakarta'))
+            return redirect()->route('calonasprak.index');
+        return view('asprak.none', compact('master'));
     }
 }
