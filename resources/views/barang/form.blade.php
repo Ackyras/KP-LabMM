@@ -73,14 +73,14 @@
             </div>
             <div class="form-group">
                 <label>Tanggal Peminjaman*</label>
-                <input type="date" name="tanggal_peminjaman" class="form-control rounded @error('tanggal_peminjaman') is-invalid @enderror" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required placeholder="Pilih tanggal peminjaman">
+                <input type="date" name="tanggal_peminjaman" class="form-control rounded @error('tanggal_peminjaman') is-invalid @enderror" value="{{ Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') }}" required placeholder="Pilih tanggal peminjaman">
                 @error('tanggal_peminjaman')
                 <div class="alert alert-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
                 <label>Tanggal Pengembalian*</label>
-                <input type="date" name="tanggal_pengembalian" class="form-control rounded @error('tanggal_pengembalian') is-invalid @enderror" value="{{ Carbon\Carbon::now()->addDay()->format('Y-m-d') }}" required placeholder="Pilih tanggal pengembalian">
+                <input type="date" name="tanggal_pengembalian" class="form-control rounded @error('tanggal_pengembalian') is-invalid @enderror" value="{{ Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->addDay()->format('Y-m-d') }}" required placeholder="Pilih tanggal pengembalian">
                 @error('tanggal_pengembalian')
                 <div class="alert alert-danger mt-1">{{ $message }}</div>
                 @enderror

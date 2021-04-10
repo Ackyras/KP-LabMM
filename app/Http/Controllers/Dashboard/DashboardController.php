@@ -15,22 +15,22 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $formbarangs = FormBarang::where('created_at', '>=', Carbon::today())
+        $formbarangs = FormBarang::where('created_at', '>=', Carbon::today()->setTimezone('Asia/Jakarta'))
             ->orderBy('created_at')
             ->take(5)
             ->get();
         $formruangans = FormRuangan::has('ruanglab')
             ->where('validasi', 1)
-            ->where('created_at', '>=', Carbon::today()->subDays(5))
+            ->where('created_at', '>=', Carbon::today()->subDays(5)->setTimezone('Asia/Jakarta'))
             ->orderBy('created_at')
             ->take(5)
             ->get();
         $barangs = PeminjamanBarang::with('inventaris')->get();
         $ruangans = PeminjamanRuangan::all();
-        $banyakformbarang = FormBarang::where('created_at', '>=', Carbon::today())->count();
-        $banyakformruangan = FormRuangan::where('created_at', '>=', Carbon::today())->count();
+        $banyakformbarang = FormBarang::where('created_at', '>=', Carbon::today()->setTimezone('Asia/Jakarta'))->count();
+        $banyakformruangan = FormRuangan::where('created_at', '>=', Carbon::today()->setTimezone('Asia/Jakarta'))->count();
         $barangbelumkembali = FormBarang::where('validasi', 2)
-            ->where('tanggal_pengembalian', '<', Carbon::today())
+            ->where('tanggal_pengembalian', '<', Carbon::today()->setTimezone('Asia/Jakarta'))
             ->get()
             ->pluck('id')
             ->toArray();
