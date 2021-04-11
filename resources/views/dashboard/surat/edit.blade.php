@@ -72,6 +72,7 @@
     </div>
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">File Surat</label>
+        <input type="hidden" value="{{$surat->file}}" name="oldfile">
         <input class="form-control @error('file') is-invalid @enderror" value="{{ $surat->file }}" name="file" type="file" id="formFile">
         @error('file')
         <div class="alert alert-danger mt-1">{{ $message }}</div>
