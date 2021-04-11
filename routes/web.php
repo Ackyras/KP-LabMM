@@ -13,13 +13,11 @@ use App\Http\Controllers\Dashboard\PeminjamanBarangController;
 use App\Http\Controllers\Dashboard\PeminjamanRuanganController;
 use App\Http\Controllers\Dashboard\PendaftaranAsprakController;
 use App\Http\Controllers\Dashboard\PenjadwalanController;
-use App\Http\Controllers\Dashboard\RekrutAsprakController;
 use App\Http\Controllers\Dashboard\SuratController;
 use App\Http\Controllers\RuanganController as RuanganForm;
 use App\Http\Controllers\Dashboard\RuanganController as RuanganAdmin;
 use App\Http\Controllers\Dashboard\VerifikasiController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Manager;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +32,7 @@ use Illuminate\Support\Manager;
 
 // Home
 Route::view('/', 'home.index')->name('home');
+Route::view('/home', 'home.index')->name('home');
 
 // Auth Routes
 Auth::routes();
@@ -81,6 +80,7 @@ Route::group(['middleware' => 'OnlyLaboran', 'prefix' => 'admin'], function () {
 });
 
 Route::group(['middleware' => 'SuperAdmin', 'prefix' => 'admin'], function () {
+    Route::post('user/reset',                   [Managementuser::class, 'reset'])->name('user.resetasprak');
     Route::resource('user',                     ManagementUser::class)->except(['show', 'edit', 'update']);
 });
 
@@ -112,12 +112,6 @@ Route::group(['middleware' => 'Asprak', 'prefix' => 'admin'], function () {
     Route::get('asprak/verifikasi',             [VerifikasiController::class, 'index'])->name('asprak.index');
     Route::get('asprak/verifikasi/search',      [VerifikasiController::class, 'berkasmatkul'])->name('asprak.index.matkul');
     Route::post('asprak/verifikasi',            [VerifikasiController::class, 'verifikasiberkas'])->name('asprak.verifikasi');
-
-    // Verifikasi Kelulusan dan Penilaian
-    Route::get('asprak/penilaian',              [VerifikasiController::class, 'indexnilai'])->name('asprak.nilai.index');
-    Route::post('asprak/penilain',              [VerifikasiController::class, 'penilaian'])->name('asprak.verifikasi.nilai');
-    Route::get('asprak/verifikasi/nilai/search', [VerifikasiController::class, 'penilaianmatkul'])->name('asprak.nilai.index.matkul');
-    Route::post('asprak/verifikasi/lulus',      [VerifikasiController::class, 'verifikasilulus'])->name('asprak.verifikasi.lulus');
 
     // Route Pembukaan Pendaftaran Asprak
     Route::resource('rekrut',                   PendaftaranAsprakController::class);
