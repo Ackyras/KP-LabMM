@@ -40,7 +40,7 @@ class SuratController extends Controller
                 'lokasi'        => ['required'],
                 'kategori'      => ['required'],
                 'tanggal_masuk' => ['date', 'required'],
-                'file'          => ['required', 'max:2048', 'mimetypes:application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/png, image/jpeg, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
+                'file'          => ['required', 'max:2048', 'mimes:pdf,doc,docx,zip,rar,xls,xlsx,jpg,jpeg,png']
             ]
         );
 
@@ -87,20 +87,18 @@ class SuratController extends Controller
                 'lokasi'        => ['required'],
                 'kategori'      => ['required'],
                 'tanggal_masuk' => ['date', 'required'],
-                'file'          => ['nullable', 'max:2048', 'mimetypes:application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/png, image/jpeg, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
+                'file'          => ['nullable', 'max:2048', 'mimes:pdf,doc,docx,zip,rar,xls,xlsx,jpg,jpeg,png']
             ]
         );
-
+        $link = '';
         if ($request->hasFile('file')) {
             $folder = uniqid();
             $file = $request->file('file');
             $path = "public/surat/" . $folder;
             $store = $file->storeAs($path, $file->getClientOriginalName());
-            $link = $request->root() . 'storage/surat/' . $folder . '/' . $file->getClientOriginalName();
+            $link = $request->root() . '/storage/surat/' . $folder . '/' . $file->getClientOriginalName();
             $file = Storage::url($store);
             $file = $request->root() . $file;
-        } else {
-            $link = Surat::where('id', $id)->pluck('file')->first();
         }
 
         Surat::where('id', $id)->update(
@@ -113,7 +111,7 @@ class SuratController extends Controller
                 'lokasi'                => $request->input('lokasi'),
                 'kategori'              => $request->input('kategori'),
                 'tanggal_masuk'         => $request->input('tanggal_masuk'),
-                'file'                  => $link,
+                'file'                  => ($link == '') ? $request->input('oldfile') : $link,
             ]
         );
 
