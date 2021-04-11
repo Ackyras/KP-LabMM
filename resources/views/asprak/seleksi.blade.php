@@ -20,6 +20,12 @@
                 @endforelse
             </ul>
         </div>
+        <form action="{{ route('calonasprak.logout') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <button class="btn btn-logout mb-3 mr-3" type="submit">Logout</button>
+            </div>
+        </form>
     </div>
 </div>
 @endsection

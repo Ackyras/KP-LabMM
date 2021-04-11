@@ -1,5 +1,5 @@
 .card {
-    height: 40vh;
+    height: fit-content;
     width: 50%;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .btn-login {
-    background-color: #DAAF33;
+    background-color: #daaf33;
     font-family: "Questrial", sans-serif;
     font-size: 15px;
     text-transform: none;

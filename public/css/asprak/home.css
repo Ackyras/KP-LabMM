@@ -20,3 +20,12 @@ h5 {
     color: black;
     margin-left: 80px;
 }
+
+.text {
+    font-family: "Poppins", sans-serif;
+    color: black;
+}
+
+a {
+    color: rgb(177, 39, 39);
+}

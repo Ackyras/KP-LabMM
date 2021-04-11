@@ -50,6 +50,20 @@ li {
     margin-top: 0.4rem;
 }
 
+.btn-logout {
+    float: right;
+    text-transform: none;
+    font-family: "Quicksand", sans-serif;
+    background-color: #daaf33;
+    color: white;
+    font-size: 17px;
+}
+
+.btn-logout:hover {
+    color: white;
+    background-color: #8e6e0e;
+}
+
 @media screen and (max-width: 576px) {
     .card {
         height: 40vh;

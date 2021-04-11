@@ -12,7 +12,7 @@
 <div class="row mt-3">
     <div class="card mx-auto">
         <div class="card-body align-items-center d-flex">
-            <form class="mx-auto" method="POST" action="{{ route('calonasprak.login.post') }}">
+            <form class="mx-auto pb-3" method="POST" action="{{ route('calonasprak.login.post') }}">
                 @csrf
                 @if ($errors->any())
                 @foreach ($errors->all() as $error)
@@ -38,7 +38,7 @@
                     <div class="alert alert-danger mt-1">{{ $message }}</div>
                     @enderror
                 </div>
-                <button class="btn btn-login mt-3 float-right" type="submit">Login</button>
+                <button class="btn btn-login my-3 float-right" type="submit">Login</button>
             </form>
         </div>
     </div>
