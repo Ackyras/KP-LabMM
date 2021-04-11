@@ -124,7 +124,7 @@
                                                 @endforeach
                                             </ul>
                                         </div>
-                                        @if (auth()->user()->role == "superadmin" or auth()->user()->role == "inventaris")
+                                        @can('inventaris')
                                         <div class="modal-footer">
                                             <form action="{{ route('peminjaman.barang.update') }}" method="POST">
                                                 @csrf
@@ -138,7 +138,7 @@
                                                 @endif
                                             </form>
                                         </div>
-                                        @endif
+                                        @endcan
                                     </div>
                                 </div>
                             </div>
@@ -150,11 +150,11 @@
                         </tbody>
                     </table>
                 </div>
-                @if (auth()->user()->role == "superadmin" or auth()->user()->role == "inventaris")
+                @can('inventaris')
                 <a href="{{ route('peminjaman.barang') }}" class="btn btn-primary btn-icon-split float-right w-100">
                     <span class="text" style="color:white;">Lihat Selengkapnya</span>
                 </a>
-                @endif
+                @endcan
             </div>
         </div>
     </div>
@@ -217,7 +217,7 @@
                                                 @endforeach
                                             </ul>
                                         </div>
-                                        @if (auth()->user()->role == "superadmin" or auth()->user()->role == "ruangan")
+                                        @can('ruangan')
                                         <div class="modal-footer">
                                             <form method="POST" action="{{ route('peminjaman.ruangan.update') }}">
                                                 @csrf
@@ -227,7 +227,7 @@
                                                 <button type="submit" class="btn btn-success" name="action" value="2">Setuju</button>
                                             </form>
                                         </div>
-                                        @endif
+                                        @endcan
                                     </div>
                                 </div>
                             </div>
@@ -239,11 +239,11 @@
                         </tbody>
                     </table>
                 </div>
-                @if (auth()->user()->role == "superadmin" or auth()->user()->role == "ruangan")
+                @can('ruangan')
                 <a href="{{ route('peminjaman.ruangan') }}" class="btn btn-primary btn-icon-split float-right w-100">
                     <span class="text" style="color:white;">Lihat Selengkapnya</span>
                 </a>
-                @endif
+                @endcan
             </div>
         </div>
     </div>
@@ -283,11 +283,11 @@
                         </table>
                         {{$barangpinjamans->links()}}
                     </div>
-                    @if (auth()->user()->role == "superadmin" or auth()->user()->role == "inventaris")
+                    @can('inventaris')
                     <a href="{{ route('peminjaman.barang') }}" class="btn btn-primary btn-icon-split float-right w-100">
                         <span class="text" style="color:white;">Lihat Selengkapnya</span>
                     </a>
-                    @endif
+                    @endcan
                 </div>
             </div>
         </div>
