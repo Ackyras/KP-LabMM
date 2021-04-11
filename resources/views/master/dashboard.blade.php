@@ -48,9 +48,9 @@
                     <span>Dashboard</span></a>
             </li>
 
+            @can('inventaris')
             <!-- Divider -->
             <hr class="sidebar-divider">
-
             <!-- Heading -->
             <div class="sidebar-heading">
                 Inventaris
@@ -70,9 +70,9 @@
                     </div>
                 </div>
             </li>
-
             <hr class="sidebar-divider">
-
+            @endcan
+            @can('ruangan')
             <!-- Heading -->
             <div class="sidebar-heading">
                 Penjadwalan
@@ -92,7 +92,8 @@
                     </div>
                 </div>
             </li>
-
+            @endcan
+            @if (auth()->user()->role != "dosen")
             <div class="sidebar-heading">
                 Peminjaman
             </div>
@@ -106,12 +107,17 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
+                        @can('inventaris')
                         <a class="collapse-item" href="{{ route('peminjaman.barang') }}">Barang</a>
+                        @endcan
+                        @can('ruangan')
                         <a class="collapse-item" href="{{ route('peminjaman.ruangan') }}">Ruangan</a>
+                        @endcan
                     </div>
                 </div>
             </li>
-
+            @endif
+            @if (auth()->user()->role != "dosen")
             <hr class="sidebar-divider">
 
             <div class="sidebar-heading">
@@ -131,13 +137,14 @@
                     </div>
                 </div>
             </li>
-
+            @endif
+            @can('asprak')
             <hr class="sidebar-divider">
 
             <div class="sidebar-heading">
                 Asprak
             </div>
-
+            @can('openverbek')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#rekrut" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-building"></i>
@@ -151,6 +158,7 @@
                     </div>
                 </div>
             </li>
+            @endcan
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#verif" aria-expanded="true" aria-controls="collapsePages">
@@ -159,11 +167,18 @@
                 </a>
                 <div id="verif" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+                        @can('openverbek')
                         <a class="collapse-item" href="{{ route('asprak.index') }}">Verifikasi Berkas</a>
+                        @endcan
+                        @can('nilai')
                         <a class="collapse-item" href="{{ route('asprak.nilai.index') }}">Verifikasi Penilaian</a>
+                        @endcan
                     </div>
                 </div>
             </li>
+            @endcan
+
+            @if (auth()->user()->role != "dosen")
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -184,6 +199,7 @@
                     </div>
                 </div>
             </li>
+            @endif
 
 
             <!-- Nav Item - Charts
