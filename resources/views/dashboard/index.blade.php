@@ -262,7 +262,6 @@
                                     <th scope="col">Peminjam</th>
                                     <th scope="col">Barang</th>
                                     <th scope="col">Jumlah</th>
-                                    <th scope="col">Tanggal Pengembalian</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -272,11 +271,10 @@
                                     <td> {{$barangpinjaman->formbarang->nama_peminjam}} </td>
                                     <td> {{$barangpinjaman->inventaris->nama_barang}} </td>
                                     <td> {{$barangpinjaman->jumlah}} </td>
-                                    <td> {{$barangpinjaman->formbarang->tanggal_pengembalian}} </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    <th scope="row" colspan="5">Tidak ada barang yang dipinjam</th>
+                                    <th scope="row" colspan="4">Tidak ada barang yang dipinjam</th>
                                 </tr>
                                 @endforelse
                             </tbody>
@@ -285,6 +283,92 @@
                     </div>
                     @can('inventaris')
                     <a href="{{ route('peminjaman.barang') }}" class="btn btn-primary btn-icon-split float-right w-100">
+                        <span class="text" style="color:white;">Lihat Selengkapnya</span>
+                    </a>
+                    @endcan
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Form Peminjaman Barang Telat</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table" style="font-size: 13px">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Tanggal Pengembalian</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($peminjamtelats as $peminjamtelat)
+                                <tr>
+                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td>{{$peminjamtelat->nama_peminjam}}</td>
+                                    <td>{{$peminjamtelat->tanggal_pengembalian}}</td>
+                                    <td><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#data{{$peminjamtelat->id}}">Detail</button></td>
+                                </tr>
+                                <div class="modal fade" id="data{{$peminjamtelat->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Data Peminjam</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h5 class="my-2">Status : {{ ($peminjamtelat->validasi == '1') ? "Belum Meminjam" : "Sedang Meminjam" }}</h5>
+                                                <b>Nama :</b> {{$peminjamtelat->nama_peminjam}} </br>
+                                                <b>Nim :</b> {{$peminjamtelat->nim}}</br>
+                                                <b>Email :</b> {{$peminjamtelat->email}}</br>
+                                                <b>No HP :</b> {{$peminjamtelat->no_hp}}</br>
+                                                <b>Afiliasi :</b> {{$peminjamtelat->afiliasi}}</br>
+                                                <b>Tanggal Peminjaman :</b> {{$peminjamtelat->tanggal_peminjaman}}</br>
+                                                <b>Tanggal Pengembalian :</b> {{$peminjamtelat->tanggal_pengembalian}}</br>
+                                                <b>Barang Pinjaman</b>
+                                                <ul>
+                                                    @foreach ($barangs as $barang)
+                                                    @if ($barang->form_barang_id == $peminjamtelat->id)
+                                                    <li>{{ $barang->inventaris->nama_barang }} <small>({{$barang->jumlah}} unit)</small></li>
+                                                    @endif
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                            @can('inventaris')
+                                            <div class="modal-footer">
+                                                <form action="{{ route('peminjaman.barang.update') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="form_barang_id" value="{{ $peminjamtelat->id }}" />
+                                                    <button type="submit" name="action" value="3" onclick="return confirm('Yakin ingin menghapus data?')" class="btn btn-danger">Hapus Data</button>
+                                                    @if ($peminjamtelat->validasi == 1)
+                                                    <button type="submit" name="action" value="2" class="btn btn-warning">Sedang meminjam</button>
+                                                    @endif
+                                                    @if ($peminjamtelat->validasi == 2)
+                                                    <button type="submit" name="action" value="0" class="btn btn-success">Selesai meminjam</button>
+                                                    @endif
+                                                </form>
+                                            </div>
+                                            @endcan
+                                        </div>
+                                    </div>
+                                </div>
+                                @empty
+                                <tr>
+                                    <th scope="row" colspan="5">Tidak ada telat peminjaman barang</th>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                        {{$peminjamtelats->links()}}
+                    </div>
+                    @can('inventaris')
+                    <a href="{{ route('peminjaman.barang.telat') }}" class="btn btn-primary btn-icon-split float-right w-100">
                         <span class="text" style="color:white;">Lihat Selengkapnya</span>
                     </a>
                     @endcan
