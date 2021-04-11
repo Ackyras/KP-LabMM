@@ -18,6 +18,7 @@ use App\Http\Controllers\Dashboard\SuratController;
 use App\Http\Controllers\RuanganController as RuanganForm;
 use App\Http\Controllers\Dashboard\RuanganController as RuanganAdmin;
 use App\Http\Controllers\Dashboard\VerifikasiController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Manager;
 
 /*
@@ -34,9 +35,8 @@ use Illuminate\Support\Manager;
 // Home
 Route::view('/', 'home.index')->name('home');
 
-// auth
-Route::get('login',         [AuthController::class, 'index'])->name('login');
-Route::post('login',        [AuthController::class, 'login'])->name('loginPost');
+// Auth Routes
+Auth::routes();
 
 // Route Client Peminjaman Barang
 Route::get('barang/list',               [BarangController::class, 'list'])->name('barang.list');
@@ -59,23 +59,55 @@ Route::resource('calonasprak',          DaftarAsprakController::class)->only(['i
 Route::get('calonasprak/login',         [DaftarAsprakController::class, 'login'])->name('calonasprak.login');
 Route::post('calonasprak/login',        [DaftarAsprakController::class, 'loginpost'])->name('calonasprak.login.post');
 Route::get('calonasprak/daftar',        [DaftarAsprakController::class, 'form'])->name('calonasprak.form');
-Route::get('calonasprak/seleksi',       [DaftarAsprakController::class, 'seleksi'])->name('calonasprak.seleksi');
-Route::get('calonasprak/seleksi/{id}',  [DaftarAsprakController::class, 'seleksishow'])->name('calonasprak.test');
 Route::get('calonasprak/jadwal',        [DaftarAsprakController::class, 'jadwal'])->name('calonasprak.jadwal');
 Route::get('calonasprak/tidak-ada-pembukaan',   [DaftarAsprakController::class, 'none'])->name('calonasprak.none');
 
 
-Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
+Route::group(['middleware' => ['CalonAsprak']], function () {
+    Route::get('calonasprak/seleksi',       [DaftarAsprakController::class, 'seleksi'])->name('calonasprak.seleksi');
+    Route::get('calonasprak/seleksi/{id}',  [DaftarAsprakController::class, 'seleksishow'])->name('calonasprak.test');
+    Route::post('calonasprak/logout',       [DaftarAsprakController::class, 'logout'])->name('calonasprak.logout');
+});
+Route::group(['middleware' => 'Admin', 'prefix' => 'admin'], function () {
     Route::get('dashboard',                     [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::post('logout',                       [AuthController::class, 'logout'])->name('logout');
+    Route::resource('user',                     ManagementUser::class)->only(['edit', 'update']);
+});
+
+Route::group(['middleware' => 'OnlyLaboran', 'prefix' => 'admin'], function () {
     Route::get('surat/masuk',                   [SuratController::class, 'masuk'])->name('surat.masuk');
     Route::get('surat/keluar',                  [SuratController::class, 'keluar'])->name('surat.keluar');
     Route::resource('surat',                    SuratController::class)->except(['index']);
+});
+
+Route::group(['middleware' => 'SuperAdmin', 'prefix' => 'admin'], function () {
+    Route::resource('user',                     ManagementUser::class)->except(['show', 'edit', 'update']);
+});
+
+Route::group(['middleware' => 'Inventaris', 'prefix' => 'admin'], function () {
+    // Route Admin Inventaris Barang
+    Route::resource('inventaris',   InventarisController::class);
+
+    // Route Peminjaman Barang
+    Route::get('peminjaman/barang',             [PeminjamanBarangController::class, 'index'])->name('peminjaman.barang');
+    Route::post('peminjaman/barang',            [PeminjamanBarangController::class, 'status'])->name('peminjaman.barang.update');
+    Route::get('peminjaman/barang/riwayat',     [PeminjamanBarangController::class, 'riwayat'])->name('peminjaman.barang.riwayat');
+});
+
+Route::group(['middleware' => 'Ruangan', 'prefix' => 'admin'], function () {
+    // Route Peminjaman Ruangan
+    Route::get('peminjaman/ruangan',            [PeminjamanRuanganController::class, 'index'])->name('peminjaman.ruangan');
+    Route::post('peminjaman/ruangan',           [PeminjamanRuanganController::class, 'status'])->name('peminjaman.ruangan.update');
+    Route::get('peminjaman/ruangan/riwayat',    [PeminjamanRuanganController::class, 'riwayat'])->name('peminjaman.ruangan.riwayat');
+
+    // Route Penjadwalan Ruangan
     Route::get('penjadwalan',                   [PenjadwalanController::class, 'index'])->name('penjadwalan.index');
     Route::post('penjadwalan/delete',           [PenjadwalanController::class, 'destroy'])->name('penjadwalan.destroy');
     Route::post('penjadwalan/reset',            [PenjadwalanController::class, 'massReset'])->name('penjadwalan.reset');
     Route::resource('ruanglab',                 RuanganAdmin::class)->except(['show']);
+});
 
+Route::group(['middleware' => 'Asprak', 'prefix' => 'admin'], function () {
     // Verifikasi Berkas
     Route::get('asprak/verifikasi',             [VerifikasiController::class, 'index'])->name('asprak.index');
     Route::get('asprak/verifikasi/search',      [VerifikasiController::class, 'berkasmatkul'])->name('asprak.index.matkul');
@@ -87,48 +119,16 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::get('asprak/verifikasi/nilai/search', [VerifikasiController::class, 'penilaianmatkul'])->name('asprak.nilai.index.matkul');
     Route::post('asprak/verifikasi/lulus',      [VerifikasiController::class, 'verifikasilulus'])->name('asprak.verifikasi.lulus');
 
-    Route::resource('user',                     ManagementUser::class)->except(['show']);
-
-    Route::group(['middleware' => 'Admin:superadmin'], function () {
-        // Route Admin Inventaris Barang
-        Route::resource('inventaris',   InventarisController::class);
-
-        // Route Peminjaman Barang
-        Route::get('peminjaman/barang',             [PeminjamanBarangController::class, 'index'])->name('peminjaman.barang');
-        Route::post('peminjaman/barang',            [PeminjamanBarangController::class, 'status'])->name('peminjaman.barang.update');
-        Route::get('peminjaman/barang/riwayat',     [PeminjamanBarangController::class, 'riwayat'])->name('peminjaman.barang.riwayat');
-
-        // Route Peminjaman Ruangan
-        Route::get('peminjaman/ruangan',            [PeminjamanRuanganController::class, 'index'])->name('peminjaman.ruangan');
-        Route::post('peminjaman/ruangan',           [PeminjamanRuanganController::class, 'status'])->name('peminjaman.ruangan.update');
-        Route::get('peminjaman/ruangan/riwayat',    [PeminjamanRuanganController::class, 'riwayat'])->name('peminjaman.ruangan.riwayat');
-    });
-    Route::group(['middleware' => ['Admin:superadmin']], function () {
-        Route::resource('rekrut',                   PendaftaranAsprakController::class);
-        Route::resource('matakuliah',               MataKuliahController::class)->except(['index', 'show']);
-        Route::resource('daftarmatakuliah',         DaftarMataKuliahController::class)->only(['create', 'store']);
-
-        Route::get('rekrut/matkul/{id}',            [RekrutAsprakController::class, 'indexMataKuliah'])->name('rekrut.matkul.index');
-        Route::get('rekrut/matkut/create',          [RekrutAsprakController::class, 'addMataKuliah'])->name('rekrut.matkul.create');
-    });
+    // Route Pembukaan Pendaftaran Asprak
+    Route::resource('rekrut',                   PendaftaranAsprakController::class);
+    Route::resource('matakuliah',               MataKuliahController::class)->except(['index', 'show']);
+    Route::resource('daftarmatakuliah',         DaftarMataKuliahController::class)->only(['create', 'store']);
 });
 
-
-
-
-// // Pembukaan pendaftaran by admin
-// Route::get('/open-pendaftaran', [pendaftarcontroller::class, 'openpendaftaran'])->name('pembukaan');
-// Route::get('/open-pendaftaran/tambah', [pendaftarcontroller::class, 'tambahpendaftaran'])->name('tambahpendaftaran');
-// Route::post('/open-pendaftaran/tambah', [pendaftarcontroller::class, 'prosestambahpendaftaran'])->name('prosestambahpendaftaran');
-
-// // Penambahan matakuliah
-// Route::get('/mata-kuliah/{id}', [pendaftarcontroller::class, 'listmatkul'])->name('listmatkul');
-// Route::post('/mata-kuliah/{id}', [pendaftarcontroller::class, 'prosestambahmatkul'])->name('prosestambahmatkul');
-
-// // main admin
-// Route::get('/admin', [admincontroller::class, 'index'])->name('homeadmin');
-// Route::get('/soal-generator', [])->name('generatorsoal');
-
-// // pendaftaran peserta
-// Route::get('/daftar', [pendaftarcontroller::class, 'daftar'])->name('pendaftaran');
-// Route::post('/daftar/proses', [pendaftarcontroller::class, 'proses'])->name('prosespendaftaran');
+Route::group(['middleware' => 'Dosen', 'prefix' => 'admin'], function () {
+    // Verifikasi Kelulusan dan Penilaian
+    Route::get('asprak/penilaian',              [VerifikasiController::class, 'indexnilai'])->name('asprak.nilai.index');
+    Route::post('asprak/penilain',              [VerifikasiController::class, 'penilaian'])->name('asprak.verifikasi.nilai');
+    Route::get('asprak/verifikasi/nilai/search', [VerifikasiController::class, 'penilaianmatkul'])->name('asprak.nilai.index.matkul');
+    Route::post('asprak/verifikasi/lulus',      [VerifikasiController::class, 'verifikasilulus'])->name('asprak.verifikasi.lulus');
+});
