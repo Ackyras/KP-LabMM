@@ -38,7 +38,7 @@ class MataKuliahController extends Controller
             'tanggal_seleksi'   => ['required', 'after:' . $this->pembukaan_id->akhir_pembukaan],
             'awal_seleksi'      => ['required', 'date_format:H:i', 'unique:App\Models\MataKuliah,awal_seleksi'],
             'akhir_seleksi'     => ['required', 'date_format:H:i', 'after:awal_seleksi'],
-            'soal'              => ['mimetypes:application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword', 'max:2048', 'nullable']
+            'soal'              => ['mimes:pdf,doc,docx,zip', 'max:2048', 'nullable']
         ]);
 
         $matkul = DaftarMataKuliah::where('id', $request->input('matakuliah'))->pluck('nama')->first();
@@ -87,7 +87,7 @@ class MataKuliahController extends Controller
             'tanggal_seleksi'   => ['required', 'after:' . $this->pembukaan_id->akhir_pembukaan],
             'awal_seleksi'      => ['required', 'date_format:H:i', 'unique:App\Models\MataKuliah,awal_seleksi,' . $id],
             'akhir_seleksi'     => ['required', 'date_format:H:i', 'after:awal_seleksi'],
-            'soal'              => ['mimetypes:application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword', 'max:2048', 'nullable']
+            'soal'              => ['mimes:pdf,doc,docx,zip', 'max:2048', 'nullable']
         ]);
 
         $matkul = DaftarMataKuliah::where('id', $request->input('matakuliah'))->pluck('nama')->first();
