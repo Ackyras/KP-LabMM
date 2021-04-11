@@ -2,6 +2,13 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Admin;
+use App\Http\Middleware\CalonAsprak;
+use App\Http\Middleware\Dosen;
+use App\Http\Middleware\Inventaris;
+use App\Http\Middleware\NotLaboran;
+use App\Http\Middleware\Ruangan;
+use App\Http\Middleware\SuperAdmin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -56,7 +63,6 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'Admin' => \App\Http\Middleware\Admin::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
@@ -64,5 +70,13 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'SuperAdmin' => SuperAdmin::class,
+        'Asprak' => \App\Http\Middleware\Asprak::class,
+        'Inventaris' => Inventaris::class,
+        'Ruangan' => Ruangan::class,
+        'Dosen' => Dosen::class,
+        'CalonAsprak' => CalonAsprak::class,
+        'Admin' => Admin::class,
+        'OnlyLaboran' => OnlyLaboran::class
     ];
 }
