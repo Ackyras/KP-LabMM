@@ -65,6 +65,7 @@ Route::get('calonasprak/tidak-ada-pembukaan',   [DaftarAsprakController::class, 
 Route::group(['middleware' => ['CalonAsprak']], function () {
     Route::get('calonasprak/seleksi',       [DaftarAsprakController::class, 'seleksi'])->name('calonasprak.seleksi');
     Route::get('calonasprak/seleksi/{id}',  [DaftarAsprakController::class, 'seleksishow'])->name('calonasprak.test');
+    Route::post('calonasprak/seleksi/{id}', [DaftarAsprakController::class, 'seleksiupload'])->name('calonasprak.test.store');
     Route::post('calonasprak/logout',       [DaftarAsprakController::class, 'logout'])->name('calonasprak.logout');
 });
 Route::group(['middleware' => 'Admin', 'prefix' => 'admin'], function () {
