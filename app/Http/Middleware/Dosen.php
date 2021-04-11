@@ -19,7 +19,7 @@ class Dosen
     {
         if (Auth::check()) {
             $role = Auth::user()->role;
-            if ($role == 'superadmin' or $role == 'dosen') {
+            if ($role == 'superadmin' or $role == 'dosen' or $role == 'asprak') {
                 return $next($request);
             } else {
                 return abort(403);
