@@ -15,22 +15,22 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $formbarangs = FormBarang::where('created_at', '>=', Carbon::today()->setTimezone('Asia/Jakarta'))
+        $formbarangs = FormBarang::where('created_at', '>=', Carbon::today()->format('Y-d-m H:i:s'))
             ->orderBy('created_at')
             ->take(5)
             ->get();
         $formruangans = FormRuangan::has('ruanglab')
             ->where('validasi', 1)
-            ->where('created_at', '>=', Carbon::today()->subDays(5)->setTimezone('Asia/Jakarta'))
+            ->where('created_at', '>=', Carbon::today()->subDays(5)->format('Y-m-d H:i:s'))
             ->orderBy('created_at')
             ->take(5)
             ->get();
         $barangs = PeminjamanBarang::with('inventaris')->get();
         $ruangans = PeminjamanRuangan::all();
-        $banyakformbarang = FormBarang::where('created_at', '>=', Carbon::today()->setTimezone('Asia/Jakarta'))->count();
-        $banyakformruangan = FormRuangan::where('created_at', '>=', Carbon::today()->setTimezone('Asia/Jakarta'))->count();
+        $banyakformbarang = FormBarang::where('created_at', '>=', Carbon::today()->format('Y-d-m H:i:s'))->count();
+        $banyakformruangan = FormRuangan::where('created_at', '>=', Carbon::today()->format('Y-d-m H:i:s'))->count();
         $barangbelumkembali = FormBarang::where('validasi', 2)
-            ->where('tanggal_pengembalian', '<', Carbon::today()->setTimezone('Asia/Jakarta'))
+            ->where('tanggal_pengembalian', '<', Carbon::today()->format('Y-m-d'))
             ->get()
             ->pluck('id')
             ->toArray();
