@@ -50,16 +50,22 @@
                         <i class="fas fa-home px-3"></i>Beranda
                     </li>
                 </a>
+                @if(!Auth::check())
                 <a href="{{ route('calonasprak.form') }}">
                     <li class="navbarw sidenav-item p-2 border">
                         <i class="fas fa-file-alt px-3"></i>Daftar
                     </li>
                 </a>
+                @endif
+                @if (Auth::check())
+                @if (Auth::user()->role == "calonasprak")
                 <a href="{{ route('calonasprak.seleksi') }}">
                     <li class="navbarw sidenav-item p-2 border">
                         <i class="fas fa-laptop-code px-3"></i>Uji Seleksi
                     </li>
                 </a>
+                @endif
+                @endif
                 <a href="{{ route('calonasprak.jadwal') }}">
                     <li class="navbarw sidenav-item p-2 border">
                         <i class="fas fa-table px-3"></i>Jadwal Seleksi
