@@ -96,7 +96,13 @@ class ManagementUser extends Controller
 
     public function destroy($id)
     {
-        User::where('$id', $id)->delete();
+        User::where('id', $id)->delete();
+        return redirect()->route('user.index');
+    }
+
+    public function reset()
+    {
+        User::where('role', 'calonasprak')->delete();
         return redirect()->route('user.index');
     }
 }
