@@ -47,6 +47,9 @@ class DashboardController extends Controller
         $barangpinjamans = PeminjamanBarang::with(['inventaris', 'formbarang'])
             ->whereIn('form_barang_id', $barangpinjamans)
             ->paginate(3);
-        return view('dashboard.index', compact('formbarangs', 'formruangans', 'barangs', 'ruangans', 'banyakformbarang', 'banyakformruangan', 'barangbelumkembali', 'barangdipinjam', 'barangpinjamans'));
+        $peminjamtelats = FormBarang::where('validasi', 2)
+            ->where('tanggal_pengembalian', '<', Carbon::today()->format('Y-m-d'))
+            ->paginate(5);
+        return view('dashboard.index', compact('formbarangs', 'formruangans', 'barangs', 'ruangans', 'banyakformbarang', 'banyakformruangan', 'barangbelumkembali', 'barangdipinjam', 'barangpinjamans', 'peminjamtelats'));
     }
 }
