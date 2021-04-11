@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\BarangPinjamanJumlah;
+use App\Rules\BarangPinjaman;
 use Illuminate\Foundation\Http\FormRequest;
 
 class FormBarangRequest extends FormRequest
@@ -30,7 +32,9 @@ class FormBarangRequest extends FormRequest
             'no_hp'                 => ['max:13', 'required', 'regex:/[0-9]+/', 'min:10'],
             'afiliasi'              => ['required'],
             'tanggal_peminjaman'    => ['date'],
-            'tanggal_pengembalian'  => ['date', 'after_or_equal:tanggal_peminjaman']
+            'tanggal_pengembalian'  => ['date', 'after_or_equal:tanggal_peminjaman'],
+            'kode1'                 => ['required', new BarangPinjaman($this->request->get('kode1'))],
+            'jumlah1'               => [new BarangPinjamanJumlah($this->request->get('kode1')), 'min:1'],
         ];
     }
 
@@ -56,7 +60,9 @@ class FormBarangRequest extends FormRequest
             'tanggal_peminjaman.required'           => 'Mohon isi field Tanggal Peminjaman',
             'tanggal_peminjaman.date'               => 'Mohon isi field Tanggal Peminjaman dengan tanggal',
             'tanggal_pengembalian.required'         => 'Mohon isi field Tanggal Pengembalian',
-            'tanggal_pengembalian.after_or_equal'   => 'Mohon isi field Tanggal Pengembalian sama atau setalah Tanggal Peminjaman'
+            'tanggal_pengembalian.after_or_equal'   => 'Mohon isi field Tanggal Pengembalian sama atau setalah Tanggal Peminjaman',
+            'kode1.required'                        => 'Pilih barang',
+            'jumlah1.min'                           => 'Minimum 1'
         ];
     }
 }
