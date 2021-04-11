@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FormBarang;
 use App\Models\Inventaris;
 use App\Models\PeminjamanBarang;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -61,6 +62,17 @@ class PeminjamanBarangController extends Controller
         }
 
         return redirect()->route('peminjaman.barang')->with('msg', 'Berhasil merubah status');
+    }
+
+    public function telat()
+    {
+        $forms = FormBarang::where('validasi', '2')
+            ->where('tanggal_pengembalian', '<', Carbon::today()->format('Y-m-d'))
+            ->orderByDesc('updated_at')
+            ->paginate(10);
+        $barangs = PeminjamanBarang::with('inventaris')->get();
+        dd($forms);
+        return view('dashboard.peminjaman.barang.telat', compact('forms', 'barangs'));
     }
 
     public function riwayat()
