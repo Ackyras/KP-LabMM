@@ -92,6 +92,7 @@ Route::group(['middleware' => 'Inventaris', 'prefix' => 'admin'], function () {
     // Route Peminjaman Barang
     Route::get('peminjaman/barang',             [PeminjamanBarangController::class, 'index'])->name('peminjaman.barang');
     Route::post('peminjaman/barang',            [PeminjamanBarangController::class, 'status'])->name('peminjaman.barang.update');
+    Route::get('peminjaman/barang/telat',       [PeminjamanBarangController::class, 'telat'])->name('peminjaman.barang.telat');
     Route::get('peminjaman/barang/riwayat',     [PeminjamanBarangController::class, 'riwayat'])->name('peminjaman.barang.riwayat');
 });
 
