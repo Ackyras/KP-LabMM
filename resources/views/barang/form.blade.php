@@ -54,20 +54,93 @@
         <h4 class="title-keterangan">Keterangan Peminjam</h4>
         <div class="line-3"></div>
         <div class="row pb-5">
-            <div class="col-10">
-                <input list="barangs" name="kode[1]" class="form-control @error('kode[1]') is-invalid @enderror" required placeholder="Pilih barang">
+            <label>Pilih barang*</label>
+            <div class="col-9">
+                <input list="barangs" name="kode1" class="form-control @error('kode1') is-invalid @enderror" required placeholder="Pilih barang 1">
                 <datalist id="barangs">
                     @foreach($barangs as $barang)
-                    <option value="{{ $barang->id }}">{{ $barang->id }}</option>
+                    <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
                     @endforeach
                 </datalist>
-                @error('kode[1]')
+                @error('kode1')
                 <div class="alert alert-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="col-2">
-                <input type="number" name="jumlah[1]" min="1" max="5" value="1" class="form-control @error('jumlah[1]') is-invalid @enderror" required>
-                @error('jumlah[1]')
+            <div class="col-3">
+                <input type="number" name="jumlah1" min="1" max="5" value="1" class="form-control @error('jumlah1') is-invalid @enderror" required>
+                @error('jumlah1')
+                <div class="alert alert-danger mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <label class="mt-2">Pilih barang (<small>opsional</small>)</label>
+            <div class="col-9">
+                <input list="barangs" name="kode2" class="form-control @error('kode2') is-invalid @enderror" placeholder="Pilih barang 2">
+                <datalist id="barangs">
+                    @foreach($barangs as $barang)
+                    <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
+                    @endforeach
+                </datalist>
+                @error('kode2')
+                <div class="alert alert-danger mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="col-3">
+                <input type="number" name="jumlah2" min="0" max="5" value="" class="form-control @error('jumlah2') is-invalid @enderror">
+                @error('jumlah2')
+                <div class="alert alert-danger mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <label class="mt-2">Pilih barang (<small>opsional</small>)</label>
+            <div class="col-9">
+                <input list="barangs" name="kode3" class="form-control @error('kode3') is-invalid @enderror" placeholder="Pilih barang 3">
+                <datalist id="barangs">
+                    @foreach($barangs as $barang)
+                    <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
+                    @endforeach
+                </datalist>
+                @error('kode3')
+                <div class="alert alert-danger mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="col-3">
+                <input type="number" name="jumlah3" min="0" max="5" value="" class="form-control @error('jumlah3') is-invalid @enderror">
+                @error('jumlah3')
+                <div class="alert alert-danger mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <label class="mt-2">Pilih barang (<small>opsional</small>)</label>
+            <div class="col-9">
+                <input list="barangs" name="kode4" class="form-control @error('kode4') is-invalid @enderror" placeholder="Pilih barang 4">
+                <datalist id="barangs">
+                    @foreach($barangs as $barang)
+                    <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
+                    @endforeach
+                </datalist>
+                @error('kode4')
+                <div class="alert alert-danger mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="col-3">
+                <input type="number" name="jumlah4" min="0" max="5" value="" class="form-control @error('jumlah4') is-invalid @enderror">
+                @error('jumlah4')
+                <div class="alert alert-danger mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <label class="mt-2">Pilih barang (<small>opsional</small>)</label>
+            <div class="col-9">
+                <input list="barangs" name="kode5" class="form-control @error('kode5') is-invalid @enderror" placeholder="Pilih barang 5">
+                <datalist id="barangs">
+                    @foreach($barangs as $barang)
+                    <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
+                    @endforeach
+                </datalist>
+                @error('kode5')
+                <div class="alert alert-danger mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="col-3">
+                <input type="number" name="jumlah5" min="0" max="5" value="" class="form-control @error('jumlah5') is-invalid @enderror">
+                @error('jumlah5')
                 <div class="alert alert-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
