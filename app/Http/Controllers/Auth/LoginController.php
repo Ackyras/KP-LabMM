@@ -41,7 +41,7 @@ class LoginController extends Controller
                 return $this->redirectTo;
                 break;
             case 'ruangan':
-                $this->redirectTo = 'beranda';
+                $this->redirectTo = '/admin/dashboard';
                 return $this->redirectTo;
                 break;
             case 'asprak':
