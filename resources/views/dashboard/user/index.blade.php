@@ -9,6 +9,11 @@
             <h6 class="m-0 font-weight-bold text-primary">List Akun Admin</h6>
         </div>
         <div class="card-body">
+            <form action="{{ route('user.resetasprak') }}" method="POST">
+                @csrf
+                <button type="submit" onclick="return confirm('Aksi ini akan mereset seluruh akun asprak, pastikan uji seleksi telah selesai dilaksanakan')" class="btn btn-danger">Reset Asprak</button>
+                <a href="{{route('user.create')}}" class="btn btn-primary float-right mb-2">Tambah User</a>
+            </form>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
