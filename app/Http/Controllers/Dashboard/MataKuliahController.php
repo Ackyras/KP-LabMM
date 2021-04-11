@@ -8,6 +8,7 @@ use App\Models\MataKuliah;
 use App\Models\PembukaanAsprak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule as ValidationRule;
 
 class MataKuliahController extends Controller
 {
@@ -27,7 +28,12 @@ class MataKuliahController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'matakuliah'        => ['required', 'unique:App\Models\MataKuliah,mata_kuliah_id'],
+            'matakuliah'        => [
+                'required',
+                ValidationRule::unique('mata_kuliahs', 'mata_kuliah_id')->where(function ($q) {
+                    return $q->where('pembukaan_asprak_id', $this->pembukaan_id->id);
+                }),
+            ],
             'dosen'             => 'required',
             'tanggal_seleksi'   => ['required', 'after:' . $this->pembukaan_id->akhir_pembukaan],
             'awal_seleksi'      => ['required', 'date_format:H:i', 'unique:App\Models\MataKuliah,awal_seleksi'],
@@ -71,10 +77,15 @@ class MataKuliahController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'matakuliah'        => 'required',
+            'matakuliah'        => [
+                'required',
+                ValidationRule::unique('mata_kuliahs', 'mata_kuliah_id')->where(function ($q) {
+                    return $q->where('pembukaan_asprak_id', $this->pembukaan_id->id);
+                })->ignore($id),
+            ],
             'dosen'             => 'required',
-            'tanggal_seleksi'   => ['required', 'after:today'],
-            'awal_seleksi'      => ['required', 'date_format:H:i'],
+            'tanggal_seleksi'   => ['required', 'after:' . $this->pembukaan_id->akhir_pembukaan],
+            'awal_seleksi'      => ['required', 'date_format:H:i', 'unique:App\Models\MataKuliah,awal_seleksi,' . $id],
             'akhir_seleksi'     => ['required', 'date_format:H:i', 'after:awal_seleksi'],
             'soal'              => ['mimetypes:application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword', 'max:2048', 'nullable']
         ]);
