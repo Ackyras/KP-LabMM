@@ -93,7 +93,7 @@
                 </div>
             </li>
             @endcan
-            @if (auth()->user()->role != "dosen")
+            @if (auth()->user()->role != "dosen" and auth()->user()->role != "asprak")
             <div class="sidebar-heading">
                 Peminjaman
             </div>
@@ -178,7 +178,7 @@
             </li>
             @endcan
 
-            @if (auth()->user()->role != "dosen")
+            @if (auth()->user()->role != "dosen" and auth()->user()->role != "asprak")
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -194,8 +194,12 @@
                 </a>
                 <div id="collapsePagesH" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+                        @can('inventaris')
                         <a class="collapse-item" href="{{ route('peminjaman.barang.riwayat') }}">Barang</a>
+                        @endcan
+                        @can('ruangan')
                         <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Ruangan</a>
+                        @endcan
                     </div>
                 </div>
             </li>
