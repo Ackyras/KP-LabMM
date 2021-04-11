@@ -6,7 +6,7 @@ use App\Http\Middleware\Admin;
 use App\Http\Middleware\CalonAsprak;
 use App\Http\Middleware\Dosen;
 use App\Http\Middleware\Inventaris;
-use App\Http\Middleware\NotLaboran;
+use App\Http\Middleware\OnlyLaboran;
 use App\Http\Middleware\Ruangan;
 use App\Http\Middleware\SuperAdmin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
