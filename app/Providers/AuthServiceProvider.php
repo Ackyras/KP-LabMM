@@ -25,6 +25,25 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::before(function ($user) {
+            if ($user->role == 'superadmin') {
+                return true;
+            }
+        });
+        Gate::define('inventaris', function ($user) {
+            return $user->role == 'inventaris' or $user->role == 'superadmin';
+        });
+        Gate::define('ruangan', function ($user) {
+            return $user->role == 'ruangan' or $user->role == 'superadmin';
+        });
+        Gate::define('asprak', function ($user) {
+            return $user->role == 'asprak' or $user->role == 'superadmin' or $user->role == 'dosen';
+        });
+        Gate::define('openverbek', function ($user) {
+            return $user->role == 'asprak' or $user->role == 'superadmin';
+        });
+        Gate::define('nilai', function ($user) {
+            return $user->role == 'dosen' or $user->role == 'superadmin' or $user->role == 'asprak';
+        });
     }
 }
