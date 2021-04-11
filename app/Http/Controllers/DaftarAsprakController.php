@@ -165,6 +165,8 @@ class DaftarAsprakController extends Controller
             ->orderBy('tanggal_seleksi', 'desc')
             ->first();
         if ($this->pembukaan_id->akhir_pembukaan <= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') and $matkul->tanggal_seleksi >= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d')) {
+            if (!Auth::user())
+                return redirect()->route('calonasprak.login');
             if (auth()->user()->role == "calonasprak") {
                 $calon = CalonAsprak::where('periode', $this->pembukaan_id->id)->where('email', auth()->user()->email)->first();
                 $pilihan = PenilaianAsprak::where('calon_asprak_id', $calon->id)
@@ -187,6 +189,40 @@ class DaftarAsprakController extends Controller
 
     public function seleksishow($id)
     {
+        $master = "asprak";
+        $matkul = MataKuliah::where('pembukaan_asprak_id', $this->pembukaan_id->id)
+            ->where('id', $id)
+            ->first();
+        return view('asprak.show', compact('master', 'matkul'));
+    }
+
+    public function seleksiuplaod(Request $request, $id)
+    {
+        $request->validate(
+            [
+                'file'  => ['required', 'mimes:pdf,doc,docx,zip,rar']
+            ],
+            [
+                'file.required' => 'Masukkan file sebelum upload jawaban',
+                'file.mimes'    => 'File jawaban yang diterima hanya format pdf, zip, rar, doc, docx'
+            ]
+        );
+        $calon = CalonAsprak::where('periode', $this->pembukaan_id->id)->where('email', auth()->user()->email)->first();
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $path = 'public/calon/jawaban/' . $calon->nim;
+            $store = $file->storeAs($path, $file->getClientOriginalName());
+            $link = $request->root() . '/storage/calon/jawaban/' . $calon->nim . '/' . $file->getClientOriginalName();
+            $file = Storage::url($store);
+        }
+        PenilaianAsprak::where('mata_kuliah_id', $id)
+            ->where('calon_asprak_id', $calon->id)
+            ->update(
+                [
+                    'jawaban'   => $link
+                ]
+            );
+        return redirect()->route('calonasprak.seleksi');
     }
 
     public function jadwal()
