@@ -11,14 +11,14 @@ class PendaftaranAsprakController extends Controller
 {
     public function index()
     {
-        $daftars = PembukaanAsprak::orderBy('created_at', 'desc')->simplePaginate(10);
+        $daftars = PembukaanAsprak::orderBy('created_at', 'desc')->paginate(10);
         return view('dashboard.pendaftaran.index', compact('daftars'));
     }
 
     public function show($id)
     {
         $pembukaan = PembukaanAsprak::findOrFail($id);
-        $daftars = MataKuliah::with('daftarmatakuliah')->where('pembukaan_asprak_id', $id)->simplePaginate(10);
+        $daftars = MataKuliah::with('daftarmatakuliah')->where('pembukaan_asprak_id', $id)->paginate(10);
         return view('dashboard.pendaftaran.show', compact('daftars', 'pembukaan'));
     }
 

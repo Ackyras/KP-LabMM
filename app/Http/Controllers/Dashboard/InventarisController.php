@@ -12,7 +12,7 @@ class InventarisController extends Controller
 {
     public function index()
     {
-        $barangs = Inventaris::orderBy('updated_at', 'desc')->simplePaginate(10);
+        $barangs = Inventaris::orderBy('updated_at', 'desc')->paginate(10);
         return view('dashboard.inventaris.index', compact('barangs'));
     }
 

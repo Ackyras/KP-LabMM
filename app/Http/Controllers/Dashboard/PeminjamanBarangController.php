@@ -16,7 +16,7 @@ class PeminjamanBarangController extends Controller
         $forms = FormBarang::where('validasi', '1')
             ->orWhere('validasi', '2')
             ->orderByDesc('updated_at')
-            ->simplePaginate(10);
+            ->paginate(10);
         $barangs = PeminjamanBarang::with('inventaris')->get();
         return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs'));
     }
@@ -67,7 +67,7 @@ class PeminjamanBarangController extends Controller
     {
         $forms = FormBarang::where('validasi', 0)
             ->orderByDesc('updated_at')
-            ->simplePaginate(10);
+            ->paginate(10);
 
         $barangs = PeminjamanBarang::with('inventaris')->get();
 

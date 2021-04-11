@@ -16,7 +16,7 @@ class PeminjamanRuanganController extends Controller
     {
         $ruangans = FormRuangan::where('validasi', 1)
             ->orderByDesc('created_at')
-            ->simplePaginate(10);
+            ->paginate(10);
         $peminjamans = PeminjamanRuangan::all();
         return view('dashboard.peminjaman.ruangan.index', compact('ruangans', 'peminjamans'));
     }
@@ -73,7 +73,7 @@ class PeminjamanRuanganController extends Controller
 
     public function riwayat()
     {
-        $ruangans = FormRuangan::where('validasi', 0)->simplePaginate(10);
+        $ruangans = FormRuangan::where('validasi', 0)->paginate(10);
         $peminjamans = PeminjamanRuangan::all();
         return view('dashboard.peminjaman.ruangan.riwayat', compact('ruangans', 'peminjamans'));
     }

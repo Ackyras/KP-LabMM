@@ -12,7 +12,7 @@ class RuanganController extends Controller
 {
     public function index()
     {
-        $ruanglabs = RuangLab::simplePaginate(10);
+        $ruanglabs = RuangLab::paginate(10);
         return view('dashboard.ruangan.index', compact('ruanglabs'));
     }
 

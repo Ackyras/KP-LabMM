@@ -11,7 +11,7 @@ class ManagementUser extends Controller
     public function index()
     {
         if (auth()->user()->role == "superadmin") {
-            $users = User::simplePaginate(10);
+            $users = User::paginate(10);
             return view('dashboard.user.index', compact('users'));
         } else
             abort(403);

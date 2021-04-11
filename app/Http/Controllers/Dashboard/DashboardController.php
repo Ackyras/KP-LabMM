@@ -46,7 +46,7 @@ class DashboardController extends Controller
             ->toArray();
         $barangpinjamans = PeminjamanBarang::with(['inventaris', 'formbarang'])
             ->whereIn('form_barang_id', $barangpinjamans)
-            ->simplePaginate(3);
+            ->paginate(3);
         return view('dashboard.index', compact('formbarangs', 'formruangans', 'barangs', 'ruangans', 'banyakformbarang', 'banyakformruangan', 'barangbelumkembali', 'barangdipinjam', 'barangpinjamans'));
     }
 }
