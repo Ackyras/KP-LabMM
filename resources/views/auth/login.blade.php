@@ -38,7 +38,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Laboratorium Multimedia</h1>
                                     </div>
-                                    <form class="user" method="POST" action="{{ route('loginPost') }}">
+                                    <form class="user" method="POST" action="{{ route('login') }}">
                                         @csrf
                                         <div class="form-group">
                                             <input name="username" type="username" value="{{ old('username') }}" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Masukkan Username" autocomplete="off">
