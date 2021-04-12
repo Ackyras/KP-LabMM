@@ -14,7 +14,7 @@ class InventarisController extends Controller
     public function index()
     {
         $kunci = null;
-        $barangs = Inventaris::orderBy('updated_at')->paginate(10);
+        $barangs = Inventaris::orderByDesc('updated_at')->paginate(10);
         return view('dashboard.inventaris.index', compact('barangs', 'kunci'));
     }
 
