@@ -6,16 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\InventarisStoreRequest;
 use App\Models\Inventaris;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class InventarisController extends Controller
 {
     public function index()
     {
-        $barangs = Inventaris::orderBy('updated_at', 'desc')->paginate(10);
-        return view('dashboard.inventaris.index', compact('barangs'));
+        $kunci = null;
+        $barangs = Inventaris::orderBy('updated_at')->paginate(10);
+        return view('dashboard.inventaris.index', compact('barangs', 'kunci'));
     }
-
 
     public function create()
     {
@@ -108,5 +109,18 @@ class InventarisController extends Controller
     {
         Inventaris::where('id', $id)->delete();
         return redirect()->route('inventaris.index')->with('pesan', 'Data berhasil dihapus');
+    }
+
+    public function search(Request $request)
+    {
+        $input = '%' . $request->get('input') . '%';
+        $barangs = Inventaris::where('kd_barang', 'like', $input)
+            ->orWhere('nama_barang', 'like', $input)
+            ->orWhere('lokasi', 'like', $input)
+            ->orWhere('kategori', 'like', $input)
+            ->orderBy('updated_at')
+            ->paginate(10);
+        $kunci = $request->get('input');
+        return view('dashboard.inventaris.index', compact('barangs', 'kunci'));
     }
 }
