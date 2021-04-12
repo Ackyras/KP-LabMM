@@ -19,7 +19,7 @@ class CreateMataKuliahsTable extends Migration
             $table->foreignId('pembukaan_asprak_id')->references('id')->on('pembukaan_aspraks')->onDelete('cascade');
             $table->string('dosen');
             $table->date('tanggal_seleksi');
-            $table->time('awal_seleksi')->unique();
+            $table->time('awal_seleksi');
             $table->time('akhir_seleksi');
             $table->string('soal')->nullable();
             $table->timestamps();

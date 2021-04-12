@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DaftarMataKuliah;
 use App\Models\MataKuliah;
 use App\Models\PembukaanAsprak;
+use App\Rules\AwalSeleksiMataKuliah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule as ValidationRule;
@@ -36,7 +37,7 @@ class MataKuliahController extends Controller
             ],
             'dosen'             => 'required',
             'tanggal_seleksi'   => ['required', 'after:' . $this->pembukaan_id->akhir_pembukaan],
-            'awal_seleksi'      => ['required', 'date_format:H:i', 'unique:App\Models\MataKuliah,awal_seleksi'],
+            'awal_seleksi'      => ['required', 'date_format:H:i', new AwalSeleksiMataKuliah($request->get('awal_seleksi'), $request->get('tanggal_seleksi'), $this->pembukaan_id->id)],
             'akhir_seleksi'     => ['required', 'date_format:H:i', 'after:awal_seleksi'],
             'soal'              => ['mimes:pdf,doc,docx,zip', 'max:2048', 'nullable']
         ]);
@@ -85,7 +86,7 @@ class MataKuliahController extends Controller
             ],
             'dosen'             => 'required',
             'tanggal_seleksi'   => ['required', 'after:' . $this->pembukaan_id->akhir_pembukaan],
-            'awal_seleksi'      => ['required', 'date_format:H:i', 'unique:App\Models\MataKuliah,awal_seleksi,' . $id],
+            'awal_seleksi'      => ['required', 'date_format:H:i', new AwalSeleksiMataKuliah($request->get('awal_seleksi'), $request->get('tanggal_seleksi'), $this->pembukaan_id->id)],
             'akhir_seleksi'     => ['required', 'date_format:H:i', 'after:awal_seleksi'],
             'soal'              => ['mimes:pdf,doc,docx,zip', 'max:2048', 'nullable']
         ]);
