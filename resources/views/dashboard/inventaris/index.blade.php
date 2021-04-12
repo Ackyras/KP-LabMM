@@ -11,8 +11,7 @@ List Daftar Barang
     </div>
     <div class="card-body">
         <form action="{{ route('inventaris.search') }}" method="GET">
-            @csrf
-            <input name="input" class="my-2 form-control w-25 float-right mr-2" type="text" id="myInput" onkeyup="searchData()" placeholder="Cari barang">
+            <input name="input" class="my-2 form-control w-25 float-right mr-2" type="text" id="myInput" onkeyup="searchData()" placeholder="Cari nama barang atau lokasi">
         </form>
         <div class="table-responsive">
             <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -62,9 +61,9 @@ List Daftar Barang
                                         <dt><small><b>Status Barang</b></small></dt>
                                         <dd>{{$barang->status}} </dd>
                                         <dt><small><b>Stok Total</b></small></dt>
-                                        <dd>{{ $barang->stok }}</b></small></dt>
+                                        <dd>{{ $barang->stok }}</b></dt>
                                         <dt><small><b>Peminjaman</b></small></dt>
-                                        <dd>{{ $barang->peminjaman }}</b></small></dt>
+                                        <dd>{{ $barang->peminjaman }}</b></dt>
                                         <dt><small><b>Masuk Barang</dt>
                                         <dd>{{ $barang->masuk_barang }}</b></small></dt>
                                         <dt><small><b>Update Terakhir</dt>
