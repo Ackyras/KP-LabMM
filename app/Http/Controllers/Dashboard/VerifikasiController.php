@@ -196,7 +196,6 @@ class VerifikasiController extends Controller
                         Mail::to($calon->email)->send(new VerifikasiKelulusanAsprakMail($content));
                     }
                 );
-                return redirect()->route('asprak.nilai.index');
                 break;
             case '2':
                 DB::transaction(
@@ -220,8 +219,8 @@ class VerifikasiController extends Controller
                         Mail::to($calon->email)->send(new VerifikasiKelulusanAsprakMail($content));
                     }
                 );
-                return redirect()->route('asprak.nilai.index')->with('status', 'Berhasil memvalidasi kelulusan calon asisten praktikum');
                 break;
         }
+        return redirect()->route('asprak.nilai.index')->with('status', 'Berhasil memvalidasi kelulusan calon asisten praktikum');
     }
 }
