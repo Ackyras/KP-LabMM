@@ -14,7 +14,8 @@ class RuangLab extends Model
     protected $fillable = [
         'ruang',
         'lokasi',
-        'status'
+        'status',
+        'slug'
     ];
 
     public function ruangans()
