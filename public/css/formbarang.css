@@ -28,21 +28,21 @@
 .line {
     height: 4px;
     width: 104px;
-    background-color: #DAAF33;
+    background-color: #daaf33;
     margin-left: 130px;
 }
 
 .line-2 {
     height: 4px;
     width: 52px;
-    background-color: #DAAF33;
+    background-color: #daaf33;
     margin-left: 130px;
 }
 
 .line-3 {
     height: 4px;
     width: 52px;
-    background-color: #DAAF33;
+    background-color: #daaf33;
     margin-bottom: 15px;
     margin-left: 10px;
 }
@@ -62,7 +62,7 @@ form {
     float: right;
     text-transform: none;
     font-family: "Quicksand", sans-serif;
-    background-color: #DAAF33;
+    background-color: #daaf33;
     color: white;
     font-size: 17px;
 }
@@ -70,4 +70,8 @@ form {
 .btn-submit:hover {
     color: white;
     background-color: #8e6e0e;
+}
+
+.alert-success {
+    margin-left: 130px;
 }

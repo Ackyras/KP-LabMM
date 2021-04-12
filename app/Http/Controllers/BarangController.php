@@ -168,6 +168,6 @@ class BarangController extends Controller
             }
         });
 
-        return redirect()->route('barang.list')->with('msg', 'Berhasil membuat form');
+        return redirect()->route('barang.form')->with('status', 'Berhasil meminjam barang, silahkan ikuti alur selanjutnya');
     }
 }

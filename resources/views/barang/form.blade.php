@@ -14,6 +14,11 @@
     <div class="line-2"></div>
 </div>
 <div class="row pb-4">
+    @if (session('status'))
+    <div class="alert alert-success mt-3 w-50">
+        {{ session('status') }}
+    </div>
+    @endif
     <form class="col-8" action="{{ route('barang.store') }}" method="POST">
         @csrf
         <div class="form-group p-1">
