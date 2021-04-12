@@ -61,10 +61,11 @@ Route::get('calonasprak/daftar',        [DaftarAsprakController::class, 'form'])
 Route::get('calonasprak/jadwal',        [DaftarAsprakController::class, 'jadwal'])->name('calonasprak.jadwal');
 Route::get('calonasprak/tidak-ada-pembukaan',   [DaftarAsprakController::class, 'none'])->name('calonasprak.none');
 
+// Route Seleksi Calon Asprak
+Route::get('calonasprak/seleksi',       [DaftarAsprakController::class, 'seleksi'])->name('calonasprak.seleksi');
+Route::get('calonasprak/seleksi/{id}',  [DaftarAsprakController::class, 'seleksishow'])->name('calonasprak.test');
 
 Route::group(['middleware' => ['CalonAsprak']], function () {
-    Route::get('calonasprak/seleksi',       [DaftarAsprakController::class, 'seleksi'])->name('calonasprak.seleksi');
-    Route::get('calonasprak/seleksi/{id}',  [DaftarAsprakController::class, 'seleksishow'])->name('calonasprak.test');
     Route::post('calonasprak/seleksi/{id}', [DaftarAsprakController::class, 'seleksiupload'])->name('calonasprak.test.store');
     Route::post('calonasprak/logout',       [DaftarAsprakController::class, 'logout'])->name('calonasprak.logout');
 });
@@ -87,20 +88,28 @@ Route::group(['middleware' => 'SuperAdmin', 'prefix' => 'admin'], function () {
 
 Route::group(['middleware' => 'Inventaris', 'prefix' => 'admin'], function () {
     // Route Admin Inventaris Barang
+    Route::get('inventaris/search', [InventarisController::class, 'search'])->name('inventaris.search');
     Route::resource('inventaris',   InventarisController::class);
 
     // Route Peminjaman Barang
     Route::get('peminjaman/barang',             [PeminjamanBarangController::class, 'index'])->name('peminjaman.barang');
     Route::post('peminjaman/barang',            [PeminjamanBarangController::class, 'status'])->name('peminjaman.barang.update');
+    Route::get('peminjaman/barang/search',      [PeminjamanBarangController::class, 'search'])->name('peminjaman.barang.search');
     Route::get('peminjaman/barang/telat',       [PeminjamanBarangController::class, 'telat'])->name('peminjaman.barang.telat');
     Route::get('peminjaman/barang/riwayat',     [PeminjamanBarangController::class, 'riwayat'])->name('peminjaman.barang.riwayat');
+    Route::get('peminjaman/barang/riwayat/search', [PeminjamanBarangController::class, 'searchriwayat'])->name('peminjaman.barang.riwayat.search');
+    Route::get('peminjaman/barang/{status}',    [PeminjamanBarangController::class, 'filter'])->name('peminjaman.barang.filter');
 });
 
 Route::group(['middleware' => 'Ruangan', 'prefix' => 'admin'], function () {
     // Route Peminjaman Ruangan
     Route::get('peminjaman/ruangan',            [PeminjamanRuanganController::class, 'index'])->name('peminjaman.ruangan');
     Route::post('peminjaman/ruangan',           [PeminjamanRuanganController::class, 'status'])->name('peminjaman.ruangan.update');
+    Route::get('peminjaman/ruangan/search',     [PeminjamanRuanganController::class, 'search'])->name('peminjaman.ruangan.search');
     Route::get('peminjaman/ruangan/riwayat',    [PeminjamanRuanganController::class, 'riwayat'])->name('peminjaman.ruangan.riwayat');
+    Route::get('peminjaman/ruangan/riwayat/search', [PeminjamanRuanganController::class, 'searchriwayat'])->name('peminjaman.ruangan.riwayat.search');
+    Route::get('peminjaman/ruangan/{slug}',     [PeminjamanRuanganController::class, 'filter'])->name('peminjaman.ruangan.filter');
+    Route::get('peminjaman/ruangan/riwayat/{slug}', [PeminjamanRuanganController::class, 'riwayatfilter'])->name('peminjaman.ruangan.riwayat.filter');
 
     // Route Penjadwalan Ruangan
     Route::get('penjadwalan',                   [PenjadwalanController::class, 'index'])->name('penjadwalan.index');
