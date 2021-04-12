@@ -90,7 +90,7 @@ class PeminjamanBarangController extends Controller
     {
         $kunci = null;
         $forms = FormBarang::where('validasi', 2)
-            ->where('tanggal_pengembalian', '<', Carbon::today()->format('Y-m-d'))
+            ->where('tanggal_pengembalian', '<', Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d'))
             ->orderByDesc('updated_at')
             ->paginate(10);
         $barangs = PeminjamanBarang::with('inventaris')->get();
