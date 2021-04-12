@@ -10,7 +10,10 @@ List Daftar Barang
         <h6 class="m-0 font-weight-bold text-primary">List Daftar Barang</h6>
     </div>
     <div class="card-body">
-        <input class="my-2 form-control w-25 float-right mr-2" type="text" id="myInput" onkeyup="searchData()" placeholder="Cari barang">
+        <form action="{{ route('inventaris.search') }}" method="GET">
+            @csrf
+            <input name="input" class="my-2 form-control w-25 float-right mr-2" type="text" id="myInput" onkeyup="searchData()" placeholder="Cari barang">
+        </form>
         <div class="table-responsive">
             <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead class="thead-dark">
@@ -47,14 +50,24 @@ List Daftar Barang
                                 <div class="modal-body">
                                     <img class="foto-barang my-3" src="{{ $barang->foto }}" /></br>
                                     <h5 class="font-weight-bold nama-barang">{{ $barang->nama_barang }}</h5>
-                                    <b class="ml-3">Kode &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $barang->kd_barang }}</br>
-                                    <b class="ml-3">Nama &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $barang->nama_barang }}</br>
-                                    <b class="ml-3">Lokasi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $barang->lokasi }}</br>
-                                    <b class="ml-3">Kategori &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $barang->kategori }}</br>
-                                    <b class="ml-3">Stok &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $barang->stok }}</br>
-                                    <b class="ml-3">Peminjaman :</b>&nbsp;&nbsp;{{ $barang->peminjaman }}</br>
-                                    <b class="ml-3">Masuk &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $barang->masuk_barang }}</br>
-                                    <b class="ml-3">Update &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;{{ $barang->updated_at }}</br>
+                                    <dl class="ml-3">
+                                        <dt><small><b>Kode</b></small></dt>
+                                        <dd>{{ $barang->kd_barang }}</dd>
+                                        <dt><small><b>Nama</b></small></dt>
+                                        <dd>{{ $barang->nama_barang }}</dd>
+                                        <dt><small><b>Lokasi</b></small></dt>
+                                        <dd>{{ $barang->lokasi }}</dd>
+                                        <dt><small><b>Kategori</b></small></dt>
+                                        <dd>{{$barang->kategori}} </dd>
+                                        <dt><small><b>Stok Total</b></small></dt>
+                                        <dd>{{ $barang->stok }}</b></small></dt>
+                                        <dt><small><b>Peminjaman</b></small></dt>
+                                        <dd>{{ $barang->peminjaman }}</b></small></dt>
+                                        <dt><small><b>Masuk Barang</dt>
+                                        <dd>{{ $barang->masuk_barang }}</b></small></dt>
+                                        <dt><small><b>Update Terakhir</dt>
+                                        <dd>{{ $barang->updated_at }}</b></small></dt>
+                                    </dl>
                                 </div>
                                 <div class="modal-footer">
                                     <a href="{{ route('inventaris.edit', $barang->id) }}" class="btn btn-primary">Edit</a>
@@ -69,7 +82,7 @@ List Daftar Barang
                     </div>
                     @empty
                     <tr>
-                        <td colspan="6">Tidak ada barang</td>
+                        <td colspan="6">@if ($kunci == null) Tidak ada barang @else Tidak ada barang dengan kata kunci {{$kunci}} @endif</td>
                     </tr>
                     @endforelse
                 </tbody>
@@ -90,12 +103,14 @@ List Daftar Barang
 
         // Loop through all table rows, and hide those who don't match the search query
         for (i = 0; i < tr.length; i++) {
+            tdKode = tr[i].getElementsByTagName("td")[1];
             td = tr[i].getElementsByTagName("td")[2];
             tdLokasi = tr[i].getElementsByTagName("td")[3];
             if (td) {
                 txtValue = td.textContent || td.innerText;
                 txtValueLokasi = tdLokasi.textContent || tdLokasi.innerText;
-                if ((txtValue.toUpperCase().indexOf(filter) > -1) || (txtValueLokasi.toUpperCase().indexOf(filter) > -1)) {
+                txtValuKode = tdKode.textContent || tdKode.innerText;
+                if ((txtValue.toUpperCase().indexOf(filter) > -1) || (txtValueLokasi.toUpperCase().indexOf(filter) > -1) || (txtValuKode.toUpperCase().indexOf(filter) > -1)) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";
