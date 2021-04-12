@@ -8,6 +8,11 @@
         <h6 class="m-0 font-weight-bold text-primary">Penjadwalan Ruangan</h6>
     </div>
     <div class="card-body">
+        @if (session('status'))
+        <div class="alert alert-success mt-3">
+            {{ session('status') }}
+        </div>
+        @endif
         <input class="mb-2 form-control w-25 float-right" type="text" id="myInput" onkeyup="searchData()" placeholder="Cari Data">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

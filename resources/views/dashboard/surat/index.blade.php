@@ -10,9 +10,14 @@
         <h6 class="m-0 font-weight-bold text-primary">List {{ ($kategori == 1) ? "Surat Masuk" : "Surat Keluar" }}</h6>
     </div>
     <div class="card-body">
+        @if (session('status'))
+        <div class="alert alert-success mt-3">
+            {{ session('status') }}
+        </div>
+        @endif
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead class="thead-dark">
                     <tr>
                         <th>No</th>
                         <th>Judul</th>

@@ -11,6 +11,11 @@
         <h6 class="m-0 font-weight-bold text-primary">List Penilaian Calon Asprak</h6>
     </div>
     <div class="card-body">
+        @if (session('status'))
+        <div class="alert alert-success mt-3">
+            {{ session('status') }}
+        </div>
+        @endif
         <form action="{{ route('asprak.nilai.index.matkul') }}" method="GET">
             @csrf
             <input class="my-2 form-control w-25 float-right mr-2" name="matkul" type="text" id="myInput" onkeyup="searchData()" placeholder="Cari mata kuliah">

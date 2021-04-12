@@ -10,6 +10,11 @@ List Daftar Barang
         <h6 class="m-0 font-weight-bold text-primary">List Daftar Barang</h6>
     </div>
     <div class="card-body">
+        @if (session('status'))
+        <div class="alert alert-success mt-3">
+            {{ session('status') }}
+        </div>
+        @endif
         <form action="{{ route('inventaris.search') }}" method="GET">
             <input name="input" class="my-2 form-control w-25 float-right mr-2" type="text" id="myInput" onkeyup="searchData()" placeholder="Cari nama barang atau lokasi">
         </form>

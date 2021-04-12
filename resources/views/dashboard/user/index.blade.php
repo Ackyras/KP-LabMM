@@ -9,6 +9,11 @@
             <h6 class="m-0 font-weight-bold text-primary">List Akun Admin</h6>
         </div>
         <div class="card-body">
+            @if (session('status'))
+            <div class="alert alert-success mt-3">
+                {{ session('status') }}
+            </div>
+            @endif
             <form action="{{ route('user.resetasprak') }}" method="POST">
                 @csrf
                 <button type="submit" onclick="return confirm('Aksi ini akan mereset seluruh akun asprak, pastikan uji seleksi telah selesai dilaksanakan')" class="btn btn-danger">Reset Asprak</button>

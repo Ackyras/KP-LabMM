@@ -10,6 +10,11 @@ List Peminjaman Ruangan
         <h6 class="m-0 font-weight-bold text-primary">List Peminjam Ruangan</h6>
     </div>
     <div class="card-body">
+        @if (session('status'))
+        <div class="alert alert-success mt-3">
+            {{ session('status') }}
+        </div>
+        @endif
         <div class="dropdown">
             <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Filter Ruangan
