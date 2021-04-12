@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\PembukaanAsprak;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DaftarAsprakRequest extends FormRequest
 {
@@ -23,16 +25,22 @@ class DaftarAsprakRequest extends FormRequest
      */
     public function rules()
     {
+        $periode = PembukaanAsprak::latest()->first();
         return [
             'nama'          => ['required'],
             'nim'           => ['required', 'regex:/[0-9]+/', 'min:8', 'max:9'],
-            'email'         => ['required', 'email'],
+            'email'         => [
+                'required', 'email',
+                Rule::unique('calon_aspraks', 'email')->where(function ($q) use ($periode) {
+                    return $q->where('periode', $periode->id);
+                })
+            ],
             'tanggal_lahir' => ['required', 'date', 'before:today'],
             'prodi'         => ['required'],
             'angkatan'      => ['required', 'regex:/[0-9]+/'],
-            'cv'            => ['mimes:pdf,jpeg,png,jpg', 'max:512', 'required'],
-            'khs'           => ['mimes:pdf,jpeg,png,jpg', 'max:512', 'required'],
-            'ktm'           => ['mimes:pdf,jpeg,png,jpg', 'max:512', 'required'],
+            'cv'            => ['mimes:pdf,jpeg,png,jpg', 'max:1024', 'required'],
+            'khs'           => ['mimes:pdf,jpeg,png,jpg', 'max:1024', 'required'],
+            'ktm'           => ['mimes:pdf,jpeg,png,jpg', 'max:1024', 'required'],
             'pilihan'       => ['required']
         ];
     }
