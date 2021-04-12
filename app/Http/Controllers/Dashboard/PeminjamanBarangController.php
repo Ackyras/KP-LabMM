@@ -14,12 +14,34 @@ class PeminjamanBarangController extends Controller
 {
     public function index()
     {
+        $kunci = null;
         $forms = FormBarang::where('validasi', '1')
             ->orWhere('validasi', '2')
             ->orderByDesc('updated_at')
             ->paginate(10);
         $barangs = PeminjamanBarang::with('inventaris')->get();
-        return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs'));
+        return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs', 'kunci'));
+    }
+
+    public function filter($status)
+    {
+        $kunci = null;
+        $forms = FormBarang::where('validasi', $status)
+            ->orderByDesc('updated_at')
+            ->paginate(10);
+        $barangs = PeminjamanBarang::with('inventaris')->get();
+        return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs', 'kunci'));
+    }
+
+    public function search(Request $request)
+    {
+        $input = '%' . $request->get('input') . '%';
+        $forms = FormBarang::where('nama_peminjam', 'like', $input)
+            ->orWhere('afiliasi', 'like', $input)
+            ->paginate(10);
+        $barangs = PeminjamanBarang::with('inventaris')->get();
+        $kunci = $request->get('input');
+        return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs', 'kunci'));
     }
 
     public function status(Request $request)
@@ -66,13 +88,13 @@ class PeminjamanBarangController extends Controller
 
     public function telat()
     {
-        $forms = FormBarang::where('validasi', '2')
+        $kunci = null;
+        $forms = FormBarang::where('validasi', 2)
             ->where('tanggal_pengembalian', '<', Carbon::today()->format('Y-m-d'))
             ->orderByDesc('updated_at')
             ->paginate(10);
         $barangs = PeminjamanBarang::with('inventaris')->get();
-        dd($forms);
-        return view('dashboard.peminjaman.barang.telat', compact('forms', 'barangs'));
+        return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs', 'kunci'));
     }
 
     public function riwayat()
