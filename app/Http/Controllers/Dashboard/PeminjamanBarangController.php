@@ -99,12 +99,31 @@ class PeminjamanBarangController extends Controller
 
     public function riwayat()
     {
+        $kunci = null;
         $forms = FormBarang::where('validasi', 0)
             ->orderByDesc('updated_at')
             ->paginate(10);
+        $id = $forms->pluck('id')->toArray();
+        $barangs = PeminjamanBarang::with('inventaris')
+            ->whereIn('form_barang_id', $id)
+            ->get();
 
-        $barangs = PeminjamanBarang::with('inventaris')->get();
+        return view('dashboard.peminjaman.barang.riwayat', compact('forms', 'barangs', 'kunci'));
+    }
 
-        return view('dashboard.peminjaman.barang.riwayat', compact('forms', 'barangs'));
+    public function searchriwayat(Request $request)
+    {
+        $input = '%' . $request->get('input') . '%';
+        $forms = FormBarang::where('validasi', 0)
+            ->where('nama_peminjam', 'like', $input)
+            ->orWhere('afiliasi', 'like', $input)
+            ->orderByDesc('updated_at')
+            ->paginate(10);
+        $id = $forms->pluck('id')->toArray();
+        $barangs = PeminjamanBarang::with('inventaris')
+            ->whereIn('form_barang_id', $id)
+            ->get();
+        $kunci = $request->get('input');
+        return view('dashboard.peminjaman.barang.riwayat', compact('forms', 'barangs', 'kunci'));
     }
 }

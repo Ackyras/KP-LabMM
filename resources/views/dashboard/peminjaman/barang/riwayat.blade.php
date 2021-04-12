@@ -10,9 +10,12 @@ Riwayat Peminjaman Barang
         <h6 class="m-0 font-weight-bold text-primary">Riwayat Peminjam Barang</h6>
     </div>
     <div class="card-body">
+        <form action="{{ route('peminjaman.barang.riwayat.search') }}" method="GET">
+            <input class="my-2 form-control w-25 float-right mr-2" name="input" type="text" id="myInput" autocomplete="off" onkeyup="searchData()" placeholder="Cari nama atau program studi">
+        </form>
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead class="thead-dark">
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
@@ -44,15 +47,23 @@ Riwayat Peminjaman Barang
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <h5 class="my-2">Status : Selesai Meminjam</h5>
-                                    <b>Nama :</b> {{$form->nama_peminjam}} </br>
-                                    <b>Nim :</b> {{$form->nim}}</br>
-                                    <b>Email :</b> {{$form->email}}</br>
-                                    <b>No HP :</b> {{$form->no_hp}}</br>
-                                    <b>Afiliasi :</b> {{$form->afiliasi}}</br>
-                                    <b>Tanggal Peminjaman :</b> {{$form->tanggal_peminjaman}}</br>
-                                    <b>Tanggal Pengembalian :</b> {{$form->tanggal_pengembalian}}</br>
-                                    <b>Barang Pinjaman</b>
+                                    <dl class="ml-3">
+                                        <dt><small><b>Nama</b></small></dt>
+                                        <dd>{{$form->nama_peminjam}}</dd>
+                                        <dt><small><b>NIM / NIP</b></small></dt>
+                                        <dd>{{$form->nim}}</dd>
+                                        <dt><small><b>Email</b></small></dt>
+                                        <dd>{{$form->email}}</dd>
+                                        <dt><small><b>No HP</b></small></dt>
+                                        <dd>{{$form->no_hp}}</dd>
+                                        <dt><small><b>Afiliasi</b></small></dt>
+                                        <dd>{{$form->afiliasi}}</dd>
+                                        <dt><small><b>Tanggal Peminjaman</b></small></dt>
+                                        <dd>{{$form->tanggal_peminjaman}}</dd>
+                                        <dt><small><b>Tanggal Pengembalian</b></small></dt>
+                                        <dd>{{$form->tanggal_pengembalian}}</b></dt>
+                                    </dl>
+                                    <b class="ml-3">Barang Pinjaman</b>
                                     <ul>
                                         @foreach ($barangs as $barang)
                                         @if ($barang->form_barang_id == $form->id)
@@ -61,19 +72,12 @@ Riwayat Peminjaman Barang
                                         @endforeach
                                     </ul>
                                 </div>
-                                <div class="modal-footer">
-                                    <form action="{{ route('peminjaman.barang.update') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="form_barang_id" value="{{ $form->id }}" />
-                                        <button type="submit" name="action" value="3" onclick="return confirm('Yakin ingin menghapus data?')" class="btn btn-danger">Hapus Data</button>
-                                    </form>
-                                </div>
                             </div>
                         </div>
                     </div>
                     @empty
                     <tr>
-                        <td colspan="6">Tidak ada Riwayat</td>
+                        <td colspan="6">@if ($kunci == null) Tidak ada riwayat @else Tidak ada riwayat dengan kata kunci {{$kunci}} @endif</td>
                     </tr>
                     @endforelse
                 </tbody>
@@ -82,4 +86,29 @@ Riwayat Peminjaman Barang
         </div>
     </div>
 </div>
+<script>
+    function searchData() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("dataTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            tdAfiliasi = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                txtValueAfiliasi = tdAfiliasi.textContent || tdAfiliasi.innerText;
+                if ((txtValue.toUpperCase().indexOf(filter) > -1) || (txtValueAfiliasi.toUpperCase().indexOf(filter) > -1)) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
 @endsection('content')
