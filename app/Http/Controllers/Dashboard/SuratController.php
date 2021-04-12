@@ -66,7 +66,7 @@ class SuratController extends Controller
             'file'                  => $link,
         ]);
 
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('surat.masuk')->with('status', 'Berhasil menambah surat');
     }
 
     public function edit($id)
@@ -115,12 +115,12 @@ class SuratController extends Controller
             ]
         );
 
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('surat.masuk')->with('status', 'Berhasil merubah surat');
     }
 
     public function destroy($id)
     {
         Surat::where('id', $id)->delete();
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('surat.masuk')->with('status', 'Berhasil menghapus surat');
     }
 }

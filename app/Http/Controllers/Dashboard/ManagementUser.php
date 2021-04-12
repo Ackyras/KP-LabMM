@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\MataKuliah;
+use App\Models\PembukaanAsprak;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ManagementUser extends Controller
@@ -48,7 +51,7 @@ class ManagementUser extends Controller
             ]
         );
 
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('status', 'Berhasil menambah akun');
     }
 
     public function edit($id)
@@ -91,18 +94,25 @@ class ManagementUser extends Controller
             );
         }
 
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('status', 'Berhasil merubah akun');
     }
 
     public function destroy($id)
     {
         User::where('id', $id)->delete();
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('status', 'Berhasil menghapus akun');
     }
 
     public function reset()
     {
+        $pembukaan = PembukaanAsprak::latest()->first();
+        $matkul = MataKuliah::where('pembukaan_asprak_id', $pembukaan->id)
+            ->orderByDesc('tanggal_seleksi')
+            ->first();
+        if ($pembukaan->awal_pembukaan <= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') and $matkul->tanggal_seleksi >= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d'))
+            return redirect()->route('user.index')->with('status', 'Perekrutan calon asisten praktikum masih berlangsung');
+
         User::where('role', 'calonasprak')->delete();
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('status', 'Berhasil mengapus akun calon asprak');
     }
 }

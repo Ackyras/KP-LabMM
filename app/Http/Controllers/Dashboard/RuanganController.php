@@ -54,7 +54,7 @@ class RuanganController extends Controller
                 }
             }
         });
-        return redirect()->route('ruanglab.index');
+        return redirect()->route('ruanglab.index')->with('status', 'Berhasil menambah ruangan');
     }
 
     public function edit($id)
@@ -81,12 +81,12 @@ class RuanganController extends Controller
                 'slug' => Str::slug($request->lokasi . ' ' . $request->ruang)
             ]
         );
-        return redirect()->route('ruanglab.index');
+        return redirect()->route('ruanglab.index')->with('status', 'Berhasil merubah ruangan');
     }
 
     public function destroy($id)
     {
         RuangLab::where('id', $id)->delete();
-        return redirect()->route('ruanglab.index');
+        return redirect()->route('ruanglab.index')->with('status', 'Berhasil menghapus ruangan');
     }
 }

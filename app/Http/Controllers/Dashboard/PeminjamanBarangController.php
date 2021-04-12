@@ -83,7 +83,7 @@ class PeminjamanBarangController extends Controller
                 break;
         }
 
-        return redirect()->route('peminjaman.barang')->with('msg', 'Berhasil merubah status');
+        return redirect()->route('peminjaman.barang')->with('status', 'Berhasil merubah status');
     }
 
     public function telat()

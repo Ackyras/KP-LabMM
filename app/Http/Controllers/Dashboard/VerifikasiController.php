@@ -108,7 +108,7 @@ class VerifikasiController extends Controller
                 );
                 break;
         }
-        return redirect()->route('asprak.index');
+        return redirect()->route('asprak.index')->with('status', 'Berhasil memvalidasi berkas calon asisten praktikum');
     }
 
     public function indexnilai()
@@ -167,7 +167,7 @@ class VerifikasiController extends Controller
                     'nilai' => $request->input('nilai')
                 ]
             );
-        return redirect()->route('asprak.nilai.index');
+        return redirect()->route('asprak.nilai.index')->with('status', 'Berhasil mengubah nilai calon asisten praktikum');
     }
 
     public function verifikasilulus(Request $request)
@@ -220,7 +220,7 @@ class VerifikasiController extends Controller
                         Mail::to($calon->email)->send(new VerifikasiKelulusanAsprakMail($content));
                     }
                 );
-                return redirect()->route('asprak.nilai.index');
+                return redirect()->route('asprak.nilai.index')->with('status', 'Berhasil memvalidasi kelulusan calon asisten praktikum');
                 break;
         }
     }

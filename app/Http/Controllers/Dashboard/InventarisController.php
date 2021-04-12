@@ -54,7 +54,7 @@ class InventarisController extends Controller
             ]
         );
 
-        return redirect()->route('inventaris.index')->with('pesan', 'Barang berhasil ditambah');
+        return redirect()->route('inventaris.index')->with('status', 'Barang berhasil ditambah');
     }
 
     public function show($id)
@@ -102,13 +102,13 @@ class InventarisController extends Controller
                 ]
             );
 
-        return redirect()->route('inventaris.index')->with('pesan', 'Barang berhasil ditambah');
+        return redirect()->route('inventaris.index')->with('status', 'Barang berhasil diubah');
     }
 
     public function destroy($id)
     {
         Inventaris::where('id', $id)->delete();
-        return redirect()->route('inventaris.index')->with('pesan', 'Data berhasil dihapus');
+        return redirect()->route('inventaris.index')->with('status', 'Barang berhasil dihapus');
     }
 
     public function search(Request $request)

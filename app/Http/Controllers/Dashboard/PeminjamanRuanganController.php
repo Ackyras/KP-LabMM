@@ -104,7 +104,7 @@ class PeminjamanRuanganController extends Controller
                 break;
         }
 
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('peminjaman.ruangan')->with('status', 'Berhasil merubah status');
     }
 
     public function riwayat()

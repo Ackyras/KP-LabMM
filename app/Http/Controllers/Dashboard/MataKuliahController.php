@@ -65,7 +65,7 @@ class MataKuliahController extends Controller
             ]
         );
 
-        return redirect()->route('rekrut.show', $this->pembukaan_id->id)->with('pesan', 'Mata Kuliah berhasil ditambah');
+        return redirect()->route('rekrut.show', $this->pembukaan_id->id)->with('status', 'Mata Kuliah berhasil ditambah');
     }
 
     public function edit($id)
@@ -115,12 +115,12 @@ class MataKuliahController extends Controller
                 ]
             );
 
-        return redirect()->route('rekrut.show', $this->pembukaan_id->id)->with('pesan', 'Mata Kuliah berhasil diubah');
+        return redirect()->route('rekrut.show', $this->pembukaan_id->id)->with('status', 'Mata Kuliah berhasil diubah');
     }
 
     public function destroy($id)
     {
         MataKuliah::where('id', $id)->delete();
-        return redirect()->route('rekrut.show', $this->pembukaan_id->id)->with('pesan', 'Mata Kuliah berhasil dihapus');
+        return redirect()->route('rekrut.show', $this->pembukaan_id->id)->with('status', 'Mata Kuliah berhasil dihapus');
     }
 }

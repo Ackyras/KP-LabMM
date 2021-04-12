@@ -36,7 +36,7 @@ class PendaftaranAsprakController extends Controller
         ]);
         PembukaanAsprak::create($request->all());
 
-        return redirect()->route('rekrut.index')->with('pesan', 'Perekrutan berhasil dibuka');
+        return redirect()->route('rekrut.index')->with('status', 'Perekrutan berhasil dibuka');
     }
 
     public function edit($id)
@@ -55,13 +55,13 @@ class PendaftaranAsprakController extends Controller
         PembukaanAsprak::where('id', $id)
             ->update($request->only(['judul', 'awal_pembukaan', 'akhir_pembukaan']));
 
-        return redirect()->route('rekrut.index')->with('pesan', 'Perekrutan berhasil diubah');
+        return redirect()->route('rekrut.index')->with('status', 'Perekrutan berhasil diubah');
     }
 
     public function destroy($id)
     {
         PembukaanAsprak::where('id', $id)->delete();
 
-        return redirect()->route('rekrut.index')->with('pesan', 'Perekrutan berhasil dihapus');
+        return redirect()->route('rekrut.index')->with('status', 'Perekrutan berhasil dihapus');
     }
 }
