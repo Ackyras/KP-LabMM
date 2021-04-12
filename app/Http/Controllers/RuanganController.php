@@ -24,6 +24,10 @@ class RuanganController extends Controller
         $minggu = $request->input('minggu');
         DB::transaction(function () use ($request, $minggu) {
             $peminjam = FormRuangan::create($request->validated());
+            $request->validate(
+                ['minggu'           => 'required'],
+                ['minggu.required'  => 'Pilih minimal 1']
+            );
             foreach ($minggu as $key => $value) {
                 $ruangan = Ruangan::where('waktu', $peminjam->waktu)
                     ->where('hari', $peminjam->hari)
@@ -36,6 +40,6 @@ class RuanganController extends Controller
                 ]);
             }
         });
-        return redirect()->route('ruangan.form')->with('msg', 'Pesan');
+        return redirect()->route('ruangan.form')->with('status', 'Berhasil meminjam ruangan, silahkan ikuti alur selanjutnya');
     }
 }

@@ -6,12 +6,17 @@
 
 @section('content')
 <div class="row">
-    <h4 class="p-2 title-header">Formulir Peminjaman Alat</h4>
+    <h4 class="p-2 title-header">Formulir Peminjaman Ruangan</h4>
     <div class="line"></div>
     <h4 class="title-data">Data Peminjam</h4>
     <div class="line-2"></div>
 </div>
 <div class="row pb-4">
+    @if (session('status'))
+    <div class="alert alert-success mt-3 w-50">
+        {{ session('status') }}
+    </div>
+    @endif
     <form class="col-8" action="{{ route('ruangan.store') }}" method="POST">
         @csrf
         <div class="form-group p-1">
@@ -117,13 +122,16 @@
         </div>
         <div class="form-group p-1">
             <label>Keterangan Peminjaman*</label>
-            <textarea class="form-control @error('keterangan') is-invalid @enderror" name="keterangan" cols="3" rows="3" placeholder="Masukkan keterangan peminjaman" required autocomplete="off"></textarea>
+            <textarea value="{{ old('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror" name="keterangan" cols="3" rows="3" placeholder="Masukkan keterangan peminjaman" required autocomplete="off"></textarea>
             @error('keterangan')
             <div class="alert alert-danger mt-1">{{ $message }}</div>
             @enderror
         </div>
         <div class="row">
             <div class="col-9">
+                @error('minggu')
+                <div class="alert alert-danger mt-1">{{ $message }}</div>
+                @enderror
                 <div class="form-group p-1">
                     <label>Minggu Ke-*</label></br>
                     <div class="d-flex justify-content-md-between ml-4">
