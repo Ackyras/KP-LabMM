@@ -10,10 +10,23 @@ Peminjaman Barang
         <h6 class="m-0 font-weight-bold text-primary">List Peminjam Barang</h6>
     </div>
     <div class="card-body">
-        <input class="my-2 form-control w-25 float-right" type="text" id="myInput" onkeyup="searchData()" placeholder="Cari Data">
+        <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filter
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{ route('peminjaman.barang') }}">Semua</a>
+                <a class="dropdown-item" href="{{ route('peminjaman.barang.filter', ['status' => 1]) }}">Belum Meminjam</a>
+                <a class="dropdown-item" href="{{ route('peminjaman.barang.filter', ['status' => 2]) }}">Sedang Meminjam</a>
+                <a class="dropdown-item" href="{{ route('peminjaman.barang.telat') }}">Telat Mengembalikan</a>
+            </div>
+        </div>
+        <form action="{{ route('peminjaman.barang.search') }}" method="GET">
+            <input class="my-2 form-control w-25 float-right mr-2" name="input" type="text" id="myInput" autocomplete="off" onkeyup="searchData()" placeholder="Cari nama atau program studi">
+        </form>
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead class="thead-dark">
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
@@ -47,15 +60,24 @@ Peminjaman Barang
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <h5 class="my-2">Status : {{ ($form->validasi == '1') ? "Belum Meminjam" : "Sedang Meminjam" }}</h5>
-                                    <b>Nama :</b> {{$form->nama_peminjam}} </br>
-                                    <b>Nim :</b> {{$form->nim}}</br>
-                                    <b>Email :</b> {{$form->email}}</br>
-                                    <b>No HP :</b> {{$form->no_hp}}</br>
-                                    <b>Afiliasi :</b> {{$form->afiliasi}}</br>
-                                    <b>Tanggal Peminjaman :</b> {{$form->tanggal_peminjaman}}</br>
-                                    <b>Tanggal Pengembalian :</b> {{$form->tanggal_pengembalian}}</br>
-                                    <b>Barang Pinjaman</b>
+                                    <h5 class="my-2 ml-3">Status : {{ ($form->validasi == '1') ? "Belum Meminjam" : "Sedang Meminjam" }}</h5>
+                                    <dl class="ml-3">
+                                        <dt><small><b>Nama</b></small></dt>
+                                        <dd>{{$form->nama_peminjam}}</dd>
+                                        <dt><small><b>NIM / NIP</b></small></dt>
+                                        <dd>{{$form->nim}}</dd>
+                                        <dt><small><b>Email</b></small></dt>
+                                        <dd>{{$form->email}}</dd>
+                                        <dt><small><b>No HP</b></small></dt>
+                                        <dd>{{$form->no_hp}}</dd>
+                                        <dt><small><b>Afiliasi</b></small></dt>
+                                        <dd>{{$form->afiliasi}}</dd>
+                                        <dt><small><b>Tanggal Peminjaman</b></small></dt>
+                                        <dd>{{$form->tanggal_peminjaman}}</dd>
+                                        <dt><small><b>Tanggal Pengembalian</b></small></dt>
+                                        <dd>{{$form->tanggal_pengembalian}}</b></dt>
+                                    </dl>
+                                    <b class="ml-3">Barang Pinjaman</b>
                                     <ul>
                                         @foreach ($barangs as $barang)
                                         @if ($barang->form_barang_id == $form->id)
@@ -68,8 +90,8 @@ Peminjaman Barang
                                     <form action="{{ route('peminjaman.barang.update') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="form_barang_id" value="{{ $form->id }}" />
-                                        <button type="submit" name="action" value="3" onclick="return confirm('Yakin ingin menghapus data?')" class="btn btn-danger">Hapus Data</button>
                                         @if ($form->validasi == 1)
+                                        <button type="submit" name="action" value="3" onclick="return confirm('Yakin ingin menghapus data?')" class="btn btn-danger">Hapus Data</button>
                                         <button type="submit" name="action" value="2" class="btn btn-warning">Sedang meminjam</button>
                                         @endif
                                         @if ($form->validasi == 2)
@@ -82,7 +104,7 @@ Peminjaman Barang
                     </div>
                     @empty
                     <tr>
-                        <td colspan="6">Tidak ada peminjaman</td>
+                        <td colspan="7">@if ($kunci == null) Tidak ada peminjaman @else Tidak ada peminjam dengan kata kunci {{$kunci}} @endif</td>
                     </tr>
                     @endforelse
                 </tbody>
