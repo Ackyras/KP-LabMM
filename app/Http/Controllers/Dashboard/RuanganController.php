@@ -7,6 +7,7 @@ use App\Models\Ruangan;
 use App\Models\RuangLab;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class RuanganController extends Controller
 {
@@ -32,7 +33,12 @@ class RuanganController extends Controller
         );
 
         DB::transaction(function () use ($request) {
-            $id = RuangLab::create($request->all());
+            $id = RuangLab::create(
+                $request->all() +
+                    [
+                        'slug' => Str::slug($request->lokasi . ' ' . $request->ruang)
+                    ]
+            );
             $hari = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
             $waktu = ['07:00', '09:00', '13:00', '15:00'];
             for ($i = 1; $i < 17; $i++) {
@@ -71,7 +77,8 @@ class RuanganController extends Controller
             [
                 'ruang'     => $request->input('ruang'),
                 'lokasi'    => $request->input('lokasi'),
-                'status'    => $request->input('status')
+                'status'    => $request->input('status'),
+                'slug' => Str::slug($request->lokasi . ' ' . $request->ruang)
             ]
         );
         return redirect()->route('ruanglab.index');
