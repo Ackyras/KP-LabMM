@@ -59,6 +59,8 @@ List Daftar Barang
                                         <dd>{{ $barang->lokasi }}</dd>
                                         <dt><small><b>Kategori</b></small></dt>
                                         <dd>{{$barang->kategori}} </dd>
+                                        <dt><small><b>Status Barang</b></small></dt>
+                                        <dd>{{$barang->status}} </dd>
                                         <dt><small><b>Stok Total</b></small></dt>
                                         <dd>{{ $barang->stok }}</b></small></dt>
                                         <dt><small><b>Peminjaman</b></small></dt>
