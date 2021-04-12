@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\StokPeminjamanBarang;
 use Illuminate\Foundation\Http\FormRequest;
 
 class InventarisStoreRequest extends FormRequest
@@ -29,8 +30,8 @@ class InventarisStoreRequest extends FormRequest
             'foto'          => ['nullable', 'image', 'max:1024'],
             'lokasi'        => ['required', 'in:TPB,PRODI'],
             'kategori'      => ['required', 'in:Elektronik,Non Elektronik'],
-            'stok'          => ['regex:/[0-9]+/', 'required'],
-            'peminjaman'    => ['regex:/[0-9]+/', 'required'],
+            'stok'          => ['numeric', 'required'],
+            'peminjaman'    => ['numeric', 'required', new StokPeminjamanBarang($this->request->get('stok'))],
             'status'        => ['required', 'in:Baik,Tidak Baik'],
             'masuk_barang'  => ['date']
         ];
