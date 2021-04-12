@@ -33,7 +33,7 @@ class DaftarAsprakController extends Controller
         if ($this->pembukaan_id->akhir_pembukaan <= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') and $matkul->tanggal_seleksi >= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d')) {
             $login = true;
         }
-        if (($this->pembukaan_id->awal_pembukaan <= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') and $this->pembukaan_id->akhir_pembukaan >= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d')) or ($this->pembukaan_id->akhir_pembukaan <= Carbon::today()->setTimezone('Asia/Jakarta')->format('Y-m-d') and $matkul->tanggal_seleksi >= Carbon::today()->setTimezone('Asia/Jakarta')->format('Y-m-d'))) {
+        if (($this->pembukaan_id->awal_pembukaan <= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') and $this->pembukaan_id->akhir_pembukaan >= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d')) or ($this->pembukaan_id->akhir_pembukaan <= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') and $matkul->tanggal_seleksi >= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d'))) {
             return view('asprak.index', compact('master', 'pembukaan', 'login'));
         }
         return redirect()->route('calonasprak.none');
@@ -155,7 +155,7 @@ class DaftarAsprakController extends Controller
             }
         });
 
-        return redirect()->route('home');
+        return redirect()->route('calonasprak.index')->with('status', 'Berhasil mendaftar, silahkan tunggu konfirmasi seleksi berkas');
     }
 
     public function seleksi()
@@ -190,6 +190,8 @@ class DaftarAsprakController extends Controller
     public function seleksishow($id)
     {
         $master = "asprak";
+        if (!Auth::user())
+            return redirect()->route('calonasprak.login');
         $matkul = MataKuliah::where('pembukaan_asprak_id', $this->pembukaan_id->id)
             ->where('id', $id)
             ->first();
@@ -222,7 +224,7 @@ class DaftarAsprakController extends Controller
                     'jawaban'   => $link
                 ]
             );
-        return redirect()->route('calonasprak.seleksi');
+        return redirect()->route('calonasprak.index')->with('status', 'Berhasil mengupload jawaban, silahkan tunggu pengumuman kelulusan di email anda');
     }
 
     public function jadwal()
@@ -231,7 +233,7 @@ class DaftarAsprakController extends Controller
         $matkul = MataKuliah::where('pembukaan_asprak_id', $this->pembukaan_id->id)
             ->orderBy('tanggal_seleksi', 'desc')
             ->first();
-        if (($this->pembukaan_id->awal_pembukaan <= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') and $this->pembukaan_id->akhir_pembukaan >= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d')) or ($this->pembukaan_id->akhir_pembukaan <= Carbon::today()->setTimezone('Asia/Jakarta')->format('Y-m-d') and $matkul->tanggal_seleksi >= Carbon::today()->setTimezone('Asia/Jakarta')->format('Y-m-d'))) {
+        if (($this->pembukaan_id->awal_pembukaan <= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') and $this->pembukaan_id->akhir_pembukaan >= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d')) or ($this->pembukaan_id->akhir_pembukaan <= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') and $matkul->tanggal_seleksi >= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d'))) {
             $matkuls = MataKuliah::with('daftarmatakuliah')->where('pembukaan_asprak_id', $this->pembukaan_id->id)
                 ->get();
             return view('asprak.jadwal', compact('master', 'matkuls'));
@@ -245,7 +247,7 @@ class DaftarAsprakController extends Controller
         $matkul = MataKuliah::where('pembukaan_asprak_id', $this->pembukaan_id->id)
             ->orderBy('tanggal_seleksi', 'desc')
             ->first();
-        if (($this->pembukaan_id->awal_pembukaan <= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') and $this->pembukaan_id->akhir_pembukaan >= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d')) or ($this->pembukaan_id->akhir_pembukaan <= Carbon::today()->setTimezone('Asia/Jakarta')->format('Y-m-d') and $matkul->tanggal_seleksi >= Carbon::today()->setTimezone('Asia/Jakarta')->format('Y-m-d')))
+        if (($this->pembukaan_id->awal_pembukaan <= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') and $this->pembukaan_id->akhir_pembukaan >= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d')) or ($this->pembukaan_id->akhir_pembukaan <= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') and $matkul->tanggal_seleksi >= Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d')))
             return redirect()->route('calonasprak.index');
         return view('asprak.none', compact('master'));
     }
