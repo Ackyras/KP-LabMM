@@ -10,10 +10,23 @@ Riwayat Peminjaman Ruangan
         <h6 class="m-0 font-weight-bold text-primary">Riwayat Peminjam Ruangan</h6>
     </div>
     <div class="card-body">
-        <input class="my-2 form-control w-25 float-right" type="text" id="myInput" onkeyup="searchData()" placeholder="Cari Data">
+        <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filter Ruangan
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Semua</a>
+                @foreach ($ruanglab as $ruang)
+                <a class="dropdown-item" href="{{ route('peminjaman.ruangan.riwayat.filter', ['slug' => $ruang->slug]) }}">{{$ruang->lokasi . ' : ' . $ruang->ruang}}</a>
+                @endforeach
+            </div>
+        </div>
+        <form action="{{ route('peminjaman.ruangan.riwayat.search') }}" method="GET">
+            <input class="my-2 form-control w-25 float-right mr-2" name="input" type="text" id="myInput" autocomplete="off" onkeyup="searchData()" placeholder="Cari nama atau program studi">
+        </form>
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead class="thead-dark">
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
@@ -29,7 +42,7 @@ Riwayat Peminjaman Ruangan
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $ruangan->nama_peminjam }}</td>
                         <td>{{ $ruangan->afiliasi }}</td>
-                        <td>{{ $ruangan->ruang_lab }}</td>
+                        <td>{{ $ruangan->ruanglab->lokasi . ' : ' .$ruangan->ruanglab->ruang }}</td>
                         <td>{{ $ruangan->created_at }}</td>
                         <td>
                             <button class="btn btn-info" data-toggle="modal" data-target="#data{{$ruangan->id}}">Detail</button>
@@ -45,19 +58,32 @@ Riwayat Peminjaman Ruangan
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <h5 class="my-2">{{ $ruangan->ruang_lab }}</h5>
-                                    <b>Nama :</b>{{$ruangan->nama_peminjam}}
-                                    <b>Nim :</b> {{$ruangan->nim}}</br>
-                                    <b>Email :</b> {{$ruangan->email}}</br>
-                                    <b>No HP :</b> {{$ruangan->no_hp}}</br>
-                                    <b>Afiliasi :</b> {{$ruangan->afiliasi}}</br>
-                                    <b>Ruang Lab :</b> {{$ruangan->ruang_lab}}</br>
-                                    <b>Dosen :</b> {{$ruangan->dosen}}</br>
-                                    <b>Kode Matkul :</b> {{$ruangan->kode_matkul}}</br>
-                                    <b>Mata Kuliah :</b> {{$ruangan->mata_kuliah}}</br>
-                                    <b>Hari :</b> {{$ruangan->hari}}</br>
-                                    <b>Waktu :</b> {{$ruangan->waktu}}</br>
-                                    <b>Minggu Ke</b>
+                                    <h5 class="my-2 ml-3">{{ $ruangan->ruanglab->lokasi . ' : ' .$ruangan->ruanglab->ruang }}</h5>
+                                    <dl class="ml-3">
+                                        <dt><small><b>Nama</b></small></dt>
+                                        <dd>{{$ruangan->nama_peminjam}}</dd>
+                                        <dt><small><b>NIM / NIP</b></small></dt>
+                                        <dd>{{$ruangan->nim}}</dd>
+                                        <dt><small><b>Email</b></small></dt>
+                                        <dd>{{$ruangan->email}}</dd>
+                                        <dt><small><b>No HP</b></small></dt>
+                                        <dd>{{$ruangan->no_hp}}</dd>
+                                        <dt><small><b>Afiliasi</b></small></dt>
+                                        <dd>{{$ruangan->afiliasi}}</dd>
+                                        <dt><small><b>Ruang Lab</b></small></dt>
+                                        <dd>{{$ruangan->ruanglab->lokasi . ' : ' .$ruangan->ruanglab->ruang}}</dd>
+                                        <dt><small><b>Dosen</b></small></dt>
+                                        <dd>{{$ruangan->dosen}}</dd>
+                                        <dt><small><b>Kode Mata Kuliah</b></small></dt>
+                                        <dd>{{$ruangan->kode_matkul}}</dd>
+                                        <dt><small><b>Mata Kuliah</b></small></dt>
+                                        <dd>{{$ruangan->mata_kuliah}}</dd>
+                                        <dt><small><b>Hari</b></small></dt>
+                                        <dd>{{$ruangan->hari}}</dd>
+                                        <dt><small><b>Waktu</b></small></dt>
+                                        <dd>{{$ruangan->waktu}}</dd>
+                                    </dl>
+                                    <b class="ml-3">Minggu Ke</b>
                                     <ul>
                                         @foreach ($peminjamans as $peminjaman)
                                         @if ($peminjaman->form_ruangan_id == $ruangan->id)
@@ -66,19 +92,12 @@ Riwayat Peminjaman Ruangan
                                         @endforeach
                                     </ul>
                                 </div>
-                                <div class="modal-footer">
-                                    <form method="POST" action="{{ route('peminjaman.ruangan.update') }}">
-                                        @csrf
-                                        <input type="hidden" name="form_ruangan_id" value="{{ $ruangan->id }}" />
-                                        <button type="submit" onclick="return confirm('Yakin ingin menghapus data?')" class="btn btn-danger" name="action" value="0">Hapus</button>
-                                    </form>
-                                </div>
                             </div>
                         </div>
                     </div>
                     @empty
                     <tr>
-                        <td colspan="6">Tidak ada peminjaman</td>
+                        <td colspan="6">@if ($kunci == null) Tidak ada riwayat peminjaman @else Tidak ada riwayat peminjam dengan kata kunci {{$kunci}} @endif</td>
                     </tr>
                     @endforelse
                 </tbody>

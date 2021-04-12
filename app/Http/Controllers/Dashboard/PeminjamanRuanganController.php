@@ -7,6 +7,7 @@ use App\Models\FormRuangan;
 use App\Models\PeminjamanBarang;
 use App\Models\PeminjamanRuangan;
 use App\Models\Ruangan;
+use App\Models\RuangLab;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,11 +15,46 @@ class PeminjamanRuanganController extends Controller
 {
     public function index()
     {
-        $ruangans = FormRuangan::where('validasi', 1)
-            ->orderByDesc('created_at')
+        $kunci = null;
+        $ruangans = FormRuangan::with('ruanglab')
+            ->where('validasi', 1)
+            ->orderBy('created_at')
             ->paginate(10);
-        $peminjamans = PeminjamanRuangan::all();
-        return view('dashboard.peminjaman.ruangan.index', compact('ruangans', 'peminjamans'));
+        $id = $ruangans->pluck('id')->toArray();
+        $peminjamans = PeminjamanRuangan::whereIn('form_ruangan_id', $id)->get();
+        $ruanglab = RuangLab::all();
+        return view('dashboard.peminjaman.ruangan.index', compact('ruangans', 'peminjamans', 'ruanglab', 'kunci'));
+    }
+
+    public function search(Request $request)
+    {
+        $input = '%' . $request->get('input') . '%';
+        $ruangans = FormRuangan::with('ruanglab')
+            ->where('nama_peminjam', 'like', $input)
+            ->orWhere('afiliasi', 'like', $input)
+            ->where('validasi', 1)
+            ->orderBy('created_at')
+            ->paginate(10);
+        $id = $ruangans->pluck('id')->toArray();
+        $peminjamans = PeminjamanRuangan::whereIn('form_ruangan_id', $id)->get();
+        $ruanglab = RuangLab::all();
+        $kunci = $request->get('input');
+        return view('dashboard.peminjaman.ruangan.index', compact('ruangans', 'peminjamans', 'ruanglab', 'kunci'));
+    }
+
+    public function filter($slug)
+    {
+        $kunci = null;
+        $ruang = RuangLab::where('slug', $slug)->first();
+        $ruangans = FormRuangan::with('ruanglab')
+            ->where('ruang_lab', $ruang->id)
+            ->where('validasi', 1)
+            ->orderBy('created_at')
+            ->paginate(10);
+        $id = $ruangans->pluck('id')->toArray();
+        $peminjamans = PeminjamanRuangan::whereIn('form_ruangan_id', $id)->get();
+        $ruanglab = RuangLab::all();
+        return view('dashboard.peminjaman.ruangan.index', compact('ruangans', 'peminjamans', 'ruanglab', 'kunci'));
     }
 
     public function status(Request $request)
@@ -73,8 +109,45 @@ class PeminjamanRuanganController extends Controller
 
     public function riwayat()
     {
-        $ruangans = FormRuangan::where('validasi', 0)->paginate(10);
-        $peminjamans = PeminjamanRuangan::all();
-        return view('dashboard.peminjaman.ruangan.riwayat', compact('ruangans', 'peminjamans'));
+        $kunci = null;
+        $ruangans = FormRuangan::with('ruanglab')
+            ->where('validasi', 0)
+            ->orderBy('created_at')
+            ->paginate(10);
+        $id = $ruangans->pluck('id')->toArray();
+        $peminjamans = PeminjamanRuangan::whereIn('form_ruangan_id', $id)->get();
+        $ruanglab = RuangLab::all();
+        return view('dashboard.peminjaman.ruangan.riwayat', compact('ruangans', 'peminjamans', 'ruanglab', 'kunci'));
+    }
+
+    public function searchriwayat(Request $request)
+    {
+        $input = '%' . $request->get('input') . '%';
+        $ruangans = FormRuangan::with('ruanglab')
+            ->where('nama_peminjam', 'like', $input)
+            ->orWhere('afiliasi', 'like', $input)
+            ->where('validasi', 0)
+            ->orderBy('created_at')
+            ->paginate(10);
+        $id = $ruangans->pluck('id')->toArray();
+        $peminjamans = PeminjamanRuangan::whereIn('form_ruangan_id', $id)->get();
+        $ruanglab = RuangLab::all();
+        $kunci = $request->get('input');
+        return view('dashboard.peminjaman.ruangan.riwayat', compact('ruangans', 'peminjamans', 'ruanglab', 'kunci'));
+    }
+
+    public function riwayatfilter($slug)
+    {
+        $kunci = null;
+        $ruang = RuangLab::where('slug', $slug)->first();
+        $ruangans = FormRuangan::with('ruanglab')
+            ->where('ruang_lab', $ruang->id)
+            ->where('validasi', 0)
+            ->orderBy('created_at')
+            ->paginate(10);
+        $id = $ruangans->pluck('id')->toArray();
+        $peminjamans = PeminjamanRuangan::whereIn('form_ruangan_id', $id)->get();
+        $ruanglab = RuangLab::all();
+        return view('dashboard.peminjaman.ruangan.riwayat', compact('ruangans', 'peminjamans', 'ruanglab', 'kunci'));
     }
 }
