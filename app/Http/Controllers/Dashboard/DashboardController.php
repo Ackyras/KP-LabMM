@@ -15,22 +15,22 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $formbarangs = FormBarang::where('created_at', '>=', Carbon::today()->format('Y-m-d H:i:s'))
+        $formbarangs = FormBarang::where('created_at', '>=', Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d'))
             ->orderBy('created_at')
             ->take(5)
             ->get();
         $formruangans = FormRuangan::with('ruanglab')
             ->where('validasi', 1)
-            ->where('created_at', '>=', Carbon::today()->subDays(5)->format('Y-m-d H:i:s'))
+            ->where('created_at', '>=', Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d'))
             ->orderBy('created_at')
             ->take(5)
             ->get();
         $barangs = PeminjamanBarang::with('inventaris')->get();
         $ruangans = PeminjamanRuangan::all();
-        $banyakformbarang = FormBarang::where('created_at', '>=', Carbon::today()->format('Y-m-d H:i:s'))->count();
-        $banyakformruangan = FormRuangan::where('created_at', '>=', Carbon::today()->format('Y-m-d H:i:s'))->count();
+        $banyakformbarang = FormBarang::where('created_at', '>=', Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d'))->count();
+        $banyakformruangan = FormRuangan::where('created_at', '>=', Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d'))->count();
         $barangbelumkembali = FormBarang::where('validasi', 2)
-            ->where('tanggal_pengembalian', '<', Carbon::today()->format('Y-m-d'))
+            ->where('tanggal_pengembalian', '<', Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d'))
             ->get()
             ->pluck('id')
             ->toArray();
@@ -48,7 +48,7 @@ class DashboardController extends Controller
             ->whereIn('form_barang_id', $barangpinjamans)
             ->paginate(3);
         $peminjamtelats = FormBarang::where('validasi', 2)
-            ->where('tanggal_pengembalian', '<', Carbon::today()->format('Y-m-d'))
+            ->where('tanggal_pengembalian', '<', Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d'))
             ->paginate(5);
         return view('dashboard.index', compact('formbarangs', 'formruangans', 'barangs', 'ruangans', 'banyakformbarang', 'banyakformruangan', 'barangbelumkembali', 'barangdipinjam', 'barangpinjamans', 'peminjamtelats'));
     }
