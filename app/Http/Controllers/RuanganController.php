@@ -14,7 +14,7 @@ class RuanganController extends Controller
 {
     public function form()
     {
-        $ruangs = RuangLab::all();
+        $ruangs = RuangLab::where('status', 'Baik')->get();
         $master = "peminjaman";
         return view('ruangan.form', compact('ruangs', 'master'));
     }
