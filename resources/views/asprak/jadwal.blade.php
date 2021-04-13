@@ -4,6 +4,17 @@
 <link rel="stylesheet" href="{{ asset('css/asprak/jadwal.css') }}">
 @endsection
 
+@section('logout')
+@if(auth()->user() and auth()->user()->role == 'calonasprak')
+<form action="{{ route('calonasprak.logout') }}" method="POST">
+    @csrf
+    <button type="submit" class="btn btn-primary-outline float-right">Logout</button>
+</form>
+@else
+<a href="{{ route('calonasprak.login') }}" class="btn btn-primary-outline float-right">Login</a>
+@endif
+@endsection
+
 @section('content')
 <div class="row">
     <h4 class="p-2 title-header">Jadwal Seleksi</h4>
@@ -36,7 +47,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <th colspan="6">Belum ada jadwal seleksi</th>
+                            <th colspan=" 6">Belum ada jadwal seleksi</th>
                         </tr>
                         @endforelse
                     </tbody>
