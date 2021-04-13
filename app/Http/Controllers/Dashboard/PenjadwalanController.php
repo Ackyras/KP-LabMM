@@ -21,7 +21,7 @@ class PenjadwalanController extends Controller
         $jadwal = $this->array;
         $ruanglabs = RuangLab::all();
         $ruangans = Ruangan::where('ruang_lab', $id)->get();
-        $form = FormRuangan::where('validasi', 0)->pluck('id')->toArray();
+        $form = FormRuangan::where('ruang_lab', $id)->where('validasi', 0)->pluck('id')->toArray();
         $peminjams = PeminjamanRuangan::with('formruangan')
             ->whereIn('form_ruangan_id', $form)
             ->get();
