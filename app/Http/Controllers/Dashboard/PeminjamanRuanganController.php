@@ -62,21 +62,7 @@ class PeminjamanRuanganController extends Controller
         $id = $request->input('form_ruangan_id');
         switch ($request->input('action')) {
             case '0':
-                DB::transaction(function () use ($id) {
-                    $peminjamans = PeminjamanRuangan::with('formruangan')->where('form_ruangan_id', $id)->get();
-                    foreach ($peminjamans as $peminjaman) {
-                        Ruangan::where('minggu', $peminjaman->minggu)
-                            ->where('waktu', $peminjaman->formruangan->waktu)
-                            ->where('hari', $peminjaman->formruangan->hari)
-                            ->update(
-                                [
-                                    'status'        => 0,
-                                    'updated_at'    => now()->toDateTimeString()
-                                ]
-                            );
-                    }
-                    FormRuangan::where('id', $id)->delete();
-                });
+                FormRuangan::where('id', $id)->delete();
                 break;
             case '1':
                 // Jadwal penuh send notifikasi
@@ -85,7 +71,8 @@ class PeminjamanRuanganController extends Controller
                 DB::transaction(function () use ($id) {
                     $peminjamans = PeminjamanRuangan::with('formruangan')->where('form_ruangan_id', $id)->get();
                     foreach ($peminjamans as $peminjaman) {
-                        Ruangan::where('minggu', $peminjaman->minggu)
+                        Ruangan::where('ruang_lab', $peminjaman->formruangan->ruang_lab)
+                            ->where('minggu', $peminjaman->minggu)
                             ->where('waktu', $peminjaman->formruangan->waktu)
                             ->where('hari', $peminjaman->formruangan->hari)
                             ->update(
