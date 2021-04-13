@@ -38,4 +38,9 @@ class FormRuangan extends Model
     {
         return $this->belongsTo(RuangLab::class, 'ruang_lab', 'id');
     }
+
+    public function ruangan()
+    {
+        return $this->belongsTo(Ruangan::class, 'ruang_lab', 'ruang_lab');
+    }
 }
