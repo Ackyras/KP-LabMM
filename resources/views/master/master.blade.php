@@ -39,6 +39,11 @@
                         <i class="fas fa-laptop px-3"></i>Form Pinjam Barang
                     </li>
                 </a>
+                <a href="{{ route('ruangan.index') }}">
+                    <li class="navbarw sidenav-item p-2 border">
+                        <i class="fas fa-table px-3"></i>Jadwal Ruangan
+                    </li>
+                </a>
                 <a href="{{ route('ruangan.form') }}">
                     <li class="navbarw sidenav-item p-2 border">
                         <i class="fas fa-door-open px-3"></i>Form Pinjam Ruangan
