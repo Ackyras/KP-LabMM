@@ -12,34 +12,36 @@
 <div class="row row-2">
     <div class="card mx-auto">
         <div class="card-body align-items-center d-flex">
-            <table class="table table-bordered table-hover">
-                <thead class="thead">
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Mata Kuliah</th>
-                        <th scope="col">Tanggal Seleksi</th>
-                        <th scope="col">Dosen</th>
-                        <th scope="col">Mulai Seleksi</th>
-                        <th scope="col">Akhir Seleksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($matkuls as $matkul)
-                    <tr>
-                        <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $matkul->daftarmatakuliah->nama }}</td>
-                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $matkul->tanggal_seleksi)->format('d-m-Y') }}</td>
-                        <td>{{ $matkul->dosen }}</td>
-                        <td>{{ Carbon\Carbon::createFromFormat('H:i:s', $matkul->awal_seleksi)->format('H:i') }}</td>
-                        <td>{{ Carbon\Carbon::createFromFormat('H:i:s', $matkul->akhir_seleksi)->format('H:i') }}</td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <th colspan="6">Belum ada jadwal seleksi</th>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+            <div class="table-responsive w-100">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead">
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Mata Kuliah</th>
+                            <th scope="col">Tanggal Seleksi</th>
+                            <th scope="col">Dosen</th>
+                            <th scope="col">Mulai Seleksi</th>
+                            <th scope="col">Akhir Seleksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($matkuls as $matkul)
+                        <tr>
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{ $matkul->daftarmatakuliah->nama }}</td>
+                            <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $matkul->tanggal_seleksi)->format('d-m-Y') }}</td>
+                            <td>{{ $matkul->dosen }}</td>
+                            <td>{{ Carbon\Carbon::createFromFormat('H:i:s', $matkul->awal_seleksi)->format('H:i') }}</td>
+                            <td>{{ Carbon\Carbon::createFromFormat('H:i:s', $matkul->akhir_seleksi)->format('H:i') }}</td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <th colspan="6">Belum ada jadwal seleksi</th>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
