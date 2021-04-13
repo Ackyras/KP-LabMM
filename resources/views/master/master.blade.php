@@ -23,6 +23,7 @@
 <body background="{{ asset('img/background.jpg')}}">
     <header style="max-height: 10%;">
         <a class="itera" href="{{ route('home') }}"><img src="{{ asset('img/LabMM2.png')}}" alt="Laboratorium"></a>
+        @yield('logout')
     </header>
 
     <div class="row mx-2 wrapper-main">
