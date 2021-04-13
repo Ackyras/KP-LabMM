@@ -114,9 +114,9 @@ Route::group(['middleware' => 'Ruangan', 'prefix' => 'admin'], function () {
     Route::get('peminjaman/ruangan/riwayat/{slug}', [PeminjamanRuanganController::class, 'riwayatfilter'])->name('peminjaman.ruangan.riwayat.filter');
 
     // Route Penjadwalan Ruangan
-    Route::get('penjadwalan',                   [PenjadwalanController::class, 'index'])->name('penjadwalan.index');
-    Route::post('penjadwalan/delete',           [PenjadwalanController::class, 'destroy'])->name('penjadwalan.destroy');
-    Route::post('penjadwalan/reset',            [PenjadwalanController::class, 'massReset'])->name('penjadwalan.reset');
+    Route::get('penjadwalan/{slug}',            [PenjadwalanController::class, 'index'])->name('penjadwalan.index');
+    Route::delete('penjadwalan/delete/{id}',    [PenjadwalanController::class, 'destroy'])->name('penjadwalan.destroy');
+    Route::post('penjadwalan/reset/{id}',       [PenjadwalanController::class, 'massReset'])->name('penjadwalan.reset');
     Route::resource('ruanglab',                 RuanganAdmin::class)->except(['show']);
 });
 
