@@ -32,7 +32,8 @@ class RuanganController extends Controller
         $peminjams = PeminjamanRuangan::with('formruangan')
             ->whereIn('form_ruangan_id', $form)
             ->get();
-        return view('ruangan.jadwal', compact('ruanglabs', 'master', 'peminjams', 'ruangans', 'jadwal'));
+        $ruang = RuangLab::where('slug', $slug)->first();
+        return view('ruangan.jadwal', compact('ruanglabs', 'master', 'peminjams', 'ruangans', 'jadwal', 'ruang'));
     }
 
     public function form()
