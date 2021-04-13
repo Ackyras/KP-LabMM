@@ -56,7 +56,7 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <div id="accordion">
+                                            <div id="accordion{{$jadwal[$i][0]['id']}}">
                                                 @foreach($ruangans as $ruangan)
                                                 @if ($ruangan->hari == $jadwal[$i][0]['hari'] and $ruangan->waktu == $jadwal[$i][0]['waktu'])
                                                 <div class="card">
@@ -67,7 +67,7 @@
                                                             </button>
                                                         </h5>
                                                     </div>
-                                                    <div id="minggu{{$ruangan->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                                    <div id="minggu{{$ruangan->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion{{$jadwal[$i][0]['id']}}">
                                                         <div class="card-body">
                                                             @if($ruangan->status == 1)
                                                             @foreach($peminjams as $peminjam)
@@ -113,231 +113,227 @@
                                     </div>
                                 </div>
                             </div>
-        </div>
-        @endfor
-        </tr>
-        <tr>
-            <td scope="row">09:00</td>
-            @for ($i = 7; $i < 14; $i++) <td><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#data{{$jadwal[$i][0]['id']}}">Detail</button></td>
-                <div class="modal fade" id="data{{$jadwal[$i][0]['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Data Jadwal</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div id="accordion">
-                                    @foreach($ruangans as $ruangan)
-                                    @if ($ruangan->hari == $jadwal[$i][0]['hari'] and $ruangan->waktu == $jadwal[$i][0]['waktu'])
-                                    <div class="card">
-                                        <div class="card-header text-center" id="headingOne">
-                                            <h5 class="mx-auto">
-                                                <button class="btn btn-link" data-toggle="collapse" data-target="#minggu{{$ruangan->id}}" aria-expanded="true" aria-controls="minggu{{$ruangan->id}}">
-                                                    Minggu {{$ruangan->minggu}}
-                                                </button>
-                                            </h5>
+                            @endfor
+                    </tr>
+                    <tr>
+                        <td scope="row">09:00</td>
+                        @for ($i = 7; $i < 14; $i++) <td><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#data{{$jadwal[$i][0]['id']}}">Detail</button></td>
+                            <div class="modal fade" id="data{{$jadwal[$i][0]['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Data Jadwal</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                        <div id="minggu{{$ruangan->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                                            <div class="card-body">
-                                                @if($ruangan->status == 1)
-                                                @foreach($peminjams as $peminjam)
-                                                @if($peminjam->ruangan_id == $ruangan->id)
-                                                <dl class="ml-3">
-                                                    <dt><small><b>Nama Peminjam</b></small></dt>
-                                                    <dd>{{ $peminjam->formruangan->nama_peminjam }}</dd>
-                                                    <dt><small><b>NIM / NIP</b></small></dt>
-                                                    <dd>{{ $peminjam->formruangan->nim }}</dd>
-                                                    <dt><small><b>Email</b></small></dt>
-                                                    <dd>{{ $peminjam->formruangan->email }}</dd>
-                                                    <dt><small><b>No HP</b></small></dt>
-                                                    <dd>{{ $peminjam->formruangan->no_hp }}</dd>
-                                                    <dt><small><b>Afiliasi</b></small></dt>
-                                                    <dd>{{ $peminjam->formruangan->afiliasi }}</dd>
-                                                    <dt><small><b>Mata Kuliah</b></small></dt>
-                                                    <dd>{{ $peminjam->formruangan->mata_kuliah }}</dd>
-                                                    <dt><small><b>Kode Mata Kuliah</b></small></dt>
-                                                    <dd>{{ $peminjam->formruangan->kode_matkul }}</dd>
-                                                    <dt><small><b>Dosen</b></small></dt>
-                                                    <dd>{{ $peminjam->formruangan->dosen }}</dd>
-                                                    <dt><small><b>Keterangan</b></small></dt>
-                                                    <dd>{!! nl2br(e($peminjam->formruangan->keterangan)) !!}</dd>
-                                                </dl>
-                                                <form action="{{ route('penjadwalan.destroy', $ruangan->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <input type="hidden" name="slug" value="{{$slug}}">
-                                                    <button class="btn btn-danger float-right mb-3" onclick="return confirm('Yakin ingin menghapus jadwal?')">Hapus Jadwal</button>
-                                                </form>
+                                        <div class="modal-body">
+                                            <div id="accordion{{$jadwal[$i][0]['id']}}">
+                                                @foreach($ruangans as $ruangan)
+                                                @if ($ruangan->hari == $jadwal[$i][0]['hari'] and $ruangan->waktu == $jadwal[$i][0]['waktu'])
+                                                <div class="card">
+                                                    <div class="card-header text-center" id="headingOne">
+                                                        <h5 class="mx-auto">
+                                                            <button class="btn btn-link" data-toggle="collapse" data-target="#minggu{{$ruangan->id}}" aria-expanded="true" aria-controls="minggu{{$ruangan->id}}">
+                                                                Minggu {{$ruangan->minggu}}
+                                                            </button>
+                                                        </h5>
+                                                    </div>
+                                                    <div id="minggu{{$ruangan->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion{{$jadwal[$i][0]['id']}}">
+                                                        <div class="card-body">
+                                                            @if($ruangan->status == 1)
+                                                            @foreach($peminjams as $peminjam)
+                                                            @if($peminjam->ruangan_id == $ruangan->id)
+                                                            <dl class="ml-3">
+                                                                <dt><small><b>Nama Peminjam</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->nama_peminjam }}</dd>
+                                                                <dt><small><b>NIM / NIP</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->nim }}</dd>
+                                                                <dt><small><b>Email</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->email }}</dd>
+                                                                <dt><small><b>No HP</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->no_hp }}</dd>
+                                                                <dt><small><b>Afiliasi</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->afiliasi }}</dd>
+                                                                <dt><small><b>Mata Kuliah</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->mata_kuliah }}</dd>
+                                                                <dt><small><b>Kode Mata Kuliah</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->kode_matkul }}</dd>
+                                                                <dt><small><b>Dosen</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->dosen }}</dd>
+                                                                <dt><small><b>Keterangan</b></small></dt>
+                                                                <dd>{!! nl2br(e($peminjam->formruangan->keterangan)) !!}</dd>
+                                                            </dl>
+                                                            <form action="{{ route('penjadwalan.destroy', $ruangan->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <input type="hidden" name="slug" value="{{$slug}}">
+                                                                <button class="btn btn-danger float-right mb-3" onclick="return confirm('Yakin ingin menghapus jadwal?')">Hapus Jadwal</button>
+                                                            </form>
+                                                            @endif
+                                                            @endforeach
+                                                            @else
+                                                            Belum ada jadwal
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 @endif
                                                 @endforeach
-                                                @else
-                                                Belum ada jadwal
-                                                @endif
                                             </div>
                                         </div>
                                     </div>
-                                    @endif
-                                    @endforeach
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-    </div>
-    @endfor
-    </tr>
-    <tr>
-        <td scope="row">13:00</td>
-        @for ($i = 14; $i < 21; $i++) <td><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#data{{$jadwal[$i][0]['id']}}">Detail</button></td>
-            <div class="modal fade" id="data{{$jadwal[$i][0]['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Data Jadwal</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div id="accordion">
-                                @foreach($ruangans as $ruangan)
-                                @if ($ruangan->hari == $jadwal[$i][0]['hari'] and $ruangan->waktu == $jadwal[$i][0]['waktu'])
-                                <div class="card">
-                                    <div class="card-header text-center" id="headingOne">
-                                        <h5 class="mx-auto">
-                                            <button class="btn btn-link" data-toggle="collapse" data-target="#minggu{{$ruangan->id}}" aria-expanded="true" aria-controls="minggu{{$ruangan->id}}">
-                                                Minggu {{$ruangan->minggu}}
+                            @endfor
+                    </tr>
+                    <tr>
+                        <td scope="row">13:00</td>
+                        @for ($i = 14; $i < 21; $i++) <td><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#data{{$jadwal[$i][0]['id']}}">Detail</button></td>
+                            <div class="modal fade" id="data{{$jadwal[$i][0]['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Data Jadwal</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
                                             </button>
-                                        </h5>
-                                    </div>
-                                    <div id="minggu{{$ruangan->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                                        <div class="card-body">
-                                            @if($ruangan->status == 1)
-                                            @foreach($peminjams as $peminjam)
-                                            @if($peminjam->ruangan_id == $ruangan->id)
-                                            <dl class="ml-3">
-                                                <dt><small><b>Nama Peminjam</b></small></dt>
-                                                <dd>{{ $peminjam->formruangan->nama_peminjam }}</dd>
-                                                <dt><small><b>NIM / NIP</b></small></dt>
-                                                <dd>{{ $peminjam->formruangan->nim }}</dd>
-                                                <dt><small><b>Email</b></small></dt>
-                                                <dd>{{ $peminjam->formruangan->email }}</dd>
-                                                <dt><small><b>No HP</b></small></dt>
-                                                <dd>{{ $peminjam->formruangan->no_hp }}</dd>
-                                                <dt><small><b>Afiliasi</b></small></dt>
-                                                <dd>{{ $peminjam->formruangan->afiliasi }}</dd>
-                                                <dt><small><b>Mata Kuliah</b></small></dt>
-                                                <dd>{{ $peminjam->formruangan->mata_kuliah }}</dd>
-                                                <dt><small><b>Kode Mata Kuliah</b></small></dt>
-                                                <dd>{{ $peminjam->formruangan->kode_matkul }}</dd>
-                                                <dt><small><b>Dosen</b></small></dt>
-                                                <dd>{{ $peminjam->formruangan->dosen }}</dd>
-                                                <dt><small><b>Keterangan</b></small></dt>
-                                                <dd>{!! nl2br(e($peminjam->formruangan->keterangan)) !!}</dd>
-                                            </dl>
-                                            <form action="{{ route('penjadwalan.destroy', $ruangan->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <input type="hidden" name="slug" value="{{$slug}}">
-                                                <button class="btn btn-danger float-right mb-3" onclick="return confirm('Yakin ingin menghapus jadwal?')">Hapus Jadwal</button>
-                                            </form>
-                                            @endif
-                                            @endforeach
-                                            @else
-                                            Belum ada jadwal
-                                            @endif
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="accordion{{$jadwal[$i][0]['id']}}">
+                                                @foreach($ruangans as $ruangan)
+                                                @if ($ruangan->hari == $jadwal[$i][0]['hari'] and $ruangan->waktu == $jadwal[$i][0]['waktu'])
+                                                <div class="card">
+                                                    <div class="card-header text-center" id="headingOne">
+                                                        <h5 class="mx-auto">
+                                                            <button class="btn btn-link" data-toggle="collapse" data-target="#minggu{{$ruangan->id}}" aria-expanded="true" aria-controls="minggu{{$ruangan->id}}">
+                                                                Minggu {{$ruangan->minggu}}
+                                                            </button>
+                                                        </h5>
+                                                    </div>
+                                                    <div id="minggu{{$ruangan->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion{{$jadwal[$i][0]['id']}}">
+                                                        <div class="card-body">
+                                                            @if($ruangan->status == 1)
+                                                            @foreach($peminjams as $peminjam)
+                                                            @if($peminjam->ruangan_id == $ruangan->id)
+                                                            <dl class="ml-3">
+                                                                <dt><small><b>Nama Peminjam</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->nama_peminjam }}</dd>
+                                                                <dt><small><b>NIM / NIP</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->nim }}</dd>
+                                                                <dt><small><b>Email</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->email }}</dd>
+                                                                <dt><small><b>No HP</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->no_hp }}</dd>
+                                                                <dt><small><b>Afiliasi</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->afiliasi }}</dd>
+                                                                <dt><small><b>Mata Kuliah</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->mata_kuliah }}</dd>
+                                                                <dt><small><b>Kode Mata Kuliah</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->kode_matkul }}</dd>
+                                                                <dt><small><b>Dosen</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->dosen }}</dd>
+                                                                <dt><small><b>Keterangan</b></small></dt>
+                                                                <dd>{!! nl2br(e($peminjam->formruangan->keterangan)) !!}</dd>
+                                                            </dl>
+                                                            <form action="{{ route('penjadwalan.destroy', $ruangan->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <input type="hidden" name="slug" value="{{$slug}}">
+                                                                <button class="btn btn-danger float-right mb-3" onclick="return confirm('Yakin ingin menghapus jadwal?')">Hapus Jadwal</button>
+                                                            </form>
+                                                            @endif
+                                                            @endforeach
+                                                            @else
+                                                            Belum ada jadwal
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endif
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                @endif
-                                @endforeach
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-</div>
-@endfor
-</tr>
-<tr>
-    <td scope="row">15:00</td>
-    @for ($i = 21; $i < 28; $i++) <td><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#data{{$jadwal[$i][0]['id']}}">Detail</button></td>
-        <div class="modal fade" id="data{{$jadwal[$i][0]['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Data Jadwal</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="accordion">
-                            @foreach($ruangans as $ruangan)
-                            @if ($ruangan->hari == $jadwal[$i][0]['hari'] and $ruangan->waktu == $jadwal[$i][0]['waktu'])
-                            <div class="card">
-                                <div class="card-header text-center" id="headingOne">
-                                    <h5 class="mx-auto">
-                                        <button class="btn btn-link" data-toggle="collapse" data-target="#minggu{{$ruangan->id}}" aria-expanded="true" aria-controls="minggu{{$ruangan->id}}">
-                                            Minggu {{$ruangan->minggu}}
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="minggu{{$ruangan->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body">
-                                        @if($ruangan->status == 1)
-                                        @foreach($peminjams as $peminjam)
-                                        @if($peminjam->ruangan_id == $ruangan->id)
-                                        <dl class="ml-3">
-                                            <dt><small><b>Nama Peminjam</b></small></dt>
-                                            <dd>{{ $peminjam->formruangan->nama_peminjam }}</dd>
-                                            <dt><small><b>NIM / NIP</b></small></dt>
-                                            <dd>{{ $peminjam->formruangan->nim }}</dd>
-                                            <dt><small><b>Email</b></small></dt>
-                                            <dd>{{ $peminjam->formruangan->email }}</dd>
-                                            <dt><small><b>No HP</b></small></dt>
-                                            <dd>{{ $peminjam->formruangan->no_hp }}</dd>
-                                            <dt><small><b>Afiliasi</b></small></dt>
-                                            <dd>{{ $peminjam->formruangan->afiliasi }}</dd>
-                                            <dt><small><b>Mata Kuliah</b></small></dt>
-                                            <dd>{{ $peminjam->formruangan->mata_kuliah }}</dd>
-                                            <dt><small><b>Kode Mata Kuliah</b></small></dt>
-                                            <dd>{{ $peminjam->formruangan->kode_matkul }}</dd>
-                                            <dt><small><b>Dosen</b></small></dt>
-                                            <dd>{{ $peminjam->formruangan->dosen }}</dd>
-                                            <dt><small><b>Keterangan</b></small></dt>
-                                            <dd>{!! nl2br(e($peminjam->formruangan->keterangan)) !!}</dd>
-                                        </dl>
-                                        <form action="{{ route('penjadwalan.destroy', $ruangan->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="slug" value="{{$slug}}">
-                                            <button class="btn btn-danger float-right mb-3" onclick="return confirm('Yakin ingin menghapus jadwal?')">Hapus Jadwal</button>
-                                        </form>
-                                        @endif
-                                        @endforeach
-                                        @else
-                                        Belum ada jadwal
-                                        @endif
+                            @endfor
+                    </tr>
+                    <tr>
+                        <td scope="row">15:00</td>
+                        @for ($i = 21; $i < 28; $i++) <td><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#data{{$jadwal[$i][0]['id']}}">Detail</button></td>
+                            <div class="modal fade" id="data{{$jadwal[$i][0]['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Data Jadwal</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="accordion{{$jadwal[$i][0]['id']}}">
+                                                @foreach($ruangans as $ruangan)
+                                                @if ($ruangan->hari == $jadwal[$i][0]['hari'] and $ruangan->waktu == $jadwal[$i][0]['waktu'])
+                                                <div class="card">
+                                                    <div class="card-header text-center" id="headingOne">
+                                                        <h5 class="mx-auto">
+                                                            <button class="btn btn-link" data-toggle="collapse" data-target="#minggu{{$ruangan->id}}" aria-expanded="true" aria-controls="minggu{{$ruangan->id}}">
+                                                                Minggu {{$ruangan->minggu}}
+                                                            </button>
+                                                        </h5>
+                                                    </div>
+                                                    <div id="minggu{{$ruangan->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion{{$jadwal[$i][0]['id']}}">
+                                                        <div class="card-body">
+                                                            @if($ruangan->status == 1)
+                                                            @foreach($peminjams as $peminjam)
+                                                            @if($peminjam->ruangan_id == $ruangan->id)
+                                                            <dl class="ml-3">
+                                                                <dt><small><b>Nama Peminjam</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->nama_peminjam }}</dd>
+                                                                <dt><small><b>NIM / NIP</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->nim }}</dd>
+                                                                <dt><small><b>Email</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->email }}</dd>
+                                                                <dt><small><b>No HP</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->no_hp }}</dd>
+                                                                <dt><small><b>Afiliasi</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->afiliasi }}</dd>
+                                                                <dt><small><b>Mata Kuliah</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->mata_kuliah }}</dd>
+                                                                <dt><small><b>Kode Mata Kuliah</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->kode_matkul }}</dd>
+                                                                <dt><small><b>Dosen</b></small></dt>
+                                                                <dd>{{ $peminjam->formruangan->dosen }}</dd>
+                                                                <dt><small><b>Keterangan</b></small></dt>
+                                                                <dd>{!! nl2br(e($peminjam->formruangan->keterangan)) !!}</dd>
+                                                            </dl>
+                                                            <form action="{{ route('penjadwalan.destroy', $ruangan->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <input type="hidden" name="slug" value="{{$slug}}">
+                                                                <button class="btn btn-danger float-right mb-3" onclick="return confirm('Yakin ingin menghapus jadwal?')">Hapus Jadwal</button>
+                                                            </form>
+                                                            @endif
+                                                            @endforeach
+                                                            @else
+                                                            Belum ada jadwal
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            @endif
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            @endfor
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        </div>
-        @endfor
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+    </div>
 </div>
 @endsection('content')
