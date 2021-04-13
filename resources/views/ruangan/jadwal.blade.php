@@ -8,6 +8,7 @@
 <div class="row">
     <h4 class="p-2 title-header">Jadwal Ruangan</h4>
     <div class="line"></div>
+    <h5 class="p-2 title-ruang">{{$ruang->lokasi}} {{$ruang->ruang}}</h5>
 </div>
 <div class="row row-2">
     <div class="card mx-auto">

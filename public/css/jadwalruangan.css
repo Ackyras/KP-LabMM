@@ -8,6 +8,15 @@
     word-wrap: break-word;
 }
 
+.title-ruang {
+    font-size: 20px;
+    font-family: "Quicksand", sans-serif;
+    color: black;
+    margin-top: 10px;
+    margin-left: 80px;
+    word-wrap: break-word;
+}
+
 .line {
     height: 4px;
     width: 104px;
@@ -21,7 +30,7 @@
 }
 
 .row-2 {
-    margin-top: 8%;
+    margin-top: 5%;
 }
 
 .thead {
