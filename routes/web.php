@@ -50,6 +50,8 @@ Route::post('form/barang',              [BarangController::class, 'store'])->nam
 
 
 // Route Client Peminjaman Ruangan
+Route::get('ruangan/jadwal',            [RuanganForm::class, 'index'])->name('ruangan.index');
+Route::get('ruangan/jadwal/{slug}',     [RuanganForm::class, 'jadwal'])->name('ruangan.show');
 Route::get('form/ruangan',              [RuanganForm::class, 'form'])->name('ruangan.form');
 Route::post('form/ruangan',             [RuanganForm::class, 'store'])->name('ruangan.store');
 
