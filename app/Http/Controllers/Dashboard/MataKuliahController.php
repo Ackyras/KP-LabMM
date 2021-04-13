@@ -86,7 +86,13 @@ class MataKuliahController extends Controller
             ],
             'dosen'             => 'required',
             'tanggal_seleksi'   => ['required', 'after:' . $this->pembukaan_id->akhir_pembukaan],
-            'awal_seleksi'      => ['required', 'date_format:H:i', new AwalSeleksiMataKuliah($request->get('awal_seleksi'), $request->get('tanggal_seleksi'), $this->pembukaan_id->id)],
+            'awal_seleksi'      => [
+                'required', 'date_format:H:i',
+                ValidationRule::unique('mata_kuliahs', 'awal_seleksi')->where('tanggal_seleksi', $request->get('tanggal_seleksi'))
+                    ->where(function ($q) {
+                        return $q->where('pembukaan_asprak_id', $this->pembukaan_id->id);
+                    })->ignore($id)
+            ],
             'akhir_seleksi'     => ['required', 'date_format:H:i', 'after:awal_seleksi'],
             'soal'              => ['mimes:pdf,doc,docx,zip', 'max:2048', 'nullable']
         ]);
