@@ -7,9 +7,11 @@
 @endsection
 
 @section('content')
-<div class="row">
-    <h4 class="p-2 title-header">Formulir Peminjaman Alat</h4>
+<div class="row sticky-top bg-light pb-3">
+    <h4 class="p-2 title-header">Formulir Peminjaman Barang</h4>
     <div class="line"></div>
+</div>
+<div class="row">
     <h4 class="title-data">Data Peminjam</h4>
     <div class="line-2"></div>
 </div>
@@ -77,7 +79,7 @@
                 <div class="alert alert-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
-            <label class="mt-2">Pilih barang (<small>opsional</small>)</label>
+            <label class="mt-3">Pilih barang (<small>opsional</small>)</label>
             <div class="col-9">
                 <input list="barangs" name="kode2" class="form-control @error('kode2') is-invalid @enderror" placeholder="Pilih barang 2">
                 <datalist id="barangs">
@@ -95,7 +97,7 @@
                 <div class="alert alert-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
-            <label class="mt-2">Pilih barang (<small>opsional</small>)</label>
+            <label class="mt-3">Pilih barang (<small>opsional</small>)</label>
             <div class="col-9">
                 <input list="barangs" name="kode3" class="form-control @error('kode3') is-invalid @enderror" placeholder="Pilih barang 3">
                 <datalist id="barangs">
@@ -113,7 +115,7 @@
                 <div class="alert alert-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
-            <label class="mt-2">Pilih barang (<small>opsional</small>)</label>
+            <label class="mt-3">Pilih barang (<small>opsional</small>)</label>
             <div class="col-9">
                 <input list="barangs" name="kode4" class="form-control @error('kode4') is-invalid @enderror" placeholder="Pilih barang 4">
                 <datalist id="barangs">
@@ -131,7 +133,7 @@
                 <div class="alert alert-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
-            <label class="mt-2">Pilih barang (<small>opsional</small>)</label>
+            <label class="mt-3">Pilih barang (<small>opsional</small>)</label>
             <div class="col-9">
                 <input list="barangs" name="kode5" class="form-control @error('kode5') is-invalid @enderror" placeholder="Pilih barang 5">
                 <datalist id="barangs">

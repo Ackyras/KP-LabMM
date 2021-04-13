@@ -5,9 +5,11 @@
 @endsection
 
 @section('content')
-<div class="row">
+<div class="row sticky-top bg-light pb-3">
     <h4 class="p-2 title-header">Formulir Peminjaman Ruangan</h4>
     <div class="line"></div>
+</div>
+<div class="row">
     <h4 class="title-data">Data Peminjam</h4>
     <div class="line-2"></div>
 </div>
