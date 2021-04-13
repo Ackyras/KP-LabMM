@@ -14,16 +14,11 @@
     margin-left: 90px;
 }
 
-h5 {
-    font-family: "Quicksand", sans-serif;
-    font-weight: normal;
-    color: black;
-    margin-left: 80px;
-}
-
 .text {
     font-family: "Poppins", sans-serif;
     color: black;
+    margin-left: 80px;
+    width: 80%;
 }
 
 a {
