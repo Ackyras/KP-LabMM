@@ -44,18 +44,14 @@
                                                     @foreach($ruangans as $ruangan)
                                                     @if ($ruangan->hari == $jadwal[$i][0]['hari'] and $ruangan->waktu == $jadwal[$i][0]['waktu'])
                                                     <div class="card mx-auto">
-                                                        <div class="card-header text-center" id="headingOne">
-                                                            <h5 class="mx-auto">
-                                                                <button class="btn btn-link text-white" data-toggle="collapse" data-target="#minggu{{$ruangan->id}}" aria-expanded="true" aria-controls="minggu{{$ruangan->id}}">
-                                                                    Minggu {{$ruangan->minggu}}
-                                                                </button>
-                                                            </h5>
-                                                        </div>
-                                                        <div id="minggu{{$ruangan->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion{{$jadwal[$i][0]['id']}}">
+                                                        <button class="btn btn-submit text-white mb-3 card-header" data-toggle="collapse" data-target="#minggu{{$ruangan->id}}" aria-expanded="true" aria-controls="minggu{{$ruangan->id}}">
+                                                            Minggu {{$ruangan->minggu}}<i class="fas fa-caret-down float-right mr-3 icon-dropdown"></i>
+                                                        </button>
+                                                        <div id="minggu{{$ruangan->id}}" class="collapse mb-3" aria-labelledby="headingOne" data-parent="#accordion{{$jadwal[$i][0]['id']}}">
                                                             <div class="card-body">
                                                                 @if($ruangan->status == 1)
                                                                 @foreach($peminjams as $peminjam)
-                                                                @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab)
+                                                                @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab and $peminjam->ruangan_id == $ruangan->id)
                                                                 <dl class="ml-3">
                                                                     <dt><small><b>Nama Peminjam</b></small></dt>
                                                                     <dd>{{ $peminjam->formruangan->nama_peminjam }}</dd>
@@ -110,18 +106,14 @@
                                                     @foreach($ruangans as $ruangan)
                                                     @if ($ruangan->hari == $jadwal[$i][0]['hari'] and $ruangan->waktu == $jadwal[$i][0]['waktu'])
                                                     <div class="card mx-auto">
-                                                        <div class="card-header text-center" id="headingOne">
-                                                            <h5 class="mx-auto">
-                                                                <button class="btn btn-link text-white" data-toggle="collapse" data-target="#minggu{{$ruangan->id}}" aria-expanded="true" aria-controls="minggu{{$ruangan->id}}">
-                                                                    Minggu {{$ruangan->minggu}}
-                                                                </button>
-                                                            </h5>
-                                                        </div>
-                                                        <div id="minggu{{$ruangan->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion{{$jadwal[$i][0]['id']}}">
+                                                        <button class="btn btn-submit text-white mb-3 card-header" data-toggle="collapse" data-target="#minggu{{$ruangan->id}}" aria-expanded="true" aria-controls="minggu{{$ruangan->id}}">
+                                                            Minggu {{$ruangan->minggu}}<i class="fas fa-caret-down float-right mr-3 icon-dropdown"></i>
+                                                        </button>
+                                                        <div id="minggu{{$ruangan->id}}" class="collapse mb-3" aria-labelledby="headingOne" data-parent="#accordion{{$jadwal[$i][0]['id']}}">
                                                             <div class="card-body">
                                                                 @if($ruangan->status == 1)
                                                                 @foreach($peminjams as $peminjam)
-                                                                @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab)
+                                                                @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab and $peminjam->ruangan_id == $ruangan->id)
                                                                 <dl class="ml-3">
                                                                     <dt><small><b>Nama Peminjam</b></small></dt>
                                                                     <dd>{{ $peminjam->formruangan->nama_peminjam }}</dd>
@@ -176,18 +168,14 @@
                                                     @foreach($ruangans as $ruangan)
                                                     @if ($ruangan->hari == $jadwal[$i][0]['hari'] and $ruangan->waktu == $jadwal[$i][0]['waktu'])
                                                     <div class="card mx-auto">
-                                                        <div class="card-header text-center" id="headingOne">
-                                                            <h5 class="mx-auto">
-                                                                <button class="btn btn-link text-white" data-toggle="collapse" data-target="#minggu{{$ruangan->id}}" aria-expanded="true" aria-controls="minggu{{$ruangan->id}}">
-                                                                    Minggu {{$ruangan->minggu}}
-                                                                </button>
-                                                            </h5>
-                                                        </div>
-                                                        <div id="minggu{{$ruangan->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion{{$jadwal[$i][0]['id']}}">
+                                                        <button class="btn btn-submit text-white mb-3 card-header" data-toggle="collapse" data-target="#minggu{{$ruangan->id}}" aria-expanded="true" aria-controls="minggu{{$ruangan->id}}">
+                                                            Minggu {{$ruangan->minggu}}<i class="fas fa-caret-down float-right mr-3 icon-dropdown"></i>
+                                                        </button>
+                                                        <div id="minggu{{$ruangan->id}}" class="collapse mb-3" aria-labelledby="headingOne" data-parent="#accordion{{$jadwal[$i][0]['id']}}">
                                                             <div class="card-body">
                                                                 @if($ruangan->status == 1)
                                                                 @foreach($peminjams as $peminjam)
-                                                                @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab)
+                                                                @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab and $peminjam->ruangan_id == $ruangan->id)
                                                                 <dl class="ml-3">
                                                                     <dt><small><b>Nama Peminjam</b></small></dt>
                                                                     <dd>{{ $peminjam->formruangan->nama_peminjam }}</dd>
@@ -242,18 +230,14 @@
                                                     @foreach($ruangans as $ruangan)
                                                     @if ($ruangan->hari == $jadwal[$i][0]['hari'] and $ruangan->waktu == $jadwal[$i][0]['waktu'])
                                                     <div class="card mx-auto">
-                                                        <div class="card-header text-center" id="headingOne">
-                                                            <h5 class="mx-auto">
-                                                                <button class="btn btn-link text-white" data-toggle="collapse" data-target="#minggu{{$ruangan->id}}" aria-expanded="true" aria-controls="minggu{{$ruangan->id}}">
-                                                                    Minggu {{$ruangan->minggu}}
-                                                                </button>
-                                                            </h5>
-                                                        </div>
-                                                        <div id="minggu{{$ruangan->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion{{$jadwal[$i][0]['id']}}">
+                                                        <button class="btn btn-submit text-white mb-3 card-header" data-toggle="collapse" data-target="#minggu{{$ruangan->id}}" aria-expanded="true" aria-controls="minggu{{$ruangan->id}}">
+                                                            Minggu {{$ruangan->minggu}}<i class="fas fa-caret-down float-right mr-3 icon-dropdown"></i>
+                                                        </button>
+                                                        <div id="minggu{{$ruangan->id}}" class="collapse mb-3" aria-labelledby="headingOne" data-parent="#accordion{{$jadwal[$i][0]['id']}}">
                                                             <div class="card-body">
                                                                 @if($ruangan->status == 1)
                                                                 @foreach($peminjams as $peminjam)
-                                                                @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab)
+                                                                @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab and $peminjam->ruangan_id == $ruangan->id)
                                                                 <dl class="ml-3">
                                                                     <dt><small><b>Nama Peminjam</b></small></dt>
                                                                     <dd>{{ $peminjam->formruangan->nama_peminjam }}</dd>
