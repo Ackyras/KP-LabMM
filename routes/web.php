@@ -61,14 +61,15 @@ Route::get('calonasprak/daftar',        [DaftarAsprakController::class, 'form'])
 Route::get('calonasprak/jadwal',        [DaftarAsprakController::class, 'jadwal'])->name('calonasprak.jadwal');
 Route::get('calonasprak/tidak-ada-pembukaan',   [DaftarAsprakController::class, 'none'])->name('calonasprak.none');
 
-// Route Seleksi Calon Asprak
-Route::get('calonasprak/seleksi',       [DaftarAsprakController::class, 'seleksi'])->name('calonasprak.seleksi');
-Route::get('calonasprak/seleksi/{id}',  [DaftarAsprakController::class, 'seleksishow'])->name('calonasprak.test');
 
+// Route Seleksi Calon Asprak
 Route::group(['middleware' => ['CalonAsprak']], function () {
+    Route::get('calonasprak/seleksi',       [DaftarAsprakController::class, 'seleksi'])->name('calonasprak.seleksi');
+    Route::get('calonasprak/seleksi/{id}',  [DaftarAsprakController::class, 'seleksishow'])->name('calonasprak.test');
     Route::post('calonasprak/seleksi/{id}', [DaftarAsprakController::class, 'seleksiupload'])->name('calonasprak.test.store');
     Route::post('calonasprak/logout',       [DaftarAsprakController::class, 'logout'])->name('calonasprak.logout');
 });
+
 Route::group(['middleware' => 'Admin', 'prefix' => 'admin'], function () {
     Route::get('dashboard',                     [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::post('logout',                       [AuthController::class, 'logout'])->name('logout');
@@ -78,6 +79,7 @@ Route::group(['middleware' => 'Admin', 'prefix' => 'admin'], function () {
 Route::group(['middleware' => 'OnlyLaboran', 'prefix' => 'admin'], function () {
     Route::get('surat/masuk',                   [SuratController::class, 'masuk'])->name('surat.masuk');
     Route::get('surat/keluar',                  [SuratController::class, 'keluar'])->name('surat.keluar');
+    Route::get('surat/search',                  [SuratController::class, 'search'])->name('surat.search');
     Route::resource('surat',                    SuratController::class)->except(['index']);
 });
 
