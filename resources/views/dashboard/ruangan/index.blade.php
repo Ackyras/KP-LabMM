@@ -33,6 +33,7 @@
                         <td>{{ $ruang->lokasi }}</td>
                         <td>{{ $ruang->status }}</td>
                         <td>
+                            <a href="{{ route('penjadwalan.index', $ruang->slug) }}" class="btn btn-sm btn-info">Jadwal</a>
                             <a href="{{ route('ruanglab.edit', $ruang->id) }}" class="btn btn-sm btn-primary">Edit</a>
                             <form action="{{ route('ruanglab.destroy', $ruang->id) }}" method="POST" class="d-inline">
                                 @csrf
