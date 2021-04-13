@@ -19,7 +19,8 @@ class PeminjamanBarangController extends Controller
             ->orWhere('validasi', '2')
             ->orderByDesc('updated_at')
             ->paginate(10);
-        $barangs = PeminjamanBarang::with('inventaris')->get();
+        $id = $forms->pluck('id')->toArray();
+        $barangs = PeminjamanBarang::with('inventaris')->whereIn('form_barang_id', $id)->get();
         return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs', 'kunci'));
     }
 
@@ -29,7 +30,8 @@ class PeminjamanBarangController extends Controller
         $forms = FormBarang::where('validasi', $status)
             ->orderByDesc('updated_at')
             ->paginate(10);
-        $barangs = PeminjamanBarang::with('inventaris')->get();
+        $id = $forms->pluck('id')->toArray();
+        $barangs = PeminjamanBarang::with('inventaris')->whereIn('form_barang_id', $id)->get();
         return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs', 'kunci'));
     }
 
@@ -39,7 +41,8 @@ class PeminjamanBarangController extends Controller
         $forms = FormBarang::where('nama_peminjam', 'like', $input)
             ->orWhere('afiliasi', 'like', $input)
             ->paginate(10);
-        $barangs = PeminjamanBarang::with('inventaris')->get();
+        $id = $forms->pluck('id')->toArray();
+        $barangs = PeminjamanBarang::with('inventaris')->whereIn('form_barang_id', $id)->get();
         $kunci = $request->get('input');
         return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs', 'kunci'));
     }
@@ -93,7 +96,8 @@ class PeminjamanBarangController extends Controller
             ->where('tanggal_pengembalian', '<', Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d'))
             ->orderByDesc('updated_at')
             ->paginate(10);
-        $barangs = PeminjamanBarang::with('inventaris')->get();
+        $id = $forms->pluck('id')->toArray();
+        $barangs = PeminjamanBarang::with('inventaris')->whereIn('form_barang_id', $id)->get();
         return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs', 'kunci'));
     }
 
