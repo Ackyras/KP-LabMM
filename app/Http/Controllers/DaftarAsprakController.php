@@ -176,9 +176,6 @@ class DaftarAsprakController extends Controller
                     ->toArray();
                 $matkuls = MataKuliah::with('daftarmatakuliah')
                     ->whereIn('id', $pilihan)
-                    ->where('tanggal_seleksi', Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d'))
-                    ->where('awal_seleksi', '<=', Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s'))
-                    ->where('akhir_seleksi', '>', Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s'))
                     ->get();
                 return view('asprak.seleksi', compact('master', 'matkuls'));
             }
@@ -193,21 +190,25 @@ class DaftarAsprakController extends Controller
         $master = "asprak";
         if (!Auth::user())
             return redirect()->route('calonasprak.login');
-        $matkul = MataKuliah::where('pembukaan_asprak_id', $this->pembukaan_id->id)
+        $matkul = MataKuliah::with('daftarmatakuliah')->where('pembukaan_asprak_id', $this->pembukaan_id->id)
             ->where('id', $id)
+            ->where('tanggal_seleksi', Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d'))
+            ->where('awal_seleksi', '<=', Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s'))
+            ->where('akhir_seleksi', '>', Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s'))
             ->first();
         return view('asprak.show', compact('master', 'matkul'));
     }
 
-    public function seleksiuplaod(Request $request, $id)
+    public function seleksiupload(Request $request, $id)
     {
         $request->validate(
             [
-                'file'  => ['required', 'mimes:pdf,doc,docx,zip,rar']
+                'file'  => ['required', 'mimes:pdf,doc,docx,zip,rar', 'max:5000']
             ],
             [
                 'file.required' => 'Masukkan file sebelum upload jawaban',
-                'file.mimes'    => 'File jawaban yang diterima hanya format pdf, zip, rar, doc, docx'
+                'file.mimes'    => 'File jawaban yang diterima hanya format pdf, zip, rar, doc, docx',
+                'file.max'      => 'Maksimum file diupload 5MB'
             ]
         );
         $calon = CalonAsprak::where('periode', $this->pembukaan_id->id)->where('email', auth()->user()->email)->first();
