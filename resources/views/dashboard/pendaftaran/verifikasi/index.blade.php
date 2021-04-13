@@ -17,12 +17,11 @@
         </div>
         @endif
         <form action="{{ route('asprak.index.matkul') }}" method="GET">
-            @csrf
             <input class="my-2 form-control w-25 float-right mr-2" name="nama" type="text" id="myInput" autocomplete="off" onkeyup="searchData()" placeholder="Cari nama atau program studi">
         </form>
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead class="thead-dark">
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
@@ -118,7 +117,7 @@
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[1];
             tdProdi = tr[i].getElementsByTagName("td")[2];
-            if (td) {
+            if (td || tdProdi) {
                 txtValue = td.textContent || td.innerText;
                 txtValueLokasi = tdProdi.textContent || tdProdi.innerText;
                 if ((txtValue.toUpperCase().indexOf(filter) > -1) || (txtValueLokasi.toUpperCase().indexOf(filter) > -1)) {

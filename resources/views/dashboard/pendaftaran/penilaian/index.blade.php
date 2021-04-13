@@ -17,12 +17,11 @@
         </div>
         @endif
         <form action="{{ route('asprak.nilai.index.matkul') }}" method="GET">
-            @csrf
             <input class="my-2 form-control w-25 float-right mr-2" name="matkul" type="text" id="myInput" onkeyup="searchData()" placeholder="Cari mata kuliah">
         </form>
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead class="thead-dark">
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
@@ -136,9 +135,9 @@
 
         // Loop through all table rows, and hide those who don't match the search query
         for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
-            tdLokasi = tr[i].getElementsByTagName("td")[3];
-            if (td) {
+            td = tr[i].getElementsByTagName("td")[1];
+            tdLokasi = tr[i].getElementsByTagName("td")[2];
+            if (td || tdLokasi) {
                 txtValue = td.textContent || td.innerText;
                 txtValueLokasi = tdLokasi.textContent || tdLokasi.innerText;
                 if ((txtValue.toUpperCase().indexOf(filter) > -1) || (txtValueLokasi.toUpperCase().indexOf(filter) > -1)) {

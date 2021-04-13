@@ -30,7 +30,8 @@ class VerifikasiController extends Controller
             ->where('status', 0)
             ->orderBy('created_at', 'desc')
             ->paginate(20);
-        $pilihans = PenilaianAsprak::with('matakuliah')->get();
+        $id = $aspraks->pluck('id')->toArray();
+        $pilihans = PenilaianAsprak::with('matakuliah')->whereIn('calon_asprak_id', $id)->get();
         $daftar_matkuls = DaftarMataKuliah::has('matakuliahs')->get();
         return view('dashboard.pendaftaran.verifikasi.index', compact('aspraks', 'pilihans', 'daftar_matkuls'));
     }
@@ -44,7 +45,8 @@ class VerifikasiController extends Controller
             ->where('status', 0)
             ->orderBy('created_at', 'desc')
             ->paginate(20);
-        $pilihans = PenilaianAsprak::with('matakuliah')->get();
+        $id = $aspraks->pluck('id')->toArray();
+        $pilihans = PenilaianAsprak::with('matakuliah')->whereIn('calon_asprak_id', $id)->get();
         $daftar_matkuls = DaftarMataKuliah::has('matakuliahs')->get();
         return view('dashboard.pendaftaran.verifikasi.index', compact('aspraks', 'pilihans', 'daftar_matkuls'));
     }
