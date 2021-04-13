@@ -71,7 +71,7 @@
                                                         <div class="card-body">
                                                             @if($ruangan->status == 1)
                                                             @foreach($peminjams as $peminjam)
-                                                            @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab)
+                                                            @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab and $peminjam->ruangan_id == $ruangan->id)
                                                             <dl class="ml-3">
                                                                 <dt><small><b>Nama Peminjam</b></small></dt>
                                                                 <dd>{{ $peminjam->formruangan->nama_peminjam }}</dd>
@@ -143,7 +143,7 @@
                                                         <div class="card-body">
                                                             @if($ruangan->status == 1)
                                                             @foreach($peminjams as $peminjam)
-                                                            @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab)
+                                                            @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab and $peminjam->ruangan_id == $ruangan->id)
                                                             <dl class="ml-3">
                                                                 <dt><small><b>Nama Peminjam</b></small></dt>
                                                                 <dd>{{ $peminjam->formruangan->nama_peminjam }}</dd>
@@ -215,7 +215,7 @@
                                                         <div class="card-body">
                                                             @if($ruangan->status == 1)
                                                             @foreach($peminjams as $peminjam)
-                                                            @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab)
+                                                            @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab and $peminjam->ruangan_id == $ruangan->id)
                                                             <dl class="ml-3">
                                                                 <dt><small><b>Nama Peminjam</b></small></dt>
                                                                 <dd>{{ $peminjam->formruangan->nama_peminjam }}</dd>
@@ -287,7 +287,7 @@
                                                         <div class="card-body">
                                                             @if($ruangan->status == 1)
                                                             @foreach($peminjams as $peminjam)
-                                                            @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab)
+                                                            @if($peminjam->formruangan->ruang_lab == $ruangan->ruang_lab and $peminjam->ruangan_id == $ruangan->id)
                                                             <dl class="ml-3">
                                                                 <dt><small><b>Nama Peminjam</b></small></dt>
                                                                 <dd>{{ $peminjam->formruangan->nama_peminjam }}</dd>
