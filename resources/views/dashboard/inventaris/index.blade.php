@@ -112,7 +112,7 @@ List Daftar Barang
             tdKode = tr[i].getElementsByTagName("td")[1];
             td = tr[i].getElementsByTagName("td")[2];
             tdLokasi = tr[i].getElementsByTagName("td")[3];
-            if (td) {
+            if (td || tdKode || tdLokasi) {
                 txtValue = td.textContent || td.innerText;
                 txtValueLokasi = tdLokasi.textContent || tdLokasi.innerText;
                 txtValuKode = tdKode.textContent || tdKode.innerText;
