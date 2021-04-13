@@ -96,7 +96,8 @@ class DaftarAsprakController extends Controller
             $matakuliahs = MataKuliah::with('daftarmatakuliah')
                 ->where('pembukaan_asprak_id', $this->pembukaan_id->id)
                 ->get();
-            return view('asprak.form', compact('matakuliahs', 'master'));
+            if (!auth()->user())
+                return view('asprak.form', compact('matakuliahs', 'master'));
         }
         $matkul = MataKuliah::where('pembukaan_asprak_id', $this->pembukaan_id->id)
             ->orderBy('tanggal_seleksi', 'desc')
