@@ -23,6 +23,15 @@ class SuratController extends Controller
         return view('dashboard.surat.index', compact('surats', 'kategori'));
     }
 
+    public function search(Request $request)
+    {
+        $input = '%' . $request->get('input') . '%';
+        $surats = Surat::where('judul', 'like', $input)->paginate(10);
+        $kategori = '3';
+        $kunci = $request->get('input');
+        return view('dashboard.surat.index', compact('surats', 'kategori', 'kunci'));
+    }
+
     public function create()
     {
         return view('dashboard.surat.create');
