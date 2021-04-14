@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Mail\VerifikasiPeminjamanRuanganMail;
 use App\Models\FormRuangan;
 use App\Models\PeminjamanBarang;
 use App\Models\PeminjamanRuangan;
@@ -10,6 +11,7 @@ use App\Models\Ruangan;
 use App\Models\RuangLab;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class PeminjamanRuanganController extends Controller
 {
@@ -65,10 +67,30 @@ class PeminjamanRuanganController extends Controller
                 FormRuangan::where('id', $id)->delete();
                 break;
             case '1':
-                // Jadwal penuh send notifikasi
+                $peminjam = FormRuangan::with('ruanglab')->where('id', $id)->first();
+                $content = [
+                    'nama'      => $peminjam->nama_peminjam,
+                    'nim'       => $peminjam->nim,
+                    'afiliasi'  => $peminjam->afiliasi,
+                    'ruang'     => $peminjam->ruanglab->ruang,
+                    'lokasi'    => $peminjam->ruanglab->lokasi,
+                    'matkul'    => $peminjam->mata_kuliah,
+                    'dosen'     => $peminjam->dosen,
+                    'waktu'     => $peminjam->waktu,
+                    'hari'      => $peminjam->hari,
+                    'keterangan' => $peminjam->keterangan,
+                    'pesan'     => $request->get('pesan'),
+                    'validasi'  => 2
+                ];
+                FormRuangan::where('id', $id)->update(
+                    [
+                        'validasi'  => 2
+                    ]
+                );
+                Mail::to($peminjam->email)->send(new VerifikasiPeminjamanRuanganMail($content));
                 break;
             case '2':
-                DB::transaction(function () use ($id) {
+                DB::transaction(function () use ($id, $request) {
                     $peminjamans = PeminjamanRuangan::with('formruangan')->where('form_ruangan_id', $id)->get();
                     foreach ($peminjamans as $peminjaman) {
                         Ruangan::where('ruang_lab', $peminjaman->formruangan->ruang_lab)
@@ -87,6 +109,22 @@ class PeminjamanRuanganController extends Controller
                             'validasi'  => 0
                         ]
                     );
+                    $peminjam = FormRuangan::with('ruanglab')->where('id', $id)->first();
+                    $content = [
+                        'nama'      => $peminjam->nama_peminjam,
+                        'nim'       => $peminjam->nim,
+                        'afiliasi'  => $peminjam->afiliasi,
+                        'ruang'     => $peminjam->ruanglab->ruang,
+                        'lokasi'    => $peminjam->ruanglab->lokasi,
+                        'matkul'    => $peminjam->mata_kuliah,
+                        'dosen'     => $peminjam->dosen,
+                        'waktu'     => $peminjam->waktu,
+                        'hari'      => $peminjam->hari,
+                        'keterangan' => $peminjam->keterangan,
+                        'pesan'     => $request->get('pesan'),
+                        'validasi'  => 0
+                    ];
+                    Mail::to($peminjam->email)->send(new VerifikasiPeminjamanRuanganMail($content));
                 });
                 break;
         }
@@ -99,6 +137,7 @@ class PeminjamanRuanganController extends Controller
         $kunci = null;
         $ruangans = FormRuangan::with('ruanglab')
             ->where('validasi', 0)
+            ->orWhere('validasi', 2)
             ->orderBy('created_at')
             ->paginate(10);
         $id = $ruangans->pluck('id')->toArray();
