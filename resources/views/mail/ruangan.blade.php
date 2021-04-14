@@ -24,6 +24,12 @@
         <li>Hari : {{$content['hari']}}</li>
         <li>Waktu : {{$content['waktu']}}</li>
         <li>Keterangan : {{$content['keterangan']}}</li>
+        <li>Minggu : </li>
+        <ul>
+            @foreach($content['minggu'] as $minggu)
+            <li>{{ $minggu->minggu }}</li>
+            @endforeach
+        </ul>
     </ul>
     @else
     <p>Maaf, peminjaman Ruangan Anda di tolak karena {{$content['pesan']}}. Silahkan isi ulang form dengan waktu yang kosong. Terima kasih.</p>
@@ -38,6 +44,12 @@
         <li>Hari : {{$content['hari']}}</li>
         <li>Waktu : {{$content['waktu']}}</li>
         <li>Keterangan : {{$content['keterangan']}}</li>
+        <li>Minggu : </li>
+        <ul>
+            @foreach($content['minggu'] as $minggu)
+            <li>{{ $minggu->minggu }}</li>
+            @endforeach
+        </ul>
     </ul>
     @endif
 </body>
