@@ -44,16 +44,16 @@ Route::get('barang/list/nonelektronik', [BarangController::class, 'listNonElektr
 Route::get('barang/list/tpb',           [BarangController::class, 'listTpb'])->name('barang.list.tpb');
 Route::get('barang/list/prodi',         [BarangController::class, 'listProdi'])->name('barang.list.prodi');
 Route::get('barang/search',             [BarangController::class, 'search'])->name('barang.search');
+Route::get('barang/form',               [BarangController::class, 'form'])->name('barang.form');
 Route::get('barang/{id}',               [BarangController::class, 'show'])->name('barang.show');
-Route::get('form/barang',               [BarangController::class, 'form'])->name('barang.form');
-Route::post('form/barang',              [BarangController::class, 'store'])->name('barang.store');
+Route::post('barang/form',              [BarangController::class, 'store'])->name('barang.store');
 
 
 // Route Client Peminjaman Ruangan
 Route::get('ruangan/jadwal',            [RuanganForm::class, 'index'])->name('ruangan.index');
 Route::get('ruangan/jadwal/{slug}',     [RuanganForm::class, 'jadwal'])->name('ruangan.show');
-Route::get('form/ruangan',              [RuanganForm::class, 'form'])->name('ruangan.form');
-Route::post('form/ruangan',             [RuanganForm::class, 'store'])->name('ruangan.store');
+Route::get('ruangan/form',              [RuanganForm::class, 'form'])->name('ruangan.form');
+Route::post('ruangan/form',             [RuanganForm::class, 'store'])->name('ruangan.store');
 
 // Route Pendaftaran Calon Asprak
 Route::resource('calonasprak',          DaftarAsprakController::class)->only(['index', 'store']);
