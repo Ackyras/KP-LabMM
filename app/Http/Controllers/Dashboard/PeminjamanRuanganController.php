@@ -138,7 +138,7 @@ class PeminjamanRuanganController extends Controller
         $ruangans = FormRuangan::with('ruanglab')
             ->where('validasi', 0)
             ->orWhere('validasi', 2)
-            ->orderBy('created_at')
+            ->orderByDesc('created_at')
             ->paginate(10);
         $id = $ruangans->pluck('id')->toArray();
         $peminjamans = PeminjamanRuangan::whereIn('form_ruangan_id', $id)->get();
@@ -153,7 +153,7 @@ class PeminjamanRuanganController extends Controller
             ->where('nama_peminjam', 'like', $input)
             ->orWhere('afiliasi', 'like', $input)
             ->where('validasi', 0)
-            ->orderBy('created_at')
+            ->orderByDesc('created_at')
             ->paginate(10);
         $id = $ruangans->pluck('id')->toArray();
         $peminjamans = PeminjamanRuangan::whereIn('form_ruangan_id', $id)->get();
@@ -169,7 +169,7 @@ class PeminjamanRuanganController extends Controller
         $ruangans = FormRuangan::with('ruanglab')
             ->where('ruang_lab', $ruang->id)
             ->where('validasi', 0)
-            ->orderBy('created_at')
+            ->orderByDesc('created_at')
             ->paginate(10);
         $id = $ruangans->pluck('id')->toArray();
         $peminjamans = PeminjamanRuangan::whereIn('form_ruangan_id', $id)->get();
