@@ -356,9 +356,9 @@
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     <td>{{$peminjamtelat->nama_peminjam}}</td>
                                     <td>{{$peminjamtelat->tanggal_pengembalian}}</td>
-                                    <td><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#data{{$peminjamtelat->id}}">Detail</button></td>
+                                    <td><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#telat{{$peminjamtelat->id}}">Detail</button></td>
                                 </tr>
-                                <div class="modal fade" id="data{{$peminjamtelat->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="telat{{$peminjamtelat->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -399,16 +399,8 @@
                                                 <form action="{{ route('peminjaman.barang.update') }}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="form_barang_id" value="{{ $peminjamtelat->id }}" />
-                                                    @if ($peminjamtelat->validasi == 1)
-                                                    <button type="submit" name="action" value="3" onclick="return confirm('Yakin ingin menghapus data?')" class="btn btn-danger">Hapus Data</button>
-                                                    <button type="submit" name="action" value="2" class="btn btn-warning">Sedang meminjam</button>
-                                                    @endif
-                                                    @if ($peminjamtelat->validasi == 2)
                                                     <button type="submit" name="action" value="0" class="btn btn-success">Selesai meminjam</button>
-                                                    @if (strtotime($peminjamtelat->tanggal_pengembalian) < strtotime(Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d')))
                                                     <button type="submit" name="action" value="1" class="btn btn-warning" onclick="return confirm('Kirim notifikasi?')">Kirim Notifikasi</button>
-                                                    @endif
-                                                    @endif
                                                 </form>
                                             </div>
                                             @endcan
