@@ -33,6 +33,7 @@ Riwayat Peminjaman Ruangan
                         <th>Afiliasi</th>
                         <th>Ruangan</th>
                         <th>Waktu Mengisi</th>
+                        <th>Validasi</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -43,7 +44,8 @@ Riwayat Peminjaman Ruangan
                         <td>{{ $ruangan->nama_peminjam }}</td>
                         <td>{{ $ruangan->afiliasi }}</td>
                         <td>{{ $ruangan->ruanglab->lokasi . ' : ' .$ruangan->ruanglab->ruang }}</td>
-                        <td>{{ $ruangan->created_at }}</td>
+                        <td>{{ $ruangan->ruanglab->lokasi . ' : ' .$ruangan->ruanglab->ruang }}</td>
+                        <td>{{ $ruangan->validasi == 0 ? "Diterima" : "Ditolak"}}</td>
                         <td>
                             <button class="btn btn-info" data-toggle="modal" data-target="#data{{$ruangan->id}}">Detail</button>
                         </td>
