@@ -68,6 +68,7 @@ class PeminjamanRuanganController extends Controller
                 break;
             case '1':
                 $peminjam = FormRuangan::with('ruanglab')->where('id', $id)->first();
+                $minggu = PeminjamanRuangan::where('form_ruangan_id', $peminjam->id)->get();
                 $content = [
                     'nama'      => $peminjam->nama_peminjam,
                     'nim'       => $peminjam->nim,
@@ -80,14 +81,15 @@ class PeminjamanRuanganController extends Controller
                     'hari'      => $peminjam->hari,
                     'keterangan' => $peminjam->keterangan,
                     'pesan'     => $request->get('pesan'),
-                    'validasi'  => 2
+                    'validasi'  => 2,
+                    'minggu'    => $minggu
                 ];
+                Mail::to($peminjam->email)->send(new VerifikasiPeminjamanRuanganMail($content));
                 FormRuangan::where('id', $id)->update(
                     [
                         'validasi'  => 2
                     ]
                 );
-                Mail::to($peminjam->email)->send(new VerifikasiPeminjamanRuanganMail($content));
                 break;
             case '2':
                 DB::transaction(function () use ($id, $request) {
@@ -110,6 +112,7 @@ class PeminjamanRuanganController extends Controller
                         ]
                     );
                     $peminjam = FormRuangan::with('ruanglab')->where('id', $id)->first();
+                    $minggu = PeminjamanRuangan::where('form_ruangan_id', $peminjam->id)->get();
                     $content = [
                         'nama'      => $peminjam->nama_peminjam,
                         'nim'       => $peminjam->nim,
@@ -122,7 +125,8 @@ class PeminjamanRuanganController extends Controller
                         'hari'      => $peminjam->hari,
                         'keterangan' => $peminjam->keterangan,
                         'pesan'     => $request->get('pesan'),
-                        'validasi'  => 0
+                        'validasi'  => 0,
+                        'minggu'    => $minggu
                     ];
                     Mail::to($peminjam->email)->send(new VerifikasiPeminjamanRuanganMail($content));
                 });
