@@ -39,8 +39,8 @@ class PeminjamanRuangan implements Rule
             ->where('hari', $this->hari)
             ->get();
         foreach ($ruangan as $ruang) {
-            foreach ($this->minggu as $key => $value) {
-                if ($ruang->minggu == $value and $ruang->status == 1)
+            foreach ($this->minggu as $key => $val) {
+                if ($ruang->minggu == $val and $ruang->status == 1)
                     $kosong = false;
             }
         }
