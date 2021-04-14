@@ -7,6 +7,7 @@ use App\Models\FormRuangan;
 use App\Models\PeminjamanRuangan;
 use App\Models\Ruangan;
 use App\Models\RuangLab;
+use App\Rules\PeminjamanRuangan as RulesPeminjamanRuangan;
 use Illuminate\Support\Facades\DB;
 
 class RuanganController extends Controller
@@ -49,11 +50,12 @@ class RuanganController extends Controller
         DB::transaction(function () use ($request, $minggu) {
             $peminjam = FormRuangan::create($request->validated());
             $request->validate(
-                ['minggu'           => 'required'],
+                ['minggu'           => ['required', new RulesPeminjamanRuangan($request->get('minggu'), $request->get('hari'), $request->get('waktu'), $request->get('ruang_lab'))]],
                 ['minggu.required'  => 'Pilih minimal 1']
             );
             foreach ($minggu as $key => $value) {
-                $ruangan = Ruangan::where('ruang_lab', $request->get('ruang_lab'))->where('waktu', $peminjam->waktu)
+                $ruangan = Ruangan::where('ruang_lab', $request->get('ruang_lab'))
+                    ->where('waktu', $peminjam->waktu)
                     ->where('hari', $peminjam->hari)
                     ->where('minggu', $value)->pluck('id')->first();
 
