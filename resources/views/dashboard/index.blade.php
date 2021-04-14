@@ -107,15 +107,24 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <h5 class="my-2">Status : {{ ($formbarang->validasi == '1') ? "Belum Meminjam" : "Sedang Meminjam" }}</h5>
-                                            <b>Nama :</b> {{$formbarang->nama_peminjam}} </br>
-                                            <b>Nim :</b> {{$formbarang->nim}}</br>
-                                            <b>Email :</b> {{$formbarang->email}}</br>
-                                            <b>No HP :</b> {{$formbarang->no_hp}}</br>
-                                            <b>Afiliasi :</b> {{$formbarang->afiliasi}}</br>
-                                            <b>Tanggal Peminjaman :</b> {{$formbarang->tanggal_peminjaman}}</br>
-                                            <b>Tanggal Pengembalian :</b> {{$formbarang->tanggal_pengembalian}}</br>
-                                            <b>Barang Pinjaman</b>
+                                            <h5 class="my-2 ml-3">Status : {{ ($formbarang->validasi == '1') ? "Belum Meminjam" : "Sedang Meminjam" }}</h5>
+                                            <dl class="ml-3">
+                                                <dt><small><b>Nama</b></small></dt>
+                                                <dd>{{$formbarang->nama_peminjam}}</dd>
+                                                <dt><small><b>NIM / NIP</b></small></dt>
+                                                <dd>{{$formbarang->nim}}</dd>
+                                                <dt><small><b>Email</b></small></dt>
+                                                <dd>{{$formbarang->email}}</dd>
+                                                <dt><small><b>No HP</b></small></dt>
+                                                <dd>{{$formbarang->no_hp}}</dd>
+                                                <dt><small><b>Afiliasi</b></small></dt>
+                                                <dd>{{$formbarang->afiliasi}}</dd>
+                                                <dt><small><b>Tanggal Peminjaman</b></small></dt>
+                                                <dd>{{$formbarang->tanggal_peminjaman}}</dd>
+                                                <dt><small><b>Tanggal Pengembalian</b></small></dt>
+                                                <dd>{{$formbarang->tanggal_pengembalian}}</b></dt>
+                                            </dl>
+                                            <b class="ml-3">Barang Pinjaman</b>
                                             <ul>
                                                 @foreach ($barangs as $barang)
                                                 @if ($barang->form_barang_id == $formbarang->id)
@@ -129,8 +138,8 @@
                                             <form action="{{ route('peminjaman.barang.update') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="form_barang_id" value="{{ $formbarang->id }}" />
-                                                <button type="submit" name="action" value="3" onclick="return confirm('Yakin ingin menghapus data?')" class="btn btn-danger">Hapus Data</button>
                                                 @if ($formbarang->validasi == 1)
+                                                <button type="submit" name="action" value="3" onclick="return confirm('Yakin ingin menghapus data?')" class="btn btn-danger">Hapus Data</button>
                                                 <button type="submit" name="action" value="2" class="btn btn-warning">Sedang meminjam</button>
                                                 @endif
                                                 @if ($formbarang->validasi == 2)
@@ -183,10 +192,10 @@
                                 <td> {{$formruangan->ruanglab->ruang}} </td>
                                 <td> {{$formruangan->created_at}} </td>
                                 <td>
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#data{{$formruangan->nim}}">Detail</button>
+                                    <button class="btn btn-info" data-toggle="modal" data-target="#ruang{{$formruangan->id}}">Detail</button>
                                 </td>
                             </tr>
-                            <div class="modal fade" id="data{{$formruangan->nim}}" tabindex="-1" role="dialog" aria-labelledby="ruangan" aria-hidden="true">
+                            <div class="modal fade" id="ruang{{$formruangan->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -196,19 +205,32 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <h5 class="my-2">{{ $formruangan->ruanglab->ruang }}</h5>
-                                            <pre><b>Nama               :</b> {{$formruangan->nama_peminjam}}</pre>
-                                            <pre><b>Nim                  :</b> {{$formruangan->nim}}</br></pre>
-                                            <pre><b>Email                :</b> {{$formruangan->email}}</br></pre>
-                                            <pre><b>No HP              :</b> {{$formruangan->no_hp}}</br></pre>
-                                            <pre><b>Afiliasi             :</b> {{$formruangan->afiliasi}}</br></pre>
-                                            <pre><b>Ruang Lab       :</b> {{$formruangan->ruanglab->ruang}}</br></pre>
-                                            <pre><b>Dosen              :</b> {{$formruangan->dosen}}</br></pre>
-                                            <pre><b>Kode Matkul    :</b> {{$formruangan->kode_matkul}}</br></pre>
-                                            <pre><b>Mata Kuliah     :</b> {{$formruangan->mata_kuliah}}</br></pre>
-                                            <pre><b>Hari                  :</b> {{$formruangan->hari}}</br></pre>
-                                            <pre><b>Waktu              :</b> {{$formruangan->waktu}}</br></pre>
-                                            <pre><b>Minggu Ke</b></pre>
+                                            <h5 class="my-2 ml-3">{{ $formruangan->ruanglab->lokasi . ' : ' .$formruangan->ruanglab->ruang }}</h5>
+                                            <dl class="ml-3">
+                                                <dt><small><b>Nama</b></small></dt>
+                                                <dd>{{$formruangan->nama_peminjam}}</dd>
+                                                <dt><small><b>NIM / NIP</b></small></dt>
+                                                <dd>{{$formruangan->nim}}</dd>
+                                                <dt><small><b>Email</b></small></dt>
+                                                <dd>{{$formruangan->email}}</dd>
+                                                <dt><small><b>No HP</b></small></dt>
+                                                <dd>{{$formruangan->no_hp}}</dd>
+                                                <dt><small><b>Afiliasi</b></small></dt>
+                                                <dd>{{$formruangan->afiliasi}}</dd>
+                                                <dt><small><b>Ruang Lab</b></small></dt>
+                                                <dd>{{$formruangan->ruanglab->lokasi . ' : ' .$formruangan->ruanglab->ruang}}</dd>
+                                                <dt><small><b>Dosen</b></small></dt>
+                                                <dd>{{$formruangan->dosen}}</dd>
+                                                <dt><small><b>Kode Mata Kuliah</b></small></dt>
+                                                <dd>{{$formruangan->kode_matkul}}</dd>
+                                                <dt><small><b>Mata Kuliah</b></small></dt>
+                                                <dd>{{$formruangan->mata_kuliah}}</dd>
+                                                <dt><small><b>Hari</b></small></dt>
+                                                <dd>{{$formruangan->hari}}</dd>
+                                                <dt><small><b>Waktu</b></small></dt>
+                                                <dd>{{$formruangan->waktu}}</dd>
+                                            </dl>
+                                            <b class="ml-3">Minggu Ke</b>
                                             <ul>
                                                 @foreach ($ruangans as $ruangan)
                                                 @if ($ruangan->form_ruangan_id == $formruangan->id)
@@ -217,17 +239,40 @@
                                                 @endforeach
                                             </ul>
                                         </div>
-                                        @can('ruangan')
                                         <div class="modal-footer">
                                             <form method="POST" action="{{ route('peminjaman.ruangan.update') }}">
                                                 @csrf
                                                 <input type="hidden" name="form_ruangan_id" value="{{ $formruangan->id }}" />
                                                 <button type="submit" onclick="return confirm('Yakin ingin menghapus data?')" class="btn btn-danger" name="action" value="0">Hapus</button>
-                                                <button type="submit" class="btn btn-warning" name="action" value="1">Tidak Setuju</button>
-                                                <button type="submit" class="btn btn-success" name="action" value="2">Setuju</button>
+                                            </form>
+                                            <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#verif{{$formruangan->id}}">Verifikasi</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="verif{{$formruangan->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Verifikasi Peminjaman Ruangan</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ route('peminjaman.ruangan.update') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="form_ruangan_id" value="{{ $formruangan->id }}" />
+                                                <div class="form-group">
+                                                    <label for="nilai">Pesan</label>
+                                                    <textarea name="pesan" id="nilai" class="form-control" cols="10" rows="5" placeholder="Masukkan pesan"></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-warning ml-1" name="action" value="1">Tolak</button>
+                                                <button type="submit" class="btn btn-success ml-3" name="action" value="2">Terima</button>
                                             </form>
                                         </div>
-                                        @endcan
+                                        <div class="modal-footer">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -323,15 +368,24 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <h5 class="my-2">Status : {{ ($peminjamtelat->validasi == '1') ? "Belum Meminjam" : "Sedang Meminjam" }}</h5>
-                                                <b>Nama :</b> {{$peminjamtelat->nama_peminjam}} </br>
-                                                <b>Nim :</b> {{$peminjamtelat->nim}}</br>
-                                                <b>Email :</b> {{$peminjamtelat->email}}</br>
-                                                <b>No HP :</b> {{$peminjamtelat->no_hp}}</br>
-                                                <b>Afiliasi :</b> {{$peminjamtelat->afiliasi}}</br>
-                                                <b>Tanggal Peminjaman :</b> {{$peminjamtelat->tanggal_peminjaman}}</br>
-                                                <b>Tanggal Pengembalian :</b> {{$peminjamtelat->tanggal_pengembalian}}</br>
-                                                <b>Barang Pinjaman</b>
+                                                <h5 class="my-2 ml-3">Status : {{ ($peminjamtelat->validasi == '1') ? "Belum Meminjam" : "Sedang Meminjam" }}</h5>
+                                                <dl class="ml-3">
+                                                    <dt><small><b>Nama</b></small></dt>
+                                                    <dd>{{$peminjamtelat->nama_peminjam}}</dd>
+                                                    <dt><small><b>NIM / NIP</b></small></dt>
+                                                    <dd>{{$peminjamtelat->nim}}</dd>
+                                                    <dt><small><b>Email</b></small></dt>
+                                                    <dd>{{$peminjamtelat->email}}</dd>
+                                                    <dt><small><b>No HP</b></small></dt>
+                                                    <dd>{{$peminjamtelat->no_hp}}</dd>
+                                                    <dt><small><b>Afiliasi</b></small></dt>
+                                                    <dd>{{$peminjamtelat->afiliasi}}</dd>
+                                                    <dt><small><b>Tanggal Peminjaman</b></small></dt>
+                                                    <dd>{{$peminjamtelat->tanggal_peminjaman}}</dd>
+                                                    <dt><small><b>Tanggal Pengembalian</b></small></dt>
+                                                    <dd>{{$peminjamtelat->tanggal_pengembalian}}</b></dt>
+                                                </dl>
+                                                <b class="ml-3">Barang Pinjaman</b>
                                                 <ul>
                                                     @foreach ($barangs as $barang)
                                                     @if ($barang->form_barang_id == $peminjamtelat->id)
@@ -345,8 +399,8 @@
                                                 <form action="{{ route('peminjaman.barang.update') }}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="form_barang_id" value="{{ $peminjamtelat->id }}" />
-                                                    <button type="submit" name="action" value="3" onclick="return confirm('Yakin ingin menghapus data?')" class="btn btn-danger">Hapus Data</button>
                                                     @if ($peminjamtelat->validasi == 1)
+                                                    <button type="submit" name="action" value="3" onclick="return confirm('Yakin ingin menghapus data?')" class="btn btn-danger">Hapus Data</button>
                                                     <button type="submit" name="action" value="2" class="btn btn-warning">Sedang meminjam</button>
                                                     @endif
                                                     @if ($peminjamtelat->validasi == 2)
