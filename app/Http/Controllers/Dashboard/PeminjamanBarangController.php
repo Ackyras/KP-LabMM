@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Mail\PeminjamanBarangNotificiationMail;
 use App\Models\FormBarang;
 use App\Models\Inventaris;
 use App\Models\PeminjamanBarang;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class PeminjamanBarangController extends Controller
 {
@@ -83,6 +85,20 @@ class PeminjamanBarangController extends Controller
                 break;
             case '3':
                 FormBarang::where('id', $form_barang_id)->delete();
+                break;
+            case '1':
+                $peminjam = FormBarang::where('id', $form_barang_id)->first();
+                $barang = PeminjamanBarang::with('inventaris')->where('form_barang_id', $peminjam->id)->get();
+                $content = [
+                    'nama'      => $peminjam->nama_peminjam,
+                    'nim'       => $peminjam->nim,
+                    'afiliasi'  => $peminjam->afiliasi,
+                    'awal'      => $peminjam->tanggal_peminjaman,
+                    'akhir'     => $peminjam->tanggal_pengembalian,
+                    'barang'    => $barang
+                ];
+                Mail::to($peminjam->email)->send(new PeminjamanBarangNotificiationMail($content));
+                return redirect()->route('peminjaman.barang')->with('status', 'Berhasil mengirim notifikasi');
                 break;
         }
 
