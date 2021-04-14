@@ -405,6 +405,9 @@
                                                     @endif
                                                     @if ($peminjamtelat->validasi == 2)
                                                     <button type="submit" name="action" value="0" class="btn btn-success">Selesai meminjam</button>
+                                                    @if (strtotime($peminjamtelat->tanggal_pengembalian) < strtotime(Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d')))
+                                                    <button type="submit" name="action" value="1" class="btn btn-warning" onclick="return confirm('Kirim notifikasi?')">Kirim Notifikasi</button>
+                                                    @endif
                                                     @endif
                                                 </form>
                                             </div>
