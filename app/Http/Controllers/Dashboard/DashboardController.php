@@ -16,6 +16,8 @@ class DashboardController extends Controller
     public function index()
     {
         $formbarangs = FormBarang::where('created_at', '>=', Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d'))
+            ->where('validasi', 1)
+            ->orWhere('validasi', 2)
             ->orderBy('created_at')
             ->take(5)
             ->get();
