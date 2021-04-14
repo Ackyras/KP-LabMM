@@ -53,7 +53,7 @@ class RuanganController extends Controller
                 ['minggu.required'  => 'Pilih minimal 1']
             );
             foreach ($minggu as $key => $value) {
-                $ruangan = Ruangan::where('waktu', $peminjam->waktu)
+                $ruangan = Ruangan::where('ruang_lab', $request->get('ruang_lab'))->where('waktu', $peminjam->waktu)
                     ->where('hari', $peminjam->hari)
                     ->where('minggu', $value)->pluck('id')->first();
 
