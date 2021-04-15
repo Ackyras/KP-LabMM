@@ -31,7 +31,7 @@ class FormBarangRequest extends FormRequest
             'email'                 => ['email', 'required'],
             'no_hp'                 => ['max:13', 'required', 'regex:/[0-9]+/', 'min:10'],
             'afiliasi'              => ['required'],
-            'tanggal_peminjaman'    => ['date'],
+            'tanggal_peminjaman'    => ['date', 'after_or_equal:today'],
             'tanggal_pengembalian'  => ['date', 'after_or_equal:tanggal_peminjaman'],
             'kode1'                 => ['required', new BarangPinjaman($this->request->get('kode1'))],
             'jumlah1'               => [new BarangPinjamanJumlah($this->request->get('kode1')), 'min:1'],
