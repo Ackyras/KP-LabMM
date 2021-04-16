@@ -35,7 +35,7 @@ Route::view('/', 'home.index')->name('home');
 Route::view('/home', 'home.index')->name('home');
 
 // Auth Routes
-Auth::routes();
+Auth::routes(['register' => false]);
 
 // Route Client Peminjaman Barang
 Route::get('barang/list',               [BarangController::class, 'list'])->name('barang.list');
