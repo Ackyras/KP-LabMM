@@ -15,9 +15,9 @@ class CreateFormRuanganTable extends Migration
     {
         Schema::create('form_ruangan', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('ruang_lab')->references('ruang_lab')->on('ruangans')->onDelete('cascade');
             $table->string('nama_peminjam');
             $table->string('nim');
-            $table->string('ruang_lab');
             $table->string('email');
             $table->string('no_hp');
             $table->string('afiliasi');

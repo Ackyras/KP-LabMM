@@ -44,14 +44,16 @@ Route::get('barang/list/nonelektronik', [BarangController::class, 'listNonElektr
 Route::get('barang/list/tpb',           [BarangController::class, 'listTpb'])->name('barang.list.tpb');
 Route::get('barang/list/prodi',         [BarangController::class, 'listProdi'])->name('barang.list.prodi');
 Route::get('barang/search',             [BarangController::class, 'search'])->name('barang.search');
+Route::get('barang/form',               [BarangController::class, 'form'])->name('barang.form');
 Route::get('barang/{id}',               [BarangController::class, 'show'])->name('barang.show');
-Route::get('form/barang',               [BarangController::class, 'form'])->name('barang.form');
-Route::post('form/barang',              [BarangController::class, 'store'])->name('barang.store');
+Route::post('barang/form',              [BarangController::class, 'store'])->name('barang.store');
 
 
 // Route Client Peminjaman Ruangan
-Route::get('form/ruangan',              [RuanganForm::class, 'form'])->name('ruangan.form');
-Route::post('form/ruangan',             [RuanganForm::class, 'store'])->name('ruangan.store');
+Route::get('ruangan/jadwal',            [RuanganForm::class, 'index'])->name('ruangan.index');
+Route::get('ruangan/jadwal/{slug}',     [RuanganForm::class, 'jadwal'])->name('ruangan.show');
+Route::get('ruangan/form',              [RuanganForm::class, 'form'])->name('ruangan.form');
+Route::post('ruangan/form',             [RuanganForm::class, 'store'])->name('ruangan.store');
 
 // Route Pendaftaran Calon Asprak
 Route::resource('calonasprak',          DaftarAsprakController::class)->only(['index', 'store']);
@@ -61,14 +63,15 @@ Route::get('calonasprak/daftar',        [DaftarAsprakController::class, 'form'])
 Route::get('calonasprak/jadwal',        [DaftarAsprakController::class, 'jadwal'])->name('calonasprak.jadwal');
 Route::get('calonasprak/tidak-ada-pembukaan',   [DaftarAsprakController::class, 'none'])->name('calonasprak.none');
 
-// Route Seleksi Calon Asprak
-Route::get('calonasprak/seleksi',       [DaftarAsprakController::class, 'seleksi'])->name('calonasprak.seleksi');
-Route::get('calonasprak/seleksi/{id}',  [DaftarAsprakController::class, 'seleksishow'])->name('calonasprak.test');
 
+// Route Seleksi Calon Asprak
 Route::group(['middleware' => ['CalonAsprak']], function () {
+    Route::get('calonasprak/seleksi',       [DaftarAsprakController::class, 'seleksi'])->name('calonasprak.seleksi');
+    Route::get('calonasprak/seleksi/{id}',  [DaftarAsprakController::class, 'seleksishow'])->name('calonasprak.test');
     Route::post('calonasprak/seleksi/{id}', [DaftarAsprakController::class, 'seleksiupload'])->name('calonasprak.test.store');
     Route::post('calonasprak/logout',       [DaftarAsprakController::class, 'logout'])->name('calonasprak.logout');
 });
+
 Route::group(['middleware' => 'Admin', 'prefix' => 'admin'], function () {
     Route::get('dashboard',                     [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::post('logout',                       [AuthController::class, 'logout'])->name('logout');
@@ -78,6 +81,7 @@ Route::group(['middleware' => 'Admin', 'prefix' => 'admin'], function () {
 Route::group(['middleware' => 'OnlyLaboran', 'prefix' => 'admin'], function () {
     Route::get('surat/masuk',                   [SuratController::class, 'masuk'])->name('surat.masuk');
     Route::get('surat/keluar',                  [SuratController::class, 'keluar'])->name('surat.keluar');
+    Route::get('surat/search',                  [SuratController::class, 'search'])->name('surat.search');
     Route::resource('surat',                    SuratController::class)->except(['index']);
 });
 
@@ -112,9 +116,9 @@ Route::group(['middleware' => 'Ruangan', 'prefix' => 'admin'], function () {
     Route::get('peminjaman/ruangan/riwayat/{slug}', [PeminjamanRuanganController::class, 'riwayatfilter'])->name('peminjaman.ruangan.riwayat.filter');
 
     // Route Penjadwalan Ruangan
-    Route::get('penjadwalan',                   [PenjadwalanController::class, 'index'])->name('penjadwalan.index');
-    Route::post('penjadwalan/delete',           [PenjadwalanController::class, 'destroy'])->name('penjadwalan.destroy');
-    Route::post('penjadwalan/reset',            [PenjadwalanController::class, 'massReset'])->name('penjadwalan.reset');
+    Route::get('penjadwalan/{slug}',            [PenjadwalanController::class, 'index'])->name('penjadwalan.index');
+    Route::delete('penjadwalan/delete/{id}',    [PenjadwalanController::class, 'destroy'])->name('penjadwalan.destroy');
+    Route::post('penjadwalan/reset/{id}',       [PenjadwalanController::class, 'massReset'])->name('penjadwalan.reset');
     Route::resource('ruanglab',                 RuanganAdmin::class)->except(['show']);
 });
 

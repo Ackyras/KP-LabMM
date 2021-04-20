@@ -101,7 +101,10 @@ Peminjaman Barang
                                         @endif
                                         @if ($form->validasi == 2)
                                         <button type="submit" name="action" value="0" class="btn btn-success">Selesai meminjam</button>
-                                        @endif
+                                        @if (strtotime($form->tanggal_pengembalian) < strtotime(Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d')))
+                                            <button type="submit" name="action" value="1" class="btn btn-warning" onclick="return confirm('Kirim notifikasi?')">Kirim Notifikasi</button>
+                                            @endif
+                                            @endif
                                     </form>
                                 </div>
                             </div>
@@ -131,7 +134,7 @@ Peminjaman Barang
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[1];
             tdAfiliasi = tr[i].getElementsByTagName("td")[2];
-            if (td) {
+            if (td || tdAfiliasi) {
                 txtValue = td.textContent || td.innerText;
                 txtValueAfiliasi = tdAfiliasi.textContent || tdAfiliasi.innerText;
                 if ((txtValue.toUpperCase().indexOf(filter) > -1) || (txtValueAfiliasi.toUpperCase().indexOf(filter) > -1)) {

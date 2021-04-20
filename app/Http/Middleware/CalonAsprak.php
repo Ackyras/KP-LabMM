@@ -24,7 +24,7 @@ class CalonAsprak
                 return abort(403);
             }
         } else {
-            return redirect('login');
+            return redirect()->route('calonasprak.login');
         }
     }
 }

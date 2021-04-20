@@ -33,6 +33,7 @@
                         <td>{{ $ruang->lokasi }}</td>
                         <td>{{ $ruang->status }}</td>
                         <td>
+                            <a href="{{ route('penjadwalan.index', $ruang->slug) }}" class="btn btn-sm btn-info">Jadwal</a>
                             <a href="{{ route('ruanglab.edit', $ruang->id) }}" class="btn btn-sm btn-primary">Edit</a>
                             <form action="{{ route('ruanglab.destroy', $ruang->id) }}" method="POST" class="d-inline">
                                 @csrf
@@ -65,7 +66,7 @@
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[1];
             tdAfiliasi = tr[i].getElementsByTagName("td")[2];
-            if (td) {
+            if (td || tdAfiliasi) {
                 txtValue = td.textContent || td.innerText;
                 txtValueAfiliasi = tdAfiliasi.textContent || tdAfiliasi.innerText;
                 if ((txtValue.toUpperCase().indexOf(filter) > -1) || (txtValueAfiliasi.toUpperCase().indexOf(filter) > -1)) {

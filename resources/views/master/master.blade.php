@@ -23,6 +23,7 @@
 <body background="{{ asset('img/background.jpg')}}">
     <header style="max-height: 10%;">
         <a class="itera" href="{{ route('home') }}"><img src="{{ asset('img/LabMM2.png')}}" alt="Laboratorium"></a>
+        @yield('logout')
     </header>
 
     <div class="row mx-2 wrapper-main">
@@ -37,6 +38,11 @@
                 <a href="{{route('barang.form')}}">
                     <li class="navbarw sidenav-item p-2 border">
                         <i class="fas fa-laptop px-3"></i>Form Pinjam Barang
+                    </li>
+                </a>
+                <a href="{{ route('ruangan.index') }}">
+                    <li class="navbarw sidenav-item p-2 border">
+                        <i class="fas fa-table px-3"></i>Jadwal Ruangan
                     </li>
                 </a>
                 <a href="{{ route('ruangan.form') }}">

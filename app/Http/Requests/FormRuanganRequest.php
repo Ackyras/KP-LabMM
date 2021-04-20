@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class FormRuanganRequest extends FormRequest
 {
@@ -29,7 +30,7 @@ class FormRuanganRequest extends FormRequest
             'email'                 => ['email', 'required'],
             'no_hp'                 => ['max:13', 'required', 'regex:/[0-9]+/', 'min:10'],
             'afiliasi'              => ['required'],
-            'ruang_lab'             => ['required'],
+            'ruang_lab'             => ['required', Rule::exists('ruang_labs', 'id')],
             'mata_kuliah'           => ['required'],
             'kode_matkul'           => ['required'],
             'dosen'                 => ['required'],

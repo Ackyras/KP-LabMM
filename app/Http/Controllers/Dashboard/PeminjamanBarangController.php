@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Mail\PeminjamanBarangNotificiationMail;
 use App\Models\FormBarang;
 use App\Models\Inventaris;
 use App\Models\PeminjamanBarang;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class PeminjamanBarangController extends Controller
 {
@@ -19,7 +21,8 @@ class PeminjamanBarangController extends Controller
             ->orWhere('validasi', '2')
             ->orderByDesc('updated_at')
             ->paginate(10);
-        $barangs = PeminjamanBarang::with('inventaris')->get();
+        $id = $forms->pluck('id')->toArray();
+        $barangs = PeminjamanBarang::with('inventaris')->whereIn('form_barang_id', $id)->get();
         return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs', 'kunci'));
     }
 
@@ -29,7 +32,8 @@ class PeminjamanBarangController extends Controller
         $forms = FormBarang::where('validasi', $status)
             ->orderByDesc('updated_at')
             ->paginate(10);
-        $barangs = PeminjamanBarang::with('inventaris')->get();
+        $id = $forms->pluck('id')->toArray();
+        $barangs = PeminjamanBarang::with('inventaris')->whereIn('form_barang_id', $id)->get();
         return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs', 'kunci'));
     }
 
@@ -39,7 +43,8 @@ class PeminjamanBarangController extends Controller
         $forms = FormBarang::where('nama_peminjam', 'like', $input)
             ->orWhere('afiliasi', 'like', $input)
             ->paginate(10);
-        $barangs = PeminjamanBarang::with('inventaris')->get();
+        $id = $forms->pluck('id')->toArray();
+        $barangs = PeminjamanBarang::with('inventaris')->whereIn('form_barang_id', $id)->get();
         $kunci = $request->get('input');
         return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs', 'kunci'));
     }
@@ -81,6 +86,20 @@ class PeminjamanBarangController extends Controller
             case '3':
                 FormBarang::where('id', $form_barang_id)->delete();
                 break;
+            case '1':
+                $peminjam = FormBarang::where('id', $form_barang_id)->first();
+                $barang = PeminjamanBarang::with('inventaris')->where('form_barang_id', $peminjam->id)->get();
+                $content = [
+                    'nama'      => $peminjam->nama_peminjam,
+                    'nim'       => $peminjam->nim,
+                    'afiliasi'  => $peminjam->afiliasi,
+                    'awal'      => $peminjam->tanggal_peminjaman,
+                    'akhir'     => $peminjam->tanggal_pengembalian,
+                    'barang'    => $barang
+                ];
+                Mail::to($peminjam->email)->send(new PeminjamanBarangNotificiationMail($content));
+                return redirect()->route('peminjaman.barang')->with('status', 'Berhasil mengirim notifikasi');
+                break;
         }
 
         return redirect()->route('peminjaman.barang')->with('status', 'Berhasil merubah status');
@@ -93,7 +112,8 @@ class PeminjamanBarangController extends Controller
             ->where('tanggal_pengembalian', '<', Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d'))
             ->orderByDesc('updated_at')
             ->paginate(10);
-        $barangs = PeminjamanBarang::with('inventaris')->get();
+        $id = $forms->pluck('id')->toArray();
+        $barangs = PeminjamanBarang::with('inventaris')->whereIn('form_barang_id', $id)->get();
         return view('dashboard.peminjaman.barang.index', compact('forms', 'barangs', 'kunci'));
     }
 

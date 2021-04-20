@@ -24,8 +24,14 @@ h5 {
 .text {
     font-family: "Poppins", sans-serif;
     color: black;
+    margin-left: 80px;
+    width: 80%;
 }
 
 a {
     color: rgb(177, 39, 39);
+}
+
+.alert-success {
+    margin-left: 80px;
 }

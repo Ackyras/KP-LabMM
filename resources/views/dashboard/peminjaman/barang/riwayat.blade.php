@@ -99,7 +99,7 @@ Riwayat Peminjaman Barang
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[1];
             tdAfiliasi = tr[i].getElementsByTagName("td")[2];
-            if (td) {
+            if (td || tdAfiliasi) {
                 txtValue = td.textContent || td.innerText;
                 txtValueAfiliasi = tdAfiliasi.textContent || tdAfiliasi.innerText;
                 if ((txtValue.toUpperCase().indexOf(filter) > -1) || (txtValueAfiliasi.toUpperCase().indexOf(filter) > -1)) {

@@ -30,7 +30,8 @@ class VerifikasiController extends Controller
             ->where('status', 0)
             ->orderBy('created_at', 'desc')
             ->paginate(20);
-        $pilihans = PenilaianAsprak::with('matakuliah')->get();
+        $id = $aspraks->pluck('id')->toArray();
+        $pilihans = PenilaianAsprak::with('matakuliah')->whereIn('calon_asprak_id', $id)->get();
         $daftar_matkuls = DaftarMataKuliah::has('matakuliahs')->get();
         return view('dashboard.pendaftaran.verifikasi.index', compact('aspraks', 'pilihans', 'daftar_matkuls'));
     }
@@ -44,7 +45,8 @@ class VerifikasiController extends Controller
             ->where('status', 0)
             ->orderBy('created_at', 'desc')
             ->paginate(20);
-        $pilihans = PenilaianAsprak::with('matakuliah')->get();
+        $id = $aspraks->pluck('id')->toArray();
+        $pilihans = PenilaianAsprak::with('matakuliah')->whereIn('calon_asprak_id', $id)->get();
         $daftar_matkuls = DaftarMataKuliah::has('matakuliahs')->get();
         return view('dashboard.pendaftaran.verifikasi.index', compact('aspraks', 'pilihans', 'daftar_matkuls'));
     }
@@ -196,7 +198,6 @@ class VerifikasiController extends Controller
                         Mail::to($calon->email)->send(new VerifikasiKelulusanAsprakMail($content));
                     }
                 );
-                return redirect()->route('asprak.nilai.index');
                 break;
             case '2':
                 DB::transaction(
@@ -220,8 +221,8 @@ class VerifikasiController extends Controller
                         Mail::to($calon->email)->send(new VerifikasiKelulusanAsprakMail($content));
                     }
                 );
-                return redirect()->route('asprak.nilai.index')->with('status', 'Berhasil memvalidasi kelulusan calon asisten praktikum');
                 break;
         }
+        return redirect()->route('asprak.nilai.index')->with('status', 'Berhasil memvalidasi kelulusan calon asisten praktikum');
     }
 }

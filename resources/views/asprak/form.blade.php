@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<div class="row">
+<div class="row sticky-top pb-3 bg-light">
     <h4 class="p-2 title-header">Formulir Pendaftaran Asisten Praktikum</h4>
     <div class="line"></div>
 </div>
@@ -113,7 +113,7 @@
             <div class="alert alert-danger mt-1">{{ $message }}</div>
             @enderror
         </div>
-        <button type="submit" class="btn btn-submit my-3">Daftar</button>
+        <button type="submit" class="btn btn-submit mt-5">Daftar</button>
     </form>
 </div>
 @endsection

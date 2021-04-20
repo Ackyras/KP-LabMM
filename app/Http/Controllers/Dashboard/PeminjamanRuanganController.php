@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Mail\VerifikasiPeminjamanRuanganMail;
 use App\Models\FormRuangan;
 use App\Models\PeminjamanBarang;
 use App\Models\PeminjamanRuangan;
@@ -10,6 +11,7 @@ use App\Models\Ruangan;
 use App\Models\RuangLab;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class PeminjamanRuanganController extends Controller
 {
@@ -62,30 +64,39 @@ class PeminjamanRuanganController extends Controller
         $id = $request->input('form_ruangan_id');
         switch ($request->input('action')) {
             case '0':
-                DB::transaction(function () use ($id) {
-                    $peminjamans = PeminjamanRuangan::with('formruangan')->where('form_ruangan_id', $id)->get();
-                    foreach ($peminjamans as $peminjaman) {
-                        Ruangan::where('minggu', $peminjaman->minggu)
-                            ->where('waktu', $peminjaman->formruangan->waktu)
-                            ->where('hari', $peminjaman->formruangan->hari)
-                            ->update(
-                                [
-                                    'status'        => 0,
-                                    'updated_at'    => now()->toDateTimeString()
-                                ]
-                            );
-                    }
-                    FormRuangan::where('id', $id)->delete();
-                });
+                FormRuangan::where('id', $id)->delete();
                 break;
             case '1':
-                // Jadwal penuh send notifikasi
+                $peminjam = FormRuangan::with('ruanglab')->where('id', $id)->first();
+                $minggu = PeminjamanRuangan::where('form_ruangan_id', $peminjam->id)->get();
+                $content = [
+                    'nama'      => $peminjam->nama_peminjam,
+                    'nim'       => $peminjam->nim,
+                    'afiliasi'  => $peminjam->afiliasi,
+                    'ruang'     => $peminjam->ruanglab->ruang,
+                    'lokasi'    => $peminjam->ruanglab->lokasi,
+                    'matkul'    => $peminjam->mata_kuliah,
+                    'dosen'     => $peminjam->dosen,
+                    'waktu'     => $peminjam->waktu,
+                    'hari'      => $peminjam->hari,
+                    'keterangan' => $peminjam->keterangan,
+                    'pesan'     => $request->get('pesan'),
+                    'validasi'  => 2,
+                    'minggu'    => $minggu
+                ];
+                Mail::to($peminjam->email)->send(new VerifikasiPeminjamanRuanganMail($content));
+                FormRuangan::where('id', $id)->update(
+                    [
+                        'validasi'  => 2
+                    ]
+                );
                 break;
             case '2':
-                DB::transaction(function () use ($id) {
+                DB::transaction(function () use ($id, $request) {
                     $peminjamans = PeminjamanRuangan::with('formruangan')->where('form_ruangan_id', $id)->get();
                     foreach ($peminjamans as $peminjaman) {
-                        Ruangan::where('minggu', $peminjaman->minggu)
+                        Ruangan::where('ruang_lab', $peminjaman->formruangan->ruang_lab)
+                            ->where('minggu', $peminjaman->minggu)
                             ->where('waktu', $peminjaman->formruangan->waktu)
                             ->where('hari', $peminjaman->formruangan->hari)
                             ->update(
@@ -100,6 +111,24 @@ class PeminjamanRuanganController extends Controller
                             'validasi'  => 0
                         ]
                     );
+                    $peminjam = FormRuangan::with('ruanglab')->where('id', $id)->first();
+                    $minggu = PeminjamanRuangan::where('form_ruangan_id', $peminjam->id)->get();
+                    $content = [
+                        'nama'      => $peminjam->nama_peminjam,
+                        'nim'       => $peminjam->nim,
+                        'afiliasi'  => $peminjam->afiliasi,
+                        'ruang'     => $peminjam->ruanglab->ruang,
+                        'lokasi'    => $peminjam->ruanglab->lokasi,
+                        'matkul'    => $peminjam->mata_kuliah,
+                        'dosen'     => $peminjam->dosen,
+                        'waktu'     => $peminjam->waktu,
+                        'hari'      => $peminjam->hari,
+                        'keterangan' => $peminjam->keterangan,
+                        'pesan'     => $request->get('pesan'),
+                        'validasi'  => 0,
+                        'minggu'    => $minggu
+                    ];
+                    Mail::to($peminjam->email)->send(new VerifikasiPeminjamanRuanganMail($content));
                 });
                 break;
         }
@@ -112,7 +141,8 @@ class PeminjamanRuanganController extends Controller
         $kunci = null;
         $ruangans = FormRuangan::with('ruanglab')
             ->where('validasi', 0)
-            ->orderBy('created_at')
+            ->orWhere('validasi', 2)
+            ->orderByDesc('created_at')
             ->paginate(10);
         $id = $ruangans->pluck('id')->toArray();
         $peminjamans = PeminjamanRuangan::whereIn('form_ruangan_id', $id)->get();
@@ -127,7 +157,7 @@ class PeminjamanRuanganController extends Controller
             ->where('nama_peminjam', 'like', $input)
             ->orWhere('afiliasi', 'like', $input)
             ->where('validasi', 0)
-            ->orderBy('created_at')
+            ->orderByDesc('created_at')
             ->paginate(10);
         $id = $ruangans->pluck('id')->toArray();
         $peminjamans = PeminjamanRuangan::whereIn('form_ruangan_id', $id)->get();
@@ -143,7 +173,7 @@ class PeminjamanRuanganController extends Controller
         $ruangans = FormRuangan::with('ruanglab')
             ->where('ruang_lab', $ruang->id)
             ->where('validasi', 0)
-            ->orderBy('created_at')
+            ->orderByDesc('created_at')
             ->paginate(10);
         $id = $ruangans->pluck('id')->toArray();
         $peminjamans = PeminjamanRuangan::whereIn('form_ruangan_id', $id)->get();

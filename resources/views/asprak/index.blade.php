@@ -5,19 +5,29 @@
 <link rel="stylesheet" href="{{ asset('css/asprak/login.css') }}">
 @endsection
 
+@section('logout')
+@if(auth()->user() and auth()->user()->role == 'calonasprak')
+<form action="{{ route('calonasprak.logout') }}" method="POST">
+    @csrf
+    <button type="submit" class="btn btn-primary-outline float-right">Logout</button>
+</form>
+@else
+<a href="{{ route('calonasprak.login') }}" class="btn btn-primary-outline float-right">Login</a>
+@endif
+@endsection
+
 @section('content')
 <div class="row">
     <h4 class="p-2 title-header">Pengumuman</h4>
     <div class="line"></div>
 </div>
-<div class="row ml-5 mt-4 w-75">
+<div class="row mt-5">
     @if (session('status'))
     <div class="alert alert-success mt-3 w-75">
         {{ session('status') }}
     </div>
     @endif
     @if($login)
-    <p class="text">Silahkan <a href="{{route('calonasprak.login')}}">Login</a> menggunakan akun yang dikirim ke email anda jika lulus verifikasi berkas</p>
     <p class="text">Ikuti seleksi ujian sesuai dengan waktu di <a href="{{route('calonasprak.jadwal')}}">Jadwal Seleksi</a></p>
     <p class="text">Soal akan muncul sesuai dengan waktu yang ada di Jadwal Seleksi.</p>
     @else

@@ -102,9 +102,34 @@ List Peminjaman Ruangan
                                         @csrf
                                         <input type="hidden" name="form_ruangan_id" value="{{ $ruangan->id }}" />
                                         <button type="submit" onclick="return confirm('Yakin ingin menghapus data?')" class="btn btn-danger" name="action" value="0">Hapus</button>
-                                        <button type="submit" class="btn btn-warning" name="action" value="1">Tidak Setuju</button>
-                                        <button type="submit" class="btn btn-success" name="action" value="2">Setuju</button>
                                     </form>
+                                    <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#verif{{$ruangan->id}}">Verifikasi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="verif{{$ruangan->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Verifikasi Peminjaman Ruangan</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ route('peminjaman.ruangan.update') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="form_ruangan_id" value="{{ $ruangan->id }}" />
+                                        <div class="form-group">
+                                            <label for="nilai">Pesan</label>
+                                            <textarea name="pesan" id="nilai" class="form-control" cols="10" rows="5" placeholder="Masukkan pesan"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-warning ml-1" name="action" value="1">Tolak</button>
+                                        <button type="submit" class="btn btn-success ml-3" name="action" value="2">Terima</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
                                 </div>
                             </div>
                         </div>
@@ -133,7 +158,7 @@ List Peminjaman Ruangan
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[1];
             tdAfiliasi = tr[i].getElementsByTagName("td")[2];
-            if (td) {
+            if (td || tdAfiliasi) {
                 txtValue = td.textContent || td.innerText;
                 txtValueAfiliasi = tdAfiliasi.textContent || tdAfiliasi.innerText;
                 if ((txtValue.toUpperCase().indexOf(filter) > -1) || (txtValueAfiliasi.toUpperCase().indexOf(filter) > -1)) {
