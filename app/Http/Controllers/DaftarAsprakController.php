@@ -208,7 +208,9 @@ class DaftarAsprakController extends Controller
             ->where('awal_seleksi', '<=', Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s'))
             ->where('akhir_seleksi', '>', Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s'))
             ->first();
-        return view('asprak.show', compact('master', 'matkul'));
+
+        $waktu = $matkul->akhir_seleksi;
+        return view('asprak.show', compact('master', 'matkul', 'waktu'));
     }
 
     public function seleksiupload(Request $request, $id)

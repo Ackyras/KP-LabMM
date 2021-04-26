@@ -26,8 +26,11 @@
     <div class="card mx-auto">
         <div class="card-body d-flex flex-column">
             @if($matkul)
+            <p>Silahkan ikuti petunjuk pengerjaaan soal</p>
+            {{-- <p>{{ Carbon\Carbon::createFromFormat('s', strtotime($matkul->akhir_seleksi) - strtotime(Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s')))->format('i:s') }}</p> --}}
+            <p id="#time" class="d-none">{{ strtotime($matkul->akhir_seleksi) - strtotime(Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s')) }}</p>
+            <p id="#realtime"></p>
             <a href="{{ $matkul->soal }}">Lihat Soal</a>
-
             @else
             <p>Uji seleksi belum dibuka, silahkan cek jadwal untuk waktu pelaksanaan</p>
             @endif
@@ -49,4 +52,23 @@
         @endif
     </div>
 </div>
+@endsection
+
+@section('js')
+<script>
+    var funcTime = setInterval(function() {
+        // var now = "{!! Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s') !!}";
+        // var x = document.getElementById("#time").innerText;
+        // time = x % 60;
+        // y = Math.floor(x / 60);
+        // console.log(Math.floor(y));
+        // console.log((time));
+        var now = new Date().getTime();
+        var seconds = Math.floor((now % (1000 * 60)) / 1000);
+        let array = JSON.parse('{!! json_encode($waktu) !!}');
+        console.log(seconds);
+        console.log(array);
+        // document.getElementById("#realtime").innerHTML = y + ":" + time
+    }, 1000);
+</script>
 @endsection
