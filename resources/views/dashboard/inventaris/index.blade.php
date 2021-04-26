@@ -70,9 +70,9 @@ List Daftar Barang
                                         <dt><small><b>Peminjaman</b></small></dt>
                                         <dd>{{ $barang->peminjaman }}</b></dt>
                                         <dt><small><b>Masuk Barang</dt>
-                                        <dd>{{ $barang->masuk_barang }}</b></small></dt>
+                                        <dd>{{ Carbon\Carbon::createFromFormat('Y-m-d', $barang->masuk_barang)->format('d-m-Y') }}</b></small></dt>
                                         <dt><small><b>Update Terakhir</dt>
-                                        <dd>{{ $barang->updated_at }}</b></small></dt>
+                                        <dd>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $barang->updated_at)->format('d-m-Y H:i:s') }}</b></small></dt>
                                     </dl>
                                 </div>
                                 <div class="modal-footer">

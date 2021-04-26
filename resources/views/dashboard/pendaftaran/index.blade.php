@@ -33,8 +33,8 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $daftar->judul }}</td>
-                        <td>{{ $daftar->awal_pembukaan }}</td>
-                        <td>{{ $daftar->akhir_pembukaan }}</td>
+                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $daftar->awal_pembukaan)->format('d-m-Y') }}</td>
+                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d',  $daftar->akhir_pembukaan)->format('d-m-Y') }}</td>
                         <td>
                             <a href="{{ route('rekrut.show', $daftar->id) }}" class="btn btn-info">Detail</a>
                             <a href="{{ route('rekrut.edit', $daftar->id) }}" class="btn btn-primary">Ubah</a>

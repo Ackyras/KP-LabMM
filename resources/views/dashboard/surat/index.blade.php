@@ -69,7 +69,7 @@
                                         <dt><small><b>Kategori</b></small></dt>
                                         <dd>{{ ($surat->kategori == 1) ? "Surat Masuk" : "Surat Keluar" }}</b></dt>
                                         <dt><small><b>Tanggal Masuk</dt>
-                                        <dd>{{ $surat->tanggal_masuk }}</b></small></dt>
+                                        <dd>{{ Carbon\Carbon::createFromFormat('Y-m-d', $surat->tanggal_masuk)->format('d-m-Y') }}</b></small></dt>
                                     </dl>
                                     <a href="{{ $surat->file }}" class="btn btn-success ml-3">Lihat Surat</a>
                                 </div>

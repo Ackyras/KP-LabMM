@@ -48,7 +48,7 @@ List Peminjaman Ruangan
                         <td>{{ $ruangan->nama_peminjam }}</td>
                         <td>{{ $ruangan->afiliasi }}</td>
                         <td>{{ $ruangan->ruanglab->lokasi . ' : ' .$ruangan->ruanglab->ruang }}</td>
-                        <td>{{ $ruangan->created_at }}</td>
+                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $ruangan->created_at)->format('d-m-Y H:i:s') }}</td>
                         <td>
                             <button class="btn btn-info" data-toggle="modal" data-target="#data{{$ruangan->id}}">Detail</button>
                         </td>
