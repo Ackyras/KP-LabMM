@@ -12,6 +12,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
+<<<<<<< HEAD
+=======
+use Dompdf\Dompdf;
+use Dompdf\Options;
+>>>>>>> 822083567c35531a69b54c488044bdcdea314887
 
 class BarangController extends Controller
 {
@@ -171,21 +176,19 @@ class BarangController extends Controller
         });
 
         $content = [
-            'nama'                      => $request->get('nama_peminjam'),
-            'nim'                       => $request->get('nim'),
-            'email'                     => $request->get('email'),
-            'no_hp'                     => $request->get('no_hp'),
-            'prodi'                     => $request->get('afiliasi'),
-            'tanggal'                   => Carbon::now()->setTimezone('Asia/Jakarta')->format('d-m-Y'),
-            'tanggal_peminjaman'        => $request->get('tanggal_peminjaman'),
-            'tanggal_pengembalian'      => $request->get('tanggal_pengembalian'),
-            'barang'                    => $barangs,
-            'jumlah'                    => $jumlahs
+            'nama'                  => $request->get('nama_peminjam'),
+            'nim'                   => $request->get('nim'),
+            'no_hp'                 => $request->get('no_hp'),
+            'email'                 => $request->get('email'),
+            'prodi'                 => $request->get('afiliasi'),
+            'tanggal_peminjaman'    => $request->get('tanggal_peminjaman'),
+            'tanggal_pengembalian'  => $request->get('tanggal_pengembalian'),
+            'barang'                => $barangs,
+            'jumlah'                => $jumlahs,
         ];
+        $pdf = PDF::loadview('barang.surat', compact('content'));
 
-        $pdf = PDF::loadView('barang.surat', compact('content'));
-
-        return $pdf->download('peminjaman');
+        return $pdf->stream('test.pdf');
 
         return redirect()->route('barang.form')->with('status', 'Berhasil meminjam barang, silahkan ikuti alur selanjutnya');
     }
