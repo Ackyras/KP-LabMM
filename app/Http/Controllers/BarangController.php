@@ -8,8 +8,10 @@ use App\Models\Inventaris;
 use App\Models\PeminjamanBarang;
 use App\Rules\BarangPinjaman;
 use App\Rules\BarangPinjamanJumlah;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class BarangController extends Controller
 {
@@ -167,6 +169,23 @@ class BarangController extends Controller
                 }
             }
         });
+
+        $content = [
+            'nama'                      => $request->get('nama_peminjam'),
+            'nim'                       => $request->get('nim'),
+            'email'                     => $request->get('email'),
+            'no_hp'                     => $request->get('no_hp'),
+            'prodi'                     => $request->get('afiliasi'),
+            'tanggal'                   => Carbon::now()->setTimezone('Asia/Jakarta')->format('d-m-Y'),
+            'tanggal_peminjaman'        => $request->get('tanggal_peminjaman'),
+            'tanggal_pengembalian'      => $request->get('tanggal_pengembalian'),
+            'barang'                    => $barangs,
+            'jumlah'                    => $jumlahs
+        ];
+
+        $pdf = PDF::loadView('barang.surat', compact('content'));
+
+        return $pdf->download('peminjaman');
 
         return redirect()->route('barang.form')->with('status', 'Berhasil meminjam barang, silahkan ikuti alur selanjutnya');
     }
