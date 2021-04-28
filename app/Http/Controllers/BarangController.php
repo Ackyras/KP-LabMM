@@ -195,7 +195,6 @@ class BarangController extends Controller
             'barang'                => $dipinjam,
             'jumlah'                => $jumlahDipinjam,
         ];
-        dd($content);
         $pdf = PDF::loadview('barang.surat', compact('content'));
 
         return $pdf->stream('test.pdf');
