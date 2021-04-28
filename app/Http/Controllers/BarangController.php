@@ -12,11 +12,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
-<<<<<<< HEAD
-=======
 use Dompdf\Dompdf;
 use Dompdf\Options;
->>>>>>> 822083567c35531a69b54c488044bdcdea314887
 
 class BarangController extends Controller
 {
