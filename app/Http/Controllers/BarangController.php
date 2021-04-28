@@ -176,6 +176,14 @@ class BarangController extends Controller
             }
         });
 
+        for ($i = 0; $i < count($barangs); $i++) {
+            if ($barangs[$i] != null and $jumlahs[$i] != null) {
+                $barang = Inventaris::where('nama_barang', $barangs[$i])->first();
+                array_push($dipinjam, $barang->nama_barang);
+                array_push($jumlahDipinjam, $jumlahs[$i]);
+            }
+        }
+
         $content = [
             'nama'                  => $request->get('nama_peminjam'),
             'nim'                   => $request->get('nim'),
