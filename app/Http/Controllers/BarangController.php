@@ -97,6 +97,8 @@ class BarangController extends Controller
     {
         $barangs = array();
         $jumlahs = array();
+        $dipinjam = array();
+        $jumlahDipinjam = array();
         array_push($barangs, $request->input('kode1'));
         array_push($jumlahs, $request->input('jumlah1'));
 
@@ -144,7 +146,7 @@ class BarangController extends Controller
         $barangs = array_unique($barangs);
         $jumlahs = array_unique($jumlahs);
 
-        DB::transaction(function () use ($request, $barangs, $jumlahs) {
+        DB::transaction(function () use ($request, $barangs, $jumlahs, $dipinjam, $jumlahDipinjam) {
             $peminjam = FormBarang::create(
                 [
                     'nama_peminjam'         => $request->input('nama_peminjam'),
@@ -161,6 +163,8 @@ class BarangController extends Controller
             for ($i = 0; $i < count($barangs); $i++) {
                 if ($barangs[$i] != null and $jumlahs[$i] != null) {
                     $barang = Inventaris::where('nama_barang', $barangs[$i])->first();
+                    array_push($dipinjam, $barang->nama_barang);
+                    array_push($jumlahDipinjam, $jumlahs[$i]);
                     PeminjamanBarang::create(
                         [
                             'form_barang_id'     => $peminjam->id,
@@ -172,6 +176,14 @@ class BarangController extends Controller
             }
         });
 
+        for ($i = 0; $i < count($barangs); $i++) {
+            if ($barangs[$i] != null and $jumlahs[$i] != null) {
+                $barang = Inventaris::where('nama_barang', $barangs[$i])->first();
+                array_push($dipinjam, $barang->nama_barang);
+                array_push($jumlahDipinjam, $jumlahs[$i]);
+            }
+        }
+
         $content = [
             'nama'                  => $request->get('nama_peminjam'),
             'nim'                   => $request->get('nim'),
@@ -180,9 +192,10 @@ class BarangController extends Controller
             'prodi'                 => $request->get('afiliasi'),
             'tanggal_peminjaman'    => $request->get('tanggal_peminjaman'),
             'tanggal_pengembalian'  => $request->get('tanggal_pengembalian'),
-            'barang'                => $barangs,
-            'jumlah'                => $jumlahs,
+            'barang'                => $dipinjam,
+            'jumlah'                => $jumlahDipinjam,
         ];
+        dd($content);
         $pdf = PDF::loadview('barang.surat', compact('content'));
 
         return $pdf->stream('test.pdf');
