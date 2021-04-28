@@ -108,21 +108,37 @@
         <div style="width: 100%; margin-top:10px;">
             <p style="margin-left: 40%; font-weight: bold;">DAFTAR ALAT YANG DIPINJAM</p>
         </div>
-        <div style="margin-top: 15px;">
-            <table>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Barang</th>
-                    <th>Jumlah</th>
-                </tr>
-                @foreach($content['barang'] as $key => $value)
-                <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>{{$value}}</td>
-                    <td>{{$content['jumlah'][$key]}}</td>
-                </tr>
-                @endforeach
-            </table>
+        <table style="margin: 0 auto; padding: 2%;">
+            <tr>
+                <th style="width: 10%;">No </th>
+                <th style="width: 50%;">Nama Barang </th>
+                <th style="width: 40%;">Jumlah </th>
+            </tr>
+            @foreach($content['barang'] as $key => $value)
+            <tr>
+                <td style="width: 10%;">{{$loop->iteration}}</td>
+                <td style="width: 50%;">{{$value}}</td>
+                <td style="width: 40%;">{{$content['jumlah'][$key]}}</td>
+            </tr>
+            @endforeach
+        </table>
+        <div style="margin-top: 10%; margin-right: 20%;">
+            <div style="height: 12px">
+                <p style="float:right">Lampung Selatan, 27-04-2021</p>
+            </div>
+        </div>
+        <div style="margin-top: 2%; margin-right: 5%;">
+            <div style="height: 12px">
+                <p style="float:right">Mengetahui,</p>
+            </div>
+            <div style="height: 12px">
+                <p style="float:right">Koordinator Laboratorium</p>
+            </div>
+        </div>
+        <div style="margin-top: 8%; margin-right: 20%;">
+            <div style="height: 12px">
+                <p style="float:right">Muhammad Ikhbal</p>
+            </div>
         </div>
     </div>
     {{-- $content['nama'] --}}
