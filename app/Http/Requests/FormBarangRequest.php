@@ -33,6 +33,8 @@ class FormBarangRequest extends FormRequest
             'afiliasi'              => ['required'],
             'tanggal_peminjaman'    => ['date', 'after_or_equal:today'],
             'tanggal_pengembalian'  => ['date', 'after_or_equal:tanggal_peminjaman'],
+            'keperluan'             => ['required'],
+            'tempat'                => ['required'],
             'kode1'                 => ['required', new BarangPinjaman($this->request->get('kode1'))],
             'jumlah1'               => [new BarangPinjamanJumlah($this->request->get('kode1')), 'min:1'],
         ];

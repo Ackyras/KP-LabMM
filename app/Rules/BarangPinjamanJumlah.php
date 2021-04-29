@@ -27,7 +27,7 @@ class BarangPinjamanJumlah implements Rule
      */
     public function passes($attribute, $value)
     {
-        return $this->kode != null and $value < $this->kode->peminjaman;
+        return $this->kode != null and $value <= $this->kode->peminjaman;
     }
 
     /**

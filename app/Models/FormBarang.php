@@ -21,6 +21,8 @@ class FormBarang extends Model
         'afiliasi',
         'tanggal_peminjaman',
         'tanggal_pengembalian',
+        'keperluan',
+        'tempat',
         'updated_at'
     ];
 
