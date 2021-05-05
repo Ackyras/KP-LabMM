@@ -24,9 +24,9 @@ class PrintObserver(CardObserver):
     def update(self, observable, actions):
         (addedcards, removedcards) = actions
         for card in addedcards:
-            print("+Inserted: ", toASCIIString(card.auth))
+            print("+Inserted: ", toHexString(card.atr))
         for card in removedcards:
-            print("-Removed: ", toASCIIString(card.atr))
+            print("-Removed: ", toHexString(card.atr))
 
 
 if __name__ == '__main__':
