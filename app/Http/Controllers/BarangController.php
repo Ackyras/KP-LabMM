@@ -8,8 +8,12 @@ use App\Models\Inventaris;
 use App\Models\PeminjamanBarang;
 use App\Rules\BarangPinjaman;
 use App\Rules\BarangPinjamanJumlah;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class BarangController extends Controller
 {
@@ -93,6 +97,8 @@ class BarangController extends Controller
     {
         $barangs = array();
         $jumlahs = array();
+        $dipinjam = array();
+        $jumlahDipinjam = array();
         array_push($barangs, $request->input('kode1'));
         array_push($jumlahs, $request->input('jumlah1'));
 
@@ -100,7 +106,7 @@ class BarangController extends Controller
             $request->validate(
                 [
                     'kode2'                 => ['nullable', new BarangPinjaman($request->get('kode2'))],
-                    'jumlah2'               => [new BarangPinjamanJumlah($request->get('kode2')), 'min:0']
+                    'jumlah2'               => ['min:0', new BarangPinjamanJumlah($request->get('kode2')), 'numeric']
                 ]
             );
             array_push($barangs, $request->input('kode2'));
@@ -110,7 +116,7 @@ class BarangController extends Controller
             $request->validate(
                 [
                     'kode3'                 => ['nullable', new BarangPinjaman($request->get('kode3'))],
-                    'jumlah3'               => [new BarangPinjamanJumlah($request->get('kode3')), 'min:0']
+                    'jumlah3'               => ['min:0', new BarangPinjamanJumlah($request->get('kode3')), 'numeric']
                 ]
             );
             array_push($barangs, $request->input('kode3'));
@@ -120,7 +126,7 @@ class BarangController extends Controller
             $request->validate(
                 [
                     'kode4'                 => ['nullable', new BarangPinjaman($request->get('kode4'))],
-                    'jumlah4'               => [new BarangPinjamanJumlah($request->get('kode4')), 'min:0']
+                    'jumlah4'               => ['min:0', new BarangPinjamanJumlah($request->get('kode4')), 'numeric']
                 ]
             );
             array_push($barangs, $request->input('kode4'));
@@ -130,7 +136,7 @@ class BarangController extends Controller
             $request->validate(
                 [
                     'kode5'                 => ['nullable', new BarangPinjaman($request->get('kode5'))],
-                    'jumlah5'               => [new BarangPinjamanJumlah($request->get('kode5')), 'min:0']
+                    'jumlah5'               => ['min:0', new BarangPinjamanJumlah($request->get('kode5')), 'numeric']
                 ]
             );
             array_push($barangs, $request->input('kode5'));
@@ -150,23 +156,46 @@ class BarangController extends Controller
                     'afiliasi'              => $request->input('afiliasi'),
                     'tanggal_peminjaman'    => $request->input('tanggal_peminjaman'),
                     'tanggal_pengembalian'  => $request->input('tanggal_pengembalian'),
-                    'updated_at'            => now()->toDateTimeString()
+                    'keperluan'             => $request->input('keperluan'),
+                    'tempat'                => $request->input('tempat'),
+                    'updated_at'            => now()->setTimezone('Asia/Jakarta')->toDateTimeString()
                 ]
             );
 
-            for ($i = 0; $i < count($barangs); $i++) {
-                if ($barangs[$i] != null and $jumlahs[$i] != null) {
-                    $barang = Inventaris::where('nama_barang', $barangs[$i])->first();
-                    PeminjamanBarang::create(
-                        [
-                            'form_barang_id'     => $peminjam->id,
-                            'barang_id'          => $barang->id,
-                            'jumlah'             => $jumlahs[$i],
-                        ]
-                    );
-                }
+            foreach ($barangs as $key => $value) {
+                $barang = Inventaris::where('nama_barang', $value)->first();
+                PeminjamanBarang::create(
+                    [
+                        'form_barang_id'     => $peminjam->id,
+                        'barang_id'          => $barang->id,
+                        'jumlah'             => $jumlahs[$key],
+                    ]
+                );
             }
         });
+
+        foreach ($barangs as $key => $value) {
+            $barang = Inventaris::where('nama_barang', $barangs[$key])->first();
+            array_push($dipinjam, $barang->nama_barang);
+            array_push($jumlahDipinjam, $jumlahs[$key]);
+        }
+
+        $content = [
+            'nama'                  => $request->get('nama_peminjam'),
+            'nim'                   => $request->get('nim'),
+            'no_hp'                 => $request->get('no_hp'),
+            'email'                 => $request->get('email'),
+            'prodi'                 => $request->get('afiliasi'),
+            'tanggal_peminjaman'    => $request->get('tanggal_peminjaman'),
+            'tanggal_pengembalian'  => $request->get('tanggal_pengembalian'),
+            'keperluan'             => $request->get('keperluan'),
+            'tempat'                => $request->get('tempat'),
+            'barang'                => $dipinjam,
+            'jumlah'                => $jumlahDipinjam,
+        ];
+        $pdf = PDF::loadview('barang.surat', compact('content'));
+
+        return $pdf->stream('test.pdf');
 
         return redirect()->route('barang.form')->with('status', 'Berhasil meminjam barang, silahkan ikuti alur selanjutnya');
     }

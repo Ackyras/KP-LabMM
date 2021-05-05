@@ -31,8 +31,8 @@ Riwayat Peminjaman Barang
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $form->nama_peminjam }}</td>
                         <td>{{ $form->afiliasi }}</td>
-                        <td>{{ $form->tanggal_peminjaman }}</td>
-                        <td>{{ $form->tanggal_pengembalian }}</td>
+                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $form->tanggal_peminjaman)->format('d-m-Y') }}</td>
+                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $form->tanggal_pengembalian)->format('d-m-Y') }}</td>
                         <td>
                             <button class="btn btn-info" data-toggle="modal" data-target="#data{{$form->id}}">Detail</button>
                         </td>
@@ -59,9 +59,11 @@ Riwayat Peminjaman Barang
                                         <dt><small><b>Afiliasi</b></small></dt>
                                         <dd>{{$form->afiliasi}}</dd>
                                         <dt><small><b>Tanggal Peminjaman</b></small></dt>
-                                        <dd>{{$form->tanggal_peminjaman}}</dd>
+                                        <dd>{{Carbon\Carbon::createFromFormat('Y-m-d', $form->tanggal_peminjaman)->format('d-m-Y')}}</dd>
                                         <dt><small><b>Tanggal Pengembalian</b></small></dt>
-                                        <dd>{{$form->tanggal_pengembalian}}</b></dt>
+                                        <dd>{{Carbon\Carbon::createFromFormat('Y-m-d', $form->tanggal_pengembalian)->format('d-m-Y')}}</b></dt>
+                                        <dt><small><b>Waktu Validasi</b></small></dt>
+                                        <dd>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $form->updated_at)->format('d-m-Y H:i:s') }}</b></dt>
                                     </dl>
                                     <b class="ml-3">Barang Pinjaman</b>
                                     <ul>

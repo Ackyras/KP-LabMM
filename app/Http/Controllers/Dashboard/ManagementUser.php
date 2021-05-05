@@ -94,7 +94,7 @@ class ManagementUser extends Controller
             );
         }
 
-        return redirect()->route('user.index')->with('status', 'Berhasil merubah akun');
+        return redirect()->route('admin.dashboard');
     }
 
     public function destroy($id)

@@ -165,6 +165,20 @@
                 <div class="alert alert-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
+            <div class="form-group p-1">
+                <label>Keperluan</label>
+                <input type="text" name="keperluan" value="{{ old('keperluan') }}" class="form-control rounded @error('keperluan') is-invalid @enderror" required placeholder="Keperluan kegiatan">
+                @error('keperluan')
+                <div class="alert alert-danger mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group p-1">
+                <label>Tempat Kegiatan</label>
+                <input type="text" name="tempat" value="{{ old('tempat') }}" class="form-control rounded @error('tempat') is-invalid @enderror" required placeholder="Tempat Kegiatan">
+                @error('tempat')
+                <div class="alert alert-danger mt-1">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
         <button type="submit" class="btn btn-submit">Pinjam</button>
     </form>

@@ -37,7 +37,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $daftar->daftarmatakuliah->nama }}</td>
                         <td>{{ $daftar->dosen }}</td>
-                        <td>{{ $daftar->tanggal_seleksi }}</td>
+                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $daftar->tanggal_seleksi)->format('d-m-Y') }}</td>
                         <td>{{ $daftar->awal_seleksi }}</td>
                         <td>{{ $daftar->akhir_seleksi }}</td>
                         <td>@if($daftar->soal == null) Belum ada soal @else <a href="{{ $daftar->soal }}" class="btn btn-sm btn-info ">Soal</a>@endif</td>

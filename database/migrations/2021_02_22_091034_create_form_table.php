@@ -22,6 +22,8 @@ class CreateFormTable extends Migration
             $table->string("afiliasi");
             $table->date("tanggal_peminjaman");
             $table->date("tanggal_pengembalian");
+            $table->string("keperluan")->nullable();
+            $table->string("tempat")->nullable();
             $table->integer("validasi")->default("1");
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();

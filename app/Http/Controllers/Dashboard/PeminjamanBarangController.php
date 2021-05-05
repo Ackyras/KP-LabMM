@@ -57,7 +57,7 @@ class PeminjamanBarangController extends Controller
                 DB::transaction(function () use ($form_barang_id) {
                     FormBarang::where('id', $form_barang_id)->update([
                         'validasi'              => '2',
-                        'updated_at'            => now()->toDateTimeString()
+                        'updated_at'            => now()->setTimezone('Asia/Jakarta')->toDateTimeString()
                     ]);
                     $peminjaman = PeminjamanBarang::where('form_barang_id', $form_barang_id)->get();
                     foreach ($peminjaman as $pem) {
@@ -72,7 +72,7 @@ class PeminjamanBarangController extends Controller
                 DB::transaction(function () use ($form_barang_id) {
                     FormBarang::where('id', $form_barang_id)->update([
                         'validasi'              => '0',
-                        'updated_at'            => now()->toDateTimeString()
+                        'updated_at'            => now()->setTimezone('Asia/Jakarta')->toDateTimeString()
                     ]);
                     $peminjaman = PeminjamanBarang::where('form_barang_id', $form_barang_id)->get();
                     foreach ($peminjaman as $pem) {

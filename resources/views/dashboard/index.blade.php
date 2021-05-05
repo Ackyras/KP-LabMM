@@ -94,7 +94,7 @@
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{$formbarang->nama_peminjam}}</td>
                                 <td>{{ ($formbarang->validasi == '1') ? "Belum Meminjam" : "Sedang Meminjam" }}</td>
-                                <td>{{$formbarang->created_at}}</td>
+                                <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $formbarang->created_at)->format('d-m-Y H:i:s') }}</td>
                                 <td><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#data{{$formbarang->id}}">Detail</button></td>
                             </tr>
                             <div class="modal fade" id="data{{$formbarang->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -120,9 +120,9 @@
                                                 <dt><small><b>Afiliasi</b></small></dt>
                                                 <dd>{{$formbarang->afiliasi}}</dd>
                                                 <dt><small><b>Tanggal Peminjaman</b></small></dt>
-                                                <dd>{{$formbarang->tanggal_peminjaman}}</dd>
+                                                <dd>{{ Carbon\Carbon::createFromFormat('Y-m-d', $formbarang->tanggal_peminjaman)->format('d-m-Y') }}</dd>
                                                 <dt><small><b>Tanggal Pengembalian</b></small></dt>
-                                                <dd>{{$formbarang->tanggal_pengembalian}}</b></dt>
+                                                <dd>{{ Carbon\Carbon::createFromFormat('Y-m-d', $formbarang->tanggal_pengembalian)->format('d-m-Y') }}</b></dt>
                                             </dl>
                                             <b class="ml-3">Barang Pinjaman</b>
                                             <ul>
@@ -190,7 +190,7 @@
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td> {{$formruangan->nama_peminjam}} </td>
                                 <td> {{$formruangan->ruanglab->ruang}} </td>
-                                <td> {{$formruangan->created_at}} </td>
+                                <td> {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $formruangan->created_at)->format('d-m-Y H:i:s') }} </td>
                                 <td>
                                     <button class="btn btn-info" data-toggle="modal" data-target="#ruang{{$formruangan->id}}">Detail</button>
                                 </td>
@@ -239,6 +239,7 @@
                                                 @endforeach
                                             </ul>
                                         </div>
+                                        @can('ruangan')
                                         <div class="modal-footer">
                                             <form method="POST" action="{{ route('peminjaman.ruangan.update') }}">
                                                 @csrf
@@ -247,6 +248,7 @@
                                             </form>
                                             <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#verif{{$formruangan->id}}">Verifikasi</button>
                                         </div>
+                                        @endcan
                                     </div>
                                 </div>
                             </div>
@@ -355,10 +357,10 @@
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     <td>{{$peminjamtelat->nama_peminjam}}</td>
-                                    <td>{{$peminjamtelat->tanggal_pengembalian}}</td>
-                                    <td><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#data{{$peminjamtelat->id}}">Detail</button></td>
+                                    <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $peminjamtelat->tanggal_pengembalian)->format('d-m-Y') }}</td>
+                                    <td><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#telat{{$peminjamtelat->id}}">Detail</button></td>
                                 </tr>
-                                <div class="modal fade" id="data{{$peminjamtelat->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="telat{{$peminjamtelat->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -381,9 +383,9 @@
                                                     <dt><small><b>Afiliasi</b></small></dt>
                                                     <dd>{{$peminjamtelat->afiliasi}}</dd>
                                                     <dt><small><b>Tanggal Peminjaman</b></small></dt>
-                                                    <dd>{{$peminjamtelat->tanggal_peminjaman}}</dd>
+                                                    <dd>{{ Carbon\Carbon::createFromFormat('Y-m-d', $peminjamtelat->tanggal_peminjaman)->format('d-m-Y') }}</dd>
                                                     <dt><small><b>Tanggal Pengembalian</b></small></dt>
-                                                    <dd>{{$peminjamtelat->tanggal_pengembalian}}</b></dt>
+                                                    <dd>{{ Carbon\Carbon::createFromFormat('Y-m-d', $peminjamtelat->tanggal_pengembalian)->format('d-m-Y') }}</b></dt>
                                                 </dl>
                                                 <b class="ml-3">Barang Pinjaman</b>
                                                 <ul>
@@ -399,16 +401,8 @@
                                                 <form action="{{ route('peminjaman.barang.update') }}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="form_barang_id" value="{{ $peminjamtelat->id }}" />
-                                                    @if ($peminjamtelat->validasi == 1)
-                                                    <button type="submit" name="action" value="3" onclick="return confirm('Yakin ingin menghapus data?')" class="btn btn-danger">Hapus Data</button>
-                                                    <button type="submit" name="action" value="2" class="btn btn-warning">Sedang meminjam</button>
-                                                    @endif
-                                                    @if ($peminjamtelat->validasi == 2)
                                                     <button type="submit" name="action" value="0" class="btn btn-success">Selesai meminjam</button>
-                                                    @if (strtotime($peminjamtelat->tanggal_pengembalian) < strtotime(Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d')))
                                                     <button type="submit" name="action" value="1" class="btn btn-warning" onclick="return confirm('Kirim notifikasi?')">Kirim Notifikasi</button>
-                                                    @endif
-                                                    @endif
                                                 </form>
                                             </div>
                                             @endcan

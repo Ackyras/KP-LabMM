@@ -35,7 +35,7 @@ Route::view('/', 'home.index')->name('home');
 Route::view('/home', 'home.index')->name('home');
 
 // Auth Routes
-Auth::routes();
+Auth::routes(['register' => false]);
 
 // Route Client Peminjaman Barang
 Route::get('barang/list',               [BarangController::class, 'list'])->name('barang.list');
@@ -47,7 +47,7 @@ Route::get('barang/search',             [BarangController::class, 'search'])->na
 Route::get('barang/form',               [BarangController::class, 'form'])->name('barang.form');
 Route::get('barang/{id}',               [BarangController::class, 'show'])->name('barang.show');
 Route::post('barang/form',              [BarangController::class, 'store'])->name('barang.store');
-
+Route::view('test', 'barang/surat');
 
 // Route Client Peminjaman Ruangan
 Route::get('ruangan/jadwal',            [RuanganForm::class, 'index'])->name('ruangan.index');

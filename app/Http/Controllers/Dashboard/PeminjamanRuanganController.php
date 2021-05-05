@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Mail\VerifikasiPeminjamanRuanganMail;
 use App\Models\FormRuangan;
-use App\Models\PeminjamanBarang;
 use App\Models\PeminjamanRuangan;
 use App\Models\Ruangan;
 use App\Models\RuangLab;
