@@ -24,35 +24,35 @@
     <form class="col-8" action="{{ route('barang.store') }}" method="POST">
         @csrf
         <div class="form-group p-1">
-            <label>Nama lengkap</label>
+            <label>Nama lengkap*</label>
             <input type="text" name="nama_peminjam" value="{{ old('nama_peminjam') }}" class="form-control rounded @error('nama_peminjam') is-invalid @enderror" required placeholder="Masukkan nama anda" autofocus>
             @error('nama_peminjam')
             <div class="alert alert-danger mt-1">{{ $message }}</div>
             @enderror
         </div>
         <div class="form-group p-1">
-            <label>NIM/NIP</label>
+            <label>NIM/NIP*</label>
             <input type="text" name="nim" value="{{ old('nim') }}" class="form-control rounded @error('nim') is-invalid @enderror" required placeholder="Masukan NIM/NIP anda">
             @error('nim')
             <div class="alert alert-danger mt-1">{{ $message }}</div>
             @enderror
         </div>
         <div class="form-group p-1">
-            <label>Alamat Email</label>
+            <label>Alamat Email*</label>
             <input type="email" name="email" value="{{ old('email') }}" class="form-control rounded @error('email') is-invalid @enderror" required placeholder="Masukan alamat email anda">
             @error('email')
             <div class="alert alert-danger mt-1">{{ $message }}</div>
             @enderror
         </div>
         <div class="form-group p-1">
-            <label>Nomor Telepon</label>
+            <label>Nomor Telepon*</label>
             <input type="text" name="no_hp" value="{{ old('no_hp') }}" class="form-control rounded @error('no_hp') is-invalid @enderror" required placeholder="Masukan nomor HP anda">
             @error('no_hp')
             <div class="alert alert-danger mt-1">{{ $message }}</div>
             @enderror
         </div>
         <div class="form-group p-1">
-            <label>Afiliasi / Program Studi</label>
+            <label>Afiliasi / Program Studi*</label>
             <input type="text" name="afiliasi" value="{{ old('afiliasi') }}" class="form-control rounded @error('afiliasi') is-invalid @enderror" required placeholder="Masukan program studi anda">
             @error('afiliasi')
             <div class="alert alert-danger mt-1">{{ $message }}</div>
@@ -63,7 +63,7 @@
         <div class="row pb-5">
             <label>Pilih barang*</label>
             <div class="col-9">
-                <input list="barangs" name="kode1" class="form-control @error('kode1') is-invalid @enderror" required placeholder="Pilih barang 1">
+                <input list="barangs" name="kode1" class="form-control @error('kode1') is-invalid @enderror" required placeholder="Pilih barang 1*">
                 <datalist id="barangs">
                     @foreach($barangs as $barang)
                     <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
@@ -81,7 +81,7 @@
             </div>
             <label class="mt-3">Pilih barang (<small>opsional</small>)</label>
             <div class="col-9">
-                <input list="barangs" name="kode2" class="form-control @error('kode2') is-invalid @enderror" placeholder="Pilih barang 2">
+                <input list="barangs" name="kode2" class="form-control @error('kode2') is-invalid @enderror" placeholder="Pilih barang 2 (opsional)">
                 <datalist id="barangs">
                     @foreach($barangs as $barang)
                     <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
@@ -99,7 +99,7 @@
             </div>
             <label class="mt-3">Pilih barang (<small>opsional</small>)</label>
             <div class="col-9">
-                <input list="barangs" name="kode3" class="form-control @error('kode3') is-invalid @enderror" placeholder="Pilih barang 3">
+                <input list="barangs" name="kode3" class="form-control @error('kode3') is-invalid @enderror" placeholder="Pilih barang 3 (opsional)">
                 <datalist id="barangs">
                     @foreach($barangs as $barang)
                     <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
@@ -117,7 +117,7 @@
             </div>
             <label class="mt-3">Pilih barang (<small>opsional</small>)</label>
             <div class="col-9">
-                <input list="barangs" name="kode4" class="form-control @error('kode4') is-invalid @enderror" placeholder="Pilih barang 4">
+                <input list="barangs" name="kode4" class="form-control @error('kode4') is-invalid @enderror" placeholder="Pilih barang 4 (opsional)">
                 <datalist id="barangs">
                     @foreach($barangs as $barang)
                     <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
@@ -135,7 +135,7 @@
             </div>
             <label class="mt-3">Pilih barang (<small>opsional</small>)</label>
             <div class="col-9">
-                <input list="barangs" name="kode5" class="form-control @error('kode5') is-invalid @enderror" placeholder="Pilih barang 5">
+                <input list="barangs" name="kode5" class="form-control @error('kode5') is-invalid @enderror" placeholder="Pilih barang 5 (opsional)">
                 <datalist id="barangs">
                     @foreach($barangs as $barang)
                     <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
@@ -166,14 +166,14 @@
                 @enderror
             </div>
             <div class="form-group p-1">
-                <label>Keperluan</label>
+                <label>Keperluan*</label>
                 <input type="text" name="keperluan" value="{{ old('keperluan') }}" class="form-control rounded @error('keperluan') is-invalid @enderror" required placeholder="Keperluan kegiatan">
                 @error('keperluan')
                 <div class="alert alert-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group p-1">
-                <label>Tempat Kegiatan</label>
+                <label>Tempat Kegiatan*</label>
                 <input type="text" name="tempat" value="{{ old('tempat') }}" class="form-control rounded @error('tempat') is-invalid @enderror" required placeholder="Tempat Kegiatan">
                 @error('tempat')
                 <div class="alert alert-danger mt-1">{{ $message }}</div>
