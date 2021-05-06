@@ -26,7 +26,7 @@ class FormBarangRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_peminjam'         => ['required', 'max:255', 'alpha'],
+            'nama_peminjam'         => ['required', 'max:255', 'regex:/^(\w+ ?)*$/'],
             'nim'                   => ['required', 'numeric'],
             'email'                 => ['email', 'required'],
             'no_hp'                 => ['required', 'digits_between:10,13'],
@@ -49,7 +49,7 @@ class FormBarangRequest extends FormRequest
     {
         return [
             'nama_peminjam.required'                => 'Mohon isi field Nama anda',
-            'nama_peminjam.alpha'                   => 'Mohon isi nama dengan karakter alfabet',
+            'nama_peminjam.regex'                   => 'Mohon isi nama dengan karakter alfabet',
             'nim.required'                          => 'Mohon isi field NIM/NIP anda',
             'nim.numeric'                           => 'Mohon isi field dengan angka 0-9',
             'email.required'                        => 'Mohon isi field Email',
