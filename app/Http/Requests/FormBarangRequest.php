@@ -61,6 +61,7 @@ class FormBarangRequest extends FormRequest
             'tampat.required'                       => 'Mohon isi field tempat kegiatan',
             'tanggal_peminjaman.required'           => 'Mohon isi field Tanggal Peminjaman',
             'tanggal_peminjaman.date'               => 'Mohon isi field Tanggal Peminjaman dengan tanggal',
+            'tanggal_peminjaman.after_or_equal'     => 'Mohon isi field Tanggal Peminjaman tidak bisa sebelum hari ini',
             'tanggal_pengembalian.required'         => 'Mohon isi field Tanggal Pengembalian',
             'tanggal_pengembalian.after_or_equal'   => 'Mohon isi field Tanggal Pengembalian sama atau setalah Tanggal Peminjaman',
             'kode1.required'                        => 'Pilih barang',
