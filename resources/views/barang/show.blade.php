@@ -24,5 +24,5 @@
         <pre class="text-detail">Stok barang          : {{ $barang->peminjaman }}</pre>
     </div>
 </div>
-<a class="btn btn-form" href="#">Isi Form</a>
+<a class="btn btn-form" href="{{route('barang.form')}}">Isi Form</a>
 @endsection

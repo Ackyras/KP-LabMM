@@ -22,6 +22,7 @@ Riwayat Peminjaman Barang
                         <th>Afiliasi</th>
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Pengembalian</th>
+                        <th>Waktu Validasi</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -33,6 +34,7 @@ Riwayat Peminjaman Barang
                         <td>{{ $form->afiliasi }}</td>
                         <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $form->tanggal_peminjaman)->format('d-m-Y') }}</td>
                         <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $form->tanggal_pengembalian)->format('d-m-Y') }}</td>
+                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $form->updated_at)->format('d-m-Y H:i') }}</td>
                         <td>
                             <button class="btn btn-info" data-toggle="modal" data-target="#data{{$form->id}}">Detail</button>
                         </td>

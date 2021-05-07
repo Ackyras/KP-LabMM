@@ -65,7 +65,7 @@
         </div>
         <div style="margin-top: 10%; margin-right: 20%;">
             <div style="height: 12px">
-                <p style="float:right">Lampung Selatan, 27-04-2021</p>
+                <p style="float:right">Lampung Selatan, {{Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('d-m-Y')}}</p>
             </div>
         </div>
         <div style="margin-top: 2%; margin-right: 5%;">
@@ -78,7 +78,7 @@
                 <p style="float:right">{{$content['nama']}}</p>
             </div>
         </div>
-        <div style="margin-top: 2%; margin-right: 5%;">
+        <div style="margin-top: 2%; margin-right: 15%;">
             <div style="height: 12px">
                 <p style="float:right">{{$content['nim']}}</p>
             </div>
@@ -134,7 +134,7 @@
         </table>
         <div style="margin-top: 10%; margin-right: 20%;">
             <div style="height: 12px">
-                <p style="float:right">Lampung Selatan, 27-04-2021</p>
+                <p style="float:right">Lampung Selatan, {{Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('d-m-Y')}}</p>
             </div>
         </div>
         <div style="margin-top: 2%; margin-right: 7%;">
