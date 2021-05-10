@@ -24,4 +24,4 @@ if sw1 == 0x9F:
     print('sending ' + toHexString(apdu))
     response, sw1, sw2 = cardservice.connection.transmit(apdu)
     print('response: ', toHexString(response),
-          ' status words: ', "%x %x" % (sw1, sw2))
+        ' status words: ', "%x %x" % (sw1, sw2))
