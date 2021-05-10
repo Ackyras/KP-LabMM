@@ -26,6 +26,7 @@ class CreateBarangTable extends Migration
             $table->date("masuk_barang");
             $table->timestamp("created_at")->useCurrent();
             $table->timestamp("updated_at")->nullable();
+            
         });
     }
 
