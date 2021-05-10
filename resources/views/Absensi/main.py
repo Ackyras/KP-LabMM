@@ -65,5 +65,5 @@ if __name__ == '__main__':
 
         # don't forget to remove observer, or the
         # monitor will poll forever...
-        sleep(10)
+        cardservice = cardrequest.waitforcard()
         cardmonitor.deleteObserver(cardobserver)
