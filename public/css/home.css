@@ -12,58 +12,157 @@ body {
     background-size: cover;
     background-attachment: fixed;
     width: 100vw;
+    height: 1;
+}
+
+body > .tes{
+    height: 100vh;
+    /* background-color: red; */
 }
 
 .itera > img {
     width: 250px;
-    float: left;
+    /* flex: 1; */
+    /* float: left; */
     margin-left: 64px;
-    margin-top: 35px;
+    /* margin-top: 35px; */
 }
 
-.card {
-    width: 100%;
-    height: 400px;
-    background-color: white;
-    border-radius: 10px;
-    margin: 0 auto;
+.card-landing{
+    margin-left: 3rem;
 }
 
-.text-card {
-    width: 80%;
+.card-landing:hover{
+    transform: translatey(0px);
+    animation: float 1s infinite;
+}
+
+.card-title{
     font-family: "Poppins", sans-serif;
-    font-size: 20px;
     font-weight: bold;
-    color: black;
-    word-wrap: break-word;
     text-align: center;
-    margin-top: 37px;
+    font-size: 25px;
 }
 
-.line {
-    width: 104px;
-    height: 4px;
-    border-radius: 20px;
-    background-color: #daaf33;
-    margin: 0 auto;
+.bar{
+    background-color: #f2c541;
+    position: relative;
+    top: -10px;
+    width: 100px;
+    height: 7px;
 }
 
-.group {
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li{
+    /* margin-bottom: 2rem; */
     display: flex;
-    margin-top: 20px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
-.circle {
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
-    background-color: #daaf33;
+.list-text{
+    font-size: 20px;
+    vertical-align: middle;
+    justify-self: center;
+    position: relative;
+    flex: 1;
+}
+.fab{
+    color: white;
+}
+.fas{
+    /* z-index: 2; */
+    position: relative;
+    left: -35px;
+    vertical-align: middle;
+    font-size: 35px;
+    color: #4D4D4D;
+    /* margin-right: 40px; */
+    width: 30px;
+    /* box-shadow: 5px 10px #DAAF33; */
 }
 
-.text-list {
-    font-family: "Poppins", sans-serif;
-    font-size: 12px;
-    font-weight: bold;
-    color: black;
-    margin-left: 2em;
+.circle{
+    position: relative;
+    /* top: 35px; */
+    background-color: #f7e1a1;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.isi{
+    left: 5px;
+    top: -9px;
+}
+
+.print, .sign, .ceklis, .door, .box{
+    left: 9px;
+    top: -4px;
+}
+
+.fa-box-open, .fa-people-carry{
+    left: -40px;
+    top: 5px;
+}
+
+.cek{
+    left: 10px;
+    top: 0px;
+}
+
+.landing-text{
+    flex: 1;
+    text-align: right;
+}
+
+.landing-text > button{
+    background-color: #f2c541;
+    height: 50px;
+    width: 150px;
+    font-size: 20px;
+    font-weight: 500;
+    word-spacing: 100px;
+    border-radius: 5px;
+    margin-right: 100px;
+    color: white;
+}
+
+.big-text{
+    font-size: 100px;
+    font-weight: 800;
+    line-height: 1;
+    color: white;
+}
+
+.small-text{
+    display: inline;
+    overflow-wrap: break-word;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 0.9;
+    word-spacing: -3px;
+    padding-left: 300px;
+    color: seashell;
+}
+
+@keyframes float {
+	0% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+	50% {
+		box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+		transform: translatey(-20px);
+	}
+	100% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
 }

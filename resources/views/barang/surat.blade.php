@@ -78,7 +78,7 @@
                 <p style="float:right">{{$content['nama']}}</p>
             </div>
         </div>
-        <div style="margin-top: 2%; margin-right: 15%;">
+        <div style="margin-top: 2%; margin-right: 10%;">
             <div style="height: 12px">
                 <p style="float:right">{{$content['nim']}}</p>
             </div>
