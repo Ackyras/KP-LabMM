@@ -15,7 +15,7 @@ body {
     height: 1;
 }
 
-body > .tes{
+body > .tes {
     height: 100vh;
     /* background-color: red; */
 }
@@ -28,23 +28,23 @@ body > .tes{
     /* margin-top: 35px; */
 }
 
-.card-landing{
+.card-landing {
     margin-left: 3rem;
 }
 
-.card-landing:hover{
+.card-landing:hover {
     transform: translatey(0px);
     animation: float 1s infinite;
 }
 
-.card-title{
+.card-title {
     font-family: "Poppins", sans-serif;
     font-weight: bold;
     text-align: center;
     font-size: 25px;
 }
 
-.bar{
+.bar {
     background-color: #f2c541;
     position: relative;
     top: -10px;
@@ -52,13 +52,13 @@ body > .tes{
     height: 7px;
 }
 
-ul{
+ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
-li{
+li {
     /* margin-bottom: 2rem; */
     display: flex;
     flex-direction: row;
@@ -66,29 +66,29 @@ li{
     align-items: center;
 }
 
-.list-text{
+.list-text {
     font-size: 20px;
     vertical-align: middle;
     justify-self: center;
     position: relative;
     flex: 1;
 }
-.fab{
+.fab {
     color: white;
 }
-.fas{
+.fas {
     /* z-index: 2; */
     position: relative;
     left: -35px;
     vertical-align: middle;
     font-size: 35px;
-    color: #4D4D4D;
+    color: #4d4d4d;
     /* margin-right: 40px; */
     width: 30px;
     /* box-shadow: 5px 10px #DAAF33; */
 }
 
-.circle{
+.circle {
     position: relative;
     /* top: 35px; */
     background-color: #f7e1a1;
@@ -97,32 +97,37 @@ li{
     border-radius: 50%;
 }
 
-.isi{
+.isi {
     left: 5px;
     top: -9px;
 }
 
-.print, .sign, .ceklis, .door, .box{
+.print,
+.sign,
+.ceklis,
+.door,
+.box {
     left: 9px;
     top: -4px;
 }
 
-.fa-box-open, .fa-people-carry{
+.fa-box-open,
+.fa-people-carry {
     left: -40px;
     top: 5px;
 }
 
-.cek{
+.cek {
     left: 10px;
     top: 0px;
 }
 
-.landing-text{
+.landing-text {
     flex: 1;
     text-align: right;
 }
 
-.landing-text > button{
+.landing-text > a {
     background-color: #f2c541;
     height: 50px;
     width: 150px;
@@ -134,14 +139,14 @@ li{
     color: white;
 }
 
-.big-text{
+.big-text {
     font-size: 100px;
     font-weight: 800;
     line-height: 1;
     color: white;
 }
 
-.small-text{
+.small-text {
     display: inline;
     overflow-wrap: break-word;
     font-size: 20px;
@@ -153,16 +158,16 @@ li{
 }
 
 @keyframes float {
-	0% {
-		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-		transform: translatey(0px);
-	}
-	50% {
-		box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
-		transform: translatey(-20px);
-	}
-	100% {
-		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-		transform: translatey(0px);
-	}
+    0% {
+        box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        transform: translatey(0px);
+    }
+    50% {
+        box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
+        transform: translatey(-20px);
+    }
+    100% {
+        box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        transform: translatey(0px);
+    }
 }

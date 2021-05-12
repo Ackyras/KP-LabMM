@@ -133,7 +133,7 @@
                     Mahasiswa dapat meminjam barang, ruangan, dan mendapatkan informasi mengenai asisten praktikum
                 </div>
                 <br><br><br>
-                <button class="btn">Mulai</button>
+                <a href="{{route('barang.form')}}" class="btn">Mulai</a>
             </div>
         </div>
 
