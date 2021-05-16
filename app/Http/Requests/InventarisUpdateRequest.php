@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Rules\StokPeminjamanBarang;
 use Illuminate\Foundation\Http\FormRequest;
 
-class InventarisStoreRequest extends FormRequest
+class InventarisUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class InventarisStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'kd_barang'     => ['required', 'max:255', 'unique:barang,kd_barang'],
+            'kd_barang'     => ['required', 'max:255', 'unique:barang,kd_barang,' . $this->id],
             'nama_barang'   => ['required', 'max:255'],
             'foto'          => ['nullable', 'image', 'max:1024'],
             'lokasi'        => ['required', 'in:TPB,PRODI'],
@@ -46,7 +46,7 @@ class InventarisStoreRequest extends FormRequest
     {
         return [
             'kd_barang.required'    => 'Mohon isi field Kode Barang',
-            'kd_barang.unique'       => 'Kode barang sudah digunakan',
+            'kd_barang.unique'      => 'Kode barang sudah digunakan',
             'nama_barang.required'  => 'Mohon isi field Kode Barang',
             'foto.max'              => 'Maksimum file 1 Mb',
             'lokasi.required'       => 'Mohon pilih Lokasi barang',

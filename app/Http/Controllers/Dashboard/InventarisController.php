@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InventarisStoreRequest;
+use App\Http\Requests\InventarisUpdateRequest;
 use App\Models\Inventaris;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -69,7 +70,7 @@ class InventarisController extends Controller
         return view('dashboard.inventaris.edit', compact('data'));
     }
 
-    public function update(InventarisStoreRequest $request, $id)
+    public function update(InventarisUpdateRequest $request, $id)
     {
         $kd_barang = $request->input('kd_barang');
         $oldfile = $request->input('oldfile');
