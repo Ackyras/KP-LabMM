@@ -8,6 +8,7 @@ Tambah Data Inventaris
 <form method="POST" action="{{ route('inventaris.update', $data->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
+    <input type="hidden" value="{{$data->id}}" name="id" />
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Kode Barang</label>
         <input type="text" name="kd_barang" value="{{ $data->kd_barang }}" class="form-control @error('kd_barang') is-invalid @enderror" required>
@@ -53,7 +54,7 @@ Tambah Data Inventaris
     </div>
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Peminjaman Barang</label>
-        <input type="number" name="peminjaman" value="{{ $data->peminjaman }}" class="form-control @error('peminjaman') is-invalid @enderror" required>
+        <input type="number" name="peminjaman" value="{{ $data->peminjaman }}" max="{{ $data->stok }}" class="form-control @error('peminjaman') is-invalid @enderror" required>
         @error('peminjaman')
         <div class="alert alert-danger mt-1">{{ $message }}</div>
         @enderror
@@ -78,7 +79,7 @@ Tambah Data Inventaris
     </div>
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Foto Barang</label>
-        <input class="form-control @error('foto') is-invalid @enderror" name="foto" type="file" id="formFile">
+        <input class="form-control @error('foto') is-invalid @enderror" name="foto" type="file" id="formFile" accept=".png, .jpg, .jpeg">
         <input type="hidden" name="oldfile" value="{{ $data->foto }}">
         @error('foto')
         <div class="alert alert-danger mt-1">{{ $message }}</div>

@@ -25,13 +25,13 @@ class InventarisUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'kd_barang'     => ['required', 'max:255', 'unique:barang,kd_barang,' . $this->id],
+            'kd_barang'     => ['required', 'max:255', 'unique:barang,kd_barang,' . $this->request->get('id')],
             'nama_barang'   => ['required', 'max:255'],
             'foto'          => ['nullable', 'image', 'max:1024'],
             'lokasi'        => ['required', 'in:TPB,PRODI'],
             'kategori'      => ['required', 'in:Elektronik,Non Elektronik'],
             'stok'          => ['numeric', 'required', 'min:0'],
-            'peminjaman'    => ['numeric', 'required', new StokPeminjamanBarang($this->request->get('stok'))],
+            'peminjaman'    => ['numeric', 'min:0', 'required', new StokPeminjamanBarang($this->request->get('stok'))],
             'status'        => ['required', 'in:Baik,Tidak Baik'],
             'masuk_barang'  => ['date']
         ];
@@ -49,12 +49,14 @@ class InventarisUpdateRequest extends FormRequest
             'kd_barang.unique'      => 'Kode barang sudah digunakan',
             'nama_barang.required'  => 'Mohon isi field Kode Barang',
             'foto.max'              => 'Maksimum file 1 Mb',
+            'foto.image'            => 'Mohon masukkan file bertipe gambar',
             'lokasi.required'       => 'Mohon pilih Lokasi barang',
             'kategori.required'     => 'Mohon pilih Kategori barang',
             'stok.required'         => 'Mohon isi field Stok barang',
             'stok.min'              => 'Stok barang minimal 0',
             'peminjaman.required'   => 'Mohon isi field Peminjaman barang',
-            'status.required'       => 'Mohon pilih Status barang'
+            'status.required'       => 'Mohon pilih Status barang',
+            'numeric'               => 'Masukkan :attribute dengan angka'
         ];
     }
 }

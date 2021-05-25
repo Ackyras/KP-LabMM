@@ -49,12 +49,14 @@ class InventarisStoreRequest extends FormRequest
             'kd_barang.unique'       => 'Kode barang sudah digunakan',
             'nama_barang.required'  => 'Mohon isi field Kode Barang',
             'foto.max'              => 'Maksimum file 1 Mb',
+            'foto.image'            => 'Mohon masukkan file bertipe gambar',
             'lokasi.required'       => 'Mohon pilih Lokasi barang',
             'kategori.required'     => 'Mohon pilih Kategori barang',
             'stok.required'         => 'Mohon isi field Stok barang',
             'stok.min'              => 'Stok barang minimal 0',
             'peminjaman.required'   => 'Mohon isi field Peminjaman barang',
-            'status.required'       => 'Mohon pilih Status barang'
+            'status.required'       => 'Mohon pilih Status barang',
+            'numeric'               => 'Masukkan :attribute dengan angka'
         ];
     }
 }
