@@ -24,16 +24,15 @@ class RuanganController extends Controller
     public function jadwal($slug)
     {
         $master = "peminjaman";
-        $id = RuangLab::where('slug', $slug)->first()->id;
-        $this->array = $this->getJadwal($slug, $id);
+        $ruang = RuangLab::where('slug', $slug)->first();
+        $this->array = $this->getJadwal($ruang->id);
         $jadwal = $this->array;
         $ruanglabs = RuangLab::all();
-        $ruangans = Ruangan::where('ruang_lab', $id)->get();
-        $form = FormRuangan::where('validasi', 0)->where('ruang_lab', $id)->pluck('id')->toArray();
+        $ruangans = Ruangan::where('ruang_lab', $ruang->id)->get();
+        $form = FormRuangan::where('validasi', 0)->where('ruang_lab', $ruang->id)->pluck('id')->toArray();
         $peminjams = PeminjamanRuangan::with('formruangan')
             ->whereIn('form_ruangan_id', $form)
             ->get();
-        $ruang = RuangLab::where('slug', $slug)->first();
         return view('ruangan.jadwal', compact('ruanglabs', 'master', 'peminjams', 'ruangans', 'jadwal', 'ruang'));
     }
 
@@ -69,183 +68,37 @@ class RuanganController extends Controller
         return redirect()->route('ruangan.form')->with('status', 'Berhasil meminjam ruangan, silahkan ikuti alur selanjutnya');
     }
 
-    /**
-     * Get Jadwal
-     * 
-     * @param $slug
-     * @return array
-     */
-    public function getJadwal($slug, $id)
+    public function getJadwal($id): array
     {
         $array = array();
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Senin')
-            ->where('waktu', '07:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Selasa')
-            ->where('waktu', '07:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Rabu')
-            ->where('waktu', '07:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Kamis')
-            ->where('waktu', '07:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Jumat')
-            ->where('waktu', '07:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Sabtu')
-            ->where('waktu', '07:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Minggu')
-            ->where('waktu', '07:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Senin')
-            ->where('waktu', '09:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Selasa')
-            ->where('waktu', '09:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Rabu')
-            ->where('waktu', '09:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Kamis')
-            ->where('waktu', '09:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Jumat')
-            ->where('waktu', '09:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Sabtu')
-            ->where('waktu', '09:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Minggu')
-            ->where('waktu', '09:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Senin')
-            ->where('waktu', '13:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Selasa')
-            ->where('waktu', '13:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Rabu')
-            ->where('waktu', '13:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Kamis')
-            ->where('waktu', '13:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Jumat')
-            ->where('waktu', '13:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Sabtu')
-            ->where('waktu', '13:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Minggu')
-            ->where('waktu', '13:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Senin')
-            ->where('waktu', '15:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Selasa')
-            ->where('waktu', '15:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Rabu')
-            ->where('waktu', '15:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Kamis')
-            ->where('waktu', '15:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Jumat')
-            ->where('waktu', '15:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Sabtu')
-            ->where('waktu', '15:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
-        $ruangans = Ruangan::where('ruang_lab', $id)
-            ->where('hari', 'Minggu')
-            ->where('waktu', '15:00:00')
-            ->get()
-            ->toArray();
-        array_push($array, $ruangans);
+        $hari = [
+            'Senin',
+            'Selasa',
+            'Rabu',
+            'Kamis',
+            'Jumat',
+            'Sabtu',
+            'Minggu'
+        ];
+
+        $waktu = [
+            '07:00:00',
+            '09:00:00',
+            '13:00:00',
+            '15:00:00',
+        ];
+
+        foreach ($waktu as $w) {
+            foreach ($hari as $h) {
+                $ruangans = Ruangan::where('ruang_lab', $id)
+                    ->where('hari', $h)
+                    ->where('waktu', $w)
+                    ->get()
+                    ->toArray();
+                array_push($array, $ruangans);
+            }
+        }
+
         return $array;
     }
 }
