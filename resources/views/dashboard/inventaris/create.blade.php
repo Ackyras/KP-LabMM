@@ -77,7 +77,7 @@ Tambah Data Inventaris
     </div>
     <div class="mb-1 mx-auto form-admin">
         <label class="form-label">Foto Barang</label>
-        <input class="form-control @error('foto') is-invalid @enderror" name="foto" type="file" id="formFile">
+        <input class="form-control @error('foto') is-invalid @enderror" name="foto" type="file" id="formFile" accept=".png, .jpg, .jpeg">
         @error('foto')
         <div class="alert alert-danger mt-1">{{ $message }}</div>
         @enderror
