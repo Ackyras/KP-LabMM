@@ -61,96 +61,29 @@
         <h4 class="title-keterangan">Keterangan Peminjam</h4>
         <div class="line-3"></div>
         <div class="row pb-5">
-            <label>Pilih barang*</label>
-            <div class="col-9">
-                <input list="barangs" name="kode1" class="form-control @error('kode1') is-invalid @enderror" required placeholder="Pilih barang 1*">
-                <datalist id="barangs">
-                    @foreach($barangs as $barang)
-                    <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
-                    @endforeach
-                </datalist>
-                @error('kode1')
-                <div class="alert alert-danger mt-1">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="col-3">
-                <input type="number" name="jumlah1" min="1" max="5" value="1" class="form-control @error('jumlah1') is-invalid @enderror" required>
-                @error('jumlah1')
-                <div class="alert alert-danger mt-1">{{ $message }}</div>
-                @enderror
-            </div>
-            <label class="mt-3">Pilih barang (<small>opsional</small>)</label>
-            <div class="col-9">
-                <input list="barangs" name="kode2" class="form-control @error('kode2') is-invalid @enderror" placeholder="Pilih barang 2 (opsional)">
-                <datalist id="barangs">
-                    @foreach($barangs as $barang)
-                    <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
-                    @endforeach
-                </datalist>
-                @error('kode2')
-                <div class="alert alert-danger mt-1">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="col-3">
-                <input type="number" name="jumlah2" min="0" max="5" value="" class="form-control @error('jumlah2') is-invalid @enderror">
-                @error('jumlah2')
-                <div class="alert alert-danger mt-1">{{ $message }}</div>
-                @enderror
-            </div>
-            <label class="mt-3">Pilih barang (<small>opsional</small>)</label>
-            <div class="col-9">
-                <input list="barangs" name="kode3" class="form-control @error('kode3') is-invalid @enderror" placeholder="Pilih barang 3 (opsional)">
-                <datalist id="barangs">
-                    @foreach($barangs as $barang)
-                    <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
-                    @endforeach
-                </datalist>
-                @error('kode3')
-                <div class="alert alert-danger mt-1">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="col-3">
-                <input type="number" name="jumlah3" min="0" max="5" value="" class="form-control @error('jumlah3') is-invalid @enderror">
-                @error('jumlah3')
-                <div class="alert alert-danger mt-1">{{ $message }}</div>
-                @enderror
-            </div>
-            <label class="mt-3">Pilih barang (<small>opsional</small>)</label>
-            <div class="col-9">
-                <input list="barangs" name="kode4" class="form-control @error('kode4') is-invalid @enderror" placeholder="Pilih barang 4 (opsional)">
-                <datalist id="barangs">
-                    @foreach($barangs as $barang)
-                    <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
-                    @endforeach
-                </datalist>
-                @error('kode4')
-                <div class="alert alert-danger mt-1">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="col-3">
-                <input type="number" name="jumlah4" min="0" max="5" value="" class="form-control @error('jumlah4') is-invalid @enderror">
-                @error('jumlah4')
-                <div class="alert alert-danger mt-1">{{ $message }}</div>
-                @enderror
-            </div>
-            <label class="mt-3">Pilih barang (<small>opsional</small>)</label>
-            <div class="col-9">
-                <input list="barangs" name="kode5" class="form-control @error('kode5') is-invalid @enderror" placeholder="Pilih barang 5 (opsional)">
-                <datalist id="barangs">
-                    @foreach($barangs as $barang)
-                    <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
-                    @endforeach
-                </datalist>
-                @error('kode5')
-                <div class="alert alert-danger mt-1">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="col-3">
-                <input type="number" name="jumlah5" min="0" max="5" value="" class="form-control @error('jumlah5') is-invalid @enderror">
-                @error('jumlah5')
-                <div class="alert alert-danger mt-1">{{ $message }}</div>
-                @enderror
-            </div>
+            <span id="peminjamanBarang" class="row">
+                <label>Pilih barang*</label>
+                <div class="col-9">
+                    <input list="barangs" name="kode[0]" class="form-control @error('kode.*') is-invalid @enderror" required placeholder="Pilih barang">
+                    <datalist id="barangs">
+                        @foreach($barangs as $barang)
+                        <option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>
+                        @endforeach
+                    </datalist>
+                    @error('kode.*')
+                    <div class="alert alert-danger mt-1">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-3">
+                    <input type="number" name="jumlah.0" min="1" max="5" value="1" class="form-control @error('jumlah.*') is-invalid @enderror" required>
+                    @error('jumlah.*')
+                    <div class="alert alert-danger mt-1">{{ $message }}</div>
+                    @enderror
+                </div>
+            </span>
+            <span id="spanBtn">
+                <button id="tambahPeminjaman" type="button" class="btn btn-submit btn-add w-25">Tambah Barang</button>
+            </span>
             <div class="form-group">
                 <label>Tanggal Peminjaman*</label>
                 <input type="date" name="tanggal_peminjaman" class="form-control rounded @error('tanggal_peminjaman') is-invalid @enderror" value="{{ Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d') }}" required placeholder="Pilih tanggal peminjaman">
@@ -183,4 +116,57 @@
         <button type="submit" class="btn btn-submit">Pinjam</button>
     </form>
 </div>
+@endsection
+
+@section('js')
+    
+<script type="text/javascript">
+    $(document).ready(function(){
+        var i = 1;
+        $(document).on('click', '#tambahPeminjaman', function() {
+            if (i<5) {
+                $('#peminjamanBarang').append('' + 
+                    '<div id="tambahBarang' + i + '" class="row">' + 
+                        '<label class="mt-3">Pilih barang (<small>opsional</small>)</label>' +
+                        '<div class="col-9">' +
+                            '<input list="barangs" name="kode[' + i + ']" class="form-control @error("' + 'kode.*' + '") is-invalid @enderror" required placeholder="Pilih barang">' +
+                            '<datalist id="barangs">' +
+                                '@foreach($barangs as $barang)' +
+                                '<option value="{{ $barang->nama_barang }}"><small>{{ $barang->peminjaman }} unit</small> </option>' +
+                                '@endforeach' + 
+                            '</datalist>' +
+                            '@error("' + 'kode.*' + '")' +
+                            '<div class="alert alert-danger mt-1">{{ $message }}</div>' +
+                            '@enderror' +
+                        '</div>' + 
+                        '<div class="col-3">' + 
+                            '<input type="number" name="jumlah[' + i + ']" min="0" max="5" value="1" class="form-control @error("' + 'jumlah.*' + '") is-invalid @enderror" required>' +
+                            '@error("jumlah.*' + '")' + 
+                            '<div class="alert alert-danger mt-1">{{ $message }}</div>' + 
+                            '@enderror' + 
+                        '</div>' + 
+                        '<button id="Barang' + i + '" type="button" class="btn btn-submit btn-remove w-25 hapusBarang">Hapus</button>' + 
+                    '</div>'
+                );
+                i++;
+                
+            }
+            if (i >= 5) {
+                $('#tambahPeminjaman').remove();
+            }
+        });
+
+        $(document).on('click', '.hapusBarang', function() {
+            const btnHapus = i;
+            const hapus = $(this).attr("id");
+            $('#tambah' + hapus + '').remove();
+            i--;
+            if (btnHapus == 5 && i <= 4) {
+                $('#spanBtn').append('' + 
+                    '<button id="tambahPeminjaman" type="button" class="btn btn-submit btn-add w-25">Tambah Barang</button>' + ''
+                );
+            }
+        });
+    })
+</script>
 @endsection

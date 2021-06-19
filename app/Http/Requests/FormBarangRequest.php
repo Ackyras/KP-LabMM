@@ -35,8 +35,6 @@ class FormBarangRequest extends FormRequest
             'tanggal_pengembalian'  => ['date', 'after_or_equal:tanggal_peminjaman'],
             'keperluan'             => ['required'],
             'tempat'                => ['required'],
-            'kode1'                 => ['required', new BarangPinjaman($this->request->get('kode1'))],
-            'jumlah1'               => [new BarangPinjamanJumlah($this->request->get('kode1')), 'min:1'],
         ];
     }
 
@@ -64,8 +62,6 @@ class FormBarangRequest extends FormRequest
             'tanggal_peminjaman.after_or_equal'     => 'Mohon isi field Tanggal Peminjaman tidak bisa sebelum hari ini',
             'tanggal_pengembalian.required'         => 'Mohon isi field Tanggal Pengembalian',
             'tanggal_pengembalian.after_or_equal'   => 'Mohon isi field Tanggal Pengembalian sama atau setalah Tanggal Peminjaman',
-            'kode1.required'                        => 'Pilih barang',
-            'jumlah1.min'                           => 'Minimum 1'
         ];
     }
 }

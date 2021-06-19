@@ -8,12 +8,9 @@ use App\Models\Inventaris;
 use App\Models\PeminjamanBarang;
 use App\Rules\BarangPinjaman;
 use App\Rules\BarangPinjamanJumlah;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 
 class BarangController extends Controller
 {
@@ -95,56 +92,17 @@ class BarangController extends Controller
 
     public function store(FormBarangRequest $request)
     {
-        $barangs = array();
-        $jumlahs = array();
-        $dipinjam = array();
-        $jumlahDipinjam = array();
-        array_push($barangs, $request->input('kode1'));
-        array_push($jumlahs, $request->input('jumlah1'));
-
-        if (!is_null($request->input('kode2')) and !is_null($request->input('jumlah2') and ($request->input('jumlah2') != 0))) {
+        foreach ($request->input('kode') as $index => $value) {
             $request->validate(
                 [
-                    'kode2'                 => ['nullable', new BarangPinjaman($request->get('kode2'))],
-                    'jumlah2'               => ['min:0', new BarangPinjamanJumlah($request->get('kode2')), 'numeric']
+                    'kode.' . $index        => ['required', new BarangPinjaman($request->get('kode')[$index])],
+                    'jumlah.' . $index      => ['min:0', new BarangPinjamanJumlah($request->get('kode')[$index]), 'numeric']
                 ]
             );
-            array_push($barangs, $request->input('kode2'));
-            array_push($jumlahs, $request->input('jumlah2'));
-        }
-        if (!is_null($request->input('kode3')) and !is_null($request->input('jumlah3') and ($request->input('jumlah3') != 0))) {
-            $request->validate(
-                [
-                    'kode3'                 => ['nullable', new BarangPinjaman($request->get('kode3'))],
-                    'jumlah3'               => ['min:0', new BarangPinjamanJumlah($request->get('kode3')), 'numeric']
-                ]
-            );
-            array_push($barangs, $request->input('kode3'));
-            array_push($jumlahs, $request->input('jumlah3'));
-        }
-        if (!is_null($request->input('kode4')) and !is_null($request->input('jumlah4') and ($request->input('jumlah4') != 0))) {
-            $request->validate(
-                [
-                    'kode4'                 => ['nullable', new BarangPinjaman($request->get('kode4'))],
-                    'jumlah4'               => ['min:0', new BarangPinjamanJumlah($request->get('kode4')), 'numeric']
-                ]
-            );
-            array_push($barangs, $request->input('kode4'));
-            array_push($jumlahs, $request->input('jumlah4'));
-        }
-        if (!is_null($request->input('kode5')) and !is_null($request->input('jumlah5') and ($request->input('jumlah5') != 0))) {
-            $request->validate(
-                [
-                    'kode5'                 => ['nullable', new BarangPinjaman($request->get('kode5'))],
-                    'jumlah5'               => ['min:0', new BarangPinjamanJumlah($request->get('kode5')), 'numeric']
-                ]
-            );
-            array_push($barangs, $request->input('kode5'));
-            array_push($jumlahs, $request->input('jumlah5'));
         }
 
-        $barangs = array_unique($barangs);
-        $jumlahs = array_unique($jumlahs);
+        $barangs = array_unique($request->input('kode'));
+        $jumlahs = $request->input('jumlah');
 
         DB::transaction(function () use ($request, $barangs, $jumlahs) {
             $peminjam = FormBarang::create(
@@ -173,6 +131,9 @@ class BarangController extends Controller
                 );
             }
         });
+
+        $dipinjam = array();
+        $jumlahDipinjam = array();
 
         foreach ($barangs as $key => $value) {
             $barang = Inventaris::where('nama_barang', $barangs[$key])->first();

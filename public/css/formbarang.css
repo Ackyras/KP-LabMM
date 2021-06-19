@@ -75,3 +75,15 @@ form {
 .alert-success {
     margin-left: 130px;
 }
+
+.btn-remove {
+    float: right;
+}
+
+.btn-add,
+.btn-remove {
+    font-size: 0.7rem;
+    margin-left: 3%;
+    margin-top: 0.5rem;
+    padding-inline: 0.3rem;
+}

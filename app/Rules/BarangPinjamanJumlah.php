@@ -8,6 +8,7 @@ use Illuminate\Contracts\Validation\Rule;
 class BarangPinjamanJumlah implements Rule
 {
     private $kode;
+    private $value;
     /**
      * Create a new rule instance.
      *
@@ -27,7 +28,8 @@ class BarangPinjamanJumlah implements Rule
      */
     public function passes($attribute, $value)
     {
-        return $this->kode != null and $value <= $this->kode->peminjaman;
+        $this->value = $value;
+        return $this->kode != null and $value <= $this->kode->peminjaman and $value < 0;
     }
 
     /**
@@ -37,6 +39,15 @@ class BarangPinjamanJumlah implements Rule
      */
     public function message()
     {
-        return ($this->kode != null) ? 'Stok tersisa ' . $this->kode->peminjaman : 'Tidak ada';
+        $message = 'Tidak ada';
+        if (!is_null($this->kode)) {
+            $message = 'Stok tersisa' . $this->kode->peminjaman;
+        }
+
+        if ($this->value <= 0) {
+            $message = 'Minimal 1';
+        }
+
+        return $message;
     }
 }
