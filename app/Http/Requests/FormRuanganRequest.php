@@ -25,10 +25,10 @@ class FormRuanganRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_peminjam'         => ['required', 'max:255'],
-            'nim'                   => ['required', 'regex:/[0-9]+/', 'min:8'],
+            'nama_peminjam'         => ['required', 'max:255', 'regex:/^[a-zA-z]+([\s][a-zA-Z]+)*$/'],
+            'nim'                   => ['required', 'numeric'],
             'email'                 => ['email', 'required'],
-            'no_hp'                 => ['max:13', 'required', 'regex:/[0-9]+/', 'min:10'],
+            'no_hp'                 => ['required', 'digits_between:10,13'],
             'afiliasi'              => ['required'],
             'ruang_lab'             => ['required', Rule::exists('ruang_labs', 'id')],
             'mata_kuliah'           => ['required'],
@@ -49,15 +49,13 @@ class FormRuanganRequest extends FormRequest
     {
         return [
             'nama_peminjam.required'                => 'Mohon isi field Nama anda',
+            'nama_peminjam.regex'                   => 'Mohon isi nama dengan karakter alfabet',
             'nim.required'                          => 'Mohon isi field NIM/NIP anda',
-            'nim.regex'                             => 'Mohon isi field dengan angka 0-9',
-            'nim.min'                               => 'NIM/NIP minimal 8 angka',
+            'nim.numeric'                           => 'Mohon isi field dengan angka 0-9',
             'email.required'                        => 'Mohon isi field Email',
             'email.email'                           => 'Mohon masukkan email dengan format yang tepat',
-            'no_hp.max'                             => 'No HP maksimal 13 angka',
-            'no_hp.min'                             => 'No HP minimal 10 angka',
             'no_hp.required'                        => 'Mohon isi field No HP',
-            'no_hp.regex'                           => 'Mohon isi field dengan angka 0-9',
+            'no_hp.digits_between'                  => 'Mohon isi field dengan angka 0-9, minimal 10 dan maksimal 13 angka',
             'afiliasi.required'                     => 'Mohon isi field Afiliasi',
             'ruang_lab.required'                    => 'Mohon pilih ruangan lab',
             'mata_kuliah.required'                  => 'Mohon isi field mata kuliah',

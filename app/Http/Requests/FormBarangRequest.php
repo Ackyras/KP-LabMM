@@ -26,7 +26,7 @@ class FormBarangRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_peminjam'         => ['required', 'max:255', 'regex:/^(\w+ ?)*$/'],
+            'nama_peminjam'         => ['required', 'max:255', 'regex:/^[a-zA-z]+([\s][a-zA-Z]+)*$/'],
             'nim'                   => ['required', 'numeric'],
             'email'                 => ['email', 'required'],
             'no_hp'                 => ['required', 'digits_between:10,13'],
@@ -53,7 +53,7 @@ class FormBarangRequest extends FormRequest
             'email.required'                        => 'Mohon isi field Email',
             'email.email'                           => 'Mohon masukkan email dengan format yang tepat',
             'no_hp.required'                        => 'Mohon isi field No HP',
-            'no_hp.digits_between'                  => 'Mohon isi field dengan angka 0-9, minimal 10 dan maksimal 13 ankga',
+            'no_hp.digits_between'                  => 'Mohon isi field dengan angka 0-9, minimal 10 dan maksimal 13 angka',
             'afiliasi.required'                     => 'Mohon isi field Afiliasi',
             'keperluan.required'                    => 'Mohon isi field keperluan',
             'tampat.required'                       => 'Mohon isi field tempat kegiatan',

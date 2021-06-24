@@ -156,7 +156,7 @@ class BarangController extends Controller
         ];
         $pdf = PDF::loadview('barang.surat', compact('content'));
 
-        return $pdf->stream('test.pdf');
+        return $pdf->download('test.pdf');
 
         return redirect()->route('barang.form')->with('status', 'Berhasil meminjam barang, silahkan ikuti alur selanjutnya');
     }
