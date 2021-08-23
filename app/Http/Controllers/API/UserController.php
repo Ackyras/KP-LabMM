@@ -34,7 +34,9 @@ class UserController extends Controller
         if (!$asprak) {
             return response()->json(['msg'  =>  'Pengambilan data gagal', 'status' => false, 'error' => 'Data tidak ada!', 'user'   =>  $asprak], 404);
         } else {
-            return response()->json(['user'    =>  $asprak], 200);
+            return response()->json([
+                'user' => $asprak
+            ], 200);
         }
     }
 

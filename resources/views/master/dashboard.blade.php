@@ -12,8 +12,11 @@
     <title>@yield('title-page')</title>
 
     <!-- Custom fonts for this template-->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template-->
     <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -31,7 +34,8 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin.dashboard')}}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                href="{{ route('admin.dashboard') }}">
                 <div class="sidebar-brand-icon">
                     <i class="fas fa-desktop"></i>
                 </div>
@@ -43,165 +47,192 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="{{route('admin.dashboard')}}">
+                <a class="nav-link" href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
             @can('inventaris')
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Inventaris
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-database"></i>
-                    <span>Inventaris</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <!-- <h6 class="collapse-header">Inventaris</h6> -->
-                        <a class="collapse-item" href="{{ route('inventaris.index') }}">List Barang</a>
-                        <a class="collapse-item" href="{{ route('inventaris.create') }}">Tambah Barang</a>
-                    </div>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Inventaris
                 </div>
-            </li>
-            <hr class="sidebar-divider">
+
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-database"></i>
+                        <span>Inventaris</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <!-- <h6 class="collapse-header">Inventaris</h6> -->
+                            <a class="collapse-item" href="{{ route('inventaris.index') }}">List Barang</a>
+                            <a class="collapse-item" href="{{ route('inventaris.create') }}">Tambah Barang</a>
+                        </div>
+                    </div>
+                </li>
+                <hr class="sidebar-divider">
             @endcan
             @can('ruangan')
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Penjadwalan
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#jadwal" aria-expanded="true" aria-controls="jadwal">
-                    <i class="fas fa-database"></i>
-                    <span>Ruangan</span>
-                </a>
-                <div id="jadwal" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('ruanglab.index') }}">List Ruangan</a>
-                        <a class="collapse-item" href="{{ route('ruanglab.create') }}">Tambah Ruangan</a>
-                    </div>
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Penjadwalan
                 </div>
-            </li>
+
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#jadwal" aria-expanded="true"
+                        aria-controls="jadwal">
+                        <i class="fas fa-database"></i>
+                        <span>Ruangan</span>
+                    </a>
+                    <div id="jadwal" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="{{ route('ruanglab.index') }}">List Ruangan</a>
+                            <a class="collapse-item" href="{{ route('ruanglab.create') }}">Tambah Ruangan</a>
+                        </div>
+                    </div>
+                </li>
             @endcan
-            @if (auth()->user()->role != "dosen" and auth()->user()->role != "asprak")
-            <div class="sidebar-heading">
-                Peminjaman
-            </div>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fab fa-leanpub"></i>
-                    <span>Peminjaman</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
-                        @can('inventaris')
-                        <a class="collapse-item" href="{{ route('peminjaman.barang') }}">Barang</a>
-                        @endcan
-                        @can('ruangan')
-                        <a class="collapse-item" href="{{ route('peminjaman.ruangan') }}">Ruangan</a>
-                        @endcan
-                    </div>
+            @if (auth()->user()->role != 'dosen' and auth()->user()->role != 'asprak')
+                <div class="sidebar-heading">
+                    Peminjaman
                 </div>
-            </li>
+
+                <!-- Nav Item - Utilities Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                        aria-expanded="true" aria-controls="collapseUtilities">
+                        <i class="fab fa-leanpub"></i>
+                        <span>Peminjaman</span>
+                    </a>
+                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
+                            @can('inventaris')
+                                <a class="collapse-item" href="{{ route('peminjaman.barang') }}">Barang</a>
+                            @endcan
+                            @can('ruangan')
+                                <a class="collapse-item" href="{{ route('peminjaman.ruangan') }}">Ruangan</a>
+                            @endcan
+                        </div>
+                    </div>
+                </li>
             @endif
-            @if (auth()->user()->role != "dosen")
-            <hr class="sidebar-divider">
+            @if (auth()->user()->role != 'dosen')
+                <hr class="sidebar-divider">
 
-            <div class="sidebar-heading">
-                Surat
-            </div>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesS" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-envelope-open"></i>
-                    <span>Surat</span>
-                </a>
-                <div id="collapsePagesS" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('surat.masuk') }}">Surat Masuk</a>
-                        <a class="collapse-item" href="{{ route('surat.keluar') }}">Surat Keluar</a>
-                        <a class="collapse-item" href="{{ route('surat.create') }}">Tambah Surat</a>
-                    </div>
+                <div class="sidebar-heading">
+                    Surat
                 </div>
-            </li>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesS"
+                        aria-expanded="true" aria-controls="collapsePages">
+                        <i class="fas fa-envelope-open"></i>
+                        <span>Surat</span>
+                    </a>
+                    <div id="collapsePagesS" class="collapse" aria-labelledby="headingPages"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="{{ route('surat.masuk') }}">Surat Masuk</a>
+                            <a class="collapse-item" href="{{ route('surat.keluar') }}">Surat Keluar</a>
+                            <a class="collapse-item" href="{{ route('surat.create') }}">Tambah Surat</a>
+                        </div>
+                    </div>
+                </li>
             @endif
             @can('asprak')
-            <hr class="sidebar-divider">
+                <hr class="sidebar-divider">
 
-            <div class="sidebar-heading">
-                Asprak
-            </div>
-            @can('openverbek')
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#rekrut" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-building"></i>
-                    <span>Recruitment</span>
-                </a>
-                <div id="rekrut" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('rekrut.create') }}">Buka Pendaftaran</a>
-                        <a class="collapse-item" href="{{ route('rekrut.index') }}">Daftar Mata Kuliah</a>
-                        <a class="collapse-item" href="{{ route('daftarmatakuliah.create') }}">Tambah Mata Kuliah</a>
-                    </div>
+                <div class="sidebar-heading">
+                    Asprak
                 </div>
-            </li>
+                @can('openverbek')
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#rekrut" aria-expanded="true"
+                            aria-controls="collapsePages">
+                            <i class="fas fa-building"></i>
+                            <span>Recruitment</span>
+                        </a>
+                        <div id="rekrut" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <a class="collapse-item" href="{{ route('rekrut.create') }}">Buka Pendaftaran</a>
+                                <a class="collapse-item" href="{{ route('rekrut.index') }}">Daftar Mata Kuliah</a>
+                                <a class="collapse-item" href="{{ route('daftarmatakuliah.create') }}">Tambah Mata Kuliah</a>
+                            </div>
+                        </div>
+                    </li>
+                @endcan
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#verif" aria-expanded="true"
+                        aria-controls="collapsePages">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Verifikasi</span>
+                    </a>
+                    <div id="verif" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @can('openverbek')
+                                <a class="collapse-item" href="{{ route('asprak.index') }}">Verifikasi Berkas</a>
+                            @endcan
+                            @can('nilai')
+                                <a class="collapse-item" href="{{ route('asprak.nilai.index') }}">Verifikasi Penilaian</a>
+                            @endcan
+                        </div>
+                    </div>
+                </li>
+                @can('asprak')
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#presensi" aria-expanded="true"
+                            aria-controls="collapsePages">
+                            <i class="fas fa-building"></i>
+                            <span>Presensi</span>
+                        </a>
+                        <div id="presensi" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <a class="collapse-item" href="{{ route('asprak.list') }}">List Asprak</a>
+                                <a class="collapse-item" href="{{ route('presensi.daftar') }}">List QRCode</a>
+                                <a class="collapse-item" href="{{ route('presensi.create') }}">Buat QRCode</a>
+                                <a class="collapse-item" href="{{ route('presensi.log') }}">Riwayat Presensi</a>
+                            </div>
+                        </div>
+                    </li>
+                @endcan
             @endcan
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#verif" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    <span>Verifikasi</span>
-                </a>
-                <div id="verif" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        @can('openverbek')
-                        <a class="collapse-item" href="{{ route('asprak.index') }}">Verifikasi Berkas</a>
-                        @endcan
-                        @can('nilai')
-                        <a class="collapse-item" href="{{ route('asprak.nilai.index') }}">Verifikasi Penilaian</a>
-                        @endcan
-                    </div>
+            @if (auth()->user()->role != 'dosen' and auth()->user()->role != 'asprak')
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Riwayat
                 </div>
-            </li>
-            @endcan
 
-            @if (auth()->user()->role != "dosen" and auth()->user()->role != "asprak")
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Riwayat
-            </div>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesH" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-history"></i>
-                    <span>Riwayat</span>
-                </a>
-                <div id="collapsePagesH" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        @can('inventaris')
-                        <a class="collapse-item" href="{{ route('peminjaman.barang.riwayat') }}">Barang</a>
-                        @endcan
-                        @can('ruangan')
-                        <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Ruangan</a>
-                        @endcan
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesH"
+                        aria-expanded="true" aria-controls="collapsePages">
+                        <i class="fas fa-history"></i>
+                        <span>Riwayat</span>
+                    </a>
+                    <div id="collapsePagesH" class="collapse" aria-labelledby="headingPages"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @can('inventaris')
+                                <a class="collapse-item" href="{{ route('peminjaman.barang.riwayat') }}">Barang</a>
+                            @endcan
+                            @can('ruangan')
+                                <a class="collapse-item" href="{{ route('peminjaman.ruangan.riwayat') }}">Ruangan</a>
+                            @endcan
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
             @endif
 
 
@@ -262,14 +293,18 @@
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
                             <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
@@ -285,16 +320,19 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth()->user()->name}}</span>
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>
                                 <i class="far fa-user"></i>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                @if(auth()->user()->role == "superadmin")
-                                <a class="dropdown-item" href="{{ route('user.index') }}">
-                                    <i class="fas fa-users-cog fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Management User
-                                </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                @if (auth()->user()->role == 'superadmin')
+                                    <a class="dropdown-item" href="{{ route('user.index') }}">
+                                        <i class="fas fa-users-cog fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Management User
+                                    </a>
                                 @endif
                                 <a class="dropdown-item" href="{{ route('user.edit', auth()->user()->id) }}">
                                     <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -345,7 +383,8 @@
         </a>
 
         <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
