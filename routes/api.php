@@ -19,4 +19,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('users', [UserController::class, 'userList']);
+Route::post('login',            [UserController::class, 'login']);
+Route::post('logout',           [UserController::class, 'logout']);
+
+Route::get('profile',           [UserController::class, 'profile']);
+Route::post('presensi',         [UserController::class, 'presensi']);
+
+Route::get('test', function () {
+    return response()->json(['msg' =>  'Test Established']);
+});

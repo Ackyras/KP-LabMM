@@ -13,6 +13,7 @@ use App\Http\Controllers\Dashboard\PeminjamanBarangController;
 use App\Http\Controllers\Dashboard\PeminjamanRuanganController;
 use App\Http\Controllers\Dashboard\PendaftaranAsprakController;
 use App\Http\Controllers\Dashboard\PenjadwalanController;
+use App\Http\Controllers\Dashboard\PresensiController;
 use App\Http\Controllers\Dashboard\SuratController;
 use App\Http\Controllers\RuanganController as RuanganForm;
 use App\Http\Controllers\Dashboard\RuanganController as RuanganAdmin;
@@ -132,6 +133,11 @@ Route::group(['middleware' => 'Asprak', 'prefix' => 'admin'], function () {
     Route::resource('rekrut',                   PendaftaranAsprakController::class);
     Route::resource('matakuliah',               MataKuliahController::class)->except(['index', 'show']);
     Route::resource('daftarmatakuliah',         DaftarMataKuliahController::class)->only(['create', 'store']);
+
+    Route::get('presensi/daftar',               [PresensiController::class, 'daftar'])->name('presensi.daftar');
+    Route::get('asprak/riwayat',                [PresensiController::class, 'log'])->name('presensi.log');
+    Route::get('asprak/list',                   [PresensiController::class, 'index'])->name('asprak.list');
+    Route::resource('presensi',                 PresensiController::class)->except(['index']);
 });
 
 Route::group(['middleware' => 'Dosen', 'prefix' => 'admin'], function () {
@@ -141,3 +147,5 @@ Route::group(['middleware' => 'Dosen', 'prefix' => 'admin'], function () {
     Route::get('asprak/verifikasi/nilai/search', [VerifikasiController::class, 'penilaianmatkul'])->name('asprak.nilai.index.matkul');
     Route::post('asprak/verifikasi/lulus',      [VerifikasiController::class, 'verifikasilulus'])->name('asprak.verifikasi.lulus');
 });
+
+Route::get('test', fn () => phpinfo());
