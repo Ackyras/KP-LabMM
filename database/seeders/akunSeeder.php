@@ -37,6 +37,13 @@ class akunSeeder extends Seeder
                 'role' => 'inventaris',
                 'password' => bcrypt('laboran')
             ],
+            [
+                'username' => 'ackyras',
+                'name'      => 'Ackyra Sibarani',
+                'email'     => 'asprak@asprak.com',
+                'role'      => 'asprak',
+                'password'  => bcrypt('123'),
+            ]
         ];
         foreach ($user as $key => $value) {
             User::create($value);

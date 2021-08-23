@@ -16,13 +16,14 @@ class asprakSeeder extends Seeder
     {
         $asprak = [
             [
-                'nama' => 'Asprak 1',
-                'nim' => '118114014',
-                'email' => 'asprak1@laboran.com',
+                'nama' => 'Ackyra Sibarani',
+                'nim' => '118140160',
+                'email' => 'asprak@asprak.com',
                 'tanggallahir' => '2021-03-18',
                 'prodi' => 'Teknik Informatika',
                 'angkatan' => '2018',
                 'mata_kuliah' => 1,
+                'user_id'   =>  4,
             ],
             [
                 'nama' => 'Asprak 2',
