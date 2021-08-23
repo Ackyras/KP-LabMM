@@ -18,4 +18,14 @@ class Asprak extends Model
         'angkatan',
         'mata_kuliah',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function presensi()
+    {
+        return $this->belongsToMany(QrCode::class, 'presensis')->withTimestamps();
+    }
 }
