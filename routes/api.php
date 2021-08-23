@@ -23,6 +23,7 @@ Route::post('login',            [UserController::class, 'login']);
 Route::post('logout',           [UserController::class, 'logout']);
 
 Route::get('profile',           [UserController::class, 'profile']);
+Route::post('user',             [UserController::class, 'getUser']);
 Route::post('presensi',         [UserController::class, 'presensi']);
 
 Route::get('test', function () {

@@ -28,6 +28,16 @@ class UserController extends Controller
         return response()->json(['msg' => 'Login Berhasil', 'status' => true, 'error' => null, 'user' => $user]);
     }
 
+    public function getUser(Request $req)
+    {
+        $asprak = Asprak::find($req->id);
+        if (!$asprak) {
+            return response()->json(['msg'  =>  'Pengambilan data gagal', 'status' => false, 'error' => 'Data tidak ada!', 'user'   =>  $asprak], 404);
+        } else {
+            return response()->json(['msg'  =>  'Pengambilan data berhasil', 'status' => true, 'error' => 'null', 'user'    =>  $asprak], 200);
+        }
+    }
+
     public function presensi(AsprakPresensiStoreRequest $req)
     {
         $today = today();
