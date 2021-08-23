@@ -32,7 +32,7 @@ class UserController extends Controller
     {
         $asprak = Asprak::find($req->id);
         if (!$asprak) {
-            return response()->json(['msg'  =>  'Pengambilan data gagal', 'status' => false, 'error' => 'Data tidak ada!', 'user'   =>  $asprak], 404);
+            return response()->json(['msg'  =>  'Pengambilan data gagal', 'status' => false, 'error' => 'Data tidak ada!', 'user'   =>  $asprak] );
         } else {
             return response()->json([
                 'user' => $asprak
@@ -49,10 +49,10 @@ class UserController extends Controller
         // return response()->json($qr->valid_until);
         // dd($qr);
         if (!$qr) {
-            return response()->json(['msg'  =>  'Presensi gagal', 'status' => false, 'error' => 'QRCode tidak valid'], 404);
+            return response()->json(['msg'  =>  'Presensi gagal', 'status' => false, 'error' => 'QRCode tidak valid']);
         } else {
             if ($qr->valid_until < $now) {
-                return response()->json(['msg'  =>  'Presensi gagal', 'status' => false, 'error' => 'QRCode sudah expired'], 406);
+                return response()->json(['msg'  =>  'Presensi gagal', 'status' => false, 'error' => 'QRCode sudah expired']);
                 // } else if(){
 
             } else {
@@ -70,9 +70,9 @@ class UserController extends Controller
                 } catch (\Throwable $th) {
                     //throw $th;
                     DB::rollback();
-                    return response()->json(['msg'  =>  'Presensi gagal', 'status'  =>  false, 'error'  =>  'Terjadi kesalahan pada server, harap menunggu beberapa saat lagi'], 500);
+                    return response()->json(['msg'  =>  'Presensi gagal', 'status'  =>  false, 'error'  =>  'Terjadi kesalahan pada server, harap menunggu beberapa saat lagi']);
                 }
-                return response()->json(['msg'  =>  'Presensi berhasil', 'status' => true, 'error' => 'null'], 200);
+                return response()->json(['msg'  =>  'Presensi berhasil', 'status' => true, 'error' => 'null']);
             }
         }
     }
