@@ -17,12 +17,14 @@ class AuthController extends Controller
         $user = User::where('email', $field['email'])->first();
         if (!$user || Hash::check($field['password'], $user->password)) {
             return response([
+                'status'    =>  false,
                 'msg'       =>  'Akun tidak terdaftar, pastikan kembali kredensil anda!',
             ], 401);
         }
 
         $token = $user->createToken('myapptoken')->plainTextToken;
         return response([
+            'status'    =>  true,
             'msg'       =>  'Log in berhasil!',
             'user'      =>  $user,
             'token'     =>  $token,
@@ -34,7 +36,8 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
 
         return [
-            'msg'   =>  'Logged out',
+            'status'    =>  true,
+            'msg'       =>  'Logged out',
         ];
     }
 }
