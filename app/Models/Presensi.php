@@ -10,4 +10,9 @@ class Presensi extends Model
     use HasFactory;
 
     protected $table = 'presensis';
+
+    public function asprak()
+    {
+        return $this->belongsTo(Asprak::class);
+    }
 }

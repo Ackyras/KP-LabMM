@@ -30,7 +30,7 @@
                         @forelse ($qr as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{date('l, d-m-Y', strtotime($item->valid_for))}}</td>
+                                <td>{{ date('l, d-m-Y', strtotime($item->valid_for)) }}</td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->valid_until }}</td>
                                 <td>
@@ -61,14 +61,16 @@
                                         <div class="modal-body">
                                             <div class="visible-print text-center">
                                                 {!! QrCode::size(100)->generate($item->token) !!}
-                                                <p>{{date('d-m-Y, H:m', strtotime($item->created_at))}} - {{date('d-m-Y, H:m', strtotime($item->valid_until))}}</p>
+                                                <p>{{ date('d-m-Y, H:m', strtotime($item->created_at)) }} -
+                                                    {{ date('d-m-Y, H:m', strtotime($item->valid_until)) }}</p>
                                             </div>
 
                                             {{-- <img src="{!!$message->embedData(QrCode::format('png')->generate($item->token), 'QrCode.png', 'image/png')!!}"></br> --}}
                                             <div class="modal-footer">
                                                 <a href="{{ route('inventaris.edit', $item->id) }}"
                                                     class="btn btn-primary">Edit</a>
-                                                <form action="{{ route('inventaris.destroy', $item->id) }}" method="POST">
+                                                <form action="{{ route('inventaris.destroy', $item->id) }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
@@ -79,6 +81,7 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             @empty
                                 <tr>
                                     <td colspan="5">Belum ada ruangan</td>

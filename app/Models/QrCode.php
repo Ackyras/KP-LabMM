@@ -17,7 +17,7 @@ class QrCode extends Model
         'token',
     ];
 
-    public function asprak()
+    public function presensi()
     {
         return $this->belongsToMany(Asprak::class, 'presensis')->withTimestamps();
     }

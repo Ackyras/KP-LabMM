@@ -1,11 +1,11 @@
 @extends('master.dashboard')
 
-@section('title-page', 'List Asprak')
+@section('title-page', 'Riwayat Presensi {{ $asprak->nama }}')
 
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">List Asprak</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Riwayat Presensi {{ $asprak->nama }}</h6>
         </div>
         <div class="card-body">
             @if (session('status'))
@@ -20,17 +20,17 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama</th>
+                            <th>Waktu Asistensi</th>
                             <th>Waktu Presensi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($asprak as $itema)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $itema->nama }}</td>
-                                    <td>{{ date('l, d-m-Y', strtotime($itema->created_at)) }}</td>
-                                    {{-- <td>
+                        @forelse ($asprak as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->nama }}</td>
+                                <td>{{ date('l, d-m-Y', strtotime($itema->created_at)) }}</td>
+                                {{-- <td>
                                     <a href="{{ route('presensi.index', $item->slug) }}" class="btn btn-sm btn-info">Riwayat Presensi</a>
                                     <a href="{{ route('ruanglab.edit', $item->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                     <button class="btn btn-info btn-sm" data-toggle="modal"
@@ -44,7 +44,7 @@
                                             class="btn btn-sm btn-danger">Hapus</button>
                                     </form>
                                 </td> --}}
-                                </tr>
+                            </tr>
                         @empty
                             <tr>
                                 <td colspan="5">Belum ada presensi</td>

@@ -184,6 +184,10 @@ return [
 
         // QRCode Generator
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+
+        // Sanctum
+        Laravel\Sanctum\SanctumServiceProvider::class,
+
     ],
 
     /*
