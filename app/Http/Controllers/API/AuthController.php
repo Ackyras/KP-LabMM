@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\UserLoginRequest;
+use App\Models\Asprak;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -39,5 +40,22 @@ class AuthController extends Controller
             'status'    =>  true,
             'msg'       =>  'Logged out',
         ];
+    }
+
+    public function profile($id)
+    {
+        $profile = Asprak::find($id);
+        if (!$profile) {
+            return response([
+                'status'    =>  false,
+                'msg'       =>  'Profil anda tidak ditemukan'
+            ], 404);
+        } else {
+            return response([
+                'status'    =>  true,
+                'msg'       =>  'Profil anda didapatkan',
+                'profile'   =>  $profile
+            ]);
+        }
     }
 }

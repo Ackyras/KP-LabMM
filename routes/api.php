@@ -22,9 +22,9 @@ Route::get('/', function () {
     ]);
 });
 Route::post('login',        [AuthController::class, 'login']);
-Route::post('presensi',     [UserController::class, 'presensi']);
-
+Route::get('user/{id}',     [AuthController::class, 'profile']);
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('presensi',     [UserController::class, 'presensi']);
     Route::post('logout',        [AuthController::class, 'logout']);
 });
 
