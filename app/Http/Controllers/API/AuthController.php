@@ -45,6 +45,8 @@ class AuthController extends Controller
     public function profile($id)
     {
         $profile = Asprak::find($id);
+        $presensi = $profile->presensi;
+        // dd($profile);
         if (!$profile) {
             return response([
                 'status'    =>  false,
@@ -54,7 +56,8 @@ class AuthController extends Controller
             return response([
                 'status'    =>  true,
                 'msg'       =>  'Profil anda didapatkan',
-                'profile'   =>  $profile
+                'profile'   =>  $profile,
+                'presensi'  =>  $presensi
             ]);
         }
     }
