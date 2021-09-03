@@ -58,7 +58,7 @@ class UserController extends Controller
             if ($qr->valid_until < $now) {
                 return response()->json([
                     'msg'  =>  'Presensi gagal',
-                    'status' => true,
+                    'status' => false,
                     'error' => 'QRCode sudah expired'
                 ]);
                 // } else if(){
