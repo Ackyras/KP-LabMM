@@ -24,10 +24,11 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken('myapptoken')->plainTextToken;
+        $asprak = $user->asprak;
         return response([
             'status'    =>  true,
             'msg'       =>  'Log in berhasil!',
-            'user'      =>  $user,
+            'user'      =>  $asprak,
             'token'     =>  $token,
         ], 200);
     }
