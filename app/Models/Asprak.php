@@ -26,6 +26,6 @@ class Asprak extends Model
 
     public function presensi()
     {
-        return $this->belongsToMany(QrCode::class, 'presensis')->withTimestamps();
+        return $this->belongsToMany(QrCode::class, 'presensis')->withTimestamps()->withPivot('recorded_at');
     }
 }
