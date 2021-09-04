@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call(akunSeeder::class);
         $this->call(asprakSeeder::class);
-        $this->call(QRCodeSeeder::class);
         $this->call(BarangSeeder::class);
         $this->call(FormPeminjam::class);
         $this->call(PeminjamanBarang::class);
@@ -27,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MataKuliahSeeder::class);
         $this->call(CalonAsprakSeeder::class);
         $this->call(PilihanAsprakSeeder::class);
+        $this->call(QRCodeSeeder::class);
     }
 }

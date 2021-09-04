@@ -21,6 +21,7 @@ class QRCodeSeeder extends Seeder
                 'valid_for'     =>  today(),
                 'valid_until'   =>  '2021-08-25 04:27:00',
                 'token'         =>  '7IGkpkqWwbGzitnb4wmE',
+                'mata_kuliah_id'    =>  rand(1, 5),
             ]
         );
         $qr = QrCode::create(
@@ -28,6 +29,7 @@ class QRCodeSeeder extends Seeder
                 'valid_for'     =>  today(),
                 'valid_until'   =>  '2021-12-25 04:27:00',
                 'token'         =>  'testtesttesttesttest',
+                'mata_kuliah_id'    =>  rand(1, 5),
             ]
         );
     }
