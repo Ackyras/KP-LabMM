@@ -44,7 +44,8 @@ class PresensiController extends Controller
      */
     public function create()
     {
-        //
+        $qr = QrCode::orderBy('id', 'desc')->paginate(10);
+        return view('dashboard.pendaftaran.presensi.list', compact('qr'));
         return view('dashboard.pendaftaran.presensi.create');
     }
 

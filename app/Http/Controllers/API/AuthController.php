@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\UserLoginRequest;
 use App\Models\Asprak;
+use App\Models\Presensi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -45,8 +46,11 @@ class AuthController extends Controller
 
     public function profile($id)
     {
-        $profile = Asprak::find($id);
+        $profile = Asprak::with('presensi')->find($id);
         $presensi = $profile->presensi;
+        foreach ($presensi as $item) {
+            $item->matakuliahs = $item->matakuliah;
+        }
         // dd($profile);
         if (!$profile) {
             return response([
@@ -58,7 +62,6 @@ class AuthController extends Controller
                 'status'    =>  true,
                 'msg'       =>  'Profil anda didapatkan',
                 'profile'   =>  $profile,
-                'presensi'  =>  $presensi
             ]);
         }
     }

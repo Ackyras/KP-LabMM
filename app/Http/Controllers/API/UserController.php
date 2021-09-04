@@ -43,7 +43,7 @@ class UserController extends Controller
     public function presensi(AsprakPresensiStoreRequest $req)
     {
         $today = today();
-        $now = now();
+        $now = now()->format('H:i d/m/Y');
         $qr = QrCode::where('token', '=', $req->token)->first();
         $asprak = Asprak::find($req->id);
         // return response()->json($qr->valid_until);
@@ -67,11 +67,12 @@ class UserController extends Controller
                 DB::beginTransaction();
                 try {
                     //code...
-                    $asprak->presensi()->syncWithoutDetaching(
+                    $presensi = $asprak->presensi()->syncWithoutDetaching(
                         $qr,
                         [
                             'created_at'    =>  $now,
                             'updated_at'    =>  $now,
+                            'recorded_at'   =>  $now,
                         ]
                     );
                     DB::commit();

@@ -21,4 +21,8 @@ class QrCode extends Model
     {
         return $this->belongsToMany(Asprak::class, 'presensis')->withTimestamps();
     }
+    public function matakuliah()
+    {
+        return $this->belongsTo(DaftarMataKuliah::class, 'mata_kuliah_id', 'id');
+    }
 }

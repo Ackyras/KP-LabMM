@@ -19,4 +19,9 @@ class DaftarMataKuliah extends Model
     {
         return $this->hasMany(MataKuliah::class, 'mata_kuliah_id', 'id');
     }
+
+    public function qrcode()
+    {
+        return $this->hasMany(QrCode::class, 'mata_kuliah_id', 'id');
+    }
 }
