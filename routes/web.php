@@ -137,7 +137,7 @@ Route::group(['middleware' => 'Asprak', 'prefix' => 'admin'], function () {
     Route::get('presensi/daftar',               [PresensiController::class, 'daftar'])->name('presensi.daftar');
     Route::get('asprak/riwayat',                [PresensiController::class, 'log'])->name('presensi.log');
     Route::get('asprak/list',                   [PresensiController::class, 'index'])->name('asprak.list');
-    Route::resource('presensi',                 PresensiController::class)->except(['index']);
+    Route::resource('presensi',                 PresensiController::class)->except(['index', 'create']);
 });
 
 Route::group(['middleware' => 'Dosen', 'prefix' => 'admin'], function () {
