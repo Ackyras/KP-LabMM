@@ -24,19 +24,30 @@ class DB:
         self.cursor = self.conn.cursor()
 
 # %%
+    # def absence(NIM, data):
+    #     try :
+    #         sql = "INSERT INTO `absensi` (`asprak_id`) VALUES (`"+data.id+"`)"
+    #     except pymysql.Error as err :
+    #         print("Gagal menambahkan data %d: %s" %(e.args[0], e.args[1]))
+    #     return "success"
 
-    def absence(NIM, data):
-        sql = "INSERT INTO `absensi` (`asprak_id`) VALUES (`"+data.id+"`)"
-        return "success"
-
-    def check_absence(self, ids):
+    def check_absence(self, asprak):
         t = time.localtime()
 
         sql = "SELECT `id` FROM `aspraks` WHERE `id` = `" + \
             ids+"` AND `tgl_absen` = `"+datenow+"`"
         data = self.cursor.fetchfirst(sql)
         if data == null:
-            absence(NIM, data)
+            return True
+        else :
+            return False
+
+    # def asbence(self, asprak):
+        # if (check_absence(self.cursor, asprak)):
+        #     try :
+
+        #     except pymysql.Error as e:
+
 
     def get_asprak(self, NIM):
         sql = "SELECT * FROM `aspraks` WHERE `nim` = '"+NIM+"'"

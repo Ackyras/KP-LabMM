@@ -26,7 +26,6 @@ class PrintObserver(CardObserver):
     def update(self, observable, actions):
         (addedcards, removedcards) = actions
         for card in addedcards:
-            # print("+Inserted: ", toHexString(card.atr))
             NIM = "118140160"
             check = DB.check_asprak(newdb, NIM)
             if check == False:
@@ -34,14 +33,12 @@ class PrintObserver(CardObserver):
                 print("Ulangi tempel kartu!")
             elif check == True:
                 asprak = DB.get_asprak(newdb, NIM)
+                # print("+Inserted: ", """DB.check_asprak(newdb, NIM)""")
+                print("-Inserted: \n")
                 print("Nama : "+asprak.nama)
                 print("NIM  : "+asprak.nim)
-                var = input("Apakah data benar?(y/n)")
-                if var == y or var == Y:
-                    check_absence(asprak, cursor)
-                    print("Anda berhasil absen")
-                elif var == n or var == N:
-                    print("Silakan ulangi tap kartu!")
+                print(DB.asbence(self, asprak))
+                # print("Silakan ulangi tap kartu!")
 
         for card in removedcards:
             os.system('cls')
@@ -65,5 +62,5 @@ if __name__ == '__main__':
 
         # don't forget to remove observer, or the
         # monitor will poll forever...
-        cardservice = cardrequest.waitforcard()
+        sleep(10)
         cardmonitor.deleteObserver(cardobserver)

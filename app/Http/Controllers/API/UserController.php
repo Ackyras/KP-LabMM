@@ -40,8 +40,12 @@ class UserController extends Controller
         }
     }
 
-    public function presensi(AsprakPresensiStoreRequest $req)
+    public function presensi(Request $req)
     {
+        $req->validate([
+            'id'    =>  'required',
+            'token' =>  'required'
+        ]);
         $today = today();
         $now = now()->format('H:i d/m/Y');
         $qr = QrCode::where('token', '=', $req->token)->first();

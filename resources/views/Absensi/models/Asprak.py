@@ -4,3 +4,5 @@ class Asprak :
         self.nama = nama
         self.nim = nim
 
+    # def insert(DB, self) :
+

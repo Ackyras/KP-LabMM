@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\QRStoreRequest;
 use App\Models\Asprak;
+use App\Models\MataKuliah;
+use App\Models\PembukaanAsprak;
 use App\Models\Presensi;
 use App\Models\QrCode;
 use Illuminate\Http\Request;
@@ -12,10 +14,19 @@ use Illuminate\Support\Facades\DB;
 
 class PresensiController extends Controller
 {
+    protected $pembukaan_id;
+
+    public function __construct()
+    {
+        $this->pembukaan_id = PembukaanAsprak::latest()->first();
+    }
+
     public function daftar()
     {
-        $qr = QrCode::paginate(10);
-        return view('dashboard.pendaftaran.presensi.list', compact('qr'));
+        $qr = QrCode::with('matakuliah')->orderByDesc('id')->paginate(10);
+        $matakuliah = $this->pembukaan_id->matakuliahs;
+        // dd($qr);
+        return view('dashboard.pendaftaran.presensi.list', compact('qr', 'matakuliah'));
     }
 
     public function log()
@@ -33,7 +44,8 @@ class PresensiController extends Controller
     public function index()
     {
         //
-        $asprak = Asprak::with('presensi')->paginate(10);
+        $asprak = Asprak::with('presensi')->withCount('presensi')->paginate(10);
+        // dd($asprak);
         return view('dashboard.pendaftaran.presensi.index', compact('asprak'));
     }
 
